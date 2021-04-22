@@ -11,7 +11,7 @@ module.exports = {
   tagline: 'The tagline of OneKey Docs',
   url: 'https://docs.onekey.so',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'onekeyhq', // Usually your GitHub org/user name.
