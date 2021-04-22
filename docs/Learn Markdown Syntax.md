@@ -1,8 +1,7 @@
 ---
-id: doc1
-title: Style Guide
-sidebar_label: Style Guide
-slug: /
+id: syntax
+title: Learn MDX Syntax
+sidebar_label: Learn MDX Syntax
 ---
 
 You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
