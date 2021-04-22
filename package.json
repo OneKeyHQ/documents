@@ -1,7 +1,8 @@
 {
-  "name": "fa-temp",
-  "version": "0.0.0",
+  "name": "onekey-document",
+  "version": "0.0.1",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
@@ -13,7 +14,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "ci": "yarn lint && yarn prettier:diff",
-    "lint": "eslint --cache \"**/*.js\" && stylelint \"**/*.css\"",
+    "lint": "eslint . --cache --ext js,md,mdx && stylelint \"**/*.css\"",
     "prettier": "prettier --config .prettierrc --write \"**/*.{js,jsx,ts,tsx,md,mdx}\"",
     "prettier:diff": "prettier --config .prettierrc --list-different \"**/*.{js,jsx,ts,tsx,md,mdx}\""
   },
@@ -38,10 +39,12 @@
     "eslint-plugin-header": "^3.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-mdx": "^1.12.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.2.1",
     "stylelint": "^13.2.1",
+    "stylelint-copyright": "^2.0.0-alpha.69",
     "typescript": "^4.2.4"
   },
   "browserslist": {
