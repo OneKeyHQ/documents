@@ -1,41 +1,39 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) OneKey, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @format
  */
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
+  title: 'OneKey Documents',
+  tagline: 'The tagline of OneKey Docs',
+  url: 'https://docs.onekey.so',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'onekeyhq', // Usually your GitHub org/user name.
+  projectName: 'onekey', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Facebook Project',
+      title: 'OneKey',
       logo: {
-        alt: 'My Facebook Project Logo',
-        src: 'img/logo.svg',
+        alt: '',
+        src: 'img/logo_green_vector.png',
       },
       items: [
-        {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        // {
+        //   to: 'extension/',
+        //   activeBasePath: 'extension',
+        //   label: 'Extension',
+        //   docId: 'Extension/Guide/introduction',
+        //   position: 'left',
+        // },
         // Please keep GitHub link to the right for consistency.
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/onekeyhq/document',
           label: 'GitHub',
           position: 'right',
         },
@@ -45,78 +43,67 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Learn',
+          title: 'PRODUCT',
           items: [
+            {label: 'Mobile Wallet', href: 'https://onekey.so/download'},
+            {label: 'Hardware Device', href: 'https://onekey.so/hardware'},
+            {label: 'Browser Extension', href: 'https://onekey.so/plugin'},
+          ],
+        },
+        {
+          title: 'RESOURCE',
+          items: [
+            {label: 'Team', href: 'https://onekey.so/team'},
             {
-              label: 'Style Guide',
-              to: 'docs/',
+              label: 'System Status',
+              href: 'https://onekeyhq.github.io/upptime',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2',
+              label: 'Open Source Community',
+              href: 'https://github.com/OneKeyHQ/OneKey-Wallet',
+            },
+            {
+              label: 'Media Kits',
+              href: 'https://help.onekey.so/hc/en-us/articles/360002200956',
+            },
+            {
+              label: 'Privacy Agreement',
+              href: 'https://help.onekey.so/hc/en-us/articles/360002014776',
+            },
+            {
+              label: 'User Agreement',
+              href: 'https://help.onekey.so/hc/en-us/articles/360002003315',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'BUSINESS COOPERATION',
           items: [
+            {label: 'Submit Dapp', href: 'https://jp.mikecrm.com/6lD8P5t'},
+            {label: 'Submit Token', href: 'https://jp.mikecrm.com/J3Z4FMg'},
+            {label: 'Venture Capital', href: 'https://onekey.so/ventures'},
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Sales Alliance',
+              href: 'https://help.onekey.so/hc/en-us/articles/360002658076',
             },
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Advertising',
+              href: 'https://help.onekey.so/hc/en-us/articles/360002658096',
             },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
+            {label: 'Investor Relations', href: 'https://onekey.so/invest'},
           ],
         },
         {
-          title: 'More',
+          title: 'CRYPTO ASSETS',
           items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'Legal',
-          // Please do not remove the privacy and terms, it's a legal requirement.
-          items: [
-            {
-              label: 'Privacy',
-              href: 'https://opensource.facebook.com/legal/privacy/',
-            },
-            {
-              label: 'Terms',
-              href: 'https://opensource.facebook.com/legal/terms/',
-            },
-            {
-              label: 'Data Policy',
-              href: 'https://opensource.facebook.com/legal/data-policy/',
-            },
-            {
-              label: 'Cookie Policy',
-              href: 'https://opensource.facebook.com/legal/cookie-policy/',
-            },
+            {label: 'Bitcoin (BTC)', href: 'https://onekey.so/coins/btc'},
+            {label: 'Ethereum (ETH)', href: 'https://onekey.so/coins/eth'},
+            {label: 'Litecoin (LTC)', href: 'https://onekey.so/coins/ltc'},
           ],
         },
       ],
-      logo: {
-        alt: 'Facebook Open Source Logo',
-        src: 'img/oss_logo.png',
-        href: 'https://opensource.facebook.com',
-      },
       // Please do not remove the credits, help to publicize Docusaurus :)
-      copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} OneKey, Inc. All rights reserved.`,
     },
   },
   presets: [
@@ -125,15 +112,9 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          routeBasePath: '/',
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+          editUrl: 'https://github.com/onekeyhq/document/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

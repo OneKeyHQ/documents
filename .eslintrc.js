@@ -1,10 +1,8 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) OneKey, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @format
  */
 
 const OFF = 0;
@@ -23,9 +21,39 @@ module.exports = {
   parserOptions: {
     allowImportExportEverywhere: true,
   },
-  extends: ['airbnb', 'prettier', 'prettier/react'],
+  extends: ['airbnb', 'prettier', 'prettier/react', 'plugin:mdx/recommended'],
+  settings: {
+    'mdx/code-blocks': true,
+    // optional, if you want to disable language mapper, set it to `false`
+    // if you want to override the default language mapper inside, you can provide your own
+    'mdx/language-mapper': {},
+  },
   plugins: ['react-hooks', 'header'],
+  overrides: [
+    {
+      files: ['*.md'],
+      rules: {
+        'prettier/prettier': [
+          2,
+          {
+            // unnecessary if you're not using `eslint-plugin-prettier`, but required if you are
+            parser: 'markdown',
+          },
+        ],
+      },
+    },
+    {
+      files: ['*.mdx'],
+      extends: ['plugin:mdx/overrides'],
+    },
+    {
+      files: '**/*.{md,mdx}/**',
+      extends: 'plugin:mdx/code-blocks',
+    },
+  ],
   rules: {
+    // Impossible to have return type in no typed-javascript
+    'consistent-return': OFF,
     // Ignore certain webpack alias because it can't be resolved
     'import/no-unresolved': [
       ERROR,
@@ -35,20 +63,12 @@ module.exports = {
     'header/header': [
       ERROR,
       'block',
-
       [
         '*',
-        ' * Copyright (c) Facebook, Inc. and its affiliates.',
+        ' * Copyright (c) OneKey, Inc. and its affiliates.',
         ' *',
         ' * This source code is licensed under the MIT license found in the',
         ' * LICENSE file in the root directory of this source tree.',
-        ' *',
-        // Unfortunately eslint-plugin-header doesn't support optional lines.
-        // If you want to enforce your website JS files to have @flow or @format,
-        // modify these lines accordingly.
-        {
-          pattern: '.* @format',
-        },
         ' ',
       ],
     ],
