@@ -4,7 +4,7 @@ If this page doesn't answer your question, please feel free to open an issue [in
 
 ## The Provider (window.ethereum)
 
-::: tip Recent Breaking Provider Changes
+:::tip Recent Breaking Provider Changes
 If you are an Ethereum application developer and are looking for information about our January 2021 provider API changes,
 please see our [Migration Guide](./provider-migration.html) for more details.
 :::
@@ -55,7 +55,7 @@ Check out the [WalletConnect mobile linking docs](https://docs.walletconnect.org
 
 ## Deeplinking
 
-::: tip Tip
+:::tip Tip
 [Click here to create deeplinks for your application.](https://metamask.github.io/metamask-deeplinks/#)
 :::
 
@@ -84,13 +84,13 @@ Test and debug your web3 site using MetaMask Mobile on any iOS or Android device
 2. Make sure your testing device is using the same WiFi connection as the machine hosting the server.
 3. In the MetaMask Mobile web browser, navigate to your website at `http://YOUR_LOCAL_IP:PORT`.
 
-::: tip Tip
+:::tip Tip
 If you're using an Android device, you must use `xip` in your url. Example: `http://192.168.x.x.xip.io:8000`
 :::
 
 ### Debugging
 
-::: warning Important
+:::warning Important
 For security purposes, web browser debugging on both iOS and Android will not work if the app was downloaded through the Apple App Store or Google Play Store.
 You must build the app locally from [MetaMask Mobile repository](https://github.com/MetaMask/metamask-mobile) and run it on a simulator or physical device.
 :::
@@ -101,7 +101,7 @@ You must build the app locally from [MetaMask Mobile repository](https://github.
 2. Open MetaMask Mobile in an iOS simulator or iOS device
 3. In the Safari menu bar -> **Develop** -> **[device name]** -> **[app name]** -> **[url - title]**
 
-::: tip Tip
+:::tip Tip
 When debugging on a physical device, you must enable Web Inspector in your device's settings:
 
 **Settings** -> **Safari** -> **Advanced** -> **Web Inspector**
@@ -114,7 +114,7 @@ When debugging on a physical device, you must enable Web Inspector in your devic
    You may also navigate to `chrome://inspect` from Chrome to display the list of available devices for debugging
 3. Select your device on the left and click **Inspect** on the browser contents you'd like to inspect.
 
-::: tip Tip
+:::tip Tip
 When debugging on a physical device you must enable USB debugging in your device's settings:
 
 **Settings** -> **System** -> **About Phone** -> **Developer options** -> **Enable USB debugging**

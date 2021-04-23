@@ -29,9 +29,9 @@ const txHash = await ethereum.request({
 
 <SendTransaction />
 
-:::: tabs :options="{ useUrlFragment: false }"
+::::tabs :options="{ useUrlFragment: false }"
 
-::: tab HTML
+:::tab HTML
 
 ```html
 <button class="enableEthereumButton btn">Enable Ethereum</button>
@@ -40,7 +40,7 @@ const txHash = await ethereum.request({
 
 :::
 
-::: tab JavaScript
+:::tab JavaScript
 
 ```javascript
 const ethereumButton = document.querySelector('.enableEthereumButton');

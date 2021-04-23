@@ -1,10 +1,10 @@
 # Ethereum Provider API
 
-::: tip Tip Recommended Reading
+:::tip Tip Recommended Reading
 We recommend that all web3 site developers read the [Basic Usage](#basic-usage) section.
 :::
 
-::: tip Recent Breaking Provider Changes
+:::tip Recent Breaking Provider Changes
 If you are an Ethereum application developer and are looking for information about our January 2021 provider API changes,
 please see our [Migration Guide](./provider-migration.html) for more details.
 :::
@@ -63,12 +63,15 @@ Consult [chainid.network](https://chainid.network) for more.
 | 0x4  | 4       | Rinkeby Test Network            |
 | 0x5  | 5       | Goerli Test Network             |
 | 0x2a | 42      | Kovan Test Network              |
+| 0x38 | 56      | Kovan Test Network              |
+| 0x80 | 128     | Kovan Test Network              |
+| 0x89 | 137     | Kovan Test Network              |
 
 ## Properties
 
 ### ethereum.isMetaMask
 
-::: warning Note
+:::warning Note
 This property is non-standard. Non-MetaMask providers may also set this property to `true`.
 :::
 
@@ -78,7 +81,7 @@ This property is non-standard. Non-MetaMask providers may also set this property
 
 ### ethereum.isConnected()
 
-::: tip Tip
+:::tip Tip
 Note that this method has nothing to do with the user's accounts.
 
 You may often encounter the word "connected" in reference to whether a web3 site can access the user's accounts.
@@ -204,13 +207,13 @@ Callers are identified by their URL _origin_, which means that all sites with th
 
 This means that `accountsChanged` will be emitted whenever the user's exposed account address changes.
 
-::: tip Tip
+:::tip Tip
 We plan to allow the `eth_accounts` array to be able to contain multiple addresses in the near future.
 :::
 
 ### chainChanged
 
-::: tip Tip
+:::tip Tip
 See the [Chain IDs section](#chain-ids) for MetaMask's default chains and their chain IDs.
 :::
 
@@ -271,7 +274,7 @@ Common codes and their meaning include:
 
 For the complete list of errors, please see [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193#provider-errors) and [EIP-1474](https://eips.ethereum.org/EIPS/eip-1474#error-codes).
 
-::: tip Tip
+:::tip Tip
 The [`eth-rpc-errors`](https://npmjs.com/package/eth-rpc-errors) package implements all RPC errors thrown by the MetaMask provider, and can help you identify their meaning.
 :::
 
@@ -287,7 +290,7 @@ This snippet explains how to accomplish the three most common requirements for w
 
 ## Experimental API
 
-::: warning
+:::warning
 There is no guarantee that the methods and properties defined in this section will remain stable.
 Use it at your own risk.
 :::
@@ -308,7 +311,7 @@ Note that this method does not indicate if the user has exposed any accounts to 
 
 ## Legacy API
 
-::: warning
+:::warning
 You should **never** rely on any of these methods, properties, or events in practice.
 :::
 
@@ -320,7 +323,7 @@ Because of this, you may find web3 sites that use this API, or other providers t
 
 ### ethereum.chainId (DEPRECATED)
 
-::: warning
+:::warning
 This property is non-standard, and therefore deprecated.
 
 If you need to retrieve the current chain ID, use [`ethereum.request({ method: 'eth_chainId' })`](#ethereum-request-args).
@@ -333,7 +336,7 @@ A hexadecimal string representing the current chain ID.
 
 ### ethereum.networkVersion (DEPRECATED)
 
-::: warning
+:::warning
 You should always prefer the chain ID over the network ID.
 
 If you must get the network ID, use [`ethereum.request({ method: 'net_version' })`](#ethereum-request-args).
@@ -345,7 +348,7 @@ A decimal string representing the current blockchain's network ID.
 
 ### ethereum.selectedAddress (DEPRECATED)
 
-::: warning
+:::warning
 Use [`ethereum.request({ method: 'eth_accounts' })`](#ethereum-request-args) instead.
 
 The value of this property can change at any time.
@@ -359,7 +362,7 @@ The "currently selected" address is the first item in the array returned by `eth
 
 ### ethereum.enable() (DEPRECATED)
 
-::: warning
+:::warning
 Use [`ethereum.request({ method: 'eth_requestAccounts' })`](#ethereum-request-args) instead.
 :::
 
@@ -367,7 +370,7 @@ Alias for `ethereum.request({ method: 'eth_requestAccounts' })`.
 
 ### ethereum.sendAsync() (DEPRECATED)
 
-::: warning
+:::warning
 Use [`ethereum.request()`](#ethereum-request-args) instead.
 :::
 
@@ -398,7 +401,7 @@ See the [Ethereum JSON-RPC API](https://eips.ethereum.org/EIPS/eip-1474) for det
 
 ### ethereum.send() (DEPRECATED)
 
-::: warning
+:::warning
 Use [`ethereum.request()`](#ethereum-request-args) instead.
 :::
 
@@ -442,7 +445,7 @@ You can think of these signatures as follows:
 
 ### close (DEPRECATED)
 
-::: warning
+:::warning
 Use [`disconnect`](#disconnect) instead.
 :::
 
@@ -452,7 +455,7 @@ ethereum.on('close', handler: (error: Error) => void);
 
 ### chainIdChanged (DEPRECATED)
 
-::: warning
+:::warning
 Use [`chainChanged`](#chainchanged) instead.
 :::
 
@@ -464,7 +467,7 @@ ethereum.on('chainChanged', handler: (chainId: string) => void);
 
 ### networkChanged (DEPRECATED)
 
-::: warning
+:::warning
 Use [`chainChanged`](#chainchanged) instead.
 :::
 
@@ -478,7 +481,7 @@ ethereum.on('networkChanged', handler: (networkId: string) => void);
 
 ### notification (DEPRECATED)
 
-::: warning
+:::warning
 Use [`message`](#message) instead.
 :::
 

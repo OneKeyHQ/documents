@@ -109,9 +109,9 @@ Below is an example of signing typed data with MetaMask. Reference [here](https:
 
 ### Example
 
-:::: tabs :options="{ useUrlFragment: false }"
+::::tabs :options="{ useUrlFragment: false }"
 
-::: tab HTML
+:::tab HTML
 
 ```html
 <div>
@@ -122,7 +122,7 @@ Below is an example of signing typed data with MetaMask. Reference [here](https:
 
 :::
 
-::: tab JavaScript
+:::tab JavaScript
 
 ```javascript
 signTypedDataV4Button.addEventListener('click', function (event) {

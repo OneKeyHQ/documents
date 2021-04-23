@@ -1,6 +1,6 @@
 # Provider Migration Guide
 
-::: tip Attention MetaMask Users
+:::tip Attention MetaMask Users
 If you are a MetaMask user attempting to use a legacy Ethereum website that hasn't migrated to the new API,
 please see the section on the [MetaMask Legacy Web3 Extension](#using-the-metamask-legacy-web3-extension).
 
@@ -48,7 +48,7 @@ We made the following breaking changes to the `window.ethereum` API:
 
 ## Replacing `window.web3`
 
-::: warning Pages No Longer Reload on Chain Changes
+:::warning Pages No Longer Reload on Chain Changes
 Since we removed our `window.web3`, MetaMask no longer automatically reloads the page on chain/network changes.
 
 Please see [Handling the Removal of `ethereum.autoRefreshOnNetworkChange`](#handling-the-removal-of-ethereum-autorefreshonnetworkchange) for details.
@@ -62,7 +62,7 @@ If your website relied on our `window.web3` object, you have to migrate.
 Please continue reading to understand your options.
 Some are as simple as a one-line change.
 
-::: tip Tip
+:::tip Tip
 Regardless of how you choose to migrate, you may want to read the `web3@0.20.7` documentation, which you can find [here](https://github.com/ethereum/web3.js/blob/0.20.7/DOCUMENTATION.md).
 :::
 
@@ -81,7 +81,7 @@ We recommend [`ethers`](https://npmjs.com/package/ethers) ([documentation](https
 
 ### Using `@metamask/legacy-web3`
 
-::: warning
+:::warning
 We strongly recommend that you consider one of the other two migration paths before resorting to this one.
 It is not future-proof, and we will not add new features to it.
 :::

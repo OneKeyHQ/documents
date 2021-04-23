@@ -2,9 +2,9 @@
 
 ## MetaMask Repositories
 
-:::: tabs :options="{ useUrlFragment: false }"
+::::tabs :options="{ useUrlFragment: false }"
 
-::: tab Extension
+:::tab Extension
 
 <GithubContributor
   repoName="metamask-extension"
@@ -12,7 +12,7 @@
 
 :::
 
-::: tab Mobile
+:::tab Mobile
 
 <GithubContributor
   repoName="metamask-mobile"
@@ -20,7 +20,7 @@
 
 :::
 
-::: tab Documentation
+:::tab Documentation
 
 <GithubContributor
   repoName="metamask-docs"
