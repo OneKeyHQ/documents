@@ -17,7 +17,7 @@ OneKeyConnect.ethereumVerifyMessage(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L74-L78)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L74-L78)
 * `address` - *obligatory* `string` signer address. "0x" prefix is optional
 * `message` - *obligatory* `string` signed message in plain text
 * `hex` - *optional* `boolean` convert message from hex
@@ -33,7 +33,7 @@ OneKeyConnect.ethereumVerifyMessage({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L133-L136)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L133-L136)
 ```javascript
 {
     success: true,

@@ -16,7 +16,7 @@ OneKeyConnect.liskSignMessage(params).then(function(result) {
 
 ### Params
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/lisk.js#L109-L112)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L109-L112)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `message` - *obligatory* `string` message to sign in plain text
 
@@ -29,7 +29,7 @@ OneKeyConnect.liskSignMessage({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L104-L106)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L104-L106)
 ```javascript
 {
     success: true,

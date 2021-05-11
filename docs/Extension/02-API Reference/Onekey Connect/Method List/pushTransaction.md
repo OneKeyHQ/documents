@@ -15,9 +15,9 @@ OneKeyConnect.pushTransaction(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L119-L22)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L119-L22)
 * `tx` - *obligatory* `string` serialized transaction,
-* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 
 ### Example
 ```javascript
@@ -28,7 +28,7 @@ OneKeyConnect.pushTransaction({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L94-L96)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L94-L96)
 ```javascript
 {
     success: true,

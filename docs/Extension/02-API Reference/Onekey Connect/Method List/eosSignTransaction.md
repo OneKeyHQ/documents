@@ -16,9 +16,9 @@ OneKeyConnect.eosSignTransaction(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L69-L72)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [Transaction](../../src/js/types/eos.js#L145-L149)
+* `transaction` - *obligatory* `Object` type of [Transaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/eos.js#L145-L149)
 
 ### Transfer example
 ```javascript
@@ -53,7 +53,7 @@ OneKeyConnect.eosSignTransaction({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/eos.js#L160-L163)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/eos.js#L160-L163)
 ```javascript
 {
     success: true,

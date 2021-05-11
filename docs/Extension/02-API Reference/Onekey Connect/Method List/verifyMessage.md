@@ -17,11 +17,11 @@ OneKeyConnect.verifyMessage(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L156-L161)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L156-L161)
 * `address` - *obligatory* `string` signer address,
 * `message` - *obligatory* `string` signed message,
 * `signature` - *obligatory* `string` signature in base64 format,
-* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 * `hex` - *optional* `boolean` convert message from hex
 
 ### Example
@@ -35,7 +35,7 @@ OneKeyConnect.verifyMessage({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L133-L136)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L133-L136)
 ```javascript
 {
     success: true,

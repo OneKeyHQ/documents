@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 ## Handling events
 
 Once user grants permission for hosting page to communicate with API OneKeyConnect will emits events

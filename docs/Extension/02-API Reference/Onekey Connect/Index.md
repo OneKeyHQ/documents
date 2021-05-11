@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 ## Installation
 
 Install library as npm module:
@@ -44,11 +48,11 @@ OneKeyConnect.manifest({
 
 ## API methods
 
-* [List of methods](methods.md)
+* [List of methods](Methods)
 
 ## Handling events
 
-* [Events](events.md)
+* [Events](Events)
 
 ## Running local version (develop/stable)
 - clone repository: `git clone git@github.com:OneKeyHQ/connect.git`

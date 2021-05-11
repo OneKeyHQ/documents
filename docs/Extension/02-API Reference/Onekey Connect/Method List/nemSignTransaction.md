@@ -17,9 +17,9 @@ OneKeyConnect.nemSignTransaction(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L114-L117)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L114-L117)
 * `path` - *obligatory* `string | Array<number>`
-* `transaction` - *obligatory* `Object` type of [NEMTransaction](../../src/js/types/nem.js#L41)
+* `transaction` - *obligatory* `Object` type of [NEMTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/nem.js#L41)
 
 ### Example
 Sign simple transaction
@@ -81,7 +81,7 @@ OneKeyConnect.nemSignTransaction(
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L271-L274)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L271-L274)
 ```javascript
 {
     success: true,

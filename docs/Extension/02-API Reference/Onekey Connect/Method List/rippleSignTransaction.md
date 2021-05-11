@@ -17,9 +17,9 @@ OneKeyConnect.rippleSignTransaction(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L149-L154)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L149-L154)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [RippleTransaction](../../src/js/types/ripple.js#L36-L42)
+* `transaction` - *obligatory* `Object` type of [RippleTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ripple.js#L36-L42)
 
 ### Example
 ```javascript
@@ -38,7 +38,7 @@ OneKeyConnect.rippleSignTransaction(
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/ripple.js#L49-L52)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ripple.js#L49-L52)
 ```javascript
 {
     success: true,

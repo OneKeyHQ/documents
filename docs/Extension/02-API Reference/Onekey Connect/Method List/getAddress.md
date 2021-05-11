@@ -19,10 +19,10 @@ OneKeyConnect.getAddress(params).then(function(result) {
 * `path` — *obligatory* `string | Array<number>` minimum length is `5`. [read more](./path)
 * `address` — *optional* `string` address for validation (read `Handle button request` section below)
 * `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
-* `coin` - *optional* `string` determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
+* `coin` - *optional* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
 * `crossChain` — *optional* `boolean` Advanced feature. Use it only if you are know what you are doing. Allows to generate address between chains. For example Bitcoin path on Litecoin network will display cross chain address in Litecoin format.
-* `multisig` - *optional* [MultisigRedeemScriptType](../../src/js/types/trezor.js#L107), redeem script information (multisig addresses only)
-* `scriptType` - *optional* [InputScriptType](../../src/js/types/trezor.js#L113), address script type
+* `multisig` - *optional* [MultisigRedeemScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L107), redeem script information (multisig addresses only)
+* `scriptType` - *optional* [InputScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L113), address script type
 
 #### Exporting bundle of addresses
 * `bundle` - `Array` of Objects with `path`, `showOnTrezor`, `coin` and `crossChain` fields

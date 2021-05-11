@@ -16,7 +16,7 @@ OneKeyConnect.ethereumSignMessage(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L64-L67)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `message` - *obligatory* `string` message to sign in plain text
 * `hex` - *optional* `boolean` convert message from hex
@@ -30,7 +30,7 @@ OneKeyConnect.ethereumSignMessage({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L47-L50)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
 ```javascript
 {
     success: true,

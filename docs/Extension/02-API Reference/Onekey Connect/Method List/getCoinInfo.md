@@ -1,5 +1,5 @@
 ## Get Coin Info
-Returns information about a specified coin from the [coins.json](../../src/data/coins.json) file.
+Returns information about a specified coin from the [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file.
 
 ES6
 ```javascript

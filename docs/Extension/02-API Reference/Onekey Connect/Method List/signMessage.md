@@ -16,10 +16,10 @@ OneKeyConnect.signMessage(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L131-L135)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L131-L135)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `message` - *obligatory* `string`
-* `coin` - *optional* `string` Determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
+* `coin` - *optional* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
 * `hex` - *optional* `boolean` convert message from hex
 
 ### Example
@@ -31,7 +31,7 @@ OneKeyConnect.signMessage({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L113-L116)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L113-L116)
 ```javascript
 {
     success: true,

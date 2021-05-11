@@ -22,16 +22,16 @@ OneKeyConnect.cardanoSignTransaction(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/networks/cardano.js#L62-L109)
-* `inputs` — *obligatory* `Array` of [CardanoInput](../../src/js/types/networks/cardano.js#L61)
-* `outputs` - *obligatory* `Array` of [CardanoOutput](../../src/js/types/networks/cardano.js#L76)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L62-L109)
+* `inputs` — *obligatory* `Array` of [CardanoInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L61)
+* `outputs` - *obligatory* `Array` of [CardanoOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L76)
 * `fee` - *obligatory* `String`
 * `protocolMagic` - *obligatory* `Integer` 764824073 for Mainnet, 42 for Testnet
 * `networkId` - *obligatory* `Integer` 1 for Mainnet, 0 for Testnet
 * `ttl` - *optional* `String`
 * `validityIntervalStart` - *optional* `String`
-* `certificates` - *optional* `Array` of [CardanoCertificate](../../src/js/types/networks/cardano.js#L85)
-* `withdrawals` - *optional* `Array` of [CardanoWithdrawal](../../src/js/types/networks/cardano.js#L90)
+* `certificates` - *optional* `Array` of [CardanoCertificate](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L85)
+* `withdrawals` - *optional* `Array` of [CardanoWithdrawal](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L90)
 * `metadata` - *optional* `String`
 
 ### Stake pool registration certificate specifics
@@ -192,7 +192,7 @@ OneKeyConnect.cardanoSignTransaction({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/networks/cardano.js#L107-L110)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L107-L110)
 ```javascript
 {
     success: true,

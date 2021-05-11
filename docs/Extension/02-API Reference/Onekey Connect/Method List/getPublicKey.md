@@ -18,7 +18,7 @@ OneKeyConnect.getPublicKey(params).then(function(result) {
 [****Optional common params****](./commonParams)
 #### Exporting single public key
 * `path` — *obligatory* `string | Array<number>` minimum length is `1`. [read more](./path)
-* `coin` - *optional* `string` determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
+* `coin` - *optional* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
 * `crossChain` — *optional* `boolean` Advanced feature. Use it only if you are know what you are doing. Allows to generate address between chains. For example Bitcoin path on Litecoin network will display cross chain address in Litecoin format.
 
 #### Exporting bundle of public keys

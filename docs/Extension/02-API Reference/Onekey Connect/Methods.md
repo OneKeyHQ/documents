@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 ## Methods
 
 API call return a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). Resolve is guaranteed to get called

@@ -19,7 +19,7 @@ OneKeyConnect.composeTransaction(params).then(function(result) {
 ### Params
 [****Optional common params****](./commonParams)
 * `outputs` — *obligatory* `Array` of recipients Objects described below
-* `coin` — *obligatory* `string` determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 * `push` — *optional* `boolean` determines if composed transaction will be broadcasted into blockchain.
 
 ### Outputs objects:

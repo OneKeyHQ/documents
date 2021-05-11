@@ -17,9 +17,9 @@ OneKeyConnect.ethereumSignTransaction(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L69-L72)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [EthereumTransaction](../../src/js/types/ethereum.js#L5) "0x" prefix for each field is optional
+* `transaction` - *obligatory* `Object` type of [EthereumTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ethereum.js#L5) "0x" prefix for each field is optional
 
 ### Example
 ```javascript
@@ -38,7 +38,7 @@ OneKeyConnect.ethereumSignTransaction({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L57-L60)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L57-L60)
 ```javascript
 {
     success: true,

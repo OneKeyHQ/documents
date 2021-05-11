@@ -17,7 +17,7 @@ OneKeyConnect.binanceSignTransaction(params).then(function(result) {
 ### Params 
 [****Optional common params****](./commonParams)
 * `path` — *obligatory* `string | Array<number>` minimum length is `5`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [Transaction](../../src/js/types/binance.js#L61-71)
+* `transaction` - *obligatory* `Object` type of [Transaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/binance.js#L61-71)
 
 ### Transfer example
 ```javascript

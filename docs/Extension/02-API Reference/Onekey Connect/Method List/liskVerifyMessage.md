@@ -17,7 +17,7 @@ OneKeyConnect.liskVerifyMessage(params).then(function(result) {
 
 ### Params
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/lisk.js#L133-L137)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L133-L137)
 * `publicKey` - *obligatory* `string` signer public key.
 * `signature` - *obligatory* `string` message signature
 * `message` - *obligatory* `string` signed message in plain text
@@ -32,7 +32,7 @@ OneKeyConnect.ethereumVerifyMessage({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/lisk.js#L139-L142)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L139-L142)
 ```javascript
 {
     success: true,

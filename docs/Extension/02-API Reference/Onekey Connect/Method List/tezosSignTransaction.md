@@ -17,10 +17,10 @@ OneKeyConnect.tezosSignTransaction(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/tezos.js#L104-L108)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L104-L108)
 * `path` - *obligatory* `string | Array<number>`
 * `branch` - *obligatory* `string`
-* `operation` - *obligatory* `Object` type of [TezosOperation](../../src/js/types/tezos.js#L54)
+* `operation` - *obligatory* `Object` type of [TezosOperation](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L54)
 
 ### Example
 Sign transaction operation
@@ -203,7 +203,7 @@ OneKeyConnect.tezosSignTransaction({
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/tezos.js#L110-L114)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L110-L114)
 ```javascript
 {
     success: true,

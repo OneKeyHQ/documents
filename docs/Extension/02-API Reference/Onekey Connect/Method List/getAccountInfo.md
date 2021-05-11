@@ -18,15 +18,15 @@ OneKeyConnect.getAccountInfo(params).then(function(result) {
 [****Optional common params****](./commonParams)
 #### Using path
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `coin` — *obligatory* `string` determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 
 #### Using public key
 * `descriptor` — *obligatory* `string` public key of account
-* `coin` — *obligatory* `string` determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 
 #### Using discovery
 BIP-0044 account discovery is performed and user is presented with a list of accounts. Result is returned after account selection.
-- `coin` — *obligatory* `string` determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+- `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 
 ### Other optional params
 params are forwarded to [BlockBook backend](https://github.com/trezor/blockbook/blob/master/docs/api.md#api-v2) using `@onekeyhq/blockchain-link` package
@@ -124,11 +124,11 @@ OneKeyConnect.getAccountInfo({
     } //
 }
 ```
-[AccountInfo](../../src/js/types/account.js#L108)
-[AccountAddress](../../src/js/types/account.js#L34)
-[AccountTransaction](../../src/js/types/account.js#L83)
-[AccountUtxo](../../src/js/types/account.js#L49)
-[TokenInfo](../../src/js/types/account.js#L24)
+[AccountInfo](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L108)
+[AccountAddress](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L34)
+[AccountTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L83)
+[AccountUtxo](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L49)
+[TokenInfo](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L24)
 
 Error
 ```javascript

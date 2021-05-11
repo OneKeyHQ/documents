@@ -19,11 +19,11 @@ OneKeyConnect.signTransaction(params).then(function(result) {
 
 ### Params 
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L169-L164)
-* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](../../src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
-* `inputs` - *obligatory* `Array` of [TransactionInput](../../src/js/types/trezor/protobuf.js#L100-L108),
-* `outputs` - *obligatory* `Array` of [TransactionOutput](../../src/js/types/trezor/protobuf.js#L113-L131),
-* `refTxs` - *optional* `Array` of [RefTransaction](../../src/js/types/trezor/protobuf.js#L139-L144). If you don't want to use build-in `blockbook` backend you can optionally provide those data from your own backend transformed to `Trezor` format. Since Firmware 2.3.0/1.9.0 referenced transactions are required. Zcash and Komodo refTxs should also contains `expiry`, `version_group_id` and `extra_data` fields.
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L169-L164)
+* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `inputs` - *obligatory* `Array` of [TransactionInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L100-L108),
+* `outputs` - *obligatory* `Array` of [TransactionOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L113-L131),
+* `refTxs` - *optional* `Array` of [RefTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L139-L144). If you don't want to use build-in `blockbook` backend you can optionally provide those data from your own backend transformed to `Trezor` format. Since Firmware 2.3.0/1.9.0 referenced transactions are required. Zcash and Komodo refTxs should also contains `expiry`, `version_group_id` and `extra_data` fields.
 * `locktime` - *optional* `number`,
 * `version` - *optional* `number` transaction version,
 * `expiry` - *optional* `number`, only for Decred and Zcash,
@@ -139,7 +139,7 @@ OneKeyConnect.signTransaction({
 
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#sign-transaction)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#sign-transaction)
 ```javascript
 {
     success: true,

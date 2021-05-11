@@ -17,9 +17,9 @@ OneKeyConnect.liskSignTransaction(params).then(function(result) {
 
 ### Params
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/lisk.js#L121-L124)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L121-L124)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [LiskTransaction](../../src/js/types/lisk.js#42-L52)
+* `transaction` - *obligatory* `Object` type of [LiskTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#42-L52)
 
 ### Example
 ```javascript
@@ -39,7 +39,7 @@ OneKeyConnect.liskSignTransaction(
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/lisk.js#L126-L129)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L126-L129)
 ```javascript
 {
     success: true,

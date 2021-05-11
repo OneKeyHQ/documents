@@ -17,14 +17,14 @@ OneKeyConnect.stellarSignTransaction(params).then(function(result) {
 
 ### Params
 [****Optional common params****](./commonParams)
-###### [flowtype](../../src/js/types/params.js#L149-L154)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L149-L154)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `networkPassphrase` - *obligatory* `string` network passphrase
-* `transaction` - *obligatory* `Object` type of [StellarTransaction](../../src/js/types/stellar.js#L129)
+* `transaction` - *obligatory* `Object` type of [StellarTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/stellar.js#L129)
 
 ### Stellar SDK compatibility
 `stellar-sdk` is not a part of `@onekeyhq/connect` repository.
-To transform `StellarSDK.Transaction` object into `OneKeyConnect.StellarTransaction` object copy [this plugin](../../src/js/plugins/stellar/plugin.js) into your project.
+To transform `StellarSDK.Transaction` object into `OneKeyConnect.StellarTransaction` object copy [this plugin](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/plugins/stellar/plugin.js) into your project.
 ```javascript
 import StellarSDK from 'stellar-sdk';
 import transformTrezorTransaction from '<path-to-plugin>/index.js';
@@ -66,7 +66,7 @@ OneKeyConnect.stellarSignTransaction(
 ```
 
 ### Result
-###### [flowtype](../../src/js/types/response.js#L129-L132)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L129-L132)
 ```javascript
 {
     success: true,
