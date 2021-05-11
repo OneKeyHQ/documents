@@ -1,5 +1,5 @@
 ## Reboot device to bootlaoder
-Perform device setup and generate new seed.
+Reboot device to bootlaoder.
 
 ES6
 ```javascript
