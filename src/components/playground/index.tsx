@@ -1,8 +1,10 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import {editor, languages, Uri} from "monaco-editor/esm/vs/editor/editor.api";
 import OneKeyConnect from "@onekeyhq/connect";
 import { loggerReducer } from "./loggerReducer";
 import styles from './index.module.css';
+// @ts-ignore
+import libSource from '!raw-loader!./types.txt';
 
 interface PlaygroundProps {
     initValue?: string;
@@ -11,18 +13,37 @@ interface PlaygroundProps {
 function Playground(props: PlaygroundProps) {
     const [value, setValue] = useState(props.initValue ?? '');
     const [log, setLog] = useReducer(loggerReducer, '');
-    const editorRef = useRef<HTMLDivElement>();
+    const editorDivRef = useRef<HTMLDivElement>();
+    const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
     useEffect(() => {
         //monaco
-        monaco.languages.typescript.javascriptDefaults.addExtraLib(`
-            declare global {
-                interface Window { OneKeyConnect: {}; }
-            }`);
-        monaco.editor.create(editorRef.current, {
+        // validation settings
+        languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+            noSemanticValidation: true,
+            noSyntaxValidation: false
+        });
+
+        // compiler options
+        languages.typescript.javascriptDefaults.setCompilerOptions({
+            target: languages.typescript.ScriptTarget.ES2016,
+            allowNonTsExtensions: true
+        });
+
+        // extra library
+        languages.typescript.javascriptDefaults.addExtraLib(libSource, 'ts:global.d.ts');
+        // When resolving definitions and references, the editor will try to use created models.
+        // Creating a model for the library allows "peek definition/references" commands to work with the library.
+        editor.createModel(libSource, 'typescript', Uri.parse('ts:global.d.ts'));
+
+        editorRef.current = editor.create(editorDivRef.current, {
             value: props.initValue,
             language: 'typescript'
         });
+
+        editorRef.current.onDidChangeModelContent(() => {
+            setValue(editorRef.current.getValue());
+        })
 
         // OneKeyConnect
         OneKeyConnect.on('UI_EVENT', event => {
@@ -51,7 +72,7 @@ function Playground(props: PlaygroundProps) {
         <>
             <div
                 className={styles.editor}
-                ref={editorRef}
+                ref={editorDivRef}
             />
             <button onClick={run}>RUN</button>
             <div>{log}</div>
