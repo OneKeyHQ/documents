@@ -1,0 +1,82 @@
+import Playground from "../../../../../src/components/playground";
+
+## Ethereum: sign message
+
+Asks device to sign a message using the private key derived by given BIP32 path.
+
+ES6
+```javascript
+const result = await OneKeyConnect.ethereumSignMessage(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.ethereumSignMessage(params).then(function(result) {
+
+});
+```
+
+### Params
+[****Optional common params****](./commonParams)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
+* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `message` - *obligatory* `string` message to sign in plain text
+* `hex` - *optional* `boolean` convert message from hex
+
+### Example
+```javascript
+OneKeyConnect.ethereumSignMessage({
+    path: "m/44'/60'/0'",
+    message: "example message"
+});
+```
+
+### Result
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        signature: string,
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### Migration from older version
+
+version 4 and below
+```javascript
+OneKeyConnect.ethereumSignMessage("m/44'/60'/0'", "example message", function(result) {
+    result.address  // address without "0x" prefix
+    result.signature
+});
+```
+version 5
+```javascript
+// params are key-value pairs inside Object
+OneKeyConnect.ethereumSignMessage({
+    path: "m/44'/60'/0'",
+    message: "example message"
+}).then(function(result) {
+    result.address   // address with "0x" prefix and checksum
+    result.signature // no change
+})
+```
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.ethereumSignMessage({
+    path: "m/44'/60'/0'",
+    message: "example message"
+});`}
+/>
