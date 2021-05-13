@@ -1,72 +1,45 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import {editor, languages, Uri} from "monaco-editor/esm/vs/editor/editor.api";
+import { editor } from "monaco-editor/esm/vs/editor/editor.api";
 import OneKeyConnect from "@onekeyhq/connect";
-import { loggerReducer } from "./loggerReducer";
+import CodeBlock from '@theme/CodeBlock';
+import useThemeContext from '@theme/hooks/useThemeContext';
 import styles from './index.module.css';
-// @ts-ignore
-import libSource from '!raw-loader!./types.txt';
+import initHook from "./init";
+
 
 interface PlaygroundProps {
     initValue?: string;
 }
 
 function Playground(props: PlaygroundProps) {
+    initHook();
+    const { isDarkTheme } = useThemeContext();
     const [value, setValue] = useState(props.initValue ?? '');
-    const [log, setLog] = useReducer(loggerReducer, '');
+    const [log, setLog] = useReducer((p, a) => JSON.stringify(a, null, 2), '');
     const editorDivRef = useRef<HTMLDivElement>();
     const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
     useEffect(() => {
-        //monaco
-        // validation settings
-        languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-            noSemanticValidation: true,
-            noSyntaxValidation: false
-        });
-
-        // compiler options
-        languages.typescript.javascriptDefaults.setCompilerOptions({
-            target: languages.typescript.ScriptTarget.ES2016,
-            allowNonTsExtensions: true
-        });
-
-        // extra library
-        languages.typescript.javascriptDefaults.addExtraLib(libSource, 'ts:global.d.ts');
-        // When resolving definitions and references, the editor will try to use created models.
-        // Creating a model for the library allows "peek definition/references" commands to work with the library.
-        editor.createModel(libSource, 'typescript', Uri.parse('ts:global.d.ts'));
-
         editorRef.current = editor.create(editorDivRef.current, {
             value: props.initValue,
-            language: 'typescript'
+            language: 'typescript',
+            minimap: {
+                enabled: false
+            }
         });
 
         editorRef.current.onDidChangeModelContent(() => {
             setValue(editorRef.current.getValue());
         })
-
-        // OneKeyConnect
-        OneKeyConnect.on('UI_EVENT', event => {
-            console.log('UI_EVENT', event);
-        });
-
-        OneKeyConnect.init({
-            debug: true,
-            manifest: {
-                email: 'hi@onekey.so',
-                appUrl: 'https://onekey.so',
-            },
-        });
     }, []);
 
+    useEffect(() => {
+        editor.setTheme(isDarkTheme ? 'vs-dark' : 'vs');
+    }, [isDarkTheme]);
+
     const run = () => {
-        const savedLogger = console.log;
-        console.log = (...params) => {
-            savedLogger(...params);
-            setLog(params[0]);
-        }
         (window as any).OneKeyConnect = OneKeyConnect;
-        eval(value);
+        Promise.resolve(eval(value)).then(setLog);
     }
     return (
         <>
@@ -74,8 +47,10 @@ function Playground(props: PlaygroundProps) {
                 className={styles.editor}
                 ref={editorDivRef}
             />
-            <button onClick={run}>RUN</button>
-            <div>{log}</div>
+            <div className={styles.button} onClick={run}>RUN&gt;&gt;</div>
+            {log &&
+            <CodeBlock className="json">{log}</CodeBlock>
+            }
         </>
     );
 }
