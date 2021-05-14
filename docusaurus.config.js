@@ -26,13 +26,18 @@ module.exports = {
         src: 'img/logo_green_vector.png',
       },
       items: [
-        // {
-        //   to: 'extension/',
-        //   activeBasePath: 'extension',
-        //   label: 'Extension',
-        //   docId: 'Extension/Guide/introduction',
-        //   position: 'left',
-        // },
+        {
+          to: '/',
+          activeBaseRegex: '^(?!/Onekey Connect)',
+          label: 'Onekey Ext',
+          position: 'left',
+        },
+        {
+          to: 'Onekey Connect/Index',
+          activeBasePath: 'Onekey Connect',
+          label: 'Onekey Connect',
+          position: 'left',
+        },
         // Please keep GitHub link to the right for consistency.
         {
           href: 'https://github.com/onekeyhq/document',
