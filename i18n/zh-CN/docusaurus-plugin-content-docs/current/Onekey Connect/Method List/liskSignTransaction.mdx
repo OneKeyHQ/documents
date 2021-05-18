@@ -1,9 +1,9 @@
 import Playground from "../../../../../../src/components/playground";
 
 
-## Lisk: Sign transaction
-Asks device to sign given transaction using the private key derived by given BIP32 path. User is asked to confirm all transaction
-details on Trezor.
+## Lisk：签署交易
+要求设备使用由给定的BIP32路径派生的私钥对给定的交易进行签名。 要求用户确认所有交易
+有关Trezor的详细信息。
 
 ES6
 ```javascript
@@ -17,11 +17,11 @@ OneKeyConnect.liskSignTransaction(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L121-L124)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [LiskTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#42-L52)
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*'transaction`-* [LiskTransaction]的* Object *强制类型(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#42-L52)
 
 ### Example
 ```javascript

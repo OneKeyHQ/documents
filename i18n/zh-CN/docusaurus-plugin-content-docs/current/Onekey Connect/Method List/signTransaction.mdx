@@ -1,10 +1,10 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Sign transaction
+## 签单交易
 
-Asks device to sign given
-inputs and outputs of pre-composed transaction. User is asked to confirm all transaction
-details on Trezor.
+要求设备签名给定
+预先组成的交易的输入和输出。要求用户确认所有交易
+有关Trezor的详细信息。
 
 
 ES6
@@ -19,21 +19,21 @@ OneKeyConnect.signTransaction(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L169-L164)
-* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
-* `inputs` - *obligatory* `Array` of [TransactionInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L100-L108),
-* `outputs` - *obligatory* `Array` of [TransactionOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L113-L131),
-* `refTxs` - *optional* `Array` of [RefTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L139-L144). If you don't want to use build-in `blockbook` backend you can optionally provide those data from your own backend transformed to `Trezor` format. Since Firmware 2.3.0/1.9.0 referenced transactions are required. Zcash and Komodo refTxs should also contains `expiry`, `version_group_id` and `extra_data` fields.
-* `locktime` - *optional* `number`,
-* `version` - *optional* `number` transaction version,
-* `expiry` - *optional* `number`, only for Decred and Zcash,
-* `versionGroupId` - *optional* `number` only for Zcash, nVersionGroupId when overwintered is set,
-* `overwintered` - *optional* `boolean` only for Zcash
-* `timestamp` - *optional* `number` only for Capricoin, transaction timestamp,
-* `branchId` - *optional* `number`, only for Zcash, BRANCH_ID when overwintered is set
-* `push` - *optional* `boolean` Broadcast signed transaction to blockchain. Default is set to false
+*`coin`-*必需*`string`确定在[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。
+* [inputs]-[TransactionInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L100-L108)的* Array(必填)
+* [outputs]-[TransactionOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L113-L131)的[Array]必填项，
+*`refTxs`-* [RefTransaction]的可选数组(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L139-L144)。如果您不想使用内置的`blockbook`后端，则可以选择将您自己的后端中的那些数据转换为`Trezor`格式。由于固件2.3.0/1.9.0需要参考交易。 Zcash和Komodo refTxs还应包含“过期”，“ version_group_id”和“ extra_data”字段。
+*`locktime`-*可选*`number`，
+*`version`-*可选*`number`交易版本，
+*`expiry`-*可选*`number`，仅适用于Decred和Zcash，
+*`versionGroupId`-*可选*`number`仅用于Zcash，设置了越冬时为nVersionGroupId，
+*`越冬`-*可选*`布尔值仅适用于Zcash
+*`timestamp`-*可选*`number`仅适用于Capricoin，交易时间戳，
+*`branchId`-*可选*`number`，仅适用于Zcash，设置了越冬时的BRANCH_ID
+*`push`-* optional *`boolean`将签名的交易广播到区块链。默认设置为false
 
 ### Example
 ###### PAYTOADDRESS

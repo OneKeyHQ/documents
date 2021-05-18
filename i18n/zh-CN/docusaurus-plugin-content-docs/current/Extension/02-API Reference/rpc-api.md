@@ -4,24 +4,24 @@ sidebar_position: 3
 
 # RPC API
 
-MetaMask uses the [`ethereum.request(args)` method](./ethereum-provider.html#ethereum-request-args) to wrap an RPC API.
+MetaMask使用[`ethereum.request(args)`方法](./ethereum-provider.html＃ethereum-request-args)包装RPC API。
 
-The API is based on an interface exposed by all Ethereum clients, along with a growing number of methods that may or may not be supported by other wallets.
+该API基于所有以太坊客户端公开的接口，以及越来越多的其他钱包可能支持或可能不支持的方法。
 
-:::tip Tip
-All RPC method requests can return errors.
-Make sure to handle errors for every call to `ethereum.request(args)`.
+::: tip提示
+所有RPC方法请求都可以返回错误。
+确保每次调用`ethereum.request(args)`时都要处理错误。
 :::
 
-## Table of Contents
+＃＃ 目录
 
 [[toc]]
 
-## Ethereum JSON-RPC Methods
+## 以太坊JSON-RPC方法
 
-For the Ethereum JSON-RPC API, please see [the Ethereum wiki](https://eth.wiki/json-rpc/API#json-rpc-methods).
+有关以太坊JSON-RPC API，请参阅[以太坊Wiki](https://eth.wiki/json-rpc/API#json-rpc-methods)。
 
-Important methods from this API include:
+此API的重要方法包括：
 
 - [`eth_accounts`](https://eth.wiki/json-rpc/API#eth_accounts)
 - [`eth_call`](https://eth.wiki/json-rpc/API#eth_call)
@@ -29,18 +29,18 @@ Important methods from this API include:
 - [`eth_sendTransaction`](https://eth.wiki/json-rpc/API#eth_sendtransaction)
 - [`eth_sign`](https://eth.wiki/json-rpc/API#eth_sign)
 
-## Permissions
+## 权限
 
-MetaMask introduced Web3 Wallet Permissions via [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255).
-In this permissions system, each RPC method is either _restricted_ or _open_.
-If a method is restricted, an external _domain_ (like a web3 site) must have the corresponding permission in order to call it.
-Open methods, meanwhile, do not require permissions to call, but may require confirmation by the user in order to succeed (e.g. `eth_sendTransaction`).
+MetaMask通过[EIP-2255](https://eips.ethereum.org/EIPS/eip-2255)引入了Web3电子钱包权限。
+在此权限系统中，每个RPC方法都是_restricted_或_open_。
+如果方法受到限制，则外部_domain_(例如Web3站点)必须具有相应的权限才能调用它。
+同时，开放方法不需要调用权限，但可能需要用户确认才能成功(例如eth_sendTransaction)。
 
-Currently, the only permission is `eth_accounts`, which allows you to access the user's Ethereum address(es).
-More permissions will be added in the future.
+当前，唯一的权限是`eth_accounts`，它允许您访问用户的以太坊地址。
+将来会添加更多权限。
 
-Under the hood, permissions are plain, JSON-compatible objects, with a number of fields that are mostly used internally by MetaMask.
-The following interface lists the fields that may be of interest to consumers:
+在底层，权限是与JSON兼容的普通对象，具有许多字段，这些字段大多数由MetaMask在内部使用。
+以下界面列出了消费者可能感兴趣的字段：
 
 ```typescript
 interface Web3WalletPermission {
@@ -52,36 +52,36 @@ interface Web3WalletPermission {
 }
 ```
 
-The permissions system is implemented in the [`rpc-cap` package](https://github.com/MetaMask/rpc-cap).
-If you're interested in learning more about the theory behind this _capability_-inspired permissions system, we encourage you to take a look at [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255).
+权限系统在[`rpc-cap`包](https://github.com/MetaMask/rpc-cap)中实现。
+如果您有兴趣了解有关此_capability_启发式权限系统背后的理论的更多信息，我们建议您查看[EIP-2255](https://eips.ethereum.org/EIPS/eip-2255)。
 
-### eth_requestAccounts
+### eth_request帐户
 
-:::tip EIP-1102
-This method is specified by [EIP-1102](https://eips.ethereum.org/EIPS/eip-1102).
-It is equivalent to the deprecated [`ethereum.enable()`](./ethereum-provider.html#ethereum-enable) provider API method.
+:::提示EIP-1102
+此方法由[EIP-1102](https://eips.ethereum.org/EIPS/eip-1102)指定。
+它等效于已弃用的[`ethereum.enable()`](./ethereum-provider.html＃ethereum-enable)提供者API方法。
 
-Under the hood, it calls [`wallet_requestPermissions`](#wallet-requestpermissions) for the `eth_accounts` permission.
-Since `eth_accounts` is currently the only permission, this method is all you need for now.
+在幕后，它为[eth_accounts]权限调用[`wallet_requestPermissions`](＃wallet-requestpermissions)。
+由于目前只有eth_accounts`权限，因此您现在只需要此方法。
 :::
 
-#### Returns
+#### 返回
 
-`string[]` - An array of a single, hexadecimal Ethereum address string.
+string []-单个十六进制以太坊地址字符串的数组。
 
-#### Description
+#### 描述
 
-Requests that the user provides an Ethereum address to be identified by.
-Returns a Promise that resolves to an array of a single Ethereum address string.
-If the user denies the request, the Promise will reject with a `4001` error.
+请求用户提供一个以太坊地址以作为标识。
+返回一个Promise，它解析为单个以太坊地址字符串的数组。
+如果用户拒绝该请求，则Promise将拒绝并显示“ 4001”错误。
 
-The request causes a MetaMask popup to appear.
-You should only request the user's accounts in response to user action, such as a button click.
-You should always disable the button that caused the request to be dispatched, while the request is still pending.
+该请求将导致出现一个MetaMask弹出窗口。
+您只应响应用户的操作(例如单击按钮)来请求用户的帐户。
+在请求仍处于挂起状态时，应始终禁用导致调度请求的按钮。
 
-If you can't retrieve the user's account(s), you should encourage the user to initiate an account request.
+如果您无法检索用户的帐户，则应鼓励用户发起帐户请求。
 
-#### Example
+#### 示例
 
 ```javascript
 document.getElementById('connectButton', connect);
@@ -103,31 +103,31 @@ function connect() {
 
 ### wallet_getPermissions
 
-:::tip Platform Availability
-This RPC method is not yet available in MetaMask Mobile.
+::: tip平台可用性
+此RPC方法在MetaMask Mobile中尚不可用。
 :::
 
-#### Returns
+#### 返回
 
-`Web3WalletPermission[]` - An array of the caller's permissions.
+Web3WalletPermission []-调用方权限的数组。
 
-#### Description
+#### 描述
 
-Gets the caller's current permissions.
-Returns a Promise that resolves to an array of `Web3WalletPermission` objects.
-If the caller has no permissions, the array will be empty.
+获取呼叫者的当前权限。
+返回一个Promise，该Promise解析为一个Web3WalletPermission对象数组。
+如果调用者没有权限，则该数组将为空。
 
 ### wallet_requestPermissions
 
-:::tip Platform Availability
-This RPC method is not yet available in MetaMask Mobile.
+::: tip平台可用性
+此RPC方法在MetaMask Mobile中尚不可用。
 :::
 
-#### Parameters
+#### 参数
 
-- `Array`
+-`Array`
 
-  0. `RequestedPermissions` - The requested permissions.
+0.`RequestedPermissions`-请求的权限。
 
 ```typescript
 interface RequestedPermissions {
@@ -135,20 +135,20 @@ interface RequestedPermissions {
 }
 ```
 
-#### Returns
+####返回
 
-`Web3WalletPermission[]` - An array of the caller's permissions.
+Web3WalletPermission []-调用方权限的数组。
 
-#### Description
+#### 描述
 
-Requests the given permissions from the user.
-Returns a Promise that resolves to a non-empty array of `Web3WalletPermission` objects, corresponding to the caller's current permissions.
-If the user denies the request, the Promise will reject with a `4001` error.
+向用户请求给定的权限。
+返回一个Promise，该Promise解析为`Web3WalletPermission`对象的非空数组，对应于调用者的当前权限。
+如果用户拒绝该请求，则Promise将拒绝并显示“ 4001”错误。
 
-The request causes a MetaMask popup to appear.
-You should only request permissions in response to user action, such as a button click.
+该请求将导致出现一个MetaMask弹出窗口。
+您仅应请求权限来响应用户操作，例如单击按钮。
 
-#### Example
+#### 例子
 
 ```javascript
 document.getElementById('requestPermissionsButton', requestPermissions);
@@ -178,34 +178,34 @@ function requestPermissions() {
 }
 ```
 
-## Other RPC Methods
+##其他RPC方法
 
 ### eth_decrypt
 
-:::tip Platform Availability
-This RPC method is not yet available in MetaMask Mobile.
+::: tip平台可用性
+此RPC方法在MetaMask Mobile中尚不可用。
 :::
 
-#### Parameters
+#### 参数
 
-- `Array`
+-`Array`
 
-  0. `string` - An encrypted message.
-  1. `string` - The address of the Ethereum account that can decrypt the message.
+0.`string`-加密的消息。
+1.`string`-可以解密消息的以太坊账户的地址。
 
-#### Returns
+#### 返回
 
-`string` - The decrypted message.
+字符串-解密的消息。
 
-#### Description
+#### 描述
 
-Requests that MetaMask decrypts the given encrypted message.
-The message must have been encrypted using the public encryption key of the given Ethereum address.
-Returns a Promise that resolves to the decrypted message, or rejects if the decryption attempt fails.
+请求MetaMask解密给定的加密消息。
+必须使用给定以太坊地址的公共加密密钥对消息进行加密。
+返回一个解析为已解密消息的Promise，如果解密尝试失败，则拒绝该Promise。
 
-See [`eth_getEncryptionPublicKey`](#eth-getencryptionpublickey) for more information.
+有关更多信息，请参见[`eth_getEncryptionPublicKey`](＃eth-getencryptionpublickey)。
 
-#### Example
+#### 例子
 
 ```javascript
 ethereum
@@ -221,28 +221,28 @@ ethereum
 
 ### eth_getEncryptionPublicKey
 
-:::tip Platform Availability
-This RPC method is not yet available in MetaMask Mobile.
+::: tip平台可用性
+此RPC方法在MetaMask Mobile中尚不可用。
 :::
 
-#### Parameters
+#### 参数
 
-- `Array`
+-`Array`
 
-  0. `string` - The address of the Ethereum account whose encryption key should be retrieved.
+0.`string`-以太坊账户的地址，应该获取其加密密钥。
 
-#### Returns
+####返回
 
-`string` - The public encryption key of the specified Ethereum account.
+字符串-指定的以太坊账户的公共加密密钥。
 
-#### Description
+#### 描述
 
-Requests that the user shares their public encryption key.
-Returns a Promise that resolve to the public encryption key, or rejects if the user denied the request.
+请求用户共享其公共加密密钥。
+返回一个解析为公共加密密钥的Promise，或者如果用户拒绝了该请求，则拒绝该Promise。
 
-The public key is computed from entropy associated with the specified user account, using the [`nacl`](https://github.com/dchest/tweetnacl-js) implementation of the `X25519_XSalsa20_Poly1305` algorithm.
+公钥是使用X25519_XSalsa20_Poly1305算法的[`nacl`](https://github.com/dchest/tweetnacl-js)实现从与指定用户帐户相关联的熵计算得出的。
 
-#### Example
+#### 例子
 
 ```javascript
 let encryptionPublicKey;
@@ -322,22 +322,22 @@ interface AddEthereumChainParameter {
 
 #### Description
 
-Creates a confirmation asking the user to add the specified chain to MetaMask.
-The user may choose to switch to the chain once it has been added.
+创建一个确认，要求用户将指定的链添加到MetaMask。
+一旦添加了链，用户可以选择切换到链。
 
-As with any method that causes a confirmation to appear, `wallet_addEthereumChain`
-should **only** be called as a result of direct user action, such as the click of a button.
+与导致确认出现的任何方法一样，`wallet_addEthereumChain`
+应该仅由于直接用户操作(例如单击按钮)而被调用。
 
-MetaMask stringently validates the parameters for this method, and will reject the request
-if any parameter is incorrectly formatted.
-In addition, MetaMask will reject the request under the following circumstances:
+MetaMask严格验证此方法的参数，并将拒绝该请求
+如果任何参数格式错误。
+此外，在以下情况下，MetaMask将拒绝该请求：
 
-- If the RPC endpoint doesn't respond to RPC calls.
-- If the RPC endpoint returns a different chain ID when `eth_chainId` is called.
-- If the chain ID corresponds to any default MetaMask chains.
+-如果RPC端点不响应RPC调用。
+-如果在调用`eth_chainId`时RPC端点返回了不同的链ID。
+-如果链ID对应于任何默认的MetaMask链。
 
-MetaMask does not yet support chains with native currencies that do not have 18 decimals,
-but may do so in the future.
+MetaMask尚不支持使用不带18个小数位的本国货币的链，
+但将来可能会这样做。
 
 ### wallet_registerOnboarding
 
@@ -352,14 +352,14 @@ Please see the [Onboarding Library documentation](./onboarding-library.html) for
 
 #### Description
 
-Registers the requesting site with MetaMask as the initiator of onboarding.
-Returns a Promise that resolves to `true`, or rejects if there's an error.
+将请求站点注册为MetaMask作为入职发起者。
+返回解析为true的Promise，如果有错误，则拒绝。
 
-This method is intended to be called after MetaMask has been installed, but before the MetaMask onboarding has completed.
-You can use this method to inform MetaMask that you were the one that suggested installing MetaMask.
-This lets MetaMask redirect the user back to your site after onboarding has completed.
+此方法旨在在安装MetaMask之后但未完成MetaMask入门之前调用。
+您可以使用此方法通知MetaMask您是建议安装MetaMask的人。
+这样，在入职完成后，MetaMask会将用户重定向到您的站点。
 
-Instead of calling this method directly, you should use the [`@metamask/onboarding` library](https://github.com/MetaMask/metamask-onboarding).
+而不是直接调用此方法，您应该使用[`@metamask/onboarding` library](https://github.com/MetaMask/metamask-onboarding).
 
 ### wallet_watchAsset
 
@@ -379,12 +379,12 @@ This method is specified by [EIP-747](https://eips.ethereum.org/EIPS/eip-747).
 
 #### Description
 
-Requests that the user tracks the token in MetaMask.
-Returns a `boolean` indicating if the token was successfully added.
+请求用户在MetaMask中跟踪令牌。
+返回一个“布尔值”，指示是否成功添加了令牌。
 
-Most Ethereum wallets support some set of tokens, usually from a centrally curated registry of tokens.
-`wallet_watchAsset` enables web3 application developers to ask their users to track tokens in their wallets, at runtime.
-Once added, the token is indistinguishable from those added via legacy methods, such as a centralized registry.
+大多数以太坊钱包都支持某些令牌集，通常是从中央策划的令牌注册表中获取的。
+wallet_watchAsset使Web3应用程序开发人员可以在运行时要求其用户跟踪其钱包中的令牌。
+添加后，令牌就无法与通过传统方法(例如集中式注册表)添加的令牌区分开。
 
 #### Example
 
@@ -427,16 +427,16 @@ ethereum.request({
 
 #### Description
 
-Requests that the user scans a QR code using their device camera.
-Returns a Promise that resolves to a string, matching either:
+请求用户使用其设备相机扫描QR码。
+返回一个Promise，该Promise解析为一个字符串，与以下任意一个匹配：
 
-1. The regex parameter, if provided
-2. An ethereum address, if no regex parameter was provided
+1. regex参数(如果提供)
+   2.以太坊地址(如果未提供正则表达式参数)
 
-If neither condition is met, the Promise will reject with an error.
+如果两个条件都不满足，则Promise将拒绝并显示错误。
 
-MetaMask previously introduced this feature per the proposed [EIP-945](https://github.com/ethereum/EIPs/issues/945).
-The functionality was temporarily removed before being reintroduced as this RPC method.
+MetaMask之前根据建议的[EIP-945](https://github.com/ethereum/EIPs/issues/945) 引入了此功能。
+在将该功能重新引入此RPC方法之前，该功能已被暂时删除。
 
 #### Example
 

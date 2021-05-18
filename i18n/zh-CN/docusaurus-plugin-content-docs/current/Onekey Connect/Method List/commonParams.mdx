@@ -1,16 +1,16 @@
-## Common parameters
-Every call require an [`Object`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) with combination of common and method specified fields.
-All common parameters are optional.
+## 常用参数
+每个调用都需要一个[`Object]](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)，并结合了通用字段和方法指定字段。
+所有通用参数都是可选的。
 
-* `device` - *optional* `Object`
-    - `path` - *obligatory* `string` call to a direct device. Useful when working with multiple connected devices. This value is emitted by [`OneKeyConnectEvent`](../Events)
-    - `state` - *optional* `string` sets expected state. This value is emitted by [`OneKeyConnectEvent`](../Events)
-    - `instance` - *optional* `number` sets an instance of device. Useful when working with one device and multiple passphrases. This value is emitted by [`OneKeyConnectEvent`](../Events)
-* `useEmptyPassphrase` — *optional* `boolean` method will not ask for a passphrase. Default is set to `false`
-* `allowSeedlessDevice` — *optional* `boolean` allows to use OneKeyConnect methods with device with seedless setup. Default is set to `false`
-* `keepSession` — `optional boolean` Advanced feature. After method return a response device session will NOT! be released. Session shoul be released after all calls are performed by calling any method with `keepSession` set to false or `undefined`. Useful when you need to do multiple different calls to OneKeyConnect API without releasing. Example sequence loop for 10 account should look like:
-    - OneKeyConnect.getPublicKey({ device: { path: "web01"}, keepSession: true, ...otherParams }) for first account,
-    - Trezor.getAddress({ device: { path: "web01"}, ...otherParams }) for the same account,
-    - looking up for balance in external blockchain
-    - loop iteration
-    - after last iteration call OneKeyConnect.getFeatures({ device: { path: "web01"}, keepSession: false, ...otherParams })
+*`device`-*可选*`Object`
+-`path`-*强制*`string`调用直接设备。与多个连接的设备一起使用时很有用。该值由[`OneKeyConnectEvent`](../Events)发出。
+-`state`-*可选*`string`设置期望状态。该值由[`OneKeyConnectEvent`](../Events)发出。
+-`instance`-*可选*`number`设置设备的实例。在使用一个设备和多个密码短语时很有用。该值由[`OneKeyConnectEvent`](../Events)发出。
+*`useEmptyPassphrase` — *可选*`boolean`方法不会要求输入密码。默认设置为`false`
+*`allowSeedlessDevice` — —可选*`boolean`允许对具有无种子设置的设备使用OneKeyConnect方法。默认设置为`false`
+*`keepSession`-`可选的布尔值`高级功能。方法返回后，响应设备会话将不会！被发布。通过调用任何将keepSession设置为false或undefined的方法来执行所有调用后，应释放会话。需要在不释放的情况下对OneKeyConnect API进行多个不同的调用时很有用。 10个帐户的示例循环序列应如下所示：
+-第一个帐户的OneKeyConnect.getPublicKey({设备：{路径：“ web01”}，keepSession：true，... otherParams})，
+-同一帐户的Trezor.getAddress({设备：{路径：“ web01”}，... otherParams})，
+-在外部区块链中寻找平衡
+-循环迭代
+-在最后一次迭代之后，调用OneKeyConnect.getFeatures({设备：{路径：“ web01”}，keepSession：false，... otherParams})

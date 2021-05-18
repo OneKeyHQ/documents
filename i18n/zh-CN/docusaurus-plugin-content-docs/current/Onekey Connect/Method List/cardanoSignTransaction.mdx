@@ -1,9 +1,8 @@
 import Playground from "../../../../../../src/components/playground";
 
-
-## Cardano: Sign transaction
-Asks device to sign given transaction. User is asked to confirm all transaction
-details on Trezor.
+## Cardano：签署交易
+要求设备签署给定的交易。要求用户确认所有交易
+有关Trezor的详细信息。
 
 ES6
 ```javascript
@@ -17,33 +16,33 @@ OneKeyConnect.cardanoSignTransaction(params).then(function(result) {
 });
 ```
 
-### Notes
-**Unfortunately we are aware of the fact that currently at most ~14 inputs are supported per transaction. This should be resolved when the cardano app is updated to support transaction streaming. Meanwhile, a workaround is to send multiple smaller transactions containing less inputs.**
+### 注意
+**很遗憾，我们知道以下事实：每笔交易目前最多支持约14个输入。当cardano应用程序更新为支持交易流时，应该解决此问题。同时，一种解决方法是发送包含较少输入的多个较小事务。**
 
-**Also, each serialized transaction output size is currently limited to 512 bytes at Trezor firmware level. This limitation is a mitigation measure to prevent sending large (especially change) outputs containing many tokens that Trezor would not be able to spend given that currently the full Cardano transaction is held in-memory. Once Cardano-transaction signing is refactored to be streamed, this limit can be lifted.**
+**此外，在Trezor固件级别，每个序列化事务的输出大小当前限制为512字节。此限制是一种缓解措施，可以防止发送包含很多Trezor无法使用的令牌的大型(特别是更改)输出，因为当前完全将Cardano交易保存在内存中。将Cardano交易签名重构为流式传输后，就可以取消此限制。**
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L62-L109)
-* `inputs` — *obligatory* `Array` of [CardanoInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L61)
-* `outputs` - *obligatory* `Array` of [CardanoOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L76)
-* `fee` - *obligatory* `String`
-* `protocolMagic` - *obligatory* `Integer` 764824073 for Mainnet, 42 for Testnet
-* `networkId` - *obligatory* `Integer` 1 for Mainnet, 0 for Testnet
-* `ttl` - *optional* `String`
-* `validityIntervalStart` - *optional* `String`
-* `certificates` - *optional* `Array` of [CardanoCertificate](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L85)
-* `withdrawals` - *optional* `Array` of [CardanoWithdrawal](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L90)
-* `metadata` - *optional* `String`
+* inputs — [CardanoInput]的必填数组[https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L61)
+* [输出]-[CardanoOutput]的必填数组(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L76)
+*`fee`-*必需*`String`
+*`protocolMagic`-*必填*`Integer` 764824073(用于主网)，42(用于Testnet)
+*`networkId`-*必填*`Integer` 1代表Mainnet，0代表Testnet
+*`ttl`-*可选*`String`
+*`validityIntervalStart`-*可选*`String`
+*`certificates`-*可选* [CardanoCertificate]的数组(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L85)
+*`withdrawals`-*可选* [CardanoWithdrawal]的数组(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L90)
+*`元数据`-*可选*`字符串`
 
-### Stake pool registration certificate specifics
+### 权益池注册证书的详细信息
 
-Trezor supports signing of stake pool registration certificates as a pool owner. The transaction may contain external inputs (e.g. belonging to the pool operator) and Trezor is not able verify whether they are actually external or not, so if we allowed signing the transaction with a spending key, there is the risk of losing funds from an input that the user did not intend to spend from. Moreover there is the risk of inadvertedly signing a withdrawal in the transaction if there's any. To mitigate those risks, we introduced special validation rules for stake pool registration transactions which are validated on Trezor as well. The validation rules are the following:
+Trezor支持将权益池注册证书作为池所有者进行签名。该交易可能包含外部输入(例如，属于池操作员)，Trezor无法验证它们是否实际上是外部输入，因此，如果我们允许使用支出密钥对交易进行签名，则存在从输入中损失资金的风险用户不打算从中花费的钱。此外，如果有交易，有可能在交易中无意中签署了提款。为了减轻这些风险，我们为权益池注册交易引入了特殊的验证规则，该规则也已在Trezor上进行了验证。验证规则如下：
 
-1. The transaction must not contain any other certificates, not even another stake pool registration
-2. The transaction must not contain any withdrawals
-3. The transaction inputs must all be external, i.e. path must be either undefined or null
-4. Exactly one owner should be passed as a staking path and the rest of owners should be passed as bech32-encoded reward addresses
+1.交易中不得包含任何其他证书，甚至不得包含其他权益池注册
+2.交易不得包含任何提款
+3.交易输入必须全部是外部的，即path必须是undefined或null
+4.确切地应将一个所有者作为放样路径传递，将其余所有者作为bech32编码的奖励地址传递
 
 ### Example
 

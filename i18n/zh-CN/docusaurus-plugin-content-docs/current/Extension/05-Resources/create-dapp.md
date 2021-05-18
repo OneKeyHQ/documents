@@ -2,30 +2,30 @@
 sidebar_position: 1
 ---
 
-# Create A Simple Dapp
+＃创建一个简单的Dapp
 
-:::tip Tip
-We will be building this [app](https://metamask.github.io/test-dapp/)
+::: tip提示
+我们将构建此[app](https://metamask.github.io/test-dapp/)
 :::
 
-## Project Setup
+##项目设置
 
-Before you set up make sure you've visited and gone through our [Getting Started Guide](./getting-started.html#getting-started)
+设置之前，请确保您已访问并阅读了我们的《入门指南》(./getting-started.html#getting-started)
 
-Make sure you have:
+确保您具有：
 
-1. The [MetaMask Extension](https://metamask.io/download.html) downloaded.
-2. Node.js [Downloaded and Installed](https://nodejs.org/)
-3. Clone/Download the [Project Files](https://github.com/BboyAkers/simple-dapp-tutorial) from GitHub.
-4. Your favorite Text Editor or IDE installed. I personally like [Visual Studio Code](https://code.visualstudio.com/)
+1.下载了[MetaMask扩展名](https://metamask.io/download.html)。
+2. Node.js [下载并安装](https://nodejs.org/)
+   3.从GitHub克隆/下载[Project Files](https://github.com/BboyAkers/simple-dapp-tutorial)。
+   4.您最喜欢的文本编辑器或IDE已安装。我个人喜欢[Visual Studio Code](https://code.visualstudio.com/)
 
-### Open Project Folder
+###打开项目文件夹
 
-Open the project folder. Navigate to `start`->`index.html`, and look at the comment stating part 1. We will be using/building off of this entire section for the first part of the tutorial.
+打开项目文件夹。导航到“开始”->“ index.html”，然后看一下说明第1部分的注释。在本教程的第一部分中，我们将使用/构建整个部分。
 
-### Install Dependencies
+###安装依赖项
 
-Open a terminal and make sure your terminal is inside the base directory of the `start/` folder. Inside the folder, the files should look like this:
+打开一个终端，并确保您的终端位于“ start/”文件夹的基本目录内。在文件夹内，文件应如下所示：
 
 ```
 .
@@ -36,29 +36,29 @@ Open a terminal and make sure your terminal is inside the base directory of the 
 └─ README.md
 ```
 
-You'll have some more files but that's nothing to worry about!
+您将拥有更多文件，但这没什么好担心的！
 
-Open your terminal and navigate into the start folder. In this folder run:
+打开您的终端并导航到开始文件夹。在此文件夹中运行：
 
 ```bash
 npm install
 ```
 
-This will install all the necessary dependencies we'll need for our project. This will have created a `node_modules/` folder where all the dependencies are stored.
+这将安装我们项目所需的所有必需依赖项。这将创建一个`node_modules/`文件夹，其中存储了所有依赖项。
 
-Next run:
+下一轮：
 
 ```bash
 npm run serve
 ```
 
-Navigate to `http://localhost:9011`
+导航到http：//localhost：9011
 
-## Basic Action(Part 1)
+##基本动作(第1部分)
 
-Now let's navigate into the contract.js file inside your start folder.
+现在，让我们导航到开始文件夹中的contract.js文件。
 
-Your file should look something like this. Don't worry about lines 1-31.
+您的文件应如下所示。不用担心第1-31行。
 
 ```javascript
 const forwarderOrigin = 'http://localhost:9010';
@@ -69,35 +69,35 @@ const initialize = () => {
 window.addEventListener('DOMContentLoaded', initialize);
 ```
 
-As you can see here, as soon as the content in the DOM is loaded we are calling our initialize function. Now before we start writing any code we need to see what's on our task list for the first part of this app.
+如您在此处看到的，一旦DOM中的内容加载完毕，我们就会调用我们的initialize函数。现在，在我们开始编写任何代码之前，我们需要查看此应用程序第一部分的任务列表中的内容。
 
-What we'll cover in part one:
+我们将在第一部分中介绍以下内容：
 
-- [Connecting to the MetaMask Wallet](./create-dapp.html#connecting-to-the-metamask-wallet)
-- See our eth_accounts result
-- Display our network number
-- Display our ChainId
-- Display our Accounts
+-[连接到MetaMask钱包](./create-dapp.html＃connecting-to-the-metamask-wallet)
+-查看我们的eth_accounts结果
+-显示我们的网络号码
+-显示我们的ChainId
+-显示我们的帐户
 
-### Connecting to the MetaMask Wallet
+###连接到MetaMask钱包
 
-The first thing we need to do in our Dapp is to connect to our MetaMask Wallet.
+我们在Dapp中需要做的第一件事是连接到MetaMask电子钱包。
 
-1. We need to create a function to see if the MetaMask Chrome extension is installed
-2. If MetaMask is not installed we:
-   1. Change our `connectButton` to `Click here to install MetaMask`
-   2. When clicking that button it should take us to a page that will allow us to install the extension
-   3. Disable the button
-3. If MetaMask is installed we:
-   1. Change our `connectButton` to `Connect`
-   2. When clicking that button it should allow us to connect to our MetaMask wallet
-   3. Disable the button
+1.我们需要创建一个函数来查看是否已安装MetaMask Chrome扩展
+2.如果未安装MetaMask，我们：
+   1.将我们的“ connectButton”更改为“单击此处以安装MetaMask”
+   2.点击该按钮后，我们应该进入一个页面，该页面将允许我们安装扩展程序
+   3.禁用按钮
+3.如果安装了MetaMask，我们：
+   1.将我们的“ connectButton”更改为“ Connect”
+   2.单击该按钮时，它应该允许我们连接到我们的MetaMask钱包
+   3.禁用按钮
 
-Let's get to it!!
+让我们开始吧！
 
-### MetaMask Extension Check
+### MetaMask扩展检查
 
-In our code we need to connect to our button from our index.html
+在我们的代码中，我们需要从index.html连接到我们的按钮
 
 ```javascript
 const initialize = () => {
@@ -106,7 +106,7 @@ const initialize = () => {
 };
 ```
 
-Next we create a check function called `isMetaMaskInstalled` to see if the MetaMask extension is installed
+接下来，我们创建一个名为`isMetaMaskInstalled`的检查函数，以查看是否已安装MetaMask扩展
 
 ```javascript
 const initialize = () => {
@@ -122,8 +122,7 @@ const initialize = () => {
 };
 ```
 
-Next we need to create a `MetaMaskClientCheck` function to see if we need to change the button text based on if the MetaMask Extension is installed or not.
-
+接下来，我们需要创建一个“ MetaMaskClientCheck”函数，以查看是否需要根据是否已安装MetaMask Extension来更改按钮文本。
 ```javascript
 const initialize = () => {
   //Basic Actions Section
@@ -152,12 +151,12 @@ const initialize = () => {
 };
 ```
 
-### MetaMask "Not Installed" Dapp Flow
+### MetaMask“未安装” Dapp流
 
-In our code block where MetaMask isn't installed and we ask the user to `'Click here to install MetaMask!'`, we need to make it if our button is clicked we:
+在未安装MetaMask的代码块中，我们要求用户“单击此处安装MetaMask！”，如果单击按钮，则需要进行以下操作：
 
-1. Redirect the user to the proper page to install the extension
-2. Disable the button
+1.将用户重定向到正确的页面以安装扩展程序
+2.禁用按钮
 
 ```javascript
 const MetaMaskClientCheck = () => {
@@ -177,18 +176,18 @@ const MetaMaskClientCheck = () => {
 MetaMaskClientCheck();
 ```
 
-We've created a function that will be called whenever we click the button and disabled it. Let's dive into the `onClickInstall` function and create the logic inside of it.
+我们创建了一个函数，只要单击该按钮并将其禁用，就会调用该函数。 让我们深入研究`onClickInstall`函数并在其中创建逻辑。
 
-:::tip Tip
-For this part we will be using the '@metamask/onboarding' library we installed when we did the npm install. To learn more visit [here](https://github.com/MetaMask/metamask-onboarding#metamask-onboarding)
+::: tip提示
+对于这一部分，我们将使用在执行npm安装时安装的'@ metamask/onboarding'库。 要了解更多信息，请访问[here](https://github.com/MetaMask/metamask-onboarding#metamask-onboarding)
 :::
-Inside this function we want to:
+在此函数内，我们要：
 
-1. Change the text of the button to `Onboarding in progress`
-2. Disable the button
-3. Start the onboarding process
+1.将按钮的文本更改为“正在注册”
+2.禁用按钮
+3.开始入职流程
 
-Above your `MetaMaskClientCheck` function write/insert this code.
+在您的“ MetaMaskClientCheck”函数上方，编写/插入此代码。
 
 ```javascript
 //We create a new MetaMask onboarding object to use in our app
@@ -203,11 +202,11 @@ const onClickInstall = () => {
 };
 ```
 
-GREAT! We've now made it to where if our end user doesn't have the MetaMask Extension they can install it. When they refresh the page the ethereum window object will be there and we can get on to connecting their MetaMask wallet to our Dapp!
+伟大的！ 现在，如果最终用户没有MetaMask扩展，我们可以将其安装到哪里。 当他们刷新页面时，以太坊窗口对象将在那里，我们可以继续将其MetaMask钱包连接到我们的Dapp！
 
-### MetaMask "Installed" Dapp Flow
+### MetaMask“已安装” Dapp流
 
-Next we need to revisit our `MetaMaskClientCheck` function and do similar functionality of what we did in our "MetaMask Not Installed" block to now our "MetaMask Is Installed" block of code.
+接下来，我们需要重新访问`MetaMaskClientCheck`函数，并执行与“未安装MetaMask”块中相似的功能，直到现在我们的“已安装MetaMask”代码块。
 
 ```javascript
 const MetaMaskClientCheck = () => {
@@ -231,14 +230,14 @@ const MetaMaskClientCheck = () => {
 MetaMaskClientCheck();
 ```
 
-Now we've created a function that will be called whenever we click the button to trigger a connection to our wallet and disable the button. Next, let's dive into the `onClickConnect` function and build the logic inside of it.
+现在，我们创建了一个函数，只要单击按钮以触发与钱包的连接并禁用该按钮，就会调用该函数。 接下来，让我们进入`onClickConnect`函数并在其中构建逻辑。
 
-Inside this function we want to:
+在此函数内，我们要：
 
-1. Create an async function that will try to call the 'eth_requestAccounts' RPC method
-2. Catch any errors and log them to the console
+1.创建一个异步函数，该函数将尝试调用'eth_requestAccounts'RPC方法
+2.捕获所有错误并将其记录到控制台
 
-Under your `onClickInstall` function write/insert this code.
+在您的onClickInstall函数下，编写/插入此代码。
 
 ```javascript
 const onClickConnect = async () => {
@@ -252,11 +251,11 @@ const onClickConnect = async () => {
 };
 ```
 
-Great! Now once you click the button the MetaMask Extension will pop up and connect your wallet.
+伟大的！现在，一旦您单击按钮，MetaMask Extension就会弹出并连接您的钱包。
 
-### Get Ethereum Accounts
+### 获取以太坊账户
 
-After this what we'd like to do next is whenever we press the `eth_accounts` button we'd like to get our Ethereum account and display it.
+之后，接下来我们要做的就是每当我们按下eth_accounts按钮时，我们想要获取以太坊账户并显示它。
 
 ```javascript
 //Basic Actions Section
@@ -265,9 +264,9 @@ const getAccountsButton = document.getElementById('getAccounts');
 const getAccountsResult = document.getElementById('getAccountsResult');
 ```
 
-Now that we've grabbed our eth_accounts button and our paragraph field to display it in we now have to grab the data.
+现在，我们已经抓到了eth_accounts按钮，并且要在其中显示它的段落字段，现在我们必须抓取数据。
 
-Under our `MetaMaskClientCheck()` function let's write/insert the code below.
+在我们的“ MetaMaskClientCheck()”函数下，让我们编写/插入下面的代码。
 
 ```javascript
 //Eth_Accounts-getAccountsButton
@@ -279,4 +278,4 @@ getAccountsButton.addEventListener('click', async () => {
 });
 ```
 
-CONGRATULATIONS! We have just completed building out our Basic Actions functionality. Now on to our next step, showing our statuses.
+恭喜！我们刚刚完成了基本动作功能的构建。现在进入下一步，显示我们的状态。

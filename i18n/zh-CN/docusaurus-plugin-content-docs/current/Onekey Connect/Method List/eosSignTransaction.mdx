@@ -1,8 +1,8 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Eos: sign transaction
-Asks device to sign given transaction using the private key derived by given [BIP44 path](./path). User is asked to confirm all transaction
-details on Trezor.
+## Eos：签署交易
+要求设备使用由给定的[BIP44路径](./path)派生的私钥对给定的交易进行签名。 要求用户确认所有交易
+有关Trezor的详细信息。
 
 ES6
 ```javascript
@@ -16,11 +16,11 @@ OneKeyConnect.eosSignTransaction(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [Transaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/eos.js#L145-L149)
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*'transaction`-*'Transaction'的* Object *类型(强制性)(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/eos.js#L145-L149)
 
 ### Transfer example
 ```javascript

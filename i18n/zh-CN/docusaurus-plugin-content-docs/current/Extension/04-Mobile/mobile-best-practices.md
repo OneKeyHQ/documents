@@ -2,31 +2,31 @@
 sidebar_position: 3
 ---
 
-# Best Practices
+# 最佳实务
 
-If this page doesn't answer your question, please feel free to open an issue [in our repository](https://github.com/MetaMask/metamask-mobile).
+如果此页面未回答您的问题，请随时在[我们的存储库](https://github.com/MetaMask/metamask-mobile)中打开问题。
 
-## The Provider (window.ethereum)
+## 提供者(window.ethereum)
 
-:::tip Recent Breaking Provider Changes
-If you are an Ethereum application developer and are looking for information about our January 2021 provider API changes,
-please see our [Migration Guide](./provider-migration.html) for more details.
+::: tip最近的重大提供商更改
+如果您是以太坊应用程序开发人员，并且正在寻找有关我们2021年1月提供商API更改的信息，
+有关更多详细信息，请参见我们的[迁移指南](./provider-migration.html)。
 :::
 
-The [provider API](./ethereum-provider.html) is the same for both MetaMask Mobile and the desktop extension.
-However, the providers become available (i.e., are injected into the page) at different points in the page lifecycle.
+对于MetaMask Mobile和桌面扩展，[provider API](./ethereum-provider.html)是相同的。
+但是，提供者可以在页面生命周期的不同时间使用(即注入到页面中)。
 
-### Provider Availability
+### 提供程序可用性
 
-If you use [`@metamask/detect-provider`](https://npmjs.com/package/@metamask/detect-provider), there's nothing to worry about; it will reliably detect both the mobile and extension provider.
+如果您使用[`@ metamask/detect-provider`](https://npmjs.com/package/@metamask/detect-provider)，则无需担心。它将可靠地检测到移动提供商和扩展提供商。
 
-If you don't use the `detect-provider` package, you have to detect the mobile provider manually.
+如果您不使用`detect-provider`软件包，则必须手动检测移动提供商。
 
-The extension provider will always be available by the time your code is executed.
-Because of platform limitations, the mobile provider may not be injected until later in the page lifecycle.
-For this purpose, the MetaMask provider dispatches the event `ethereum#initialized` on `window` when it is fully initialized.
+在您执行代码时，扩展提供程序将始终可用。
+由于平台的限制，移动提供商可能要等到页面生命周期的后期才能注入。
+为此，MetaMask提供程序在完全初始化后，在“窗口”上调度事件“ ethereum＃initialized”。
 
-You can reliably detect both the mobile and extension provider with the following snippet.
+您可以使用以下代码段可靠地检测移动提供商和扩展提供商。
 
 ```javascript
 if (window.ethereum) {
@@ -52,76 +52,76 @@ function handleEthereum() {
 }
 ```
 
-## Using WalletConnect
+## 使用WalletConnect
 
-With WalletConnect, you can use MetaMask Mobile as a signer while using applications on another browser, desktop, or mobile application.
-Check out the [WalletConnect mobile linking docs](https://docs.walletconnect.org/mobile-linking) for more info.
+通过WalletConnect，您可以在其他浏览器，桌面或移动应用程序上使用应用程序时，将MetaMask Mobile用作签名者。
+查看[WalletConnect移动链接文档](https://docs.walletconnect.org/mobile-linking)了解更多信息。
 
-## Deeplinking
+## 深度链接
 
-:::tip Tip
-[Click here to create deeplinks for your application.](https://metamask.github.io/metamask-deeplinks/#)
+::: tip提示
+[单击此处为您的应用程序创建深层链接。](https://metamask.github.io/metamask-deeplinks/#)
 :::
 
-Deeplinks enable instant invocation of the user's preferred wallet application with correctly parameterized transactions.
+深度链接可通过正确参数化的交易即时调用用户的首选钱包应用程序。
 
-Only the (authenticated) user can confirm the transaction, and the wallet can be a web, mobile or desktop app.
+只有(经过身份验证的)用户可以确认交易，并且钱包可以是Web，移动或桌面应用程序。
 
-URLs embedded in QR codes, hyperlinks in web pages, emails, or chat messages enable robust, cross-application signaling between otherwise loosely coupled applications.
+嵌入在QR码中的URL，网页中的超链接，电子邮件或聊天消息可在松散耦合的应用程序之间实现强大的跨应用程序信令。
 
-You can use deeplinks for things like:
+您可以对以下内容使用深层链接：
 
-- Creating a URL so your users can open your app directly in MetaMask Mobile to interact with your application with their Ethereum account.
+-创建一个URL，以便您的用户可以直接在MetaMask Mobile中打开您的应用程序，以使用其以太坊帐户与您的应用程序进行交互。
 
-- Providing a one-click experience such that users can easily make payments to another account (with pre-filled parameters like recipient address, amount, network, etc.)
+-提供一键式体验，使用户可以轻松地向另一个帐户付款(具有预先填写的参数，例如收件人地址，金额，网络等)
 
-- Let your users make gasless and instant transactions with Connext payment channel requests
-  - This requires that the user opts in for the InstaPay experimental feature.
+-让您的用户通过Connext付款渠道请求进行无气且即时的交易
+-这要求用户选择使用InstaPay实验功能。
 
-## Website Testing and Debugging
+## 网站测试和调试
 
-Test and debug your web3 site using MetaMask Mobile on any iOS or Android device with ease.
+轻松在任何iOS或Android设备上使用MetaMask Mobile测试和调试您的web3网站。
 
-### Testing
+### 测试
 
-1. Configure your development server to run on your host machine's local IP address `192.168.x.x`, or `0.0.0.0`.
-2. Make sure your testing device is using the same WiFi connection as the machine hosting the server.
-3. In the MetaMask Mobile web browser, navigate to your website at `http://YOUR_LOCAL_IP:PORT`.
+1.将开发服务器配置为在主机的本地IP地址“ 192.168.x.x”或“ 0.0.0.0”上运行。
+2.确保测试设备使用与托管服务器的计算机相同的WiFi连接。
+3.在MetaMask Mobile Web浏览器中，导航到位于http：//YOUR_LOCAL_IP：PORT的网站。
 
-:::tip Tip
-If you're using an Android device, you must use `xip` in your url. Example: `http://192.168.x.x.xip.io:8000`
+::: tip提示
+如果您使用的是Android设备，则必须在网址中使用`xip`。范例：`http：//192.168.x.x.xip.io：8000`
 :::
 
-### Debugging
+### 调试
 
-:::warning Important
-For security purposes, web browser debugging on both iOS and Android will not work if the app was downloaded through the Apple App Store or Google Play Store.
-You must build the app locally from [MetaMask Mobile repository](https://github.com/MetaMask/metamask-mobile) and run it on a simulator or physical device.
+:::警告重要
+为了安全起见，如果该应用是通过Apple App Store或Google Play商店下载的，则无法在iOS和Android上进行Web浏览器调试。
+您必须从[MetaMask Mobile存储库](https://github.com/MetaMask/metamask-mobile)在本地构建应用程序，然后在模拟器或物理设备上运行它。
 :::
 
 #### iOS
 
-1. Open **Safari Preferences** -> **Advanced** -> enable the **Show Develop menu in menu bar** checkbox
-2. Open MetaMask Mobile in an iOS simulator or iOS device
-3. In the Safari menu bar -> **Develop** -> **[device name]** -> **[app name]** -> **[url - title]**
+1.打开** Safari首选项**-> **高级**->启用**在菜单栏中显示开发菜单**复选框
+2.在iOS模拟器或iOS设备中打开MetaMask Mobile
+3.在Safari菜单栏中-> **开发**-> ** [设备名称] **-> ** [应用名称] **-> ** [URL-标题] **
 
-:::tip Tip
-When debugging on a physical device, you must enable Web Inspector in your device's settings:
+::: tip提示
+在物理设备上调试时，必须在设备的设置中启用Web Inspector：
 
-**Settings** -> **Safari** -> **Advanced** -> **Web Inspector**
+**设置**-> ** Safari **-> **高级**-> ** Web检查器**
 :::
 
-#### Android
+＃＃＃＃ 安卓
 
-1. Open MetaMask Mobile in an Android emulator or Android device
-2. Open Google Chrome's DevTools -> menu (3 dots) -> **More tools** -> **Remote devices**
-   You may also navigate to `chrome://inspect` from Chrome to display the list of available devices for debugging
-3. Select your device on the left and click **Inspect** on the browser contents you'd like to inspect.
+1.在Android模拟器或Android设备中打开MetaMask Mobile
+2.打开Goog​​le Chrome浏览器的DevTools->菜单(3点)-> **更多工具**-> **远程设备**
+您也可以从Chrome浏览器访问“ chrome：//inspect”，以显示可用设备列表进行调试
+3.在左侧选择您的设备，然后在要检查的浏览器内容上单击“检查”。
 
-:::tip Tip
-When debugging on a physical device you must enable USB debugging in your device's settings:
+::: tip提示
+在物理设备上调试时，必须在设备的设置中启用USB调试：
 
-**Settings** -> **System** -> **About Phone** -> **Developer options** -> **Enable USB debugging**
+**设置**-> **系统**-> **关于手机**-> **开发人员选项**-> **启用USB调试**
 :::
 
-You can now debug MetaMask Mobile's browser contents just as you would on the web!
+现在，您可以像在网络上一样调试MetaMask Mobile的浏览器内容！

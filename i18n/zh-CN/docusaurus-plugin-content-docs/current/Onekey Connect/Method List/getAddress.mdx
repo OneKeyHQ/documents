@@ -1,7 +1,7 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Get address
-Display requested address derived by given BIP32 path on device and returns it to caller. User is asked to confirm the export on Trezor.
+## 获取地址
+在设备上显示由给定的BIP32路径派生的请求地址，并将其返回给呼叫者。要求用户确认Trezor上的出口。
 
 ES6
 ```javascript
@@ -15,32 +15,31 @@ OneKeyConnect.getAddress(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
-#### Exporting single address
-* `path` — *obligatory* `string | Array<number>` minimum length is `5`. [read more](./path)
-* `address` — *optional* `string` address for validation (read `Handle button request` section below)
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
-* `coin` - *optional* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
-* `crossChain` — *optional* `boolean` Advanced feature. Use it only if you are know what you are doing. Allows to generate address between chains. For example Bitcoin path on Litecoin network will display cross chain address in Litecoin format.
-* `multisig` - *optional* [MultisigRedeemScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L107), redeem script information (multisig addresses only)
-* `scriptType` - *optional* [InputScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L113), address script type
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个地址
+*`path` — *必需*`string | Array<number>`的最小长度为5。 [了解更多](./path)
+*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
+*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
+*`coin`-*可选*`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。如果未设置`coin`，API将尝试从`path`获取网络定义。
+*`crossChain` — *可选*`boolean`高级功能。仅当您知道自己在做什么时才使用它。允许在链之间生成地址。例如，莱特币网络上的比特币路径将以莱特币格式显示跨链地址。
+*`multisig`-*可选* [MultisigRedeemScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L107)，兑换脚本信息(仅适用于multisig地址)
+*`scriptType`-*可选* [InputScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L113)，地址脚本类型
 
-#### Exporting bundle of addresses
-* `bundle` - `Array` of Objects with `path`, `showOnTrezor`, `coin` and `crossChain` fields
+#### 导出地址捆绑
+*`bundle`-`Array`带`path`，`showOnTrezor`，`coin`和`crossChain`字段的对象
 
-#### Handle button request
-Since trezor-connect@6.0.4 there is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be triggered once the address is displayed on the device.
-You can handle this event and display custom UI inside of your application.
+#### 处理按钮请求
+从trezor-connect@6.0.4开始，就有可能处理UI.ADDRESS_VALIDATION事件，该事件一旦在设备上显示地址就会触发。
+您可以处理此事件并在应用程序内部显示自定义UI。
 
-If certain conditions are fulfilled popup will not be used at all:
-- the user gave permissions to communicate with Trezor
-- device is authenticated by pin/passphrase
-- application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
-- parameter `address` is set
-- parameter `showOnTrezor` is set to `true` (or not set at all)
-- application is requesting ONLY ONE(!) address
-
+如果满足某些条件，将完全不使用弹出窗口：
+-用户授予与Trezor通信的权限
+-设备通过密码验证
+-应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+-设置参数`address`
+-将参数showOnTrezor设置为true(或完全不设置)
+-应用程序仅请求一个(！)地址
 
 ### Example
 Display third address of first bitcoin account:

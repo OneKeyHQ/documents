@@ -2,23 +2,23 @@
 sidebar_position: 1
 ---
 
-## Installation
+## 安装
 
-Install library as npm module:
+将库安装为npm模块：
 ```shell
 npm install @onekeyhq/connect
 ```
-or
+或者
 ```shell
 yarn add @onekeyhq/connect
 ```
 
-Include library as inline script:
+包括库作为内联脚本：
 ```html
 <script src="https://connect.onekey.so/7/trezor-connect.js"></script>
 ```
 
-## Initialization
+## 初始化
 
 ES6
 ```javascript
@@ -35,10 +35,10 @@ Inline
 var OneKeyConnect = window.OneKeyConnect;
 ```
 
-## OneKey Connect Manifest
-Starting with Trezor Connect 7, we have implemented a new feature — Trezor Connect Manifest — which requires that you as a Trezor Connect integrator, to share your e-mail and application url with us.
-This provides us with the **ability to reach you in case of any required maintenance.**
-This subscription is mandatory. Trezor Connect raises an error that reads "Manifest not set. Read more at https://github.com/trezor/connect/blob/develop/docs/index.md" if manifest is not provided.
+## OneKey Connect清单
+从Trezor Connect 7开始，我们实现了一项新功能-Trezor Connect Manifest，该功能要求您作为Trezor Connect集成商，才能与我们共享您的电子邮件和应用程序URL。
+这为我们提供了**在需要任何维护的情况下与您联系的能力。**
+此订阅是强制性的。如果未提供清单，则Trezor Connect引发错误，显示为“未设置清单。更多信息，请访问https://github.com/trezor/connect/blob/develop/docs/index.md”。
 ```javascript
 OneKeyConnect.manifest({
     email: 'developer@xyz.com',
@@ -46,18 +46,18 @@ OneKeyConnect.manifest({
 })
 ```
 
-## API methods
+## API方法
 
-* [List of methods](Methods)
+* [方法列表](方法)
 
-## Handling events
+##处理事件
 
-* [Events](Events)
+* [事件](事件)
 
-## Running local version (develop/stable)
-- clone repository: `git clone git@github.com:OneKeyHQ/connect.git`
-- install node_modules: `yarn`
-- run localhost server: `yarn dev`
+##运行本地版本(开发/稳定)
+-克隆存储库：`git clone git@github.com：OneKeyHQ/connect.git`
+-安装node_modules：`yarn`
+-运行localhost服务器：`yarn dev`
 
 Initialize in project
 ```javascript
@@ -71,16 +71,15 @@ OneKeyConnect.init({
 })
 ```
 
-## Running local version (custom branch)
-In order to run a branch which isn't published to npm registry and this branch requires changes (mostly happened when new a method is added to OneKeyConnect interface)
+##运行本地版本(自定义分支)
+为了运行未发布到npm注册表的分支，并且此分支需要更改(大多数情况是在将新方法添加到OneKeyConnect接口时发生的)
 - git checkout `custom-feature-branch`
 - yarn build:npm
 
-Install builded lib in your project:
-#### Using `yarn link`
+在您的项目中安装构建的lib：
+####使用`yarn link`
 * cd ./npm && yarn link
-* Inside your project: `yarn install @onekeyhq/connect`
-#### Using local files
-* Inside your project: `yarn install @onekeyhq/connect@file:/[local-path-to-repository]/npm`
-
+*在您的项目中：`yarn install @onekeyhq/connect`
+####使用本地文件
+*在您的项目中：`yarn install @onekeyhq/connect@file:/[local-path-to-repository]/npm`
 

@@ -1,9 +1,9 @@
 import Playground from "../../../../../../src/components/playground";
 
 
-## Ethereum: Sign transaction
-Asks device to sign given transaction using the private key derived by given BIP32 path. User is asked to confirm all transaction
-details on Trezor.
+## 以太坊：签署交易
+要求设备使用由给定的BIP32路径派生的私钥对给定的交易进行签名。 要求用户确认所有交易
+有关Trezor的详细信息。
 
 ES6
 ```javascript
@@ -17,11 +17,11 @@ OneKeyConnect.ethereumSignTransaction(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [EthereumTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ethereum.js#L5) "0x" prefix for each field is optional
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+* [transaction]-* [EthereumTransaction]的对象类型强制(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ethereum.js#L5)的“ 0x”前缀 每个字段都是可选的
 
 ### Example
 ```javascript

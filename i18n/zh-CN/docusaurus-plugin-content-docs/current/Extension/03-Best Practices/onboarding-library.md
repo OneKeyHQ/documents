@@ -2,16 +2,16 @@
 sidebar_position: 4
 ---
 
-# Onboarding Library
+# 入职图书馆
 
-As an Ethereum enabled site developer, sending users offsite to install MetaMask presents challenges. Most notably, you must inform the user to return to your site and refresh their browser after the installation. Your site will detect the user's newly installed MetaMask extension only after that refresh. We at MetaMask care deeply about user experience, and we knew that this workflow needed to be improved.
+作为支持以太坊的站点开发人员，让用户离开现场安装MetaMask带来了挑战。最值得注意的是，您必须在安装后通知用户返回您的站点并刷新其浏览器。您的站点只有在刷新后才能检测到用户的新安装的MetaMask扩展。 MetaMask的我们深切关注用户体验，并且我们知道需要改进此工作流程。
 
-MetaMask now provides a [metamask-onboarding library](https://github.com/MetaMask/metamask-onboarding) designed to improve and simplify the onboarding experience. The new library exposes an API to initiate the onboarding process. In the process, it registers your site as the origin of the onboarding request. MetaMask will check for this origin after the user completes the onboarding flow. If it finds an origin, the final confirmation button of the MetaMask onboarding flow will indicate that the user will be redirected back to your site.
+MetaMask现在提供了一个[metamask-onboarding库](https://github.com/MetaMask/metamask-onboarding)，旨在改善和简化入门体验。新的库公开了一个API，以启动入职过程。在此过程中，它将您的站点注册为入职请求的来源。用户完成入职流程后，MetaMask将检查此来源。如果找到原点，则MetaMask入职流程的最终确认按钮将指示该用户将被重定向回您的站点。
 
-## Getting Started
+## 入门
 
-1. Install @metamask/onboarding using npm or yarn.
-2. Import the Onboarding Library or include it in your page.
+1. 使用npm或yarn安装@ metamask/onboarding。
+2. 导入Onboarding库或将其包含在您的页面中。
 
 ```javascript
 // As an ES6 module

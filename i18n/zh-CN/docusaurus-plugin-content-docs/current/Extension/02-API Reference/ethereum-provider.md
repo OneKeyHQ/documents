@@ -2,23 +2,23 @@
 sidebar_position: 1
 ---
 
-# Ethereum Provider API
+# 以太坊提供商API
 
-:::tip Tip Recommended Reading
-We recommend that all web3 site developers read the [Basic Usage](#basic-usage) section.
+::: tip提示推荐阅读
+我们建议所有web3网站开发人员阅读[基本用法](#基本用法)部分。
 :::
 
-:::tip Recent Breaking Provider Changes
-If you are an Ethereum application developer and are looking for information about our January 2021 provider API changes,
-please see our [Migration Guide](./provider-migration.html) for more details.
+::: tip最近的重大提供商更改
+如果您是以太坊应用程序开发人员，并且正在寻找有关我们2021年1月提供商API更改的信息，
+有关更多详细信息，请参见我们的[迁移指南](./provider-migration.html)。
 :::
 
-MetaMask injects a global API into websites visited by its users at `window.ethereum`.
-This API allows websites to request users' Ethereum accounts, read data from blockchains the user is connected to, and suggest that the user sign messages and transactions.
-The presence of the provider object indicates an Ethereum user.
-We recommend using [`@metamask/detect-provider`](https://npmjs.com/package/@metamask/detect-provider) to detect our provider, on any platform or browser.
+MetaMask将全局API注入其用户在“ window.ethereum”访问的网站中。
+该API允许网站请求用户的以太坊帐户，从用户连接的区块链中读取数据，并建议用户签署消息和交易。
+提供者对象的存在指示以太坊用户。
+我们建议在任何平台或浏览器上使用[`@metamask/detect-provider`](https://npmjs.com/package/@metamask/detect-provider) 检测我们的提供商。
 
-The Ethereum JavaScript provider API is specified by [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193).
+以太坊JavaScript提供程序API由[EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) 指定。
 
 ```javascript
 // This function detects most providers injected at window.ethereum
@@ -35,30 +35,30 @@ if (provider) {
 }
 ```
 
-## Table of Contents
+## 目录
 
 [[toc]]
 
-## Basic Usage
+## 基本用法
 
-For any non-trivial Ethereum web application — a.k.a. dapp, web3 site etc. — to work, you will have to:
+为了使任何不平凡的以太坊Web应用程序(也称为dapp，web3网站等)正常工作，您必须：
 
-- Detect the Ethereum provider (`window.ethereum`)
-- Detect which Ethereum network the user is connected to
-- Get the user's Ethereum account(s)
+-检测以太坊提供商(`window.ethereum`)
+-检测用户连接到哪个以太坊网络
+-获取用户的以太坊账户
 
-The snippet at the top of this page is sufficient for detecting the provider.
-You can learn how to accomplish the other two by reviewing the snippet in the [Using the Provider section](#using-the-provider).
+此页面顶部的代码段足以检测提供者。
+您可以通过查看[使用提供程序部分](#使用提供程序部分)中的代码片段来学习如何完成另外两个代码。
 
-The provider API is all you need to create a full-featured web3 application.
+创建完整功能的web3应用程序所需的全部是提供者API。
 
-That said, many developers use a convenience library, such as [ethers](https://www.npmjs.com/package/ethers), instead of using the provider directly.
-If you are in need of higher-level abstractions than those provided by this API, we recommend that you use a convenience library.
+就是说，许多开发人员使用便利库，例如[ethers](https://www.npmjs.com/package/ethers) ，而不是直接使用提供程序。
+如果您需要比此API提供的抽象更高的抽象，我们建议您使用便捷库。
 
-## Chain IDs
+## 链ID
 
-These are the IDs of the Ethereum chains that MetaMask supports by default.
-Consult [chainid.network](https://chainid.network) for more.
+这些是默认情况下MetaMask支持的以太坊链的ID。
+有关更多信息，请咨询[chainid.network](https://chainid.network).
 
 | Hex  | Decimal | Network                         |
 | ---- | ------- | ------------------------------- |
@@ -71,35 +71,35 @@ Consult [chainid.network](https://chainid.network) for more.
 | 0x80 | 128     | Kovan Test Network              |
 | 0x89 | 137     | Kovan Test Network              |
 
-## Properties
+## 特性
 
 ### ethereum.isMetaMask
 
-:::warning Note
-This property is non-standard. Non-MetaMask providers may also set this property to `true`.
+:::警告注意
+此属性是非标准的。非MetaMask提供者也可以将此属性设置为“ true”。
 :::
 
-`true` if the user has MetaMask installed.
+如果用户已安装MetaMask，则为true。
 
-## Methods
+## 方法
 
 ### ethereum.isConnected()
 
-:::tip Tip
-Note that this method has nothing to do with the user's accounts.
+::: tip提示
+请注意，此方法与用户帐户无关。
 
-You may often encounter the word "connected" in reference to whether a web3 site can access the user's accounts.
-In the provider interface, however, "connected" and "disconnected" refer to whether the provider can make RPC requests to the current chain.
+关于一个web3网站是否可以访问该用户的帐户，您可能经常遇到“已连接”一词。
+但是，在提供程序界面中，“已连接”和“已断开连接”是指提供程序是否可以向当前链发出RPC请求。
 :::
 
 ```typescript
 ethereum.isConnected(): boolean;
 ```
 
-Returns `true` if the provider is connected to the current chain, and `false` otherwise.
+如果提供程序已连接到当前链，则返回`true`，否则返回`false` 。
 
-If the provider is not connected, the page will have to be reloaded in order for connection to be re-established.
-Please see the [`connect`](#connect) and [`disconnect`](#disconnect) events for more information.
+如果未连接提供程序，则必须重新加载页面才能重新建立连接。
+有关更多信息，请参见[`connect`](#connect)和[`disconnect`](#disconnect)事件。
 
 ### ethereum.request(args)
 
@@ -112,19 +112,19 @@ interface RequestArguments {
 ethereum.request(args: RequestArguments): Promise<unknown>;
 ```
 
-Use `request` to submit RPC requests to Ethereum via MetaMask.
-It returns a `Promise` that resolves to the result of the RPC method call.
+使用`request`通过MetaMask将RPC请求提交给以太坊。
+它返回一个Promise，解析为RPC方法调用的结果。
 
-The `params` and return value will vary by RPC method.
-In practice, if a method has any `params`, they are almost always of type `Array<any>`.
+参数和返回值将因RPC方法而异。
+实际上，如果一个方法具有任何`params` ，则它们几乎总是类型为`Array<any>`。
 
-If the request fails for any reason, the Promise will reject with an [Ethereum RPC Error](#errors).
+如果请求由于任何原因而失败，则Promise将拒绝并返回[以太坊RPC错误](#errors)。
 
-MetaMask supports most standardized Ethereum RPC methods, in addition to a number of methods that may not be
-supported by other wallets.
-See the MetaMask [RPC API documentation](./rpc-api.html) for details.
+除了许多可能不支持的方法外，MetaMask还支持大多数标准化的以太坊RPC方法。
+其他钱包支持。
+有关详细信息，请参见MetaMask [RPC API documentation](./rpc-api.html) 。
 
-#### Example
+#### 示例
 
 ```javascript
 params: [
@@ -153,11 +153,11 @@ ethereum
   });
 ```
 
-## Events
+## 事件
 
-The MetaMask provider implements the [Node.js `EventEmitter`](https://nodejs.org/api/events.html) API.
-This sections details the events emitted via that API.
-There are innumerable `EventEmitter` guides elsewhere, but you can listen for events like this:
+MetaMask提供程序实现了[Node.js `EventEmitter`](https://nodejs.org/api/events.html) API。
+本节详细介绍了通过该API发出的事件。
+在其他地方有无数的`EventEmitter`指南，但是您可以监听这样的事件：
 
 ```javascript
 ethereum.on('accountsChanged', (accounts) => {
@@ -173,7 +173,7 @@ ethereum.on('chainChanged', (chainId) => {
 });
 ```
 
-### connect
+### 连接
 
 ```typescript
 interface ConnectInfo {
@@ -183,20 +183,20 @@ interface ConnectInfo {
 ethereum.on('connect', handler: (connectInfo: ConnectInfo) => void);
 ```
 
-The MetaMask provider emits this event when it first becomes able to submit RPC requests to a chain.
-We recommend using a `connect` event handler and the [`ethereum.isConnected()` method](#ethereum-isconnected) in order to determine when/if the provider is connected.
+当MetaMask提供程序首次能够将RPC请求提交到链时，它将发出此事件。
+我们建议使用connect事件处理程序和[ethereum.isConnected()方法](＃ethereum-isconnected)，以确定何时/是否连接了提供程序。
 
-### disconnect
+### 断开连接
 
 ```typescript
 ethereum.on('disconnect', handler: (error: ProviderRpcError) => void);
 ```
 
-The MetaMask provider emits this event if it becomes unable to submit RPC requests to any chain.
-In general, this will only happen due to network connectivity issues or some unforeseen error.
+如果MetaMask提供程序无法将RPC请求提交到任何链，它将发出此事件。
+通常，这只会由于网络连接问题或某些无法预料的错误而发生。
 
-Once `disconnect` has been emitted, the provider will not accept any new requests until the connection to the chain has been re-restablished, which requires reloading the page.
-You can also use the [`ethereum.isConnected()` method](#ethereum-isconnected) to determine if the provider is disconnected.
+一旦发出“ disconnect”，在重新建立与链的连接之前，提供者将不接受任何新请求，这需要重新加载页面。
+您还可以使用[`ethereum.isConnected()`方法](#ethereum-isconnected)来确定提供程序是否断开连接。
 
 ### accountsChanged
 
@@ -204,39 +204,39 @@ You can also use the [`ethereum.isConnected()` method](#ethereum-isconnected) to
 ethereum.on('accountsChanged', handler: (accounts: Array<string>) => void);
 ```
 
-The MetaMask provider emits this event whenever the return value of the `eth_accounts` RPC method changes.
-`eth_accounts` returns an array that is either empty or contains a single account address.
-The returned address, if any, is the address of the most recently used account that the caller is permitted to access.
-Callers are identified by their URL _origin_, which means that all sites with the same origin share the same permissions.
+每当`eth_accounts` RPC方法的返回值更改时，MetaMask提供程序都会发出此事件。
+eth_accounts返回一个为空或包含单个帐户地址的数组。
+返回的地址(如果有)是允许呼叫者访问的最近使用的帐户的地址。
+呼叫者通过其URL _origin_进行标识，这意味着所有具有相同来源的站点都共享相同的权限。
 
-This means that `accountsChanged` will be emitted whenever the user's exposed account address changes.
+这意味着，每当用户的公开帐户地址发生更改时，就会发出“ accountsChanged”。
 
-:::tip Tip
-We plan to allow the `eth_accounts` array to be able to contain multiple addresses in the near future.
+:::tip 提示
+我们计划允许eth_accounts数组在不久的将来能够包含多个地址。
 :::
 
 ### chainChanged
 
-:::tip Tip
-See the [Chain IDs section](#chain-ids) for MetaMask's default chains and their chain IDs.
+:::tip 提示
+有关MetaMask的默认链及其链ID，请参见[链ID部分](#chain-ids)。
 :::
 
 ```typescript
 ethereum.on('chainChanged', handler: (chainId: string) => void);
 ```
 
-The MetaMask provider emits this event when the currently connected chain changes.
+当前连接的链发生更改时，MetaMask提供程序将发出此事件。
 
-All RPC requests are submitted to the currently connected chain.
-Therefore, it's critical to keep track of the current chain ID by listening for this event.
+所有RPC请求都将提交到当前连接的链。
+因此，通过侦听此事件来跟踪当前链ID是至关重要的。
 
-We _strongly_ recommend reloading the page on chain changes, unless you have good reason not to.
+除非您有充分的理由，否则我们强烈建议您重新加载有关链式更改的页面。
 
 ```javascript
 ethereum.on('chainChanged', (_chainId) => window.location.reload());
 ```
 
-### message
+### 信息
 
 ```typescript
 interface ProviderMessage {
@@ -247,15 +247,15 @@ interface ProviderMessage {
 ethereum.on('message', handler: (message: ProviderMessage) => void);
 ```
 
-The MetaMask provider emits this event when it receives some message that the consumer should be notified of.
-The kind of message is identified by the `type` string.
+当MetaMask提供程序收到一些应通知消费者的消息时，它将发出此事件。
+消息的类型由`type`字符串标识。
 
-RPC subscription updates are a common use case for the `message` event.
-For example, if you create a subscription using `eth_subscribe`, each subscription update will be emitted as a `message` event with a `type` of `eth_subscription`.
+RPC订阅更新是`message`事件的常见用例。
+例如，如果您使用“ eth_subscribe”创建订阅，则每个订阅更新将作为带有“ eth_subscription”类型的“ message”事件发出。
 
-## Errors
+## 错误
 
-All errors thrown or returned by the MetaMask provider follow this interface:
+MetaMask提供程序引发或返回的所有错误均遵循以下界面：
 
 ```typescript
 interface ProviderRpcError extends Error {
@@ -265,43 +265,43 @@ interface ProviderRpcError extends Error {
 }
 ```
 
-The [`ethereum.request(args)` method](#ethereum-request-args) throws errors eagerly.
-You can often use the error `code` property to determine why the request failed.
-Common codes and their meaning include:
+[`ethereum.request(args)`方法](#ethereum-request-args)急切地抛出错误。
+您通常可以使用错误的code属性来确定请求失败的原因。
+常用代码及其含义包括：
 
 - `4001`
-  - The request was rejected by the user
+  - 请求被用户拒绝
 - `-32602`
-  - The parameters were invalid
+  - 参数无效
 - `-32603`
-  - Internal error
+  - 内部错误
 
-For the complete list of errors, please see [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193#provider-errors) and [EIP-1474](https://eips.ethereum.org/EIPS/eip-1474#error-codes).
+有关错误的完整列表，请参阅[EIP-1193](https://eips.ethereum.org/EIPS/eip-1193#provider-errors) 和[EIP-1474](https：//eips.ethereum。 org/EIPS/eip-1474＃error-codes)。
 
-:::tip Tip
-The [`eth-rpc-errors`](https://npmjs.com/package/eth-rpc-errors) package implements all RPC errors thrown by the MetaMask provider, and can help you identify their meaning.
+:::tip 提示
+[`eth-rpc-errors`](https://npmjs.com/package/eth-rpc-errors) 包实现了MetaMask提供程序抛出的所有RPC错误，并可以帮助您确定其含义。
 :::
 
-## Using the Provider
+## 使用提供者
 
-This snippet explains how to accomplish the three most common requirements for web3 sites:
+此代码段说明了如何满足web3网站的三个最常见的要求：
 
-- Detect the Ethereum provider (`window.ethereum`)
-- Detect which Ethereum network the user is connected to
-- Get the user's Ethereum account(s)
+-检测以太坊提供商(`window.ethereum`)
+-检测用户连接到哪个以太坊网络
+-获取用户的以太坊账户
 
 <<< @/docs/snippets/handleProvider.js
 
-## Experimental API
+## 实验性API
 
-:::warning
-There is no guarantee that the methods and properties defined in this section will remain stable.
-Use it at your own risk.
+:::警告
+不能保证本节中定义的方法和属性将保持稳定。
+需要您自担风险使用它。
 :::
 
-We expose some experimental, MetaMask-specific methods under the `ethereum._metamask` property.
+我们在`ethereum._metamask`属性下公开了一些MetaMask特定的实验方法。
 
-## Experimental Methods
+## 实验方法
 
 ### ethereum.\_metamask.isUnlocked()
 
@@ -309,73 +309,73 @@ We expose some experimental, MetaMask-specific methods under the `ethereum._meta
 ethereum._metamask.isUnlocked(): Promise<boolean>;
 ```
 
-This method returns a `Promise` that resolves to a `boolean` indicating if MetaMask is unlocked by the user.
-MetaMask must be unlocked in order to perform any operation involving user accounts.
-Note that this method does not indicate if the user has exposed any accounts to the caller.
+该方法返回一个Promise，该Promise解析为一个布尔值，指示用户是否已解锁MetaMask。
+必须解锁MetaMask才能执行涉及用户帐户的任何操作。
+请注意，此方法不指示用户是否向呼叫者公开了任何帐户。
 
-## Legacy API
+##旧版API
 
-:::warning
-You should **never** rely on any of these methods, properties, or events in practice.
+:::警告
+在实践中，您绝对不应“依赖”这些方法，属性或事件中的任何一个。
 :::
 
-This section documents our legacy provider API.
-MetaMask only supported this API before the provider API was standardized via [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) in 2020.
-Because of this, you may find web3 sites that use this API, or other providers that implement it.
+本部分记录了我们的旧版提供程序API。
+在2020年通过[EIP-1193](https://eips.ethereum.org/EIPS/eip-1193)对提供商API进行标准化之前，MetaMask仅支持此API。
+因此，您可能会发现使用此API的web3站点，或其他实现此API的提供程序。
 
-## Legacy Properties
+##旧版属性
 
-### ethereum.chainId (DEPRECATED)
+### ethereum.chainId(已弃用)
 
-:::warning
-This property is non-standard, and therefore deprecated.
+:::警告
+此属性是非标准的，因此已弃用。
 
-If you need to retrieve the current chain ID, use [`ethereum.request({ method: 'eth_chainId' })`](#ethereum-request-args).
-See also the [`chainChanged`](#chainchanged) event for more information about how to handle chain IDs.
+如果您需要检索当前的链ID，请使用[`ethereum.request({方法：'eth_chainId'})`](＃ethereum-request-args)。
+另请参阅[`chainChanged`](＃chainchanged)事件以获取有关如何处理链ID的更多信息。
 
-The value of this property can change at any time.
+此属性的值可以随时更改。
 :::
 
-A hexadecimal string representing the current chain ID.
+代表当前链ID的十六进制字符串。
 
-### ethereum.networkVersion (DEPRECATED)
+### ethereum.networkVersion(已弃用)
 
-:::warning
-You should always prefer the chain ID over the network ID.
+:::警告
+与网络ID相比，您应该始终首选链ID。
 
-If you must get the network ID, use [`ethereum.request({ method: 'net_version' })`](#ethereum-request-args).
+如果必须获取网络ID，请使用[`ethereum.request({方法：'net_version'})`](＃ethereum-request-args)。
 
-The value of this property can change at any time.
+此属性的值可以随时更改。
 :::
 
-A decimal string representing the current blockchain's network ID.
+代表当前区块链网络ID的十进制字符串。
 
-### ethereum.selectedAddress (DEPRECATED)
+### ethereum.selectedAddress(已弃用)
 
-:::warning
-Use [`ethereum.request({ method: 'eth_accounts' })`](#ethereum-request-args) instead.
+:::警告
+请改用[`ethereum.request({方法：'eth_accounts'})`](＃ethereum-request-args)。
 
-The value of this property can change at any time.
+此属性的值可以随时更改。
 :::
 
-Returns a hexadecimal string representing the user's "currently selected" address.
+返回代表用户“当前选定”地址的十六进制字符串。
 
-The "currently selected" address is the first item in the array returned by `eth_accounts`.
+“当前选定的”地址是`eth_accounts`返回的数组中的第一项。
 
-## Legacy Methods
+##传统方法
 
-### ethereum.enable() (DEPRECATED)
+### ethereum.enable()(已弃用)
 
-:::warning
-Use [`ethereum.request({ method: 'eth_requestAccounts' })`](#ethereum-request-args) instead.
+:::警告
+请改用[`ethereum.request({方法：'eth_requestAccounts'})`](＃ethereum-request-args)。
 :::
 
-Alias for `ethereum.request({ method: 'eth_requestAccounts' })`.
+ethereum.request({方法：'eth_requestAccounts'})的别名。
 
-### ethereum.sendAsync() (DEPRECATED)
+### ethereum.sendAsync()(不推荐使用)
 
-:::warning
-Use [`ethereum.request()`](#ethereum-request-args) instead.
+:::警告
+请改用[`ethereum.request()`](＃ethereum-request-args)。
 :::
 
 ```typescript
@@ -399,14 +399,14 @@ type JsonRpcCallback = (error: Error, response: JsonRpcResponse) => unknown;
 ethereum.sendAsync(payload: JsonRpcRequest, callback: JsonRpcCallback): void;
 ```
 
-This is the ancestor of `ethereum.request`. It only works for JSON-RPC methods, and takes a JSON-RPC request payload object and an error-first callback function as its arguments.
+这是ethereum.request的祖先。它仅适用于JSON-RPC方法，并将JSON-RPC请求有效负载对象和错误优先的回调函数作为其参数。
 
-See the [Ethereum JSON-RPC API](https://eips.ethereum.org/EIPS/eip-1474) for details.
+有关详细信息，请参见[以太坊JSON-RPC API](https://eips.ethereum.org/EIPS/eip-1474)。
 
-### ethereum.send() (DEPRECATED)
+### ethereum.send()(已弃用)
 
-:::warning
-Use [`ethereum.request()`](#ethereum-request-args) instead.
+：：：警告
+请改用[`ethereum.request()`](＃ethereum-request-args)。
 :::
 
 ```typescript
@@ -416,10 +416,10 @@ ethereum.send(
 ): Promise<JsonRpcResponse> | void;
 ```
 
-This method behaves unpredictably and should be avoided at all costs.
-It is essentially an overloaded version of [`ethereum.sendAsync()`](#ethereum-sendasync-deprecated).
+此方法的行为不可预测，应不惜一切代价避免使用。
+它实际上是[`ethereum.sendAsync()`](＃ethereum-sendasync-deprecated)的重载版本。
 
-`ethereum.send()` can be called in three different ways:
+`ethereum.send()`可以通过三种不同的方式调用：
 
 ```typescript
 // 1.
@@ -432,61 +432,61 @@ ethereum.send(method: string, params?: Array<unknown>): Promise<JsonRpcResponse>
 ethereum.send(payload: JsonRpcRequest): unknown;
 ```
 
-You can think of these signatures as follows:
+您可以想到这些签名如下：
 
-1. This signature is exactly like `ethereum.sendAsync()`
+1.该签名与`ethereum.sendAsync()`完全一样。
 
-2. This signature is like an async `ethereum.sendAsync()` with `method` and `params` as arguments, instead of a JSON-RPC payload and callback
+2.这个签名就像一个异步的“ ethereum.sendAsync()”，以“ method”和“ params”作为参数，而不是JSON-RPC负载和回调
 
-3. This signature enables you to call the following RPC methods synchronously:
+3.此签名使您可以同步调用以下RPC方法：
 
    - `eth_accounts`
    - `eth_coinbase`
    - `eth_uninstallFilter`
    - `net_version`
 
-## Legacy Events
+## 传统活动
 
-### close (DEPRECATED)
+### 关闭(已弃用)
 
-:::warning
-Use [`disconnect`](#disconnect) instead.
+:::警告
+使用[`disconnect`](＃disconnect)代替。
 :::
 
 ```typescript
 ethereum.on('close', handler: (error: Error) => void);
 ```
 
-### chainIdChanged (DEPRECATED)
+### chainIdChanged(不建议使用)
 
-:::warning
-Use [`chainChanged`](#chainchanged) instead.
+:::警告
+使用[`chainChanged`](＃chainchanged)代替。
 :::
 
-Misspelled alias of [`chainChanged`](#chainchanged).
+[`chainChanged`](#chainchanged)的别名拼写错误。
 
 ```typescript
 ethereum.on('chainChanged', handler: (chainId: string) => void);
 ```
 
-### networkChanged (DEPRECATED)
+### networkChanged(已弃用)
 
-:::warning
-Use [`chainChanged`](#chainchanged) instead.
+:::警告
+使用[`chainChanged`](＃chainchanged)代替。
 :::
 
-Like [`chainChanged`](#chainchanged), but with the `networkId` instead.
-Network IDs are insecure, and were effectively deprecated in favor of chain IDs by [EIP-155](https://eips.ethereum.org/EIPS/eip-155).
-Avoid using them unless you know what you are doing.
+像[`chainChanged`](＃chainchanged)一样，但是带有`networkId`。
+网络ID不安全，[EIP-155](https://eips.ethereum.org/EIPS/eip-155)已有效地弃用了链ID。
+除非您知道自己在做什么，否则请避免使用它们。
 
 ```typescript
 ethereum.on('networkChanged', handler: (networkId: string) => void);
 ```
 
-### notification (DEPRECATED)
+### 通知(已弃用)
 
-:::warning
-Use [`message`](#message) instead.
+:::警告
+使用[`message`](＃message)代替。
 :::
 
 ```typescript

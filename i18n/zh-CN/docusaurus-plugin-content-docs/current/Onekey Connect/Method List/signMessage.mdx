@@ -1,8 +1,8 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Sign message
+## 签署消息
 
-Asks device to sign a message using the private key derived by given BIP32 path.
+要求设备使用由给定的BIP32路径派生的私钥对消息签名。
 
 ES6
 ```javascript
@@ -16,13 +16,13 @@ OneKeyConnect.signMessage(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L131-L135)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `message` - *obligatory* `string`
-* `coin` - *optional* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
-* `hex` - *optional* `boolean` convert message from hex
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`message`-*强制*`string`
+*`coin`-* optional *`string`确定在[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。 可以使用硬币“快捷方式”，“名称”或“标签”。 如果未设置`coin`，API将尝试从`path`获取网络定义。
+*`hex`-*可选*`boolean`转换来自十六进制的消息
 
 ### Example
 ```javascript

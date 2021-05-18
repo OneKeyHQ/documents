@@ -1,8 +1,8 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Get account info
+## 获取帐户信息
 
-Gets an info of specified account.
+获取指定帐户的信息。
 
 ES6
 ```javascript
@@ -16,43 +16,43 @@ OneKeyConnect.getAccountInfo(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
-#### Using path
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 使用路径
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`coin` — *必需*`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。
 
-#### Using public key
-* `descriptor` — *obligatory* `string` public key of account
-* `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+#### 使用公钥
+*`descriptor`-*必填*`string'帐户公钥
+*`coin` — *必需*`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。
 
-#### Using discovery
-BIP-0044 account discovery is performed and user is presented with a list of accounts. Result is returned after account selection.
-- `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+#### 使用发现
+BIP-0044帐户发现被执行，并且向用户显示一个帐户列表。选择帐户后返回结果。
+-`coin` — *必需*`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。
 
-### Other optional params
-params are forwarded to [BlockBook backend](https://github.com/trezor/blockbook/blob/master/docs/api.md#api-v2) using `@onekeyhq/blockchain-link` package
+### 其他可选参数
+使用`@ onekeyhq/blockchain-link`包将参数转发到[BlockBook后端](https://github.com/trezor/blockbook/blob/master/docs/api.md#api-v2)
 
 
-* `details` — specifies level of details returned by request
-    - `basic` (default) return only account balances, without any derived addresses or transaction history
-    - `tokens` - response with derived addresses (Bitcoin-like accounts) and ERC20 tokens (Ethereum-like accounts), subject of `tokens` param
-    - `tokenBalances` - same as `tokens` with balances, subject of `tokens` param
-    - `txs` - `tokenBalances` + complete account transaction history
+*`details`-指定请求返回的详细信息级别
+-`basic`(默认)仅返回帐户余额，不包含任何派生地址或交易记录
+-`tokens`-带有派生地址(类似于比特币的帐户)和ERC20令牌(类似于以太坊的帐户)的响应，这是“ tokens”参数的主题
+-`tokenBalances`-与带有余额的`tokens`相同，属于`tokens`参数的主题
+-`txs`-`tokenBalances` +完整的帐户交易记录
 
-* `tokens` — specifies which tokens (xpub addresses) are returned by the request (default nonzero)
-    - `nonzero` - (Default) return only addresses with nonzero balance
-    - `used` - return addresses with at least one transaction
-    - `derived` - return all derived addresses
+*`tokens`-指定请求返回哪些令牌(xpub地址)(默认为非零)
+-`nonzero`-(默认)仅返回余额为非零的地址
+-`used`-至少进行一次交易的返回地址
+-`derived`-返回所有派生的地址
 
-* `page` — `number` transaction history page index, subject of `details: txs`
-* `pageSize` — `number` transaction history page size, subject of `details: txs`
-* `from` — `number` transaction history from block filter, subject of `details: txs`
-* `to` — `number` transaction history to block filter, subject of `details: txs`
-* `gap` — `number` address derivation gap size, subject of `details: tokens`
-* `contractFilter` — `string` Ethereum-like accounts only: get ERC20 token info and balance
-* `marker` — `{ ledger: number, seq: number }` XRP accounts only, transaction history page marker
-* `defaultAccountType` — `'normal' | 'segwit' | 'legacy'` Bitcoin-like accounts only: specify which account group is displayed as default in popup, subject of `Using discovery`
+*`page` —`number`交易历史页索引，`subject：txs`的主题
+*`pageSize`-`number`交易历史页面大小，`subject：txs`
+*`from` —来自块过滤器的“ number”交易历史记录，主题为“详细信息：txs”
+*`to`-`number`交易历史记录以阻止过滤器，`subject：txs`
+*`gap` —`number`地址派生间隙大小，`details：令牌`的主题
+*`contractFilter` —`string`仅以太坊式账户：获取ERC20代币信息和余额
+*`marker` —`{分类帐：数字，seq：数字}`仅XRP帐户，交易历史记录页面标记
+*`defaultAccountType`-''normal'| 'segwit'|仅限“传统”类比特币帐户：指定弹出式窗口中默认使用哪个帐户组作为“使用发现”的主题
 
 ### Example
 Get info about first bitcoin account

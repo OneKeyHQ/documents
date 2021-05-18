@@ -1,8 +1,8 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Get public key
-Retrieves BIP32 extended public derived by given BIP32 path.
-User is presented with a description of the requested key and asked to confirm the export.
+## 获取公钥
+检索由给定的BIP32路径派生的BIP32扩展的public。
+向用户显示所请求密钥的描述，并要求其确认导出。
 
 ES6
 ```javascript
@@ -16,15 +16,15 @@ OneKeyConnect.getPublicKey(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
-#### Exporting single public key
-* `path` — *obligatory* `string | Array<number>` minimum length is `1`. [read more](./path)
-* `coin` - *optional* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
-* `crossChain` — *optional* `boolean` Advanced feature. Use it only if you are know what you are doing. Allows to generate address between chains. For example Bitcoin path on Litecoin network will display cross chain address in Litecoin format.
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个公钥
+*`path` — *必需*`string | Array<number>`的最小长度为1。 [了解更多](./path)
+*`coin`-*可选*`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。如果未设置`coin`，API将尝试从`path`获取网络定义。
+*`crossChain` — *可选*`boolean`高级功能。仅当您知道自己在做什么时才使用它。允许在链之间生成地址。例如，莱特币网络上的比特币路径将以莱特币格式显示跨链地址。
 
-#### Exporting bundle of public keys
-- `bundle` - `Array` of Objects with `path`, `coin` and `crossChain` fields
+#### 导出公钥包
+-`bundle`-`Array`对象的`path`，`coin`和`crossChain`字段
 
 ### Example
 Return public key of fifth bitcoin account:

@@ -2,17 +2,17 @@
 sidebar_position: 2
 ---
 
-# Registering Tokens with Users
+# 向用户注册令牌
 
-When a user opens their MetaMask, they are shown a variety of assets, including tokens. By default, MetaMask auto-detects some major popular tokens and auto-displays them, but for most tokens, the user will need to add the token themselves.
+当用户打开其MetaMask时，会向他们显示各种资产，包括令牌。 默认情况下，MetaMask自动检测一些主要的流行令牌并自动显示它们，但是对于大多数令牌，用户将需要自己添加令牌。
 
-While this is possible using our UI with the `Add Token` button, that process can be cumbersome, and involves the user interacting with contract addresses, and is very error prone.
+虽然可以使用带有“添加令牌”按钮的UI来实现，但该过程可能很麻烦，并且涉及用户与合同地址的交互，并且很容易出错。
 
-You can greatly improve the security and experience of users adding your token to their MetaMask by taking advantage of the `wallet_watchAsset` API as defined in [EIP-747](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-747.md).
+您可以利用[EIP-747](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-747.md)。
 
-## Code-free Example
+##无代码示例
 
-Here are a couple live web applications that let you enter your token details, and then share them with a simple web link:
+以下是几个实时Web应用程序，可让您输入令牌详细信息，然后通过简单的Web链接共享它们：
 
 - [Watch Token](https://vittominacori.github.io/watch-token/create.html)
 - [Add Token App](https://metamask.github.io/Add-Token/#edit)

@@ -1,7 +1,7 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Stellar: get address
-Display requested address on device and returns it to caller. User is presented with a description of the requested key and asked to confirm the export.
+## 恒星：获取地址
+在设备上显示请求的地址，并将其返回给呼叫者。向用户显示所请求密钥的描述，并要求其确认导出。
 
 ES6
 ```javascript
@@ -15,27 +15,27 @@ OneKeyConnect.stellarGetAddress(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
-#### Exporting single address
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `address` — *optional* `string` address for validation (read `Handle button request` section below)
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个地址
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
+*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
 
-#### Exporting bundle of addresses
-* `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+#### 导出地址捆绑
+*`bundle`-`array`具有`path`和`showOnTrezor`字段的对象
 
-#### Handle button request
-Since trezor-connect@6.0.4 there is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be triggered once the address is displayed on the device.
-You can handle this event and display custom UI inside of your application.
+#### 处理按钮请求
+从trezor-connect@6.0.4开始，就有可能处理UI.ADDRESS_VALIDATION事件，该事件一旦在设备上显示地址就会触发。
+您可以处理此事件并在应用程序内部显示自定义UI。
 
-If certain conditions are fulfilled popup will not be used at all:
-- the user gave permissions to communicate with Trezor
-- device is authenticated by pin/passphrase
-- application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
-- parameter `address` is set
-- parameter `showOnTrezor` is set to `true` (or not set at all)
-- application is requesting ONLY ONE(!) address
+如果满足某些条件，将完全不使用弹出窗口：
+-用户授予与Trezor通信的权限
+-设备通过密码验证
+-应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+-设置参数`address`
+-将参数showOnTrezor设置为true(或完全不设置)
+-应用程序仅请求一个(！)地址
 
 
 ### Example

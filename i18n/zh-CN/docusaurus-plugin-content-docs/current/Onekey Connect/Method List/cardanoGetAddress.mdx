@@ -1,7 +1,7 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Cardano: get address
-Display requested address derived by given [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) path on device and returns it to caller. User is presented with a description of the requested key and asked to confirm the export on Trezor.
+## Cardano：获取地址
+在设备上显示由给定的[BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf)路径派生的请求地址，并将其返回给调用方。向用户显示所请求密钥的描述，并要求确认Trezor上的导出。
 
 ES6
 ```javascript
@@ -15,38 +15,38 @@ OneKeyConnect.cardanoGetAddress(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
-#### Exporting single address
-* `addressParameters` — *obligatory* see description below
-* `address` — *optional* `string` address for validation (read `Handle button request` section below)
-* `protocolMagic` - *obligatory* `Integer` 764824073 for Mainnet, 42 for Testnet
-* `networkId` - *obligatory* `Integer` 1 for Mainnet, 0 for Testnet
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
+### 参数
+[****可选的通用参数****](./commonParams)
+####导出单个地址
+*`addressParameters`-*必填*，请参见下面的描述
+*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
+*`protocolMagic`-*必填*`Integer` 764824073(用于主网)，42(用于Testnet)
+*`networkId`-*必填*`Integer` 1代表Mainnet，0代表Testnet
+*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
 
-#### Exporting bundle of addresses
-* `bundle` - `Array` of Objects with single address fields
+#### 导出地址捆绑
+*`bundle`-具有单个地址字段的对象数组
 
-#### Address Parameters
+#### 地址参数
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L37-L43)
-* `addressType` - *obligatory* `CardanoAddressType`/`number` - you can use the flow `CARDANO.ADDRESS_TYPE` object or typescript `CardanoAddressType` enum. Supports Base, Pointer, Enterprise, Byron and Reward address types.
-* `path` — *obligatory* `string | Array<number>` minimum length is `5`. [read more](./path)
-* `stakingPath` — *optional* `string | Array<number>` minimum length is `5`. [read more](./path) Used for base address derivation
-* `stakingKeyHash` - *optional* `string` hex string of staking key hash. Used for base address derivation (as an alternative to `stakingPath`)
-* `certificatePointer` - *optional* `CardanoCertificatePointer` object. Must contain `number`s `blockIndex`, `txIndex` and `certificateIndex`. ([flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L31-L35)) Used for pointer address derivation. [read more about pointer address](https://hydra.iohk.io/build/2006688/download/1/delegation_design_spec.pdf#subsubsection.3.2.2)
+*`addressType`-*必填*`CardanoAddressType`/`number`-您可以使用流`CARDANO.ADDRESS_TYPE`对象或打字稿`CardanoAddressType`枚举。支持基本，指针，企业，拜伦和奖励地址类型。
+*`path` — *必需*`string | Array<number>`的最小长度为5。 [了解更多](./path)
+*`stakingPath` — *可选*`string | Array<number>`的最小长度为5。 [更多](./path)用于基地址派生
+*`stakingKeyHash`-*可选*`string`十六进制密钥的字符串。用于基地址派生(作为`stakingPath`的替代)
+*`certificatePointer`-*可选*`CardanoCertificatePointer`对象。必须包含数字“ blockIndex”，“ txIndex”和“ certificateIndex”。 ([flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L31-L35))用于指针地址派生。 [了解有关指针地址的更多信息](https://hydra.iohk.io/build/2006688/download/1/delegation_design_spec.pdf#subsubsection.3.2.2)
 
 
-#### Handle button request
-Since trezor-connect@6.0.4 there is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be triggered once the address is displayed on the device.
-You can handle this event and display custom UI inside of your application.
+#### 处理按钮请求
+从trezor-connect@6.0.4开始，就有可能处理UI.ADDRESS_VALIDATION事件，该事件一旦在设备上显示地址就会触发。
+您可以处理此事件并在应用程序内部显示自定义UI。
 
-If certain conditions are fulfilled popup will not be used at all:
-- the user gave permissions to communicate with Trezor
-- device is authenticated by pin/passphrase
-- application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
-- parameter `address` is set
-- parameter `showOnTrezor` is set to `true` (or not set at all)
-- application is requesting ONLY ONE(!) address
+如果满足某些条件，将完全不使用弹出窗口：
+-用户授予与Trezor通信的权限
+-设备通过密码验证
+-应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+-设置参数`address`
+-将参数showOnTrezor设置为true(或完全不设置)
+-应用程序仅请求一个(！)地址
 
 
 ### Example

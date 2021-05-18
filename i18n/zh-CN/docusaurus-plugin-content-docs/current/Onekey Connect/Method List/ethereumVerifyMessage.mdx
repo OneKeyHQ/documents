@@ -1,9 +1,9 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Ethereum: verify message
+## 以太坊：验证消息
 
-Asks device to
-verify a message using the signer address and signature.
+要求设备
+使用签名者地址和签名验证消息。
 
 ES6
 ```javascript
@@ -17,13 +17,13 @@ OneKeyConnect.ethereumVerifyMessage(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L74-L78)
-* `address` - *obligatory* `string` signer address. "0x" prefix is optional
-* `message` - *obligatory* `string` signed message in plain text
-* `hex` - *optional* `boolean` convert message from hex
-* `signature` - *obligatory* `string` signature in hexadecimal format. "0x" prefix is optional
+*`address`-*必填*`string`签名人地址。 “ 0x”前缀是可选的
+*`message`-*必须*`string`签名的纯文本消息
+*`hex`-*可选*`boolean`转换来自十六进制的消息
+*`signature`-*必须*`string`十六进制格式的签名。 “ 0x”前缀是可选的
 
 ### Example
 ```javascript

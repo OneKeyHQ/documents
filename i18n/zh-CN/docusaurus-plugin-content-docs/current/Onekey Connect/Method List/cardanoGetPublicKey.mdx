@@ -1,8 +1,8 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Cardano: get public key
-Retrieves [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) extended public derived by given [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) path.
-User is presented with a description of the requested key and asked to confirm the export on Trezor.
+## Cardano：获取公钥
+检索通过给定的[BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf)路径派生的[BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf)扩展公众。
+向用户显示所请求密钥的描述，并要求确认Trezor上的导出。
 
 ES6
 ```javascript
@@ -16,14 +16,14 @@ OneKeyConnect.cardanoGetPublicKey(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
-#### Exporting single public key
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `showOnTrezor` — *optional* `boolean` determines if publick key will be displayed on device. Default is set to `true`
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个公钥
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+* showOnTrezor-—可选*布尔值决定是否将公共密钥显示在设备上。 默认设置为“ true”
 
-#### Exporting bundle of publick keys
-* `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+#### 导出公共密钥束
+*`bundle`-`array`具有`path`和`showOnTrezor`字段的对象
 
 ### Example
 Display public key of first cardano account:

@@ -2,18 +2,18 @@
 sidebar_position: 1
 ---
 
-# Introduction
+# 介绍
 
-## Why you and your users should use MetaMask Mobile
+## 为什么您和您的用户应使用MetaMask Mobile
 
-- Onboard your users in seconds - whether they are already wallet users or completely new users, we guide them to get them started!
-- Bring your dapp to our large and rapidly growing userbase.
-- Your users can discover other use-cases of the decentralized web right in the MetaMask web3 browser.
-- Users can sign with their MetaMask wallet, whether they use your dapp on MetaMask browser or prefer using other primary browsers or native mobile app or desktop. [*works with dapps supporting Wallet Connect]
-- Buy crypto easily, with the best rates, and supported in a wide-range of countries.
-- Manage your cryptoassets - watch or trade tokens, collectibles
-- Send payments to your family and friends (gasless\* and in normal transaction - whatever they prefer)
-- Request payment from a friend, an employer, etc.
-- We have lots of more exciting stuff coming up - stay tuned, this is just the beginning :wink:
+-在几秒钟内为您的用户服务-无论他们已经是钱包用户还是全新用户，我们都会引导他们开始使用！
+-将您的dapp带到我们庞大且快速增长的用户群中。
+-您的用户可以直接在MetaMask web3浏览器中发现分散式Web的其他用例。
+-无论是在MetaMask浏览器上使用您的dapp，还是更喜欢使用其他主浏览器，本机移动应用程序或桌面，用户都可以使用自己的MetaMask钱包签名。 [*与支持Wallet Connect的dapp配合使用]
+-以最优惠的价格轻松购买加密货币，并在许多国家/地区得到支持。
+-管理您的加密资产-观看或交易令牌，收藏品
+-将付款发送给您的家人和朋友(无气\ *和正常交易-无论他们喜欢什么)
+-请求朋友，雇主等付款
+-我们还有更多令人兴奋的内容-敬请期待，这只是个开始：wink：
 
-Please visit [our homepage](https://metamask.io) to find out more about where to download the mobile app.
+请访问[我们的主页](https://metamask.io)以了解有关在何处下载该移动应用程序的更多信息。

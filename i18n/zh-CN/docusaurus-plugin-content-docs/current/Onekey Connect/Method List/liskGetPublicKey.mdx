@@ -1,8 +1,8 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Lisk: get public key
-Retrieves BIP32 extended public derived by given BIP32 path.
-User is presented with a description of the requested key and asked to confirm the export on Trezor.
+## Lisk：获取公钥
+检索由给定的BIP32路径派生的BIP32扩展的public。
+向用户显示所请求密钥的描述，并要求确认Trezor上的导出。
 
 ES6
 ```javascript
@@ -16,14 +16,14 @@ OneKeyConnect.liskGetPublicKey(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
-#### Exporting single address
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `false`
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个地址
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。 默认设置为`false`
 
-#### Exporting bundle of addresses
-* `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+#### 导出地址捆绑
+*`bundle`-`array`具有`path`和`showOnTrezor`字段的对象
 
 ### Example
 Display address of first Lisk account:

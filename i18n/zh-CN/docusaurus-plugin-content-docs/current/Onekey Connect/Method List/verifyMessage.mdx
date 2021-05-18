@@ -1,9 +1,9 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Verify message
+## 验证消息
 
-Asks device to
-verify a message using the signer address and signature.
+要求设备
+使用签名者地址和签名验证消息。
 
 ES6
 ```javascript
@@ -17,14 +17,14 @@ OneKeyConnect.verifyMessage(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L156-L161)
-* `address` - *obligatory* `string` signer address,
-* `message` - *obligatory* `string` signed message,
-* `signature` - *obligatory* `string` signature in base64 format,
-* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
-* `hex` - *optional* `boolean` convert message from hex
+*`address`-*必填*`string`签名人地址，
+*`message`-*必须*`string`签名的消息，
+*`signature`-*强制*`base`字符串，采用base64格式，
+*`coin`-*必需*`string`确定在[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。 可以使用硬币“快捷方式”，“名称”或“标签”。
+*`hex`-*可选*`boolean`转换来自十六进制的消息
 
 ### Example
 ```javascript

@@ -2,15 +2,15 @@
 sidebar_position: 5
 ---
 
-# MetaMask Extension Provider
+# MetaMask扩展提供程序
 
-A module for accessing the user's MetaMask [provider](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3currentprovider) from other WebExtensions.
+用于从其他WebExtensions访问用户的MetaMask [provider](https://github.com/ethereum/wiki/wiki/JavaScript-API#web3currentprovider)的模块。
 
-The account provided by this provider will be the user's MetaMask account.
+该提供者提供的帐户将是用户的MetaMask帐户。
 
-When sending signing requests to this provider, MetaMask will prompt the user to sign with their accounts.
+向该提供商发送签名请求时，MetaMask将提示用户使用其帐户签名。
 
-Works in:
+适用于：
 
 - Chrome
 - Firefox

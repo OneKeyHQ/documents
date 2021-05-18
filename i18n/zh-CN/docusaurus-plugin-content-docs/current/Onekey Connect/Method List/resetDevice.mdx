@@ -1,7 +1,7 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Reset device
-Perform device setup and generate new seed.
+## 重置设备
+执行设备设置并生成新种子。
 
 ES6
 ```javascript
@@ -15,16 +15,16 @@ OneKeyConnect.resetDevice(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 <br/>
-* `strength` — *optional* `number` Accepted values are [128|192|256]. Default is set to `256`
-* `label` — *optional* `string`
-* `u2fCounter` — *optional* `number`. Default value is set to current time stamp in seconds.
-* `pinProtection` — *optional* `boolean`
-* `passphraseProtection` — *optional* `boolean`
-* `skipBackup` — *optional* `boolean`
-* `noBackup` — *optional* `boolean` create a seedless device
+*`strength` — *可选*`number`可接受的值为[128 | 192 | 256]。 默认设置为256
+*`label` — *可选*`string`
+*`u2fCounter`-*可选*`number`。 默认值设置为当前时间戳(以秒为单位)。
+*`pinProtection`-*可选*`boolean`
+*`passphraseProtection`-*可选*`boolean`
+*`skipBackup`-*可选*`boolean`
+*`noBackup` — —可选*`boolean`创建一个无种子设备
 
 ### Example
 ```javascript

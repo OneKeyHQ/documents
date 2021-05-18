@@ -1,21 +1,21 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Request login
+## 请求登录
 
-Challenge-response authentication via Trezor. To protect against replay attacks
-you should use a server-side generated and randomized `challengeHidden` for every
-attempt. You can also provide a visual challenge that will be shown on the
-device.
+通过Trezor进行质询响应身份验证。防止重放攻击
+您应该为每个服务器端使用服务器端生成的随机化的“ challengeHidden”
+试图。您还可以提供视觉挑战，该挑战将显示在
+设备。
 
-Service backend needs to check whether the signature matches the generated
-`challengeHidden`, provided `challengeVisual` and stored `publicKey` fields.
-If that is the case, the backend either creates an account (if the `publicKey`
-identity is seen for the first time) or signs in the user (if the `publicKey`
-identity is already a known user).
+服务后端需要检查签名是否与生成的签名匹配
+“ challengeHidden”，提供了“ challengeVisual”并存储了“ publicKey”字段。
+如果是这种情况，则后端可以创建一个帐户(如果`publicKey`
+首次看到身份)或登录用户(如果“ publicKey”
+身份已经是已知用户)。
 
-To understand the full mechanics, please consult the Challenge-Response chapter
-of
-[SLIP-0013: Authentication using deterministic hierarchy](https://github.com/satoshilabs/slips/blob/master/slip-0013.md).
+要了解完整的机制，请查阅“挑战-响应”一章
+的
+[SLIP-0013：使用确定性层次结构进行身份验证](https://github.com/satoshilabs/slips/blob/master/slip-0013.md)。
 
 
 ES6
@@ -30,17 +30,16 @@ OneKeyConnect.requestLogin(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 <br/>
-Common parameter `useEmptyPassphrase` - is always set to `true` and it will be ignored by this method
-#### Login using server-side async challenge
-- `callback` — *obligatory* `function` which will be called from API to fetch `challengeHidden` and `challengeVisual` from server
+公用参数`useEmptyPassphrase`-始终设置为`true`，此方法将忽略它
+####使用服务器端异步质询登录
+-`callback` — *必选*函数，将从API调用以从服务器获取`challengeHidden`和`challengeVisual`
 
-#### Login without async challenge
-- `challengeHidden` - *obligatory* `string` hexadecimal value
-- `challengeVisual` - *obligatory* `string` text displayed on Trezor
-
+#### 无需异步挑战即可登录
+-`challengeHidden`-*必须*`string'十六进制值
+-`challengeVisual`-在Trezor上显示的* string *字符串是必填项
 
 ### Example
 ###### Login using server-side async challenge

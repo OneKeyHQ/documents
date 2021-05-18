@@ -1,9 +1,9 @@
 import Playground from "../../../../../../src/components/playground";
 
 
-## Ripple: Sign transaction
-Asks device to sign given transaction. User is asked to confirm all transaction
-details on Trezor.
+##涟漪：签署交易
+要求设备签署给定的交易。 要求用户确认所有交易
+有关Trezor的详细信息。
 
 ES6
 ```javascript
@@ -17,11 +17,11 @@ OneKeyConnect.rippleSignTransaction(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+###参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L149-L154)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [RippleTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ripple.js#L36-L42)
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`transaction`-* [RippleTransaction]的* Object *强制类型(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ripple.js#L36-L42)
 
 ### Example
 ```javascript

@@ -1,9 +1,9 @@
 import Playground from "../../../../../../src/components/playground";
 
 
-## Tezos: Sign transaction
-Asks device to sign given transaction. User is asked to confirm all transaction
-details on Trezor.
+## Tezos：签署交易
+要求设备签署给定的交易。 要求用户确认所有交易
+有关Trezor的详细信息。
 
 ES6
 ```javascript
@@ -17,12 +17,12 @@ OneKeyConnect.tezosSignTransaction(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L104-L108)
-* `path` - *obligatory* `string | Array<number>`
-* `branch` - *obligatory* `string`
-* `operation` - *obligatory* `Object` type of [TezosOperation](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L54)
+*`path`-*必填*`string | Array<number>`
+*`branch`-*必填*`string`
+* [操作]-* [TezosOperation]的*对象*类型(必填)(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L54)
 
 ### Example
 Sign transaction operation

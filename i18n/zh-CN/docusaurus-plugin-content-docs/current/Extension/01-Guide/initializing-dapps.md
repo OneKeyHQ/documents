@@ -2,26 +2,26 @@
 sidebar_position: 4
 ---
 
-# Initializing Dapps
+# 初始化Dapps
 
-Once you have your basic dev environment [set up](./Getting-Started), you are ready to start interacting with some smart contracts. There are some basic things you'll need regardless of what convenience library you're using, when communicating with a smart contract:
+一旦有了基本的开发环境[set up](./Getting-Started)，就可以开始与一些智能合约进行交互了。与智能合约进行通信时，无论使用什么便利库，都需要满足一些基本要求：
 
-## The Contract Network
+## 合同网络
 
-If you aren't connected to the right network, you aren't going to have any luck sending transactions to your contract, so make sure you have this right!
+如果您未连接到正确的网络，则不会有任何将交易发送到合同的运气，因此请确保您拥有此权利！
 
-Many clever dapps will recognize the user's current network, and actually adapt to it! For example, if you detect a test network, you could deliberately connect to a test-network version of your smart contract, which makes it easy for users to "try out" your system without using real money!
+许多聪明的dapp都能识别用户的当前网络，并真正适应它！例如，如果您检测到测试网络，则可以故意连接到智能合约的测试网络版本，这使用户可以轻松地“试用”您的系统而无需花费真金白银！
 
-## The Contract Address
+## 合同地址
 
-Every account in Ethereum has an address, whether it's an external key-pair account, or a smart contract. In order for any smart contract library to communicate with your contracts, they'll need to know its exact address.
+以太坊中的每个账户都有一个地址，无论是外部密钥对账户还是智能合约。为了使任何智能合约库都能与您的合约进行通信，他们需要知道其确切地址。
 
-## The Contract ABI
+## 合同ABI
 
-In Ethereum, [The ABI Specification](https://solidity.readthedocs.io/en/develop/abi-spec.html) is a way to encode the interface of a smart contract in a way that your user interface can make sense of.
-It is an array of method-describing objects, and when you feed this and the address into a contract-abstraction library, this `ABI` tells those libraries about what methods to provide, and how to compose transactions to call those methods.
+在以太坊中，[ABI规范](https://solidity.readthedocs.io/en/develop/abi-spec.html) 是一种以您的用户界面有意义的方式对智能合约的界面进行编码的方法的。
+它是一个描述方法的对象数组，当您将其和地址输入到合同抽象库中时，此“ ABI”会告诉这些库要提供的方法以及如何编写事务以调用这些方法。
 
-Example libraries include:
+示例库包括：
 
 - [ethers](https://www.npmjs.com/package/ethers)
 - [web3.js](https://www.npmjs.com/package/web3)
@@ -29,12 +29,12 @@ Example libraries include:
 - [ethjs](https://www.npmjs.com/package/ethjs)
 - [truffle](https://www.trufflesuite.com/)
 
-## The Contract Bytecode
+## 合约字节码
 
-If your web app is going to publish a new smart contract that is pre-compiled, it may need to include some `bytecode`. In this case, you will not know the contract address in advance, but instead will have to publish, watch for the transaction to be processed, and then extract the final contract's address from the completed transaction.
+如果您的Web应用程序要发布预先编译的新智能合约，则可能需要包含一些“字节码”。在这种情况下，您将不会事先知道合同地址，而必须发布，监视要处理的交易，然后从完成的交易中提取最终合同的地址。
 
-If publishing a contract from bytecode, you will still want an `ABI` if you want to interact with it! The bytecode does not describe how to interact with the final contract.
+如果从字节码发布合同，如果您想与之交互，您仍将需要一个`ABI`！字节码未描述如何与最终合同交互。
 
-## The Contract Source Code
+## 合同源代码
 
-If your website is going to allow users to edit smart contract source code and compile it, like [Remix](http://remix.ethereum.org/), you may import a whole compiler, in which case you're going to derive your bytecode and ABI from that source code, and eventually you will derive the contract's address from the completed transaction publishing that bytecode.
+如果您的网站允许用户编辑智能合约源代码并进行编译，例如[Remix](http://remix.ethereum.org/) ，则可以导入整个编译器，在这种情况下，您将从该源代码中获取您的字节码和ABI，最终您将从发布该字节码的已完成交易中获取合同的地址。

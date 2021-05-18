@@ -1,9 +1,9 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Lisk: verify message
+## Lisk：验证消息
 
-Asks device to
-verify a message using the signer public key and signature.
+要求设备
+使用签名者的公钥和签名来验证消息。
 
 ES6
 ```javascript
@@ -17,12 +17,12 @@ OneKeyConnect.liskVerifyMessage(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L133-L137)
-* `publicKey` - *obligatory* `string` signer public key.
-* `signature` - *obligatory* `string` message signature
-* `message` - *obligatory* `string` signed message in plain text
+*`publicKey`-*必填*`string`签名者公钥。
+*`signature`-*必填*`string`消息签名
+*`message`-*必须*`string`签名的纯文本消息
 
 ### Example
 ```javascript

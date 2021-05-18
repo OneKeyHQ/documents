@@ -2,15 +2,15 @@
 sidebar_position: 3
 ---
 
-## Methods
+## 方法
 
-API call return a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). Resolve is guaranteed to get called
-with a `result` object, even if user closes the window, network connection times
-out, etc. In case of failure `result.success` is set to false and `result.payload.error` is
-the error message. It is recommended to log the error message and let user
-restart the action.
+API调用返回一个[`Promise`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)。 解决保证得到调用
+使用“结果”对象，即使用户关闭窗口，网络连接时间
+如果失败，则将`result.success`设置为false，将`result.payload.error`设置为false。
+错误消息。 建议记录错误信息并让用户
+重新开始操作。
 
-Every method require an [`Object`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) with combination of [`common`](./Method%20List/commonParams) fields and method specific fields.
+每个方法都需要一个[Object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)，并带有[`common`](./Method％20List/commonParams)字段和方法特定字段。
 
 * [OneKeyConnect.getPublicKey](./Method%20List/getPublicKey)
 * [OneKeyConnect.requestLogin](./Method%20List/requestLogin)

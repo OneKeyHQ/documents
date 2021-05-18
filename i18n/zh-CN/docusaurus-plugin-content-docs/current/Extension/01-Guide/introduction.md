@@ -6,41 +6,41 @@ description: Introduction to OneKey Extension
 slug: /
 ---
 
-Welcome to OneKey’s Developer Documentation. This documentation is for learning to develop applications for OneKey.
+欢迎使用OneKey的开发人员文档。本文档用于学习为OneKey开发应用程序。
 
-- You can find the latest version of OneKey on our [official website](https://onekey.so/).
-- For help using OneKey, visit our [User Support Site](https://help.onekey.so/).
-- For up to the minute news, follow our [Twitter](https://twitter.com/OneKeyHQ) or [Reddit](https://www.reddit.com/r/OneKeyHQ) pages.
-- To learn how to contribute to the OneKey project itself, visit our [Internal Docs](https://github.com/OneKeyHQ/onekey-extension/tree/master/docs).
+-您可以在我们的[官方网站](https://onekey.so/) 上找到OneKey的最新版本。
+-有关使用OneKey的帮助，请访问我们的[用户支持站点](https://help.onekey.so/) 。
+-有关最新消息，请关注我们的[Twitter](https://twitter.com/OneKeyHQ) 或[Reddit](https://www.reddit.com/r/OneKeyHQ) 页面。
+-要了解如何为OneKey项目本身做出贡献，请访问我们的[内部文档](https://github.com/OneKeyHQ/onekey-extension/tree/master/docs) 。
 
-:::tip Recent Breaking Provider Changes
-If you are an Ethereum application developer and are looking for information about our January 2021 provider API changes,
-please see our [Migration Guide](Extension/API%20Reference/provider-migration) for more details.
+::: tip最近的重大提供商更改
+如果您是以太坊应用程序开发人员，并且正在寻找有关我们2021年1月提供商API更改的信息，
+有关更多详细信息，请参见我们的[迁移指南](Extension/API%20Reference/provider-migration) 。
 :::
 
-## Why OneKey
+## 为什么使用OneKey
 
-OneKey was created to meet the needs of secure and usable Ethereum-based web sites. In particular, it handles account management and connecting the user to the blockchain.
+创建OneKey是为了满足基于以太坊的安全和可用网站的需求。特别是，它处理帐户管理并将用户连接到区块链。
 
-- [Get started here](Extension/Guide/getting-started)
-- [Learn more about our JavaScript Provider API](Extension/API%20Reference/ethereum-provider)
-- [Learn more about our RPC API](Extension/API%20Reference/rpc-api)
+-[从这里开始](Extension/Guide/getting-started)
+-[了解有关我们的JavaScript Provider API的更多信息](Extension/API%20Reference/ethereum-provider)
+-[了解有关RPC API的更多信息](Extension/API%20Reference/rpc-api)
 
-## Account Management
+## 帐户管理
 
-OneKey allows users to manage accounts and their keys in a variety of ways, including hardware wallets, while isolating them from the site context. This is a great security improvement over storing the user keys on a single central server, or even in local storage, which can allow for [mass account thefts](https://www.ccn.com/cryptocurrency-exchange-etherdelta-hacked-in-dns-hijacking-scheme/).
+OneKey允许用户以各种方式(包括硬件钱包)管理帐户及其密钥，同时将其与站点上下文隔离。与将用户密钥存储在单个中央服务器甚至本地存储上相比，这是一个很大的安全性改进，它可以允许[大量帐户盗窃](https://www.ccn.com/cryptocurrency-exchange-etherdelta-hacked -in-dns-hijacking-scheme/)。
 
-This security feature also comes with developer convenience: For developers, you simply interact with the globally available `ethereum` API that identifies the users of web3-compatible browsers (like OneKey users), and whenever you request a transaction signature (like `eth_sendTransaction`, `eth_signTypedData`, or others), OneKey will prompt the user in as comprehensible a way as possible. This keeps users informed, and leaves attackers left trying to phish individual users rather than performing mass hacks (although [DNS hacks can still be used for phishing en masse](https://medium.com/metamask/new-phishing-strategy-becoming-common-1b1123837168)).
+此安全功能还为开发人员带来了便利：对于开发人员，您只需与可识别Web3兼容浏览器用户(如OneKey用户)的全局可用“ ethereum” API交互，以及在每次请求事务签名(如“ eth_sendTransaction”时)进行交互即可。 ，“ eth_signTypedData”或其他)，OneKey将以一种尽可能易懂的方式提示用户。这样可以使用户保持知情，并让攻击者可以尝试对单个用户进行网络钓鱼，而不是进行大规模黑客攻击(尽管[DNS hacks仍然可以用于大规模网络钓鱼](https://medium.com/metamask/new-phishing-strategy-成为常见的1b1123837168)。
 
-## Blockchain Connection
+## 区块链连接
 
-OneKey comes pre-loaded with fast connections to the Ethereum blockchain and several test networks via our friends at [Infura](https://infura.io/). This allows you to get started without synchronizing a full node, while still providing the option to upgrade your security and use the blockchain provider of your choice.
+OneKey已通过我们[Infura](https://infura.io/) 上的朋友预先加载了与以太坊区块链和几个测试网络的快速连接。这使您可以在不同步整个节点的情况下开始使用，同时仍提供升级安全性和使用您选择的区块链提供程序的选项。
 
-Today, OneKey is compatible with any blockchain that exposes an [Ethereum-compatible JSON RPC API](https://eth.wiki/json-rpc/API), including custom and private blockchains. For development, we recommend running a test blockchain like [Ganache](https://www.trufflesuite.com/ganache).
+如今，OneKey与公开了[以太坊兼容的JSON RPC API](https://eth.wiki/json-rpc/API) 的任何区块链都兼容，包括自定义和私有区块链。对于开发，我们建议运行像[Ganache](https://www.trufflesuite.com/ganache)之类的测试区块链。
 
-We’re aware that there are constantly new private blockchains that people are interested in connecting OneKey to, and we are building towards easier integration with these many options.
+我们知道，人们不断有兴趣将OneKey连接到新的私有区块链，并且我们正在努力与这些众多选项更轻松地集成。
 
-## New Dapp Developers
+## 新的Dapp开发人员
 
 - [Learning Solidity](https://karl.tech/learning-solidity-part-1-deploy-a-contract/) by karl Floersch
 - [CryptoZombies](https://cryptozombies.io/)

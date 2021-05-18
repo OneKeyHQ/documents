@@ -2,126 +2,126 @@
 sidebar_position: 2
 ---
 
-# Provider Migration Guide
+# 提供商迁移指南
 
-:::tip Attention MetaMask Users
-If you are a MetaMask user attempting to use a legacy Ethereum website that hasn't migrated to the new API,
-please see the section on the [MetaMask Legacy Web3 Extension](#using-the-metamask-legacy-web3-extension).
+::: tip注意MetaMask用户
+如果您是MetaMask用户，尝试使用尚未迁移到新API的旧版以太坊网站，
+请参阅[MetaMask旧版Web3扩展](＃using-the-metamask-legacy-web3-extension)上的部分。
 
-Except for such legacy websites, no action is required for MetaMask users.
+除了这些旧版网站，MetaMask用户无需采取任何措施。
 :::
 
-In January of 2021, we made a number of breaking changes to our provider API, and removed our injected `window.web3`.
-These changes are live on all platforms as of version:
+在2021年1月，我们对提供程序API进行了一些重大更改，并删除了注入的“ window.web3”。
+这些更改自版本开始在所有平台上均有效：
 
-* `9.0.2` of the MetaMask browser extension
-* `1.0.9` of MetaMask Mobile
+* MetaMask浏览器扩展的“ 9.0.2”
+* MetaMask Mobile的1.0.9
 
-This guide describes how to migrate to the new provider API, and how to replace our `window.web3`.
-To understand why we made these changes, please see [this blog post](https://medium.com/metamask/breaking-changes-to-the-metamask-provider-are-here-7b11c9388be9).
+本指南介绍了如何迁移到新的提供程序API，以及如何替换我们的“ window.web3”。
+要了解我们为什么进行这些更改，请参阅[this blog post](https://medium.com/metamask/breaking-changes-to-the-metamask-provider-are-here-7b11c9388be9)。
 
-## Table of Contents
+## 目录
 
 [[toc]]
 
-## Summary of Breaking Changes
+## 重大更改摘要
 
-### `window.web3` Removal
+### `window.web3`移除
 
-As part of the breaking changes, we stopped injecting `web3.js` version `0.20.7` as `window.web3` into web pages.
-MetaMask still injects a dummy object at `window.web3`, in order to issue warnings when websites attempt to access `window.web3`.
+作为重大更改的一部分，我们停止将web3.0.js版本0.20.7作为window.web3注入到网页中。
+MetaMask仍在“ window.web3”处注入一个虚拟对象，以便在网站尝试访问“ window.web3”时发出警告。
 
-### `window.ethereum` API Changes
+### `window.ethereum` API更改
 
-We made the following breaking changes to the `window.ethereum` API:
+我们对`window.ethereum` API进行了以下重大更改：
 
-* Ensure that chain IDs returned by `eth_chainId` are **not** 0-padded
-  * For example, instead of `0x01`, we always return `0x1`, wherever the chain ID is returned or accessible.
-  * Note that this _only_ affects the [default Ethereum chains](./ethereum-provider.html#chain-ids), _except_ Kovan, whose chain ID is formatted correctly (`0x2a`).
-* Stop emitting `chainIdChanged`, and instead emit `chainChanged`
-* Remove the following experimental methods:
-  * `ethereum._metamask.isEnabled`
-  * `ethereum._metamask.isApproved`
-* Remove the `ethereum.publicConfigStore` object
-  * This object was, despite its name, never intended for public consumption.
-    Its removal _may_ affect those who do not use it directly, e.g. if another library you use relies on the object.
-* Remove the `ethereum.autoRefreshOnNetworkChange` property
-  * Consumers can still set this property on the provider, it just won't do anything.
-* Deprecate the `web3.currentProvider` method
-  * Use [@metamask/detect-provider](https://github.com/MetaMask/detect-provider) to detect the current provider.
+*确保由eth_chainId返回的链ID **不是** 0填充
+*例如，无论链ID是返回的还是可访问的，我们总是返回0x1而不是0x01。
+*请注意，此_only_会影响[默认以太坊链](./ethereum-provider.html＃chain-ids)_except_ Kovan，其链ID格式正确(`0x2a`)。
+*停止发出`chainIdChanged`，而改为发出`chainChanged`。
+*删除以下实验方法：
+*`ethereum._metamask.isEnabled`
+*`ethereum._metamask.isApproved`
+*删除`ethereum.publicConfigStore`对象
+*尽管有此名称，但从未将其用于公共消费。
+删除它可能会影响那些不直接使用它的人，例如如果您使用的另一个库依赖于该对象。
+*删除`ethereum.autoRefreshOnNetworkChange`属性
+*消费者仍然可以在提供程序上设置此属性，它不会做任何事情。
+*弃用`web3.currentProvider`方法
+*使用[@ metamask/detect-provider](https://github.com/MetaMask/detect-provider)检测当前提供者。
 
-## Replacing `window.web3`
+## 替换`window.web3`
 
-:::warning Pages No Longer Reload on Chain Changes
-Since we removed our `window.web3`, MetaMask no longer automatically reloads the page on chain/network changes.
+:::警告页面不再因链式更改而重新加载
+自从我们删除了“ window.web3”以来，MetaMask不再根据链条/网络更改自动重新加载页面。
 
-Please see [Handling the Removal of `ethereum.autoRefreshOnNetworkChange`](#handling-the-removal-of-ethereum-autorefreshonnetworkchange) for details.
+有关详细信息，请参见[处理删除ethereum.autoRefreshOnNetworkChange]](＃handling-the-removal-of-ethereum-autorefreshonnetworkchange)。
 :::
 
-For historical reasons, MetaMask injected [`web3@0.20.7`](https://github.com/ethereum/web3.js/tree/0.20.7) into all web pages.
-That version of `web3` is deprecated, [has known security issues](https://github.com/ethereum/web3.js/issues/3065), and is no longer maintained by the [web3.js](https://github.com/ethereum/web3.js/) team.
-Therefore, we decided to remove this library.
+由于历史原因，MetaMask将[`web3 @ 0.20.7`](https://github.com/ethereum/web3.js/tree/0.20.7)注入了所有网页。
+该版本的“ web3”已被弃用，[存在已知的安全问题](https://github.com/ethereum/web3.js/issues/3065)，不再由[web3.js](https：//github.com/ethereum/web3.js/)团队。
+因此，我们决定删除此库。
 
-If your website relied on our `window.web3` object, you have to migrate.
-Please continue reading to understand your options.
-Some are as simple as a one-line change.
+如果您的网站依赖于我们的`window.web3`对象，则必须进行迁移。
+请继续阅读以了解您的选择。
+有些简单到只需一行更改。
 
-:::tip Tip
-Regardless of how you choose to migrate, you may want to read the `web3@0.20.7` documentation, which you can find [here](https://github.com/ethereum/web3.js/blob/0.20.7/DOCUMENTATION.md).
+::: tip提示
+无论选择哪种迁移方式，您都可能需要阅读“ web3@0.20.7”文档，该文档可在[此处](https://github.com/ethereum/web3.js/blob/0.20.7/DOCUMENTATION.md)。
 :::
 
-### Using `window.ethereum` Directly
+### 直接使用`window.ethereum`
 
-For many web3 sites, the API provided by `window.ethereum` is sufficient.
-Much of the `web3` API simply maps to RPC methods, all of which can be requested using [`ethereum.request()`](./ethereum-provider.html#ethereum-request-args).
-For example, here are a couple of actions performed using first `window.web3`, and then their equivalents using `window.ethereum`.
+对于许多web3网站，`window.ethereum`提供的API就足够了。
+大部分的web3 API都简单地映射到RPC方法，所有这些都可以使用[`ethereum.request()`](./ethereum-provider.html＃ethereum-request-args)进行请求。
+例如，以下是首先使用“ window.web3”执行的几个动作，然后使用“ window.ethereum”执行的等效动作。
 
 <<< @/docs/snippets/web3ToProvider.js
 
-### Using an Updated Convenience library
+### 使用更新的便利库
 
-If you decide that you need a convenience library, you have to convert your usage of `window.web3` to an updated convenience library.
-We recommend [`ethers`](https://npmjs.com/package/ethers) ([documentation](https://docs.ethers.io/)).
+如果您决定需要便利库，则必须将“ window.web3”的用法转换为更新的便利库。
+我们建议使用[`ethers`](https://npmjs.com/package/ethers)([documentation](https://docs.ethers.io/))。
 
-### Using `@metamask/legacy-web3`
+### 使用`@metamask/legacy-web3`
 
-:::warning
-We strongly recommend that you consider one of the other two migration paths before resorting to this one.
-It is not future-proof, and we will not add new features to it.
+:::警告
+我们强烈建议您在求助于此之前，先考虑另外两个迁移路径之一。
+它不是面向未来的，因此我们不会在其中添加新功能。
 :::
 
-Finally, if you just want your web3 site to continue to work, we created [`@metamask/legacy-web3`](https://npmjs.com/package/@metamask/legacy-web3).
-This package is a drop-in replacement for our `window.web3` that you can add to your website even before remove `window.web3` on all platforms.
+最后，如果您只是想让您的web3网站继续工作，我们创建了[`@ metamask/legacy-web3`](https://npmjs.com/package/@metamask/legacy-web3)。
+这个软件包是对我们的`window.web3`的直接替代，您甚至可以在所有平台上删除`window.web3`之前，也可以将其添加到您的网站中。
 
-`@metamask/legacy-web3` should work exactly like our injected `window.web3`, including by refreshing the page on chain/network changes, but _we cannot guarantee that it works perfectly_.
-We will not fix any future incompatibilities between `web3@0.20.7` and MetaMask itself, nor will we fix any bugs in `web3@0.20.7` itself.
+@ metamask/legacy-web3应该与我们注入的window.web3完全一样，包括刷新链/网络更改页面，但是_我们不能保证它能完美地工作_。
+我们不会修复web3@0.20.7和MetaMask本身之间的任何将来的不兼容性，也不会修复web3@0.20.7本身的任何错误。
 
-For installation and usage instructions, please see the [npm listing](https://npmjs.com/package/@metamask/legacy-web3).
+有关安装和使用说明，请参阅[npm列表](https://npmjs.com/package/@metamask/legacy-web3)。
 
-### Using the MetaMask Legacy Web3 Extension
+### 使用MetaMask旧版Web3扩展
 
-We created the [**MetaMask Legacy Web3 Extension**](https://github.com/MetaMask/legacy-web3-extension) for any users of websites that still expect `window.web3` to be injected. If you install this extension alongside the regular MetaMask wallet extension, websites that rely on our old window.web3 API should start working again.
+我们为仍然希望注入“ window.web3”的网站的所有用户创建了[** MetaMask传统Web3扩展**](https://github.com/MetaMask/legacy-web3-extension)。如果您将此扩展程序与常规的MetaMask钱包扩展程序一起安装，则依赖我们旧的window.web3 API的网站应重新开始运行。
 
-As with the regular extension, it’s critical that you only install from the official browser extension stores. Please follow the relevant link below to install the Legacy Web3 extension in your browser:
+与常规扩展程序一样，仅从官方浏览器扩展程序商店安装非常重要。请点击下面的相关链接，在浏览器中安装Legacy Web3扩展程序：
 
-* [Chrome, Brave](https://chrome.google.com/webstore/detail/metamask-legacy-web3/dgoegggfhkapjphahmgihfgemkgecdgl)
-* [Edge](https://microsoftedge.microsoft.com/addons/detail/metamask-legacy-web3/obkfjbjkiofoponpkmphnpaaadebfloh?hl=en-US)
+* [Chrome，勇敢者](https://chrome.google.com/webstore/detail/metamask-legacy-web3/dgoegggfhkapjphahmgihfgemkgecdgl)
+* [边缘](https://microsoftedge.microsoft.com/addons/detail/metamask-legacy-web3/obkfjbjkiofoponpkmphnpaaadebfloh?hl=zh-CN)
 * [Firefox](https://addons.mozilla.org/en-US/firefox/addon/metamask-legacy-web3/)
 
-## Migrating to the New Provider API
+## 迁移到新的提供程序API
 
-### Handling `eth_chainId` Return Values
+### 处理`eth_chainId`返回值
 
-The `eth_chainId` RPC method now returns correctly formatted values, e.g. `0x1` and `0x2`, instead of _incorrectly_ formatted values, e.g. `0x01` and `0x02`.
-MetaMask's implementation of `eth_chainId` used to return 0-padded values for the [default Ethereum chains](./ethereum-provider.html#chain-ids) _except_ Kovan.
-If you expect 0-padded chain ID values from `eth_chainId`, make sure to update your code to expect the correct format instead.
+eth_chainId` RPC方法现在可以返回格式正确的值，例如0x1和0x2，而不是_incorrectly_格式的值，例如0x01和0x02。
+MetaMask的eth_chainId实现用于返回[默认以太坊链](./ethereum-provider.html＃chain-ids)_except_ Kovan的0填充值。
+如果您期望`eth_chainId`中填充0的链ID值，请确保更新代码以使用正确的格式。
 
-For more details on chain IDs and how to handle them, see the [`chainChanged` event](./ethereum-provider.html#chainchanged).
+有关链ID及其处理方式的更多详细信息，请参见[`chainChanged`事件](./ethereum-provider.html＃chainchanged)。
 
-### Handling the Removal of `chainIdChanged`
+### 处理删除`chainIdChanged`
 
-`chainIdChanged` is a typo of `chainChanged`.
-To migrate, simply listen for `chainChanged` instead:
+chainIdChanged是chainChanged的错字。
+要进行迁移，只需监听`chainChanged`即可：
 
 ```javascript
 // Instead of this:
@@ -135,45 +135,45 @@ ethereum.on('chainChanged', (chainId) => {
 });
 ```
 
-### Handling the Removal of `isEnabled()` and `isApproved()`
+### 处理`isEnabled()`和`isApproved()`的移除
 
-Before the new provider API shipped, we added the `_metamask.isEnabled` and `_metamask.isApproved` methods
-to enable web3 sites to check if they have [access to the user's accounts](./rpc-api.html#eth-requestaccounts).
-`isEnabled` and `isApproved` functioned identically, except that `isApproved` was `async`.
-These methods were arguably never that useful, and they became completely redundant with the introduction of MetaMask's [permission system](./rpc-api.html#permissions).
+在发布新的提供程序API之前，我们添加了_metamask.isEnabled和_metamask.isApproved方法
+使web3网站能够检查它们是否具有[访问用户帐户的权限](./rpc-api.html＃eth-requestaccounts)。
+“ isEnabled”和“ isApproved”的功能相同，不同之处在于“ isApproved”是“ async”。
+可以说这些方法从来没有那么有用，随着MetaMask的[permission system](./rpc-api.html＃permissions)的引入，它们变得完全多余。
 
-We recommend that you check for account access in the following ways:
+我们建议您通过以下方式检查帐户访问权限：
 
-1. You can call the [`wallet_getPermissions` RPC method](./rpc-api.html#wallet-getpermissions) and check for the `eth_accounts` permission.
+1.您可以调用[wallet_getPermissions` RPC方法](./rpc-api.html＃wallet-getpermissions)并检查`eth_accounts`权限。
 
-2. You can call the `eth_accounts` RPC method and the [`ethereum._metamask.isUnlocked()` method](./ethereum-provider.html#ethereum-metamask-isunlocked).
+2.您可以调用eth_accounts RPC方法和[ethereum._metamask.isUnlocked()方法](./ethereum-provider.html＃ethereum-metamask-isunlocked)。
 
-   * MetaMask has to be unlocked before you can access the user's accounts.
-     If the array returned by `eth_accounts` is empty, check if MetaMask is locked using `isUnlocked()`.
+*您必须先解锁MetaMask才能访问用户的帐户。
+如果由eth_accounts返回的数组为空，请使用isUnlocked()检查MetaMask是否被锁定。
 
-   * If MetaMask is unlocked and you still aren't receiving any accounts, it's time to request accounts using the [`eth_requestAccounts` RPC method](./rpc-api.html#eth-requestaccounts).
+*如果MetaMask已解锁，但您仍然没有收到任何帐户，那么该使用[eth_requestAccounts` RPC方法](./rpc-api.html＃eth-requestaccounts)请求帐户了。
 
-### Handling the Removal of `ethereum.publicConfigStore`
+### 处理删除`ethereum.publicConfigStore`
 
-How to handle this change depends on if and how you relied on the `publicConfigStore`.
-We have seen examples of listening for provider state changes the `publicConfigStore` `data` event, and accessing the `publicConfigStore` internal state directly.
+如何处理此更改取决于是否以及如何依赖于`publicConfigStore`。
+我们已经看到了侦听提供程序状态更改“ publicConfigStore”数据事件并直接访问“ publicConfigStore”内部状态的示例。
 
-We recommend that you search your code and its dependencies for references to `publicConfigStore`.
-If you find any references, you should understand what it's being used for, and migrate to [one of the recommended provider APIs](./ethereum-provider.html#using-the-provider) instead.
-If you don't find any references, you should not be affected by this change.
+我们建议您在代码及其依赖项中搜索对`publicConfigStore`的引用。
+如果找到任何参考，则应该了解它的用途，然后迁移到[推荐的提供程序API之一](./ethereum-provider.html＃using-the-provider)。
+如果找不到任何参考，则此更改不会影响您。
 
-Although it is possible that your dependencies use the `publicConfigStore`, we have confirmed that the latest versions (as of January 2021) of the following common libraries were not affected by this change:
+尽管您的依赖项可能使用`publicConfigStore`，但我们已确认以下通用库的最新版本(截至2021年1月)不受此更改的影响：
 
 * `ethers`
 * `web3` (web3.js)
 
-### Handling the Removal of `ethereum.autoRefreshOnNetworkChange`
+### 处理删除`ethereum.autoRefreshOnNetworkChange`
 
-The `ethereum.autoRefreshOnNetworkChange` was a mutable boolean property used to control whether MetaMask reloaded the page on chain/network changes.
-However, it only caused the page to be reloaded if the a script access a property on `window.web3`.
-Therefore, this property was removed along with `window.web3`.
+ethereum.autoRefreshOnNetworkChange是一个可变的布尔属性，用于控制MetaMask是否在链/网络更改时重新加载页面。
+但是，仅当脚本访问`window.web3`上的属性时，才导致重新加载页面。
+因此，该属性与“ window.web3”一起被删除。
 
-Despite this, we still recommend reloading the page on chain changes.
-Some convenience libraries, such as [ethers](https://www.npmjs.com/package/ethers), will continue to reload the page by default.
-If you don't use such a convenience library, you'll have to reload the page manually.
-Please see the [`chainChanged` event](./ethereum-provider.html#chainchanged) for details.
+尽管如此，我们仍然建议您在链更改时重新加载页面。
+默认情况下，某些便利程序库(例如[ethers](https://www.npmjs.com/package/ethers))将继续重新加载页面。
+如果您不使用这样的便利库，则必须手动重新加载页面。
+有关详细信息，请参见[`chainChanged`事件](./ethereum-provider.html＃chainchanged)。

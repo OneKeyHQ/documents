@@ -1,8 +1,8 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Ethereum: sign message
+## 以太坊：签名消息
 
-Asks device to sign a message using the private key derived by given BIP32 path.
+要求设备使用由给定的BIP32路径派生的私钥对消息签名。
 
 ES6
 ```javascript
@@ -16,12 +16,12 @@ OneKeyConnect.ethereumSignMessage(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `message` - *obligatory* `string` message to sign in plain text
-* `hex` - *optional* `boolean` convert message from hex
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`message`-*必填*`string`消息，用于登录纯文本
+*`hex`-*可选*`boolean`转换来自十六进制的消息
 
 ### Example
 ```javascript

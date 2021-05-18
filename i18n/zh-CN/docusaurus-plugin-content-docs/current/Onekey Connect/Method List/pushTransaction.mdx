@@ -1,7 +1,7 @@
 import Playground from "../../../../../../src/components/playground";
 
-## Push transaction
-Broadcast the transaction to the selected network.
+## 推送交易
+将交易广播到选定的网络。
 
 ES6
 ```javascript
@@ -15,11 +15,11 @@ OneKeyConnect.pushTransaction(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L119-L22)
-* `tx` - *obligatory* `string` serialized transaction,
-* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+*`tx`-*必需*`string`序列化的事务，
+*`coin`-*必需*`string`确定在[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。 可以使用硬币“快捷方式”，“名称”或“标签”。
 
 ### Example
 ```javascript

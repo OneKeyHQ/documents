@@ -4,7 +4,7 @@ title: Learn MDX Syntax
 sidebar_label: Learn MDX Syntax
 ---
 
-您可以使用[GitHub风格的Markdown语法]（https://github.github.com/gfm/）编写内容。
+您可以使用[GitHub风格的Markdown语法](https://github.github.com/gfm/)编写内容。
 
 ## Markdown语法
 
@@ -59,9 +59,9 @@ sidebar_label: Learn MDX Syntax
 
 ##链接
 
-[我是内联样式的链接]（https://www.google.com/）
+[我是内联样式的链接](https://www.google.com/)
 
-[我是带有标题的内联样式链接]（https://www.google.com/“ Google的主页”）
+[我是带有标题的内联样式链接](https://www.google.com/“ Google的主页”)
 
 [我是参考样式的链接] [不区分大小写的任意参考文字]
 
@@ -69,7 +69,7 @@ sidebar_label: Learn MDX Syntax
 
 或将其保留为空，然后使用[链接文本本身]。
 
-URL和尖括号中的URL将自动变为链接。 http://www.example.com/或<http://www.example.com/>，有时甚至是example.com（例如，不在GitHub上）。
+URL和尖括号中的URL将自动变为链接。 http://www.example.com/或<http://www.example.com/>，有时甚至是example.com(例如，不在GitHub上)。
 
 一些文本表明参考链接可以在以后使用。
 
@@ -81,17 +81,17 @@ URL和尖括号中的URL将自动变为链接。 http://www.example.com/或<http
 
 ＃＃ 图片
 
-这是我们的徽标（悬停以查看标题文本）：
+这是我们的徽标(悬停以查看标题文本)：
 
-内联样式：！[替代文字]（https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png'徽标标题文字1'）
+内联样式：！[替代文字](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png'徽标标题文字1')
 
 参考样式：！[替代文字] [徽标]
 
 [徽标]：https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png'徽标标题文本2'
 
-通过提供文件路径，可以使用任何文件夹中的图像。路径应相对于原始markdown文件，或相对于“ / static”文件夹。
+通过提供文件路径，可以使用任何文件夹中的图像。路径应相对于原始markdown文件，或相对于“/static”文件夹。
 
-！[img]（/ img / logo.svg）
+！[img](/img/logo.svg)
 
 ---
 
@@ -128,7 +128,7 @@ function HighlightMe() {
 |第2列是|居中| \ $ 12 |
 |斑马条纹|整洁| \ $ 1 |
 
-每个标头单元格必须至少有3个破折号。外管（|）是可选的，您无需使原始Markdown排列整齐。您还可以使用内联Markdown。
+每个标头单元格必须至少有3个破折号。外管(|)是可选的，您无需使原始Markdown排列整齐。您还可以使用内联Markdown。
 
 |降价|少|漂亮
 | -------- | --------- | ---------- |
@@ -150,12 +150,12 @@ function HighlightMe() {
 ##内联HTML
 
 <dl>
-  <dt>定义列表</ dt>
-  <dd>是人们有时使用的东西。</ dd>
+  <dt>定义列表</dt>
+  <dd>是人们有时使用的东西。</dd>
 
-  <dt> HTML中的降价</ dt>
-  <dd> *不能*很好地工作。使用HTML <em>标签</ em>。</ dd>
-</ dl>
+  <dt> HTML中的降价</dt>
+  <dd> *不能*很好地工作。使用HTML <em>标签</em>。</dd>
+</dl>
 
 ---
 

@@ -2,12 +2,12 @@
 sidebar_position: 2
 ---
 
-## Handling events
+## 处理事件
 
-Once user grants permission for hosting page to communicate with API OneKeyConnect will emits events
-about device state.
-Events can be distinguished by "type" field of event object (TODO structure)
-Constants of all types can be imported from package
+一旦用户授予托管页面与API通信的权限，OneKeyConnect就会发出事件
+关于设备状态。
+可以通过事件对象的“类型”字段(TODO结构)来区分事件
+可以从包中导入所有类型的常量
 
 ES6
 ```javascript
@@ -48,7 +48,7 @@ window.OneKeyConnect.on('DEVICE_EVENT', (event) => {
 });
 ```
 
-## List of published events
+## 已发布事件列表
 
 `device-connect` 
 `device-disconnect` 

@@ -1,9 +1,9 @@
 import Playground from "../../../../../../src/components/playground";
 
 
-## NEM: Sign transaction
-Asks device to sign given transaction. User is asked to confirm all transaction
-details on Trezor.
+## NEM：签署交易
+要求设备签署给定的交易。 要求用户确认所有交易
+有关Trezor的详细信息。
 
 ES6
 ```javascript
@@ -17,11 +17,11 @@ OneKeyConnect.nemSignTransaction(params).then(function(result) {
 });
 ```
 
-### Params
-[****Optional common params****](./commonParams)
+### 参数
+[****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L114-L117)
-* `path` - *obligatory* `string | Array<number>`
-* `transaction` - *obligatory* `Object` type of [NEMTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/nem.js#L41)
+*`path`-*必填*`string | Array<number>`
+*'transaction`-* [NEMTransaction]的* Object *强制类型(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/nem.js#L41)
 
 ### Example
 Sign simple transaction
