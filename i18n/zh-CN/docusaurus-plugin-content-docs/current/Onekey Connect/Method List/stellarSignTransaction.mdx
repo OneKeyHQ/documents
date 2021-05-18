@@ -1,0 +1,116 @@
+import Playground from "../../../../../../src/components/playground";
+
+
+## 恒星：签署交易
+要求设备签署给定的交易。要求用户确认所有交易
+有关Trezor的详细信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.stellarSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.stellarSignTransaction(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L149-L154)
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`networkPassphrase`-*必填*`string` network passphrase
+*`transaction`-* [StellarTransaction]的* Object *类型是必需的(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/stellar.js#L129)
+
+### Stellar SDK兼容性
+stellar-sdk不是@ onekeyhq/connect存储库的一部分。
+将“ StellarSDK.Transaction”对象转换为“ OneKeyConnect.StellarTransaction”对象副本[此插件](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/plugins/stellar/plugin.js)转换为您的项目。
+```javascript
+import StellarSDK from 'stellar-sdk';
+import transformTrezorTransaction from '<path-to-plugin>/index.js';
+
+const tx = new StellarSdk.TransactionBuilder(...);
+...
+tx.build();
+
+const params = transformTrezorTransaction(tx);
+const result = OneKeyConnect.stellarSignTransaction(params);
+
+if (result.success) {
+    tx.addSignature('account-public-key', result.payload.signature);
+}
+```
+
+### Example
+```javascript
+OneKeyConnect.stellarSignTransaction(
+    path: "m/44'/148'/0'",
+    networkPassphrase: "Test SDF Network ; September 2015",
+    transaction: {
+        source: "GAXSFOOGF4ELO5HT5PTN23T5XE6D5QWL3YBHSVQ2HWOFEJNYYMRJENBV",
+        fee: 100,
+        sequence: 4294967296,
+        memo: {
+            type: 0,
+        },
+        operations: [
+            {
+                type: "payment",
+                source: "GAXSFOOGF4ELO5HT5PTN23T5XE6D5QWL3YBHSVQ2HWOFEJNYYMRJENBV",
+                destination: "GAXSFOOGF4ELO5HT5PTN23T5XE6D5QWL3YBHSVQ2HWOFEJNYYMRJENBV",
+                amount: "10000"
+            }
+        ]
+    }
+});
+```
+
+### Result
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L129-L132)
+```javascript
+{
+    success: true,
+    payload: {
+        publicKey: string,
+        signature: string,
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.stellarSignTransaction(
+    path: "m/44'/148'/0'",
+    networkPassphrase: "Test SDF Network ; September 2015",
+    transaction: {
+        source: "GAXSFOOGF4ELO5HT5PTN23T5XE6D5QWL3YBHSVQ2HWOFEJNYYMRJENBV",
+        fee: 100,
+        sequence: 4294967296,
+        memo: {
+            type: 0,
+        },
+        operations: [
+            {
+                type: "payment",
+                source: "GAXSFOOGF4ELO5HT5PTN23T5XE6D5QWL3YBHSVQ2HWOFEJNYYMRJENBV",
+                destination: "GAXSFOOGF4ELO5HT5PTN23T5XE6D5QWL3YBHSVQ2HWOFEJNYYMRJENBV",
+                amount: "10000"
+            }
+        ]
+    }
+});`}
+/>
+

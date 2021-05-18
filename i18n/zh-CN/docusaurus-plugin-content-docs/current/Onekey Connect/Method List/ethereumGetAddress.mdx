@@ -1,0 +1,133 @@
+import Playground from "../../../../../../src/components/playground";
+
+## 以太坊：获取地址
+在设备上显示由给定的BIP32路径派生的请求地址，并将其返回给呼叫者。向用户显示所请求密钥的描述，并要求确认Trezor上的导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.ethereumGetAddress(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.ethereumGetAddress(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个地址
+*`path` — *必需*`string | Array<number>`的最小长度为5。 [了解更多](./path)
+*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
+*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
+
+#### 导出地址捆绑
+*`bundle`-`array`具有`path`和`showOnTrezor`字段的对象
+
+#### 处理按钮请求
+从trezor-connect@6.0.4开始，就有可能处理UI.ADDRESS_VALIDATION事件，该事件一旦在设备上显示地址就会触发。
+您可以处理此事件并在应用程序内部显示自定义UI。
+
+如果满足某些条件，将完全不使用弹出窗口：
+-用户授予与Trezor通信的权限
+-设备通过密码验证
+-应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+-设置参数`address`
+-将参数showOnTrezor设置为true(或完全不设置)
+-应用程序仅请求一个(！)地址
+
+
+### Example
+Display address of first ethereum account:
+```javascript
+OneKeyConnect.ethereumGetAddress({
+    path: "m/44'/60'/0'/0/0"
+});
+```
+Return a bundle of ethereum addresses without displaying them on device:
+```javascript
+OneKeyConnect.ethereumGetAddress({
+    bundle: [
+        { path: "m/44'/60'/0'/0/0", showOnTrezor: false }, // account 1
+        { path: "m/44'/60'/1'/0/0", showOnTrezor: false }, // account 2
+        { path: "m/44'/60'/2'/0/0", showOnTrezor: false }  // account 3
+    ]
+});
+```
+Validate address using custom UI inside of your application:
+```javascript
+import OneKeyConnect, { UI } from '@onekeyhq/connect';
+
+OneKeyConnect.on(UI.ADDRESS_VALIDATION, data => {
+    console.log("Handle button request", data.address, data.serializedPath);
+    // here you can display custom UI inside of your app
+});
+
+const result = await OneKeyConnect.ethereumGetAddress({
+    path: "m/44'/60'/0'/0/0",
+    address: "0x73d0385F4d8E00C5e6504C6030F47BF6212736A8",
+});
+// dont forget to hide your custom UI after you get the result!
+```
+
+### Result
+Result with only one address
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,     // displayed address
+        path: Array<number>, // hardended path
+        serializedPath: string,
+    }
+}
+```
+Result with bundle of addresses sorted by FIFO
+```javascript
+{
+    success: true,
+    payload: [
+        { address: string, path: Array<number>, serializedPath: string }, // account 1
+        { address: string, path: Array<number>, serializedPath: string }, // account 2
+        { address: string, path: Array<number>, serializedPath: string }  // account 3
+    ]
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### Migration from older version
+
+version 4 and below:
+```javascript
+OneKeyConnect.ethereumGetAddress("m/44'/60'/0'", function(result) {
+    result.address // address without "0x" prefix and without checksum
+    result.path
+});
+```
+version 5
+```javascript
+// params are key-value pairs inside Object
+OneKeyConnect.ethereumGetAddress({
+    path: "m/44'/60'/0'"
+}).then(function(result) {
+    result.address   // address with "0x" prefix and checksum
+    result.path      // no change
+    result.serializedPath // added
+})
+```
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.ethereumGetAddress({
+    path: "m/44'/60'/0'/0/0"
+});`}
+/>

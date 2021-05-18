@@ -1,0 +1,138 @@
+import Playground from "../../../../../../src/components/playground";
+
+## 获取地址
+在设备上显示由给定的BIP32路径派生的请求地址，并将其返回给呼叫者。要求用户确认Trezor上的出口。
+
+ES6
+```javascript
+const result = await OneKeyConnect.getAddress(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.getAddress(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个地址
+*`path` — *必需*`string | Array<number>`的最小长度为5。 [了解更多](./path)
+*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
+*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
+*`coin`-*可选*`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。如果未设置`coin`，API将尝试从`path`获取网络定义。
+*`crossChain` — *可选*`boolean`高级功能。仅当您知道自己在做什么时才使用它。允许在链之间生成地址。例如，莱特币网络上的比特币路径将以莱特币格式显示跨链地址。
+*`multisig`-*可选* [MultisigRedeemScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L107)，兑换脚本信息(仅适用于multisig地址)
+*`scriptType`-*可选* [InputScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L113)，地址脚本类型
+
+#### 导出地址捆绑
+*`bundle`-`Array`带`path`，`showOnTrezor`，`coin`和`crossChain`字段的对象
+
+#### 处理按钮请求
+从trezor-connect@6.0.4开始，就有可能处理UI.ADDRESS_VALIDATION事件，该事件一旦在设备上显示地址就会触发。
+您可以处理此事件并在应用程序内部显示自定义UI。
+
+如果满足某些条件，将完全不使用弹出窗口：
+-用户授予与Trezor通信的权限
+-设备通过密码验证
+-应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+-设置参数`address`
+-将参数showOnTrezor设置为true(或完全不设置)
+-应用程序仅请求一个(！)地址
+
+### Example
+Display third address of first bitcoin account:
+```javascript
+OneKeyConnect.getAddress({
+    path: "m/49'/0'/0'/0/2",
+    coin: "btc"
+});
+```
+Return a bundle of addresses from first bitcoin account without displaying them on device:
+```javascript
+OneKeyConnect.getAddress({
+    bundle: [
+        { path: "m/49'/0'/0'/0/0", showOnTrezor: false }, // address 1
+        { path: "m/49'/0'/0'/0/1", showOnTrezor: false }, // address 2
+        { path: "m/49'/0'/0'/0/2", showOnTrezor: false }  // address 3
+    ]
+});
+```
+Validate address using custom UI inside of your application:
+```javascript
+import OneKeyConnect, { UI } from '@onekeyhq/connect';
+
+OneKeyConnect.on(UI.ADDRESS_VALIDATION, data => {
+    console.log("Handle button request", data.address, data.serializedPath);
+    // here you can display custom UI inside of your app
+});
+
+const result = await OneKeyConnect.getAddress({
+    path: "m/49'/0'/0'/0/0",
+    address: "3L6TyTisPBmrDAj6RoKmDzNnj4eQi54gD2",
+});
+// dont forget to hide your custom UI after you get the result!
+```
+
+### Result
+Result with only one address
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,     // displayed address
+        path: Array<number>, // hardended path
+        serializedPath: string,
+    }
+}
+```
+Result with bundle of addresses
+```javascript
+{
+    success: true,
+    payload: [
+        { address: string, path: Array<number>, serializedPath: string }, // address 1
+        { address: string, path: Array<number>, serializedPath: string }, // address 2
+        { address: string, path: Array<number>, serializedPath: string }, // address 3
+    ]
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### Migration from older version
+
+v4 and below:
+```javascript
+OneKeyConnect.getAddress("m/49'/0'/4'/0/0", function(result) {
+    // added "serializedPath" field
+});
+```
+should be
+```javascript
+// params are key-value pairs inside Object
+OneKeyConnect.getAddress({
+    path: "m/49'/0'/4'/0/0"
+}).then(function(result) {
+    ...
+})
+```
+
+
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.getAddress({
+    path: "m/49'/0'/0'/0/2",
+    coin: "btc"
+});`}
+/>
+

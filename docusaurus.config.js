@@ -18,6 +18,10 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'onekeyhq', // Usually your GitHub org/user name.
   projectName: 'onekey', // Usually your repo name.
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh-CN'],
+  },
   themeConfig: {
     navbar: {
       title: 'OneKey',
@@ -26,13 +30,22 @@ module.exports = {
         src: 'img/logo_green_vector.png',
       },
       items: [
-        // {
-        //   to: 'extension/',
-        //   activeBasePath: 'extension',
-        //   label: 'Extension',
-        //   docId: 'Extension/Guide/introduction',
-        //   position: 'left',
-        // },
+        {
+          to: '/',
+          activeBaseRegex: '^(?!/Onekey Connect)',
+          label: 'Onekey Ext',
+          position: 'left',
+        },
+        {
+          to: 'Onekey Connect/Index',
+          activeBasePath: 'Onekey Connect',
+          label: 'Onekey Connect',
+          position: 'left',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
         // Please keep GitHub link to the right for consistency.
         {
           href: 'https://github.com/onekeyhq/document',

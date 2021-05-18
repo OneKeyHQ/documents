@@ -1,0 +1,144 @@
+import Playground from "../../../../../../src/components/playground";
+
+## NEM：获取地址
+在设备上显示请求的地址，并将其返回给呼叫者。
+向用户显示所请求密钥的描述，并要求其确认导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.nemGetAddress(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.nemGetAddress(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个地址
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
+*`network`-*可选*`number``0x68`-Mainnet，`0x96`-Testnet，`0x60`-Mijin。默认设置为“主网”
+*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
+
+#### 导出地址捆绑
+-`bundle`-`Array`对象的`path`，`network`和`showOnTrezor`字段
+
+#### 处理按钮请求
+从trezor-connect@6.0.4开始，就有可能处理UI.ADDRESS_VALIDATION事件，该事件一旦在设备上显示地址就会触发。
+您可以处理此事件并在应用程序内部显示自定义UI。
+
+如果满足某些条件，将完全不使用弹出窗口：
+-用户授予与Trezor通信的权限
+-设备通过密码验证
+-应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+-设置参数`address`
+-将参数showOnTrezor设置为true(或完全不设置)
+-应用程序仅请求一个(！)地址
+
+
+### Example
+Display address of third nem account:
+```javascript
+OneKeyConnect.nemGetAddress({
+    path: "m/44'/43'/2'"
+});
+```
+Return a bundle of NEM addresses without displaying them on device:
+```javascript
+OneKeyConnect.nemGetAddress({
+    bundle: [
+        { path: "m/44'/43'/0'", showOnTrezor: false }, // account 1
+        { path: "m/44'/43'/1'", showOnTrezor: false }, // account 2
+        { path: "m/44'/43'/2'", showOnTrezor: false }  // account 3
+    ]
+});
+```
+Validate address using custom UI inside of your application:
+```javascript
+import OneKeyConnect, { UI } from '@onekeyhq/connect';
+
+OneKeyConnect.on(UI.ADDRESS_VALIDATION, data => {
+    console.log("Handle button request", data.address, data.serializedPath);
+    // here you can display custom UI inside of your app
+});
+
+const result = await OneKeyConnect.nemGetAddress({
+    path: "m/44'/43'/0'",
+    address: "TDS7OQUHKNYMSC2WPJA6QUTLJIO22S27B4FMU2AJ",
+});
+// dont forget to hide your custom UI after you get the result!
+```
+
+### Result
+Result with only one address
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        path: Array<number>,
+        serializedPath: string,
+    }
+}
+```
+Result with bundle of addresses
+```javascript
+{
+    success: true,
+    payload: [
+        { address: string, path: Array<number>, serializedPath: string }, // account 1
+        { address: string, path: Array<number>, serializedPath: string }, // account 2
+        { address: string, path: Array<number>, serializedPath: string }, // account 3
+    ]
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### Migration from older version
+
+version 4 and below
+```javascript
+OneKeyConnect.nemGetAddress(
+    "m/44'/43'/0'",
+    0x68,
+    function(result) {
+        result.address,
+        result.path
+    }
+);
+```
+version 5
+```javascript
+// params are key-value pairs inside Object
+OneKeyConnect.nemGetAddress({
+    path: "m/44'/43'/0'",
+    network: 0x68,
+    showOnTrezor: true
+}).then(function(result) {
+    result.address,    // no change
+    result.path,       // no change
+    result.serializedPath   // added
+})
+```
+
+
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.nemGetAddress({
+    path: "m/44'/43'/2'"
+});`}
+/>
+

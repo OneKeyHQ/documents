@@ -1,0 +1,107 @@
+import Playground from "../../../../../../src/components/playground";
+
+## Eos：签署交易
+要求设备使用由给定的[BIP44路径](./path)派生的私钥对给定的交易进行签名。 要求用户确认所有交易
+有关Trezor的详细信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.eosSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.eosSignTransaction(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*'transaction`-*'Transaction'的* Object *类型(强制性)(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/eos.js#L145-L149)
+
+### Transfer example
+```javascript
+OneKeyConnect.eosSignTransaction({
+    path: "m/44'/194'/0'/0/0",
+    transaction: {
+        chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',
+        header: {
+            expiration: '2019-12-01T12:00:00',
+            refBlockNum: 6439,
+            refBlockPrefix: 2995713264,
+            maxNetUsageWords: 0,
+            maxCpuUsageMs: 0,
+            delaySec: 0,
+        },
+        actions: [{
+            account: 'eosio.token',
+            authorization: [{
+                actor: 'abcdefg12345',
+                permission: 'active',
+            }],
+            name: 'transfer',
+            data: {
+                from: 'abcdefg12345',
+                to: '12345abcdefg',
+                quantity: '1.0000 EOS',
+                memo: 'memo',
+            },
+        }]
+    }
+});
+```
+
+### Result
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/eos.js#L160-L163)
+```javascript
+{
+    success: true,
+    payload: {
+        signature: string, // hexadecimal string
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.eosSignTransaction({
+    path: "m/44'/194'/0'/0/0",
+    transaction: {
+        chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',
+        header: {
+            expiration: '2019-12-01T12:00:00',
+            refBlockNum: 6439,
+            refBlockPrefix: 2995713264,
+            maxNetUsageWords: 0,
+            maxCpuUsageMs: 0,
+            delaySec: 0,
+        },
+        actions: [{
+            account: 'eosio.token',
+            authorization: [{
+                actor: 'abcdefg12345',
+                permission: 'active',
+            }],
+            name: 'transfer',
+            data: {
+                from: 'abcdefg12345',
+                to: '12345abcdefg',
+                quantity: '1.0000 EOS',
+                memo: 'memo',
+            },
+        }]
+    }
+});`}
+/>

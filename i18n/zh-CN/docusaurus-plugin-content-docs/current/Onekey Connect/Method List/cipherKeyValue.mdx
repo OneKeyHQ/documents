@@ -1,0 +1,130 @@
+import Playground from "../../../../../../src/components/playground";
+
+## 对称键值加密
+密码密钥值在Trezor设备中提供对称加密，在该设备中，可能会迫使用户确认显示屏上的加密/解密。加密密钥由BIP地址上的私钥，设备上显示的密钥以及有关是否要求确认的两个信息构成。它以这种方式构造，使得不同的路径，密钥或确认信息将获得不同的加密密钥和IV。因此，您不能使用其他输入来“跳过”确认。 IV可以手动设置，也可以与密钥一起计算。该值必须可分为16个字节的块。应用程序必须垫块本身并确保安全；例如，通过使用PKCS7。
+
+可以在[SLIP-0011](https://github.com/satoshilabs/slips/blob/master/slip-0011.md)中找到更多信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.cipherKeyValue(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.cipherKeyValue(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+<br/>
+公用参数`useEmptyPassphrase`-始终设置为`true`，此方法将忽略它
+
+#### 加密单个值
+*`path` — *必需*`string | Array<number>`的最小长度为1。 [了解更多](./path)
+*`key` — *可选*`string`设备上显示的消息
+*`value` — *可选*`string`十六进制值，长度为16字节的倍数(十六进制为32个字母)。价值是实际被加密的东西。
+*`askOnEncrypt`-*可选*`boolean`用户应该确认加密吗？
+*`askOnDecrypt`-*可选*`boolean`用户应该确认解密吗？
+*`iv`-*可选*`string`初始化向量-如果您不知道它的含义，请保持未设置状态，它将自动进行计算。
+
+#### 加密多个值
+*`bundle`-对象的`Array`带有`path`，`key`，`value`，`askOnEncrypt`，`askOnDecrypt`字段
+
+### Example
+Return encrypted value:
+```javascript
+OneKeyConnect.cipherKeyValue({
+    path: "m/49'/0'/0'",
+    key: "This text is displayed on Trezor during encrypt",
+    value: "1c0ffeec0ffeec0ffeec0ffeec0ffee1",
+    encrypt: true,
+    askOnEncrypt: true,
+    askOnDecrypt: true
+});
+```
+Return a bundle of encrypted values:
+```javascript
+OneKeyConnect.cipherKeyValue({
+    bundle: [
+        { path: "m/49'/0'/0'", key: "1 text on Trezor", value: "1c0ffeec0ffeec0ffeec0ffeec0ffee1", encrypt: true  },
+        { path: "m/49'/0'/1'", key: "2 text on Trezor", value: "1c0ffeec0ffeec0ffeec0ffeec0ffee1", encrypt: false },
+        { path: "m/49'/0'/2'", key: "3 text on Trezor", value: "1c0ffeec0ffeec0ffeec0ffeec0ffee1" }
+    ]
+});
+```
+### Result
+Result with only one value
+```javascript
+{
+    success: true,
+    payload: {
+        value: string
+    }
+}
+```
+Result with bundle of values
+```javascript
+{
+    success: true,
+    payload: [
+        { value: string },
+        { value: string },
+        { value: string }
+    ]
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### Migration from older version
+
+version 4 and below:
+```javascript
+OneKeyConnect.cipherKeyValue(
+    "m/49'/0'/0'",     // path
+    "This is displayed on Trezor during encrypt", // key
+    "1c0ffeec0ffeec0ffeec0ffeec0ffee1",           // value
+    true,              // encrypt
+    true,              // ask on encrypt
+    true,              // ask on decrypt
+    function(result) { // callback
+        // result not changed
+    }
+);
+```
+version 5
+```javascript
+// params are key-value pairs inside Object
+OneKeyConnect.cipherKeyValue({
+    path: "m/49'/0'/0'",
+    key: "This is displayed on Trezor during encrypt",
+    value: "1c0ffeec0ffeec0ffeec0ffeec0ffee1",
+    encrypt: true,
+    askOnEncrypt: true,
+    askOnDecrypt: true
+}).then(function(result) {
+    // result not changed
+})
+```
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.cipherKeyValue({
+    path: "m/49'/0'/0'",
+    key: "This text is displayed on Trezor during encrypt",
+    value: "1c0ffeec0ffeec0ffeec0ffeec0ffee1",
+    encrypt: true,
+    askOnEncrypt: true,
+    askOnDecrypt: true
+});`}
+/>

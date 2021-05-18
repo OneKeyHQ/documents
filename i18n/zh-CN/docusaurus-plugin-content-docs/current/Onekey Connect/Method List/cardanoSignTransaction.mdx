@@ -1,0 +1,283 @@
+import Playground from "../../../../../../src/components/playground";
+
+## Cardano：签署交易
+要求设备签署给定的交易。要求用户确认所有交易
+有关Trezor的详细信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.cardanoSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.cardanoSignTransaction(params).then(function(result) {
+
+});
+```
+
+### 注意
+**很遗憾，我们知道以下事实：每笔交易目前最多支持约14个输入。当cardano应用程序更新为支持交易流时，应该解决此问题。同时，一种解决方法是发送包含较少输入的多个较小事务。**
+
+**此外，在Trezor固件级别，每个序列化事务的输出大小当前限制为512字节。此限制是一种缓解措施，可以防止发送包含很多Trezor无法使用的令牌的大型(特别是更改)输出，因为当前完全将Cardano交易保存在内存中。将Cardano交易签名重构为流式传输后，就可以取消此限制。**
+
+### 参数
+[****可选的通用参数****](./commonParams)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L62-L109)
+* inputs — [CardanoInput]的必填数组[https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L61)
+* [输出]-[CardanoOutput]的必填数组(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L76)
+*`fee`-*必需*`String`
+*`protocolMagic`-*必填*`Integer` 764824073(用于主网)，42(用于Testnet)
+*`networkId`-*必填*`Integer` 1代表Mainnet，0代表Testnet
+*`ttl`-*可选*`String`
+*`validityIntervalStart`-*可选*`String`
+*`certificates`-*可选* [CardanoCertificate]的数组(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L85)
+*`withdrawals`-*可选* [CardanoWithdrawal]的数组(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L90)
+*`元数据`-*可选*`字符串`
+
+### 权益池注册证书的详细信息
+
+Trezor支持将权益池注册证书作为池所有者进行签名。该交易可能包含外部输入(例如，属于池操作员)，Trezor无法验证它们是否实际上是外部输入，因此，如果我们允许使用支出密钥对交易进行签名，则存在从输入中损失资金的风险用户不打算从中花费的钱。此外，如果有交易，有可能在交易中无意中签署了提款。为了减轻这些风险，我们为权益池注册交易引入了特殊的验证规则，该规则也已在Trezor上进行了验证。验证规则如下：
+
+1.交易中不得包含任何其他证书，甚至不得包含其他权益池注册
+2.交易不得包含任何提款
+3.交易输入必须全部是外部的，即path必须是undefined或null
+4.确切地应将一个所有者作为放样路径传递，将其余所有者作为bech32编码的奖励地址传递
+
+### Example
+
+
+#### Ordinary transaction
+```javascript
+OneKeyConnect.cardanoSignTransaction({
+    inputs: [
+        {
+            path: "m/44'/1815'/0'/0/1",
+            prev_hash: "1af8fa0b754ff99253d983894e63a2b09cbb56c833ba18c3384210163f63dcfc",
+            prev_index: 0,
+        }
+    ],
+    outputs: [
+        {
+            address: "Ae2tdPwUPEZCanmBz5g2GEwFqKTKpNJcGYPKfDxoNeKZ8bRHr8366kseiK2",
+            amount: "3003112",
+        },
+        {
+            addressParameters: {
+                addressType: 0,
+                path: "m/1852'/1815'/0'/0/0",
+                stakingPath: "m/1852'/1815'/0'/2/0",
+            },
+            amount: "7120787",
+        },
+        {
+            address: 'addr1q84sh2j72ux0l03fxndjnhctdg7hcppsaejafsa84vh7lwgmcs5wgus8qt4atk45lvt4xfxpjtwfhdmvchdf2m3u3hlsd5tq5r',
+            amount: '2000000',
+            tokenBundle: [
+                {
+                    policyId: "95a292ffee938be03e9bae5657982a74e9014eb4960108c9e23a5b39",
+                    tokens: [
+                        {
+                            assetNameBytes: "74652474436f696e",
+                            amount: "7878754"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    fee: "42",
+    ttl: "10",
+    validityIntervalStart: "20",
+    certificates: [
+        {
+            type: 0,
+            path: "m/1852'/1815'/0'/2/0",
+        },
+        {
+            type: 1,
+            path: "m/1852'/1815'/0'/2/0",
+        },
+        {
+            type: 2,
+            path: "m/1852'/1815'/0'/2/0",
+            pool: "f61c42cbf7c8c53af3f520508212ad3e72f674f957fe23ff0acb4973",
+        },
+    ],
+    withdrawals: [
+        {
+            path: "m/1852'/1815'/0'/2/0",
+            amount: "1000",
+        }
+    ],
+    metadata: "a200a11864a118c843aa00ff01a119012c590100aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    protocolMagic: 764824073,
+    networkId: 1,
+});
+```
+
+#### Stake pool registration
+```javascript
+OneKeyConnect.cardanoSignTransaction({
+    inputs: [
+        {
+            // notice no path is provided here
+            prev_hash: '3b40265111d8bb3c3c608d95b3a0bf83461ace32d79336579a1939b3aad1c0b7',
+            prev_index: 0,
+        }
+    ],
+    outputs: {
+        address: 'addr1q84sh2j72ux0l03fxndjnhctdg7hcppsaejafsa84vh7lwgmcs5wgus8qt4atk45lvt4xfxpjtwfhdmvchdf2m3u3hlsd5tq5r',
+        amount: '1000000',
+    },
+    fee: "300000",
+    ttl: "500000000",
+    protocolMagic: 764824073,
+    networkId: 1,
+    certificates: [
+        {
+            type: 3, // stake pool registration certificate type
+            poolParameters: {
+                poolId: "f61c42cbf7c8c53af3f520508212ad3e72f674f957fe23ff0acb4973",
+                vrfKeyHash: "198890ad6c92e80fbdab554dda02da9fb49d001bbd96181f3e07f7a6ab0d0640",
+                pledge: "500000000", // amount in lovelace
+                cost: "340000000", // amount in lovelace
+                margin: { // numerator/denominator should be <= 1 which is translated then to a percentage
+                    numerator: "1",
+                    denominator: "2",
+                },
+                rewardAccount: "stake1uya87zwnmax0v6nnn8ptqkl6ydx4522kpsc3l3wmf3yswygwx45el", // bech32-encoded stake pool reward account
+                owners: [
+                    {
+                        stakingKeyPath: "m/1852'/1815'/0'/2/0" // this is the path to the owner's key that will be signing the tx on Trezor
+                    },
+                    {
+                        stakingKeyHash: "3a7f09d3df4cf66a7399c2b05bfa234d5a29560c311fc5db4c490711" // other owner
+                    }
+                ],
+                relays: [
+                    {
+                        type: 0, // single host ip address
+                        ipv4Address: "192.168.0.1",
+                        ipv6Address: "2001:0db8:85a3:0000:0000:8a2e:0370:7334", // ipv6 address in full form
+                        port: 1234
+                    },
+                    {
+                        type: 0,
+                        ipv6Address: "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+                        port: 1234
+                    },
+                    {
+                        type: 0,
+                        ipv4Address: "192.168.0.1",
+                        port: 1234
+                    },
+                    {
+                        type: 1, // single hostname
+                        hostName: "www.test.test",
+                        port: 1234
+                    },
+                    {
+                        type: 2, // multiple host names
+                        hostName: "www.test2.test" // max 64 characters long
+                    }
+                ],
+                metadata: {
+                    url: "https://www.test.test", // max 64 characters long
+                    hash: "914c57c1f12bbf4a82b12d977d4f274674856a11ed4b9b95bd70f5d41c5064a6"
+                }
+            }
+        }
+    ],
+});
+```
+
+### Result
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L107-L110)
+```javascript
+{
+    success: true,
+    payload: {
+        hash: string,
+        serializedTx: string,
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.cardanoSignTransaction({
+    inputs: [
+        {
+            path: "m/44'/1815'/0'/0/1",
+            prev_hash: "1af8fa0b754ff99253d983894e63a2b09cbb56c833ba18c3384210163f63dcfc",
+            prev_index: 0,
+        }
+    ],
+    outputs: [
+        {
+            address: "Ae2tdPwUPEZCanmBz5g2GEwFqKTKpNJcGYPKfDxoNeKZ8bRHr8366kseiK2",
+            amount: "3003112",
+        },
+        {
+            addressParameters: {
+                addressType: 0,
+                path: "m/1852'/1815'/0'/0/0",
+                stakingPath: "m/1852'/1815'/0'/2/0",
+            },
+            amount: "7120787",
+        },
+        {
+            address: 'addr1q84sh2j72ux0l03fxndjnhctdg7hcppsaejafsa84vh7lwgmcs5wgus8qt4atk45lvt4xfxpjtwfhdmvchdf2m3u3hlsd5tq5r',
+            amount: '2000000',
+            tokenBundle: [
+                {
+                    policyId: "95a292ffee938be03e9bae5657982a74e9014eb4960108c9e23a5b39",
+                    tokens: [
+                        {
+                            assetNameBytes: "74652474436f696e",
+                            amount: "7878754"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    fee: "42",
+    ttl: "10",
+    validityIntervalStart: "20",
+    certificates: [
+        {
+            type: 0,
+            path: "m/1852'/1815'/0'/2/0",
+        },
+        {
+            type: 1,
+            path: "m/1852'/1815'/0'/2/0",
+        },
+        {
+            type: 2,
+            path: "m/1852'/1815'/0'/2/0",
+            pool: "f61c42cbf7c8c53af3f520508212ad3e72f674f957fe23ff0acb4973",
+        },
+    ],
+    withdrawals: [
+        {
+            path: "m/1852'/1815'/0'/2/0",
+            amount: "1000",
+        }
+    ],
+    metadata: "a200a11864a118c843aa00ff01a119012c590100aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    protocolMagic: 764824073,
+    networkId: 1,
+});`}
+/>

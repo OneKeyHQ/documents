@@ -1,0 +1,81 @@
+import Playground from "../../../../../../src/components/playground";
+
+
+## Lisk：签署交易
+要求设备使用由给定的BIP32路径派生的私钥对给定的交易进行签名。 要求用户确认所有交易
+有关Trezor的详细信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.liskSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.liskSignTransaction(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L121-L124)
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*'transaction`-* [LiskTransaction]的* Object *强制类型(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#42-L52)
+
+### Example
+```javascript
+OneKeyConnect.liskSignTransaction(
+    path: "m/44'/134'/0'/0'",
+    transaction: {
+        amount: "10000000",
+        recipientId: "9971262264659915921L",
+        timestamp: 57525937,
+        type: 0,
+        fee: "20000000",
+        asset: {
+            data: "Test data"
+        }
+    }
+);
+```
+
+### Result
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L126-L129)
+```javascript
+{
+    success: true,
+    payload: {
+        signature: string
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.liskSignTransaction(
+    path: "m/44'/134'/0'/0'",
+    transaction: {
+        amount: "10000000",
+        recipientId: "9971262264659915921L",
+        timestamp: 57525937,
+        type: 0,
+        fee: "20000000",
+        asset: {
+            data: "Test data"
+        }
+    }
+);`}
+/>
+

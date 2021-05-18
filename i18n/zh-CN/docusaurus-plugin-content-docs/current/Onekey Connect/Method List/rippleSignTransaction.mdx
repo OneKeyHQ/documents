@@ -1,0 +1,80 @@
+import Playground from "../../../../../../src/components/playground";
+
+
+##涟漪：签署交易
+要求设备签署给定的交易。 要求用户确认所有交易
+有关Trezor的详细信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.rippleSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.rippleSignTransaction(params).then(function(result) {
+
+});
+```
+
+###参数
+[****可选的通用参数****](./commonParams)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L149-L154)
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+*`transaction`-* [RippleTransaction]的* Object *强制类型(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ripple.js#L36-L42)
+
+### Example
+```javascript
+OneKeyConnect.rippleSignTransaction(
+    path: "m/44'/144'/0'/0/0",
+    transaction: {
+        fee: '100000',
+        flags: 0x80000000,
+        sequence: 25,
+        payment: {
+            amount: '100000000',
+            destination: 'rBKz5MC2iXdoS3XgnNSYmF69K1Yo4NS3Ws'
+        }
+    }
+});
+```
+
+### Result
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ripple.js#L49-L52)
+```javascript
+{
+    success: true,
+    payload: {
+        serializedTx: string,
+        signature: string,
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.rippleSignTransaction(
+    path: "m/44'/144'/0'/0/0",
+    transaction: {
+        fee: '100000',
+        flags: 0x80000000,
+        sequence: 25,
+        payment: {
+            amount: '100000000',
+            destination: 'rBKz5MC2iXdoS3XgnNSYmF69K1Yo4NS3Ws'
+        }
+    }
+});`}
+/>
+

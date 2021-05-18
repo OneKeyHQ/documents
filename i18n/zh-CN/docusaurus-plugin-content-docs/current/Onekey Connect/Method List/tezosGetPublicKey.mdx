@@ -1,0 +1,88 @@
+import Playground from "../../../../../../src/components/playground";
+
+## Tezos：获取公钥
+在设备上显示请求的公共密钥，并将其返回给呼叫者。
+向用户显示请求的公共密钥的描述，并要求确认导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.tezosGetPublicKey(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.tezosGetPublicKey(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个公钥
+* `path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+* `showOnTrezor` — *可选*`boolean`决定是否在设备上显示公钥。
+
+#### 导出公钥包
+* `bundle` - `array`具有`path`和`showOnTrezor`字段的对象
+
+### Example
+Result with only one public key
+```javascript
+OneKeyConnect.tezosGetPublicKey({
+    path: "m/49'/1729'/0'",
+});
+```
+Result with bundle of public keys
+```javascript
+OneKeyConnect.tezosGetPublicKey({
+    bundle: [
+        { path: "m/49'/1729'/0'" }, // account 1
+        { path: "m/49'/1729'/1'" }, // account 2
+        { path: "m/49'/1729'/2'" }  // account 3
+    ]
+});
+```
+
+### Result
+Result with only one public key
+```javascript
+{
+    success: true,
+    payload: {
+        publicKey: string,
+        path: Array<number>,
+        serializedPath: string,
+    }
+}
+```
+
+Result with bundle of public keys
+```javascript
+{
+    success: true,
+    payload: [
+        { path, serializedPath, publicKey }, // account 1
+        { path, serializedPath, publicKey }, // account 2
+        { path, serializedPath, publicKey }, // account 3
+    ]
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.tezosGetPublicKey({
+    path: "m/49'/1729'/0'",
+});`}
+/>
+

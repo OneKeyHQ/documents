@@ -1,0 +1,113 @@
+import Playground from "../../../../../../src/components/playground";
+
+## 撰写交易
+
+请求从用户钱包向一组给定的输出付款。内部一个BIP-0044帐户
+执行发现，并向用户显示帐户列表。在选择帐户之后，向用户提供费用选择列表。选择费用后，将签署交易并以十六进制格式返回。
+如果需要，将自动添加更改输出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.composeTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.composeTransaction(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+*`outputs` — —必填项*接收者的数组，如下所述
+*`coin` — *必需*`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。
+*`push` — *可选*`boolean`决定组合交易是否将被广播到区块链中。
+
+### 输出对象：
+*`常规输出`
+-`amount`-*必须*`string`值以发送satohosi
+-`address`-*必填*`string`收件人地址
+*`send-max`-花费帐户中所有可用的输入
+-`type`-具有* send-max`值的*必填项
+-`address`-*必填*`string`收件人地址
+*`opreturn`-[了解更多](https://wiki.trezor.io/OP_RETURN)
+-`type`-*必填*，具有`opreturn`值
+-`dataHex`-*可选*`十六进制字符串`，带有任意数据
+
+### Example
+Send 0.002 BTC to "18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2"
+```javascript
+OneKeyConnect.composeTransaction({
+    outputs: [
+        { amount: "200000", address: "18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2" }
+    ],
+    coin: "btc",
+    push: true
+});
+```
+
+### Result
+```javascript
+{
+    success: true,
+    payload: {
+        signatures: Array<string>, // signer signatures
+        serializedTx: string,        // serialized transaction
+        txid?: string,             // blockchain transaction id
+    }
+}
+```
+
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### Migration from older version
+
+version 4 and below:
+```javascript
+var recipients = [{
+    amount: 200000,
+    address: "18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2"
+}];
+
+OneKeyConnect.setCurrency("btc");
+OneKeyConnect.composeAndSignTx(recipients, function(result) {
+    result.signatures    // not changed
+    result.serialized_tx // renamed to "serializedTx"
+    // added "txid" field if "push" is set to true
+});
+```
+version 5
+```javascript
+
+var recipients = [{
+    amount: "200000",
+    address: "18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2"
+}];
+// params are key-value pairs inside Object
+OneKeyConnect.composeTransaction({
+    outputs: recipients,
+    coin: "btc"
+}).then(function(result) {
+    ...
+})
+```
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.composeTransaction({
+    outputs: [
+        { amount: "200000", address: "18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2" }
+    ],
+    coin: "btc",
+    push: true
+});`}
+/>

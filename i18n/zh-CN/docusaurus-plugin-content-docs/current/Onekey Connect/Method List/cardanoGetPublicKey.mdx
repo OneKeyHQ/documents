@@ -1,0 +1,86 @@
+import Playground from "../../../../../../src/components/playground";
+
+## Cardano：获取公钥
+检索通过给定的[BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf)路径派生的[BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf)扩展公众。
+向用户显示所请求密钥的描述，并要求确认Trezor上的导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.cardanoGetPublicKey(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.cardanoGetPublicKey(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+#### 导出单个公钥
+*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
+* showOnTrezor-—可选*布尔值决定是否将公共密钥显示在设备上。 默认设置为“ true”
+
+#### 导出公共密钥束
+*`bundle`-`array`具有`path`和`showOnTrezor`字段的对象
+
+### Example
+Display public key of first cardano account:
+```javascript
+OneKeyConnect.cardanoGetPublicKey({
+    path: "m/44'/1815'/0'"
+});
+```
+Return a bundle of cardano public keys without displaying them on device:
+```javascript
+OneKeyConnect.cardanoGetPublicKey({
+    bundle: [
+        { path: "m/44'/1815'/0'", showOnTrezor: false }, // account 1
+        { path: "m/44'/1815'/1'", showOnTrezor: false }, // account 2
+        { path: "m/44'/1815'/2'", showOnTrezor: false }  // account 3
+    ]
+});
+```
+
+### Result
+Result with only one public key
+```javascript
+{
+    success: true,
+    payload: {
+        path: Array<number>, // hardended path
+        serializedPath: string,
+        publicKey: string,
+        node: HDPubNode,
+        rootHDPassphrase: string,
+    }
+}
+```
+Result with bundle of publick keys
+```javascript
+{
+    success: true,
+    payload: [
+        { path: Array<number>, serializedPath: string, publicKey: string, node: HDPubNode, hdPassphrase: string }, // account 1
+        { path: Array<number>, serializedPath: string, publicKey: string, node: HDPubNode, rootHDPassphrase: string }, // account 2
+        { path: Array<number>, serializedPath: string, publicKey: string, node: HDPubNode, hdPassphrase: string }  // account 3
+    ]
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.cardanoGetPublicKey({
+    path: "m/44'/1815'/0'"
+});`}
+/>

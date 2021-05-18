@@ -1,0 +1,97 @@
+import Playground from "../../../../../../src/components/playground";
+
+## 验证消息
+
+要求设备
+使用签名者地址和签名验证消息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.verifyMessage(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.verifyMessage(params).then(function(result) {
+
+});
+```
+
+### 参数
+[****可选的通用参数****](./commonParams)
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L156-L161)
+*`address`-*必填*`string`签名人地址，
+*`message`-*必须*`string`签名的消息，
+*`signature`-*强制*`base`字符串，采用base64格式，
+*`coin`-*必需*`string`确定在[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。 可以使用硬币“快捷方式”，“名称”或“标签”。
+*`hex`-*可选*`boolean`转换来自十六进制的消息
+
+### Example
+```javascript
+OneKeyConnect.verifyMessage({
+    address: "3BD8TL6iShVzizQzvo789SuynEKGpLTms9",
+    message: "example message",
+    signature: "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=",
+    coin: "btc"
+});
+```
+
+### Result
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L133-L136)
+```javascript
+{
+    success: true,
+    payload: {
+        message: "Message verified"
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### Migration from older version
+
+version 4 and below
+```javascript
+var address = "3BD8TL6iShVzizQzvo789SuynEKGpLTms9";
+var signature = "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=";
+OneKeyConnect.verifyMessage(
+    address,
+    signature,
+    "example message",
+    function(result) {
+    ...
+}, "bitcoin");
+```
+version 5
+```javascript
+// params are key-value pairs inside Object
+OneKeyConnect.verifyMessage({
+    address: "3BD8TL6iShVzizQzvo789SuynEKGpLTms9",
+    signature: "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=",
+    message: "example message",
+    coin: "btc"
+}).then(function(result) {
+    ...
+})
+```
+
+
+### try it out
+<Playground
+    initValue={
+`OneKeyConnect.verifyMessage({
+    address: "3BD8TL6iShVzizQzvo789SuynEKGpLTms9",
+    message: "example message",
+    signature: "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=",
+    coin: "btc"
+});`}
+/>
+
