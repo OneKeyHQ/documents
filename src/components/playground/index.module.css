@@ -4,6 +4,10 @@
     border: 1px solid rgb(24, 25, 26);
 }
 
+.actions {
+    display: flex;
+}
+
 .button {
     box-shadow: inset 0 1px 0 0 #d9fbbe;
     color: rgb(0, 170, 17);
@@ -13,6 +17,7 @@
     font-weight: bold;
     text-decoration: none;
     text-shadow: 0 1px 0 #86ae47;
+    margin-right: auto;
 }
 
 .button:hover {
@@ -22,4 +27,13 @@
 .button:active {
     position: relative;
     top: 1px;
+}
+
+.toggle {
+    align-items: center;
+    display: flex;
+    height: 10px;
+    justify-content: center;
+    color: white;
+    width: 10px;
 }

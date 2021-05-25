@@ -1,12 +1,11 @@
-import OneKeyConnect from "@onekeyhq/connect";
+import { useEffect } from "react";
 import { editor, languages, Uri } from "monaco-editor/esm/vs/editor/editor.api";
 // @ts-ignore
 import libSource from '!raw-loader!./types.txt';
-import { useEffect } from "react";
 
 let isInitialized = false;
 
-export default function initHook() {
+export function useOnekeyConnectEditor() {
     useEffect(() => {
         if (!isInitialized) {
             init();
@@ -34,17 +33,4 @@ function init() {
     // When resolving definitions and references, the editor will try to use created models.
     // Creating a model for the library allows "peek definition/references" commands to work with the library.
     editor.createModel(libSource, 'typescript', Uri.parse('ts:global.d.ts'));
-
-    // OneKeyConnect
-    OneKeyConnect.on('UI_EVENT', event => {
-        console.log('UI_EVENT', event);
-    });
-
-    OneKeyConnect.init({
-        debug: true,
-        manifest: {
-            email: 'hi@onekey.so',
-            appUrl: 'https://onekey.so',
-        },
-    });
 }

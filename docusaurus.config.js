@@ -5,8 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const path = require('path');
-
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'OneKey Documents',
@@ -137,5 +135,8 @@ module.exports = {
       },
     ],
   ],
-  plugins: [path.join(__dirname, '/src/plugins/monaco-editor')],
+  plugins: [
+      require.resolve('./src/plugins/monaco-editor'),
+      require.resolve('./src/plugins/tsconfig-paths-webpack-plugin'),
+  ],
 };
