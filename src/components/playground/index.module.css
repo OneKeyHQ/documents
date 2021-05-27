@@ -1,5 +1,5 @@
 .editor {
-    min-height: 100px;
+    min-height: 45%;
     min-width: 100%;
     border: 1px solid rgb(24, 25, 26);
 }
@@ -36,4 +36,16 @@
     justify-content: center;
     color: white;
     width: 10px;
+}
+
+.parent {
+    margin-right: 25vw;
+}
+
+.playground {
+    position: fixed;
+    width: 25vw;
+    right: 24px;
+    bottom: 0;
+    top: calc(24px + var(--ifm-navbar-height));
 }

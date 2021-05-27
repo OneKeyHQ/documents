@@ -33,6 +33,12 @@ function Playground(props: PlaygroundProps) {
     const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
     useEffect(() => {
+        const parent = document.getElementsByClassName('markdown')[0];
+        parent?.classList.add(styles.parent);
+        return () => parent?.classList.remove(styles.parent);
+    }, []);
+
+    useEffect(() => {
         editorRef.current = editor.create(editorDivRef.current, {
             value: props.initValue,
             language: 'typescript',
@@ -60,7 +66,7 @@ function Playground(props: PlaygroundProps) {
     }
 
     return (
-        <>
+        <div className={styles.playground}>
             <div
                 className={styles.editor}
                 ref={editorDivRef}
@@ -73,7 +79,7 @@ function Playground(props: PlaygroundProps) {
             {log &&
             <CodeBlock className="json">{log}</CodeBlock>
             }
-        </>
+        </div>
     );
 }
 
