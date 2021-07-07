@@ -30,8 +30,9 @@ const txHash = await ethereum.request({
 ```
 
 ## Example
-
+```
 <SendTransaction />
+```
 
 ::::tabs :options="{ useUrlFragment: false }"
 
