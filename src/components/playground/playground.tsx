@@ -7,7 +7,6 @@ import useThemeContext from '@theme/hooks/useThemeContext';
 import styles from './index.module.css';
 import { useOnekeyConnectEditor } from "@src/hooks/useOnekeyConnectEditor";
 import { usePopupToggle } from "@src/hooks/usePopupToggle";
-import BrowserOnly from '@docusaurus/BrowserOnly';
 
 const checked = (
     <span className={styles.toggle}>
@@ -32,6 +31,12 @@ function Playground(props: PlaygroundProps) {
     const [log, setLog] = useReducer((p, a) => JSON.stringify(a, null, 2), '');
     const editorDivRef = useRef<HTMLDivElement>();
     const editorRef = useRef<editor.IStandaloneCodeEditor>();
+
+    useEffect(() => {
+        const parent = document.getElementsByClassName('markdown')[0];
+        parent?.classList.add(styles.parent);
+        return () => parent?.classList.remove(styles.parent);
+    }, []);
 
     useEffect(() => {
         editorRef.current = editor.create(editorDivRef.current, {
@@ -61,7 +66,7 @@ function Playground(props: PlaygroundProps) {
     }
 
     return (
-        <>
+        <div className={styles.playground}>
             <div
                 className={styles.editor}
                 ref={editorDivRef}
@@ -74,7 +79,7 @@ function Playground(props: PlaygroundProps) {
             {log &&
             <CodeBlock className="json">{log}</CodeBlock>
             }
-        </>
+        </div>
     );
 }
 
