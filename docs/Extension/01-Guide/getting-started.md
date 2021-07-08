@@ -76,8 +76,9 @@ ethereum.request({ method: 'eth_requestAccounts' });
 ```
 
 **Example:**
-
+```
 <EthConnectButton />
+```
 
 ::::tabs :options="{ useUrlFragment: false }"
 
@@ -119,7 +120,9 @@ const account = accounts[0];
 
 **Example:**
 
+```
 <EthAsyncConnectButton />
+```
 
 ::::tabs :options="{ useUrlFragment: false }"
 
