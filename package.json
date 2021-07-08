@@ -23,7 +23,7 @@
     "@docusaurus/core": "2.0.0-alpha.75",
     "@docusaurus/preset-classic": "2.0.0-alpha.75",
     "@mdx-js/react": "^1.6.22",
-    "@onekeyhq/connect": "^8.1.33-extended",
+    "@onekeyhq/connect": "^8.2.2-extended",
     "clsx": "^1.1.1",
     "file-loader": "^6.2.0",
     "monaco-editor": "^0.23.0",
