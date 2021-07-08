@@ -29,14 +29,14 @@ module.exports = {
       },
       items: [
         {
-          to: '/',
-          activeBaseRegex: '^(?!/Onekey Connect)',
-          label: 'Onekey Ext',
+          type: 'doc',
+          docId: 'Extension/Guide/introduction',
+          label: 'Onekey Extension',
           position: 'left',
         },
         {
-          to: 'Onekey Connect/Index',
-          activeBasePath: 'Onekey Connect',
+          type: 'doc',
+          docId: 'Onekey Connect/getting-started',
           label: 'Onekey Connect',
           position: 'left',
         },
