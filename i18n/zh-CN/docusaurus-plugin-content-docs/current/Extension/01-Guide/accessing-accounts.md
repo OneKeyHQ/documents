@@ -14,7 +14,9 @@ sidebar_position: 5
 [连接到用户](./getting-started.html)之后，您随时可以通过选中`ethereum.selectedAddress`来重新检查当前帐户。
 
 **例子：**
+```
 <ChangeAccount />
+```
 
 如果您希望在地址更改时收到通知，我们可以举办一个活动，您可以订阅：
 ```javascript
