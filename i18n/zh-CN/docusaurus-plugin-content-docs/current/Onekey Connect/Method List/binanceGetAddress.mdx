@@ -1,7 +1,9 @@
 import Playground from "@src/components/playground";
 
+（在 OneKey Pro 上支持）
+
 ## Binance：获取地址
-在设备上显示由给定的[BIP44路径](./path)派生的请求地址，并将其返回给呼叫者。向用户显示所请求密钥的描述，并要求确认Trezor上的导出。
+用 [BIP44路径](./path) 查询派生的地址，用户会在 OneKey 上弹出是否导出的权限提示。
 
 ES6
 ```javascript
@@ -17,35 +19,36 @@ OneKeyConnect.binanceGetAddress(params).then(function(result) {
 
 ### 参数
 [****可选的通用参数****](./commonParams)
-####导出单个地址
-*`path` — *必需*`string | Array<number>`的最小长度为5。 [了解更多](./path)
-*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
-*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
+#### 导出单个地址
 
-#### 导出地址捆绑
-*`bundle`-`array`具有`path`和`showOnTrezor`字段的对象
+* `path` — *必需* `string | Array<number>` 的最小长度为 `5`。 [了解更多](./path)
+* `address` — *可选* `string` 用于验证的地址（请参阅下面的 `句柄按钮请求` 部分）
+* `showOnTrezor`-*可选* `boolean` 决定是否在设备上显示地址。默认设置为 `true`
+
+#### 导出多个地址
+* `bundle` - 一个有 `path` 和 `showOnTrezor` 字段对象的数组
 
 #### 处理按钮请求
-从trezor-connect@6.0.4开始，就有可能处理UI.ADDRESS_VALIDATION事件，该事件一旦在设备上显示地址就会触发。
+从 vX.a.b 开始，就可以使用 `UI.ADDRESS_VALIDATION` 事件，该事件一旦在设备上显示地址就会触发。
 您可以处理此事件并在应用程序内部显示自定义UI。
 
-如果满足某些条件，将完全不使用弹出窗口：
--用户授予与Trezor通信的权限
--设备通过密码验证
--应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
--设置参数`address`
--将参数showOnTrezor设置为true(或完全不设置)
--应用程序仅请求一个(！)地址
+如果满足以下任意条件，将不需要 Popup 弹出窗口：
+- 用户授予与 OneKey 通信的权限
+- 设备已通过 密码/PIN 验证
+- 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+- 设置参数 `address`
+- 将参数 `showOnTrezor` 设置为 `true`（或完全不设置）
+- 应用程序仅请求一个(!)地址
 
 
-### Example
-Display address of first Binance account:
+### 例子
+显示第一个地址：
 ```javascript
 OneKeyConnect.binanceGetAddress({
     path: "m/44'/714'/0'/0/0"
 });
 ```
-Return a bundle of Binance addresses without displaying them on device:
+不在屏幕上显示，返回多个地址
 ```javascript
 OneKeyConnect.binanceGetAddress({
     bundle: [
@@ -55,24 +58,24 @@ OneKeyConnect.binanceGetAddress({
     ]
 });
 ```
-Validate address using custom UI inside of your application:
+在你的应用里使用事件获取，自定义 UI 逻辑
 ```javascript
 import OneKeyConnect, { UI } from '@onekeyhq/connect';
 
 OneKeyConnect.on(UI.ADDRESS_VALIDATION, data => {
     console.log("Handle button request", data.address, data.serializedPath);
-    // here you can display custom UI inside of your app
+    // 在这里显示你应用自定义的 UI
 });
 
 const result = await OneKeyConnect.binanceGetAddress({
     path: "m/44'/714'/0'/0/0",
     address: "bnb1afwh46v6nn30nkmugw5swdmsyjmlxslgjfugre",
 });
-// don't forget to hide your custom UI after you get the result!
+// 别忘了在获取到结果后 隐藏你的自定义 UI
 ```
 
-### Result
-Result with only one address
+### 结果
+获取一个地址
 ```javascript
 {
     success: true,
@@ -83,7 +86,7 @@ Result with only one address
     }
 }
 ```
-Result with bundle of addresses
+使用 数组 获取多个地址
 ```javascript
 {
     success: true,
@@ -94,7 +97,7 @@ Result with bundle of addresses
     ]
 }
 ```
-Error
+错误
 ```javascript
 {
     success: false,
@@ -103,7 +106,7 @@ Error
     }
 }
 ```
-### try it out
+### 试试看
 <Playground
     initValue={
 `OneKeyConnect.binanceGetAddress({
