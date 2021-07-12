@@ -1,4 +1,6 @@
 ---
+id: getting-started
+title: Getting Started
 sidebar_position: 1
 ---
 
@@ -82,5 +84,3 @@ Install builded lib in your project:
 * Inside your project: `yarn install @onekeyhq/connect`
 #### Using local files
 * Inside your project: `yarn install @onekeyhq/connect@file:/[local-path-to-repository]/npm`
-
-

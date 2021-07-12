@@ -1,5 +1,7 @@
 ---
 sidebar_position: 1
+id: getting-started
+title: Getting Started
 ---
 
 ## 安装
@@ -82,4 +84,3 @@ OneKeyConnect.init({
 *在您的项目中：`yarn install @onekeyhq/connect`
 ####使用本地文件
 *在您的项目中：`yarn install @onekeyhq/connect@file:/[local-path-to-repository]/npm`
-
