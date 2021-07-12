@@ -1,10 +1,11 @@
 ---
 hide_table_of_contents: true
 ---
+
 import Playground from "@src/components/playground";
 
 ## Cardano：获取地址
-在设备上显示由给定的[BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf)路径派生的请求地址，并将其返回给调用方。向用户显示所请求密钥的描述，并要求确认Trezor上的导出。
+在设备上显示由给定的 [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) 路径派生的请求地址，并将其返回给调用方。向用户显示所请求密钥的描述，并要求确认 OneKey 上导出。
 
 ES6
 ```javascript
@@ -19,41 +20,49 @@ OneKeyConnect.cardanoGetAddress(params).then(function(result) {
 ```
 
 ### 参数
-[****可选的通用参数****](./commonParams)
-####导出单个地址
-*`addressParameters`-*必填*，请参见下面的描述
-*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
-*`protocolMagic`-*必填*`Integer` 764824073(用于主网)，42(用于Testnet)
-*`networkId`-*必填*`Integer` 1代表Mainnet，0代表Testnet
-*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
 
-#### 导出地址捆绑
-*`bundle`-具有单个地址字段的对象数组
+[**可选的通用参数**](./commonParams)
+
+#### 导出单个地址
+
+* `addressParameters` - *必填*，请参见下面的描述
+* `address` - *可选* `string` 用于验证的地址（请参阅下面的「处理按钮请求」部分）
+* `protocolMagic` - *必填* `Integer` 764824073（用于主网），42（用于Testnet）
+* `networkId` - *必填* `Integer` 1 代表 Mainnet，0 代表 Testnet
+* `showOnTrezor` - *可选* `boolean` 决定是否在设备上显示地址。默认设置为“ true”
+
+#### 导出地址组合
+* `bundle` - 具有单个地址字段的对象数组
 
 #### 地址参数
-###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L37-L43)
-*`addressType`-*必填*`CardanoAddressType`/`number`-您可以使用流`CARDANO.ADDRESS_TYPE`对象或打字稿`CardanoAddressType`枚举。支持基本，指针，企业，拜伦和奖励地址类型。
-*`path` — *必需*`string | Array<number>`的最小长度为5。 [了解更多](./path)
-*`stakingPath` — *可选*`string | Array<number>`的最小长度为5。 [更多](./path)用于基地址派生
-*`stakingKeyHash`-*可选*`string`十六进制密钥的字符串。用于基地址派生(作为`stakingPath`的替代)
-*`certificatePointer`-*可选*`CardanoCertificatePointer`对象。必须包含数字“ blockIndex”，“ txIndex”和“ certificateIndex”。 ([flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L31-L35))用于指针地址派生。 [了解有关指针地址的更多信息](https://hydra.iohk.io/build/2006688/download/1/delegation_design_spec.pdf#subsubsection.3.2.2)
+
+###### [参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L37-L43)
+
+* `addressType` - *必填*` CardanoAddressType`/`number`。您可以使用 `CARDANO.ADDRESS_TYPE` 对象或使用 `CardanoAddressType` 枚举。支持 「Base address」,「Pointer address」,「Enterprise address
+」,「Byron」 和 「Reward address」 这些类型。
+* `path` - *必需* `string | Array<number>` 的最小长度为 5。 [了解更多](./path)
+* `stakingPath` - *可选* `string | Array<number>` 的最小长度为 5。 [更多](./path)用于基地址派生。
+* `stakingKeyHash` - *可选* `string` 十六进制密钥的字符串。用于基地址派生（作为 `stakingPath` 的替代品）。
+* `certificatePointer` - *可选* `CardanoCertificatePointer` 对象。必须包含数字 「blockIndex」，「txIndex」 和 「certificateIndex」。 ([查看类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L31-L35))用于指针地址派生。 [了解有关指针地址的更多信息](https://hydra.iohk.io/build/2006688/download/1/delegation_design_spec.pdf#subsubsection.3.2.2)
 
 
 #### 处理按钮请求
-从trezor-connect@6.0.4开始，就有可能处理UI.ADDRESS_VALIDATION事件，该事件一旦在设备上显示地址就会触发。
-您可以处理此事件并在应用程序内部显示自定义UI。
+
+从 `onekeyhq/connect@8.0.0` 开始，您可以开始处理 `UI.ADDRESS_VALIDATION` 事件。一旦在设备上显示地址就会触发该事件，您可以处理此事件并在应用程序内部显示自定义 UI。
 
 如果满足某些条件，将完全不使用弹出窗口：
--用户授予与Trezor通信的权限
--设备通过密码验证
--应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
--设置参数`address`
--将参数showOnTrezor设置为true(或完全不设置)
--应用程序仅请求一个(！)地址
+- 用户授予与 OneKey 通信的权限
+- 设备已通过 pin / passphrase 验证
+- 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+- 设置参数 `address`
+- 将参数 `showOnTrezor` 设置为 true (或完全不设置)
+- 应用程序仅请求一个地址
 
 
-### Example
-Display byron address of first cardano account:
+### 示例
+
+展示第一个 Cardano 账户的 「Byron address」:
+
 ```javascript
 OneKeyConnect.cardanoGetAddress({
     addressParameters: {
@@ -64,7 +73,9 @@ OneKeyConnect.cardanoGetAddress({
     networkId: 1,
 });
 ```
-Display base address of first cardano account:
+
+展示第一个 Cardano 账户的 「Base address」:
+
 ```javascript
 OneKeyConnect.cardanoGetAddress({
     addressParameters: {
@@ -76,7 +87,9 @@ OneKeyConnect.cardanoGetAddress({
     networkId: 1,
 });
 ```
-Display pointer address of first cardano account:
+
+展示第一个 Cardano 账户的 「Pointer address」:
+
 ```javascript
 OneKeyConnect.cardanoGetAddress({
     addressParameters: {
@@ -92,7 +105,9 @@ OneKeyConnect.cardanoGetAddress({
     networkId: 1,
 });
 ```
-Display enterprise address of first cardano account:
+
+展示第一个 Cardano 账户的 「Enterprise address」:
+
 ```javascript
 OneKeyConnect.cardanoGetAddress({
     addressParameters: {
@@ -103,7 +118,9 @@ OneKeyConnect.cardanoGetAddress({
     networkId: 1,
 });
 ```
-Display reward address of first cardano account:
+
+展示第一个 Cardano 账户的 「Reward address」:
+
 ```javascript
 OneKeyConnect.cardanoGetAddress({
     addressParameters: {
@@ -114,7 +131,9 @@ OneKeyConnect.cardanoGetAddress({
     networkId: 1,
 });
 ```
-Return a bundle of cardano addresses without displaying them on device:
+
+返回 Cardano 账户列表，同时不在 OneKey 硬件设备上展示它们：
+
 ```javascript
 OneKeyConnect.cardanoGetAddress({
     bundle: [
@@ -152,7 +171,9 @@ OneKeyConnect.cardanoGetAddress({
     ]
 });
 ```
-Validate address using custom UI inside of your application:
+
+在您的应用中使用自定义 UI 确认地址
+
 ```javascript
 import OneKeyConnect, { UI } from '@onekeyhq/connect';
 
@@ -173,8 +194,10 @@ const result = await OneKeyConnect.cardanoGetAddress({
 // dont forget to hide your custom UI after you get the result!
 ```
 
-### Result
-Result with only one address
+### 返回结果
+
+单地址返回时格式
+
 ```javascript
 {
     success: true,
@@ -198,7 +221,9 @@ Result with only one address
     }
 }
 ```
-Result with bundle of addresses
+
+多地址返回时结果
+
 ```javascript
 {
     success: true,
@@ -260,7 +285,9 @@ Result with bundle of addresses
     ]
 }
 ```
-Error
+
+请求错误返回结果
+
 ```javascript
 {
     success: false,
@@ -269,7 +296,7 @@ Error
     }
 }
 ```
-### try it out
+
 <Playground
     initValue={
 `OneKeyConnect.cardanoGetAddress({
