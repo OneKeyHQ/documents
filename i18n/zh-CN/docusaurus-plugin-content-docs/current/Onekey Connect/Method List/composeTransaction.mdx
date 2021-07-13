@@ -3,7 +3,7 @@ hide_table_of_contents: true
 ---
 import Playground from "@src/components/playground";
 
-## 撰写交易
+## 构造交易
 
 请求从用户钱包向一组给定的输出付款。内部一个BIP-0044帐户
 执行发现，并向用户显示帐户列表。在选择帐户之后，向用户提供费用选择列表。选择费用后，将签署交易并以十六进制格式返回。
@@ -38,8 +38,8 @@ OneKeyConnect.composeTransaction(params).then(function(result) {
 -`type`-*必填*，具有`opreturn`值
 -`dataHex`-*可选*`十六进制字符串`，带有任意数据
 
-### Example
-Send 0.002 BTC to "18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2"
+### 例子
+发送0.002 BTC到地址"18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2"
 ```javascript
 OneKeyConnect.composeTransaction({
     outputs: [
@@ -50,7 +50,7 @@ OneKeyConnect.composeTransaction({
 });
 ```
 
-### Result
+### 结果
 ```javascript
 {
     success: true,
@@ -62,7 +62,7 @@ OneKeyConnect.composeTransaction({
 }
 ```
 
-Error
+错误
 ```javascript
 {
     success: false,
@@ -72,7 +72,7 @@ Error
 }
 ```
 
-### Migration from older version
+### 迁移
 
 version 4 and below:
 ```javascript
@@ -103,7 +103,7 @@ OneKeyConnect.composeTransaction({
     ...
 })
 ```
-### try it out
+### 试一试
 <Playground
     initValue={
 `OneKeyConnect.composeTransaction({
