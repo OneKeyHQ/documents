@@ -3,9 +3,11 @@ hide_table_of_contents: true
 ---
 import Playground from "@src/components/playground";
 
+（OneKey Pro supported）
+
 ## Binance: sign transaction
 Asks device to sign given transaction using the private key derived by given [BIP44 path](./path). User is asked to confirm all transaction
-details on Trezor.
+details on OneKey.
 
 ES6
 ```javascript
@@ -22,7 +24,7 @@ OneKeyConnect.binanceSignTransaction(params).then(function(result) {
 ### Params
 [****Optional common params****](./commonParams)
 * `path` — *obligatory* `string | Array<number>` minimum length is `5`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [Transaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/binance.js#L61-71)
+* `transaction` - *obligatory* `Object` type of [transaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/binance.js#L61-71)
 
 ### Transfer example
 ```javascript
