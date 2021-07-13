@@ -10,7 +10,7 @@ All common parameters are optional.
 * `allowSeedlessDevice` — *optional* `boolean` allows to use OneKeyConnect methods with device with seedless setup. Default is set to `false`
 * `keepSession` — `optional boolean` Advanced feature. After method return a response device session will NOT! be released. Session shoul be released after all calls are performed by calling any method with `keepSession` set to false or `undefined`. Useful when you need to do multiple different calls to OneKeyConnect API without releasing. Example sequence loop for 10 account should look like:
     - OneKeyConnect.getPublicKey({ device: { path: "web01"}, keepSession: true, ...otherParams }) for first account,
-    - Trezor.getAddress({ device: { path: "web01"}, ...otherParams }) for the same account,
+    - OneKey.getAddress({ device: { path: "web01"}, ...otherParams }) for the same account,
     - looking up for balance in external blockchain
     - loop iteration
     - after last iteration call OneKeyConnect.getFeatures({ device: { path: "web01"}, keepSession: false, ...otherParams })

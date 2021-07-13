@@ -3,9 +3,11 @@ hide_table_of_contents: true
 ---
 import Playground from "@src/components/playground";
 
+（在 OneKey Pro 上支持）
+
 ## Binance：签署交易
-要求设备使用由给定的[BIP44路径](./path)派生的私钥对给定的交易进行签名。 要求用户确认所有交易
-有关Trezor的详细信息。
+要求设备使用给定的[BIP44路径](./path)派生的私钥对给定的交易进行签名。要求用户在OneKey上确认所有交易
+的详细信息。
 
 ES6
 ```javascript
@@ -21,8 +23,8 @@ OneKeyConnect.binanceSignTransaction(params).then(function(result) {
 
 ### 参数
 [****可选的通用参数****](./commonParams)
-*`path` — *必需*`string | Array<number>`的最小长度为5。 [了解更多](./path)
-*'transaction`-* [Transaction]的对象类型是必填项(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/binance.js#L61-71)
+* `path` - *必需* `string | Array<number>` 的最小长度为 `5`。 [了解更多](./path)
+* `transaction` - *必需* 对象类型的[transaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/binance.js#L61-71)是必填项
 
 ### Transfer example
 ```javascript
