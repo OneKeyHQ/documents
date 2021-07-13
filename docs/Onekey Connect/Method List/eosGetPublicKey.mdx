@@ -1,6 +1,7 @@
 ---
 hide_table_of_contents: true
 ---
+
 import Playground from "@src/components/playground";
 
 ## Eos: get public key
@@ -20,7 +21,7 @@ OneKeyConnect.eosGetPublicKey(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
 #### Exporting single address
 * `path` — *obligatory* `string | Array<number>` minimum length is `5`. [read more](./path)
 * `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
@@ -77,7 +78,7 @@ Error
     }
 }
 ```
-### try it out
+
 <Playground
     initValue={
 `OneKeyConnect.eosGetPublicKey({
