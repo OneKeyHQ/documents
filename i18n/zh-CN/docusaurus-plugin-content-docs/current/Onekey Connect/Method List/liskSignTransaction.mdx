@@ -1,32 +1,38 @@
 ---
 hide_table_of_contents: true
 ---
-import Playground from "@src/components/playground";
 
+import Playground from '@src/components/playground';
 
-## Lisk：签署交易
-要求设备使用由给定的BIP32路径派生的私钥对给定的交易进行签名。 要求用户确认所有交易
-有关Trezor的详细信息。
+## Lisk：交易签名
+
+给定 BIP32 派生路径和交易信息，设备通过派生路径对应的私钥对该笔交易进行签名，并要求用户在设备上确认。
 
 ES6
+
 ```javascript
 const result = await OneKeyConnect.liskSignTransaction(params);
 ```
 
 CommonJS
-```javascript
-OneKeyConnect.liskSignTransaction(params).then(function(result) {
 
-});
+```javascript
+OneKeyConnect.liskSignTransaction(params).then(function (result) {});
 ```
 
 ### 参数
-[****可选的通用参数****](./commonParams)
-###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L121-L124)
-*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
-*'transaction`-* [LiskTransaction]的* Object *强制类型(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#42-L52)
 
-### Example
+[**可选的通用参数**](./commonParams)
+
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L121-L124)
+
+- `path` - **必填** `string | Array<number>` 
+    > 最小长度为 3。 [了解更多](./path)
+- `transaction` - **必填** 
+    > [LiskTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#42-L52) 对象
+
+### 示例
+
 ```javascript
 OneKeyConnect.liskSignTransaction(
     path: "m/44'/134'/0'/0'",
@@ -43,8 +49,12 @@ OneKeyConnect.liskSignTransaction(
 );
 ```
 
-### Result
+### 返回结果
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L126-L129)
+
+正确返回
+
 ```javascript
 {
     success: true,
@@ -53,7 +63,9 @@ OneKeyConnect.liskSignTransaction(
     }
 }
 ```
-Error
+
+错误返回
+
 ```javascript
 {
     success: false,
@@ -63,11 +75,8 @@ Error
 }
 ```
 
-
-### try it out
 <Playground
-    initValue={
-`OneKeyConnect.liskSignTransaction(
+  initValue={`OneKeyConnect.liskSignTransaction(
     path: "m/44'/134'/0'/0'",
     transaction: {
         amount: "10000000",
@@ -81,4 +90,3 @@ Error
     }
 );`}
 />
-
