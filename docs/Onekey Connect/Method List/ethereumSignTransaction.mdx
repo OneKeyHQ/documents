@@ -6,7 +6,7 @@ import Playground from "@src/components/playground";
 
 ## Ethereum: Sign transaction
 Asks device to sign given transaction using the private key derived by given BIP32 path. User is asked to confirm all transaction
-details on Trezor.
+details on OneKey.
 
 ES6
 ```javascript
@@ -21,7 +21,7 @@ OneKeyConnect.ethereumSignTransaction(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
 * `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `transaction` - *obligatory* `Object` type of [EthereumTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ethereum.js#L5) "0x" prefix for each field is optional
@@ -103,7 +103,7 @@ OneKeyConnect.signTransaction({
     result.s // hexadecimal string with "0x" prefix
 })
 ```
-### try it out
+
 <Playground
     initValue={
 `OneKeyConnect.ethereumSignTransaction({
