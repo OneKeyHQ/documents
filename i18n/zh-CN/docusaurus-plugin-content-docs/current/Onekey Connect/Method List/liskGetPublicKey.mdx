@@ -4,8 +4,7 @@ hide_table_of_contents: true
 import Playground from "@src/components/playground";
 
 ## Lisk：获取公钥
-检索由给定的BIP32路径派生的BIP32扩展的public。
-向用户显示所请求密钥的描述，并要求确认Trezor上的导出。
+获取指定BIP32路径的派生扩展的公钥。钱包会向用户显示请求密钥的描述，要求用户手动确认Onekey上的导出公钥。
 
 ES6
 ```javascript
@@ -25,10 +24,11 @@ OneKeyConnect.liskGetPublicKey(params).then(function(result) {
 *`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
 *`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。 默认设置为`false`
 
-#### 导出地址捆绑
+#### 批量获取公钥
 *`bundle`-`array`具有`path`和`showOnTrezor`字段的对象
 
-### Example
+### 例子
+获取第一个地址
 Display address of first Lisk account:
 ```javascript
 OneKeyConnect.liskGetPublicKey({
@@ -46,8 +46,8 @@ OneKeyConnect.liskGetPublicKey({
 });
 ```
 
-### Result
-Result with only one address
+### 结果
+单个查询结果
 ```javascript
 {
     success: true,
@@ -58,7 +58,7 @@ Result with only one address
     }
 }
 ```
-Result with bundle of addresses sorted by FIFO
+批量查询的结果是按顺序排列
 ```javascript
 {
     success: true,
@@ -69,7 +69,7 @@ Result with bundle of addresses sorted by FIFO
     ]
 }
 ```
-Error
+错误
 ```javascript
 {
     success: false,
@@ -80,7 +80,7 @@ Error
 ```
 
 
-### try it out
+### 试一试
 <Playground
     initValue={
 `OneKeyConnect.liskGetPublicKey({

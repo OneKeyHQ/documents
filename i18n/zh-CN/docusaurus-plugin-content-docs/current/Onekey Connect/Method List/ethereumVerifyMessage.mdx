@@ -5,8 +5,7 @@ import Playground from "@src/components/playground";
 
 ## 以太坊：验证消息
 
-要求设备
-使用签名者地址和签名验证消息。
+验证参数中的地址、签名、消息是否匹配。
 
 ES6
 ```javascript
@@ -28,7 +27,7 @@ OneKeyConnect.ethereumVerifyMessage(params).then(function(result) {
 *`hex`-*可选*`boolean`转换来自十六进制的消息
 *`signature`-*必须*`string`十六进制格式的签名。 “ 0x”前缀是可选的
 
-### Example
+### 例子
 ```javascript
 OneKeyConnect.ethereumVerifyMessage({
     address: "0xdA0b608bdb1a4A154325C854607c68950b4F1a34",
@@ -37,7 +36,7 @@ OneKeyConnect.ethereumVerifyMessage({
 });
 ```
 
-### Result
+### 结果
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L133-L136)
 ```javascript
 {
@@ -47,7 +46,7 @@ OneKeyConnect.ethereumVerifyMessage({
     }
 }
 ```
-Error
+错误
 ```javascript
 {
     success: false,
@@ -57,7 +56,7 @@ Error
 }
 ```
 
-### Migration from older version
+### 迁移
 
 version 4 and below
 ```javascript
@@ -83,7 +82,7 @@ OneKeyConnect.ethereumVerifyMessage({
     // result not changed
 })
 ```
-### try it out
+### 试一试
 <Playground
     initValue={
 `OneKeyConnect.ethereumVerifyMessage({

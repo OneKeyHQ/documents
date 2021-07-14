@@ -3,8 +3,8 @@ hide_table_of_contents: true
 ---
 import Playground from "@src/components/playground";
 
-## 将设备重新引导到引导加载程序
-将设备重新引导至引导加载程序。
+## Reboot device to bootloader
+将设备重新引导至bootloader模式。
 
 ES6
 ```javascript
@@ -18,12 +18,12 @@ OneKeyConnect.bixinReboot(params).then(function(result) {
 });
 ```
 
-### Example
+### 例子
 ```javascript
 OneKeyConnect.bixinReboot();
 ```
 
-### Result
+### 结果
 ```javascript
 {
     success: true,
@@ -32,7 +32,7 @@ OneKeyConnect.bixinReboot();
     }
 }
 ```
-Error
+错误
 ```javascript
 {
     success: false,
@@ -41,7 +41,7 @@ Error
     }
 }
 ```
-### try it out
+### 试一试
 <Playground
     initValue="OneKeyConnect.bixinReboot();"
 />
