@@ -5,8 +5,7 @@ import Playground from "@src/components/playground";
 
 
 ## NEM：签署交易
-要求设备签署给定的交易。 要求用户确认所有交易
-有关Trezor的详细信息。
+要求设备签署给定的交易。要求用户在OneKey上确认交易的所有详细信息。
 
 ES6
 ```javascript
@@ -21,13 +20,13 @@ OneKeyConnect.nemSignTransaction(params).then(function(result) {
 ```
 
 ### 参数
-[****可选的通用参数****](./commonParams)
-###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L114-L117)
-*`path`-*必填*`string | Array<number>`
-*'transaction`-* [NEMTransaction]的* Object *强制类型(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/nem.js#L41)
+[**可选的通用参数**](./commonParams)
+###### [参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L114-L117)
+* `path`- *必填* `string | Array<number>`
+* `transaction` - *必填* [NEMTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/nem.js#L41) `Object`的类型
 
 ### Example
-Sign simple transaction
+签署简单交易
 ```javascript
 // common utility for hexlify message
 function hexlify(str) {
@@ -59,7 +58,7 @@ OneKeyConnect.nemSignTransaction(
 });
 ```
 
-Sign mosaic transaction
+签署 mosaic 交易
 ```javascript
 OneKeyConnect.nemSignTransaction(
     path: "m/44'/1'/0'/0'/0'",
@@ -85,8 +84,8 @@ OneKeyConnect.nemSignTransaction(
 });
 ```
 
-### Result
-###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L271-L274)
+### 结果
+###### [结果及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L271-L274)
 ```javascript
 {
     success: true,
@@ -96,7 +95,7 @@ OneKeyConnect.nemSignTransaction(
     }
 }
 ```
-Error
+错误
 ```javascript
 {
     success: false,
@@ -106,8 +105,8 @@ Error
 }
 ```
 
-### Migration from older version
-version 4 and below
+### 从旧版本迁移
+版本 4
 ```javascript
 var tx = {
     timeStamp: 74649215,
@@ -130,7 +129,7 @@ OneKeyConnect.nemSignTx(
   }
 )
 ```
-version 5
+版本 5
 ```javascript
 // params are key-value pairs inside Object
 OneKeyConnect.nemSignTransaction({
@@ -142,7 +141,6 @@ OneKeyConnect.nemSignTransaction({
 ```
 
 
-### try it out
 <Playground
     initValue={
 `// common utility for hexlify message
@@ -173,4 +171,3 @@ OneKeyConnect.nemSignTransaction({
     }
 });`}
 />
-

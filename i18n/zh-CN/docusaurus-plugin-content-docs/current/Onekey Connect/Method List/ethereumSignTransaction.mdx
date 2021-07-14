@@ -5,8 +5,7 @@ import Playground from "@src/components/playground";
 
 
 ## 以太坊：签署交易
-要求设备使用由给定的BIP32路径派生的私钥对给定的交易进行签名。 要求用户确认所有交易
-有关Trezor的详细信息。
+要求设备使用由给定的BIP32路径派生的私钥对给定的交易进行签名。要求用户在OneKey上确认交易的所有详细信息。
 
 ES6
 ```javascript
@@ -21,12 +20,12 @@ OneKeyConnect.ethereumSignTransaction(params).then(function(result) {
 ```
 
 ### 参数
-[****可选的通用参数****](./commonParams)
-###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
-*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
-* [transaction]-* [EthereumTransaction]的对象类型强制(https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ethereum.js#L5)的“ 0x”前缀 每个字段都是可选的
+[**可选的通用参数**](./commonParams)
+###### [参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
+* `path` - *必需* `string | Array<number>` 的最小长度为 `3`。 [了解更多](./path)
+* `transaction` - *必需* [EthereumTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ethereum.js#L5)的 `Object` 类型，每个字段值的“0x”前缀都是可选的
 
-### Example
+### 示例
 ```javascript
 OneKeyConnect.ethereumSignTransaction({
     path: "m/44'/60'/0'",
@@ -42,8 +41,8 @@ OneKeyConnect.ethereumSignTransaction({
 });
 ```
 
-### Result
-###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L57-L60)
+### 结果
+###### [结果及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L57-L60)
 ```javascript
 {
     success: true,
@@ -54,7 +53,7 @@ OneKeyConnect.ethereumSignTransaction({
     }
 }
 ```
-Error
+错误
 ```javascript
 {
     success: false,
@@ -64,8 +63,8 @@ Error
 }
 ```
 
-### Migration from older version
-version 4 and below
+### 从旧版本迁移
+版本 4
 ```javascript
 OneKeyConnect.ethereumSignTx(
   "m/44'/60'/0'", // path
@@ -83,7 +82,7 @@ OneKeyConnect.ethereumSignTx(
   }
 )
 ```
-version 5
+版本 5
 ```javascript
 // params are key-value pairs inside Object
 OneKeyConnect.signTransaction({
@@ -103,7 +102,7 @@ OneKeyConnect.signTransaction({
     result.s // hexadecimal string with "0x" prefix
 })
 ```
-### try it out
+
 <Playground
     initValue={
 `OneKeyConnect.ethereumSignTransaction({

@@ -6,7 +6,7 @@ import Playground from "@src/components/playground";
 
 ## NEM: Sign transaction
 Asks device to sign given transaction. User is asked to confirm all transaction
-details on Trezor.
+details on OneKey.
 
 ES6
 ```javascript
@@ -21,7 +21,7 @@ OneKeyConnect.nemSignTransaction(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L114-L117)
 * `path` - *obligatory* `string | Array<number>`
 * `transaction` - *obligatory* `Object` type of [NEMTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/nem.js#L41)
@@ -142,7 +142,7 @@ OneKeyConnect.nemSignTransaction({
 ```
 
 
-### try it out
+
 <Playground
     initValue={
 `// common utility for hexlify message
@@ -173,4 +173,3 @@ OneKeyConnect.nemSignTransaction({
     }
 });`}
 />
-
