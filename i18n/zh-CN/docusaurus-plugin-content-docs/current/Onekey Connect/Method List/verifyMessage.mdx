@@ -1,46 +1,59 @@
 ---
 hide_table_of_contents: true
 ---
-import Playground from "@src/components/playground";
 
-## 验证消息
+import Playground from '@src/components/playground';
 
-要求设备
-使用签名者地址和签名验证消息。
+## 消息验证
+
+设备通过签名人地址和签名对消息进行验证。
 
 ES6
+
 ```javascript
 const result = await OneKeyConnect.verifyMessage(params);
 ```
 
 CommonJS
-```javascript
-OneKeyConnect.verifyMessage(params).then(function(result) {
 
-});
+```javascript
+OneKeyConnect.verifyMessage(params).then(function (result) {});
 ```
 
 ### 参数
-[****可选的通用参数****](./commonParams)
-###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L156-L161)
-*`address`-*必填*`string`签名人地址，
-*`message`-*必须*`string`签名的消息，
-*`signature`-*强制*`base`字符串，采用base64格式，
-*`coin`-*必需*`string`确定在[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。 可以使用硬币“快捷方式”，“名称”或“标签”。
-*`hex`-*可选*`boolean`转换来自十六进制的消息
 
-### Example
+[**可选的通用参数**](./commonParams)
+
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L156-L161)
+
+- `address` - **必填** `string` 
+    > 签名人地址
+- `message` - **必填** `string` 
+    > 待验证的消息
+- `signature` - **必填** `base64` 
+    > 签名，采用 base64 格式字符串
+- `coin` - **必填** `string` 
+    > 在[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)中定义的币种。可以使用币种的字段包含 `coin_shortcut`，`coin_name` 或 `coin_label`
+- `hex` - _可选_ `boolean` 
+    > 是否为十六进制格式的消息
+
+### 示例
+
 ```javascript
 OneKeyConnect.verifyMessage({
-    address: "3BD8TL6iShVzizQzvo789SuynEKGpLTms9",
-    message: "example message",
-    signature: "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=",
-    coin: "btc"
+  address: '3BD8TL6iShVzizQzvo789SuynEKGpLTms9',
+  message: 'example message',
+  signature: 'JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=',
+  coin: 'btc',
 });
 ```
 
-### Result
+### 返回结果
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L133-L136)
+
+正确返回
+
 ```javascript
 {
     success: true,
@@ -49,7 +62,9 @@ OneKeyConnect.verifyMessage({
     }
 }
 ```
-Error
+
+错误返回
+
 ```javascript
 {
     success: false,
@@ -59,9 +74,10 @@ Error
 }
 ```
 
-### Migration from older version
+### 旧版本迁移
 
-version 4 and below
+version 4 及以下版本
+
 ```javascript
 var address = "3BD8TL6iShVzizQzvo789SuynEKGpLTms9";
 var signature = "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=";
@@ -73,7 +89,9 @@ OneKeyConnect.verifyMessage(
     ...
 }, "bitcoin");
 ```
+
 version 5
+
 ```javascript
 // params are key-value pairs inside Object
 OneKeyConnect.verifyMessage({
@@ -86,15 +104,11 @@ OneKeyConnect.verifyMessage({
 })
 ```
 
-
-### try it out
 <Playground
-    initValue={
-`OneKeyConnect.verifyMessage({
+  initValue={`OneKeyConnect.verifyMessage({
     address: "3BD8TL6iShVzizQzvo789SuynEKGpLTms9",
     message: "example message",
     signature: "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=",
     coin: "btc"
 });`}
 />
-

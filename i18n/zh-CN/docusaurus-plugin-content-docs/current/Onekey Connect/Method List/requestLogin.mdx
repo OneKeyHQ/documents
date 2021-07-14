@@ -1,72 +1,82 @@
 ---
 hide_table_of_contents: true
 ---
-import Playground from "@src/components/playground";
+
+import Playground from '@src/components/playground';
 
 ## 请求登录
 
-通过Trezor进行质询响应身份验证。防止重放攻击
-您应该为每个服务器端使用服务器端生成的随机化的“ challengeHidden”
-试图。您还可以提供视觉挑战，该挑战将显示在
-设备。
+通过 Onekey 设备进行`质询-响应`身份认证，防止重放攻击。
 
-服务后端需要检查签名是否与生成的签名匹配
-“ challengeHidden”，提供了“ challengeVisual”并存储了“ publicKey”字段。
-如果是这种情况，则后端可以创建一个帐户(如果`publicKey`
-首次看到身份)或登录用户(如果“ publicKey”
-身份已经是已知用户)。
+每次登录请求时，可以使用服务器生成的随机的不可见的 `challengeHidden` ，也可以提供明文显示在设备上的 `challengeVisual` 参数。
 
-要了解完整的机制，请查阅“挑战-响应”一章
-的
-[SLIP-0013：使用确定性层次结构进行身份验证](https://github.com/satoshilabs/slips/blob/master/slip-0013.md)。
+服务器后端会判断签名、 `challengeHidden`, `challengeVisual` 与 `publicKey` 是否匹配。
 
+如果验证通过，后端服务会创建一个账户（ 如果 `publicKey` 首次出现），或者登录该账户（如果 `publicKey` 是已知账户）
+
+完整的机制，请查阅`质询-响应`章节 [SLIP-0013：使用分层确定进行身份验证](https://github.com/satoshilabs/slips/blob/master/slip-0013.md)。
 
 ES6
+
 ```javascript
 const result = await OneKeyConnect.requestLogin(params);
 ```
 
 CommonJS
-```javascript
-OneKeyConnect.requestLogin(params).then(function(result) {
 
-});
+```javascript
+OneKeyConnect.requestLogin(params).then(function (result) {});
 ```
 
 ### 参数
-[****可选的通用参数****](./commonParams)
-<br/>
-公用参数`useEmptyPassphrase`-始终设置为`true`，此方法将忽略它
-####使用服务器端异步质询登录
--`callback` — *必选*函数，将从API调用以从服务器获取`challengeHidden`和`challengeVisual`
 
-#### 无需异步挑战即可登录
--`challengeHidden`-*必须*`string'十六进制值
--`challengeVisual`-在Trezor上显示的* string *字符串是必填项
+[**可选的通用参数**](./commonParams)
 
-### Example
-###### Login using server-side async challenge
+<br />
+
+公用参数`useEmptyPassphrase`，始终为`true`，此方法将忽略它
+
+#### 服务器端异步质询登录
+
+- `callback` - **必填** `function`
+  > 调用服务器 API 返回参数 `challengeHidden` 和 `challengeVisual` 
+
+#### 同步登录
+
+- `challengeHidden` - **必填** `string` 
+  > 十六进制值
+- `challengeVisual` - **必填** `string` 
+  > 在设备上显示的质询编码
+
+### 示例
+
+###### 服务器异步质询登录
+
 ```javascript
 OneKeyConnect.requestLogin({
-    callback: function() {
-        // here should be a request to server to fetch "challengeHidden" and "challengeVisual"
-        return {
-            challengeHidden: '0123456789abcdef',
-            challengeVisual: 'Login to',
-        }
-    }
-})
+  callback: function () {
+    // here should be a request to server to fetch "challengeHidden" and "challengeVisual"
+    return {
+      challengeHidden: '0123456789abcdef',
+      challengeVisual: 'Login to',
+    };
+  },
+});
 ```
 
-###### Login without async challenge
+###### 同步登录
+
 ```javascript
 OneKeyConnect.requestLogin({
-    challengeHidden: '0123456789abcdef',
-    challengeVisual: 'Login to',
-})
+  challengeHidden: '0123456789abcdef',
+  challengeVisual: 'Login to',
+});
 ```
 
-### Result
+### 返回结果
+
+正确返回
+
 ```javascript
 {
     success: true,
@@ -77,7 +87,9 @@ OneKeyConnect.requestLogin({
     }
 }
 ```
-Error
+
+错误返回
+
 ```javascript
 {
     success: false,
@@ -87,10 +99,9 @@ Error
 }
 ```
 
-### Server side examples
+### 服务器代码示例
 
-Here is the reference implementation of the server-side signature verification
-written in various languages:
+以下为服务端语言实现的签名认证示例代码
 
 - [**C#**](server/server.cs)
 - [**Javascript**](server/server.js)
@@ -98,11 +109,10 @@ written in various languages:
 - [**Python**](server/server.py)
 - [**Ruby**](server/server.rb)
 
+### 老版本迁移
 
+version 4 及以下版本
 
-### Migration from older version
-
-version 4 and below
 ```javascript
 // site icon, optional. at least 48x48px
 var hosticon = 'https://example.com/icon.png';
@@ -121,7 +131,9 @@ OneKeyConnect.requestLogin(
     }
 );
 ```
+
 version 5
+
 ```javascript
 // params are key-value pairs inside Object
 OneKeyConnect.requestLogin({
@@ -132,13 +144,9 @@ OneKeyConnect.requestLogin({
 })
 ```
 
-
-### try it out
 <Playground
-    initValue={
-`OneKeyConnect.requestLogin({
+  initValue={`OneKeyConnect.requestLogin({
     challengeHidden: '0123456789abcdef',
     challengeVisual: 'Login to',
 })`}
 />
-
