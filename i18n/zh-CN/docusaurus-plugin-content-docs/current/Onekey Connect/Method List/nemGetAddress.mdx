@@ -4,7 +4,7 @@ hide_table_of_contents: true
 import Playground from "@src/components/playground";
 
 ## NEM：获取地址
-在设备上显示请求的地址，并将其返回给呼叫者。
+在设备上显示请求的地址，并将其返回给调用者。
 向用户显示所请求密钥的描述，并要求其确认导出。
 
 ES6
@@ -22,10 +22,10 @@ OneKeyConnect.nemGetAddress(params).then(function(result) {
 ### 参数
 [****可选的通用参数****](./commonParams)
 #### 导出单个地址
-*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
-*`address` — *可选*`string`用于验证的地址(请参阅下面的“句柄按钮请求”部分)
-*`network`-*可选*`number``0x68`-Mainnet，`0x96`-Testnet，`0x60`-Mijin。默认设置为“主网”
-*`showOnTrezor`-*可选*`boolean`决定是否在设备上显示地址。默认设置为“ true”
+- `path` — _必需_ `string | Array<number>` 的最小长度为 `5`。 [了解更多](./path)
+- `address` — _可选_ `string` 用于验证的地址（请参阅下面的 `句柄按钮请求` 部分）
+- `network`-_可选_`number``0x68`-主网，`0x96`-测试网，`0x60`-Mijin。默认设置为“主网”
+- `showOnTrezor`-_可选_ `boolean` 决定是否在设备上显示地址。默认设置为 `true`
 
 #### 导出地址捆绑
 -`bundle`-`Array`对象的`path`，`network`和`showOnTrezor`字段
@@ -35,7 +35,7 @@ OneKeyConnect.nemGetAddress(params).then(function(result) {
 您可以处理此事件并在应用程序内部显示自定义UI。
 
 如果满足某些条件，将完全不使用弹出窗口：
--用户授予与Trezor通信的权限
+-用户已经授予了与Onekey通信的权限
 -设备通过密码验证
 -应用程序已注册`OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
 -设置参数`address`
@@ -43,14 +43,14 @@ OneKeyConnect.nemGetAddress(params).then(function(result) {
 -应用程序仅请求一个(！)地址
 
 
-### Example
-Display address of third nem account:
+### 例子
+显示第三个NEM地址:
 ```javascript
 OneKeyConnect.nemGetAddress({
     path: "m/44'/43'/2'"
 });
 ```
-Return a bundle of NEM addresses without displaying them on device:
+返回多个NEM地址并不在设备上显示:
 ```javascript
 OneKeyConnect.nemGetAddress({
     bundle: [
@@ -60,7 +60,7 @@ OneKeyConnect.nemGetAddress({
     ]
 });
 ```
-Validate address using custom UI inside of your application:
+在您应用程序里的自定义UI上验证地址:
 ```javascript
 import OneKeyConnect, { UI } from '@onekeyhq/connect';
 
@@ -76,8 +76,8 @@ const result = await OneKeyConnect.nemGetAddress({
 // dont forget to hide your custom UI after you get the result!
 ```
 
-### Result
-Result with only one address
+### 返回值
+单个地址
 ```javascript
 {
     success: true,
@@ -88,7 +88,7 @@ Result with only one address
     }
 }
 ```
-Result with bundle of addresses
+多个地址
 ```javascript
 {
     success: true,
@@ -99,7 +99,7 @@ Result with bundle of addresses
     ]
 }
 ```
-Error
+错误返回值
 ```javascript
 {
     success: false,
@@ -109,9 +109,9 @@ Error
 }
 ```
 
-### Migration from older version
+### 从旧版本迁移
 
-version 4 and below
+版本 4 及以下:
 ```javascript
 OneKeyConnect.nemGetAddress(
     "m/44'/43'/0'",
@@ -122,7 +122,7 @@ OneKeyConnect.nemGetAddress(
     }
 );
 ```
-version 5
+版本 5：
 ```javascript
 // params are key-value pairs inside Object
 OneKeyConnect.nemGetAddress({
@@ -136,8 +136,6 @@ OneKeyConnect.nemGetAddress({
 })
 ```
 
-
-### try it out
 <Playground
     initValue={
 `OneKeyConnect.nemGetAddress({

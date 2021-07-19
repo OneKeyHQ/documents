@@ -5,7 +5,7 @@ import Playground from "@src/components/playground";
 
 ## 以太坊：签名消息
 
-要求设备使用由给定的BIP32路径派生的私钥对消息签名。
+要求设备使用由给定的BIP32路径派生的私钥对签名消息。
 
 ES6
 ```javascript
@@ -22,9 +22,9 @@ OneKeyConnect.ethereumSignMessage(params).then(function(result) {
 ### 参数
 [****可选的通用参数****](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
-*`path` — *必需*`string | Array<number>`的最小长度为3。 [了解更多](./path)
-*`message`-*必填*`string`消息，用于登录纯文本
-*`hex`-*可选*`boolean`转换来自十六进制的消息
+- `path` — _必需_`string | Array<number>`的最小长度为3。 [了解更多](./path)
+- `message`-_必填_`string`用于加密的纯文本消息
+- `hex`-_可选_`boolean`从16进制转换出消息
 
 ### Example
 ```javascript
@@ -34,7 +34,7 @@ OneKeyConnect.ethereumSignMessage({
 });
 ```
 
-### Result
+### 例子
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
 ```javascript
 {
@@ -45,7 +45,7 @@ OneKeyConnect.ethereumSignMessage({
     }
 }
 ```
-Error
+错误返回值
 ```javascript
 {
     success: false,
@@ -55,16 +55,16 @@ Error
 }
 ```
 
-### Migration from older version
+### 从旧版本迁移
 
-version 4 and below
+版本 4 及以下:
 ```javascript
 OneKeyConnect.ethereumSignMessage("m/44'/60'/0'", "example message", function(result) {
     result.address  // address without "0x" prefix
     result.signature
 });
 ```
-version 5
+版本 5:
 ```javascript
 // params are key-value pairs inside Object
 OneKeyConnect.ethereumSignMessage({
@@ -75,7 +75,7 @@ OneKeyConnect.ethereumSignMessage({
     result.signature // no change
 })
 ```
-### try it out
+
 <Playground
     initValue={
 `OneKeyConnect.ethereumSignMessage({

@@ -4,7 +4,9 @@ hide_table_of_contents: true
 import Playground from "@src/components/playground";
 
 ## 对称键值加密
-密码密钥值在Trezor设备中提供对称加密，在该设备中，可能会迫使用户确认显示屏上的加密/解密。加密密钥由BIP地址上的私钥，设备上显示的密钥以及有关是否要求确认的两个信息构成。它以这种方式构造，使得不同的路径，密钥或确认信息将获得不同的加密密钥和IV。因此，您不能使用其他输入来“跳过”确认。 IV可以手动设置，也可以与密钥一起计算。该值必须可分为16个字节的块。应用程序必须垫块本身并确保安全；例如，通过使用PKCS7。
+键值加密在Onekey设备中提供对称加密，该操作可能会迫使用户在显示屏上确认加密/解密。
+加密密钥来自于BIP地址上的私钥，设备上显示的密钥以及有关是否要求确认的两个信息构成。它以这种方式构造，使得不同的路径，密钥或确认信息将获得不同的加密密钥和IV。
+因此，您不能使用其他输入来“跳过”确认。 IV可以手动设置，也可以与密钥一起计算。该值必须可分为16个字节的块。应用程序必须垫块本身并确保安全；例如，通过使用PKCS7。
 
 可以在[SLIP-0011](https://github.com/satoshilabs/slips/blob/master/slip-0011.md)中找到更多信息。
 
@@ -26,18 +28,18 @@ OneKeyConnect.cipherKeyValue(params).then(function(result) {
 公用参数`useEmptyPassphrase`-始终设置为`true`，此方法将忽略它
 
 #### 加密单个值
-*`path` — *必需*`string | Array<number>`的最小长度为1。 [了解更多](./path)
-*`key` — *可选*`string`设备上显示的消息
-*`value` — *可选*`string`十六进制值，长度为16字节的倍数(十六进制为32个字母)。价值是实际被加密的东西。
-*`askOnEncrypt`-*可选*`boolean`用户应该确认加密吗？
-*`askOnDecrypt`-*可选*`boolean`用户应该确认解密吗？
-*`iv`-*可选*`string`初始化向量-如果您不知道它的含义，请保持未设置状态，它将自动进行计算。
+- `path` — _必需_`string | Array<number>`的最小长度为1。 [了解更多](./path)
+- `key` — _可选_`string`设备上显示的消息
+- `value` — _可选_`string`十六进制值，长度为16字节的倍数(十六进制为32个字母)。值是实际被加密的东西。
+- `askOnEncrypt`-_可选_`boolean`用户应该确认加密吗？
+- `askOnDecrypt`-_可选_`boolean`用户应该确认解密吗？
+- `iv`-_可选_`string`初始化向量-如果您不知道它的含义，请保持未设置状态，它将自动进行计算。
 
 #### 加密多个值
-*`bundle`-对象的`Array`带有`path`，`key`，`value`，`askOnEncrypt`，`askOnDecrypt`字段
+- `bundle` — 对象的`Array`带有`path`，`key`，`value`，`askOnEncrypt`，`askOnDecrypt`字段
 
 ### Example
-Return encrypted value:
+返回加密值:
 ```javascript
 OneKeyConnect.cipherKeyValue({
     path: "m/49'/0'/0'",
@@ -48,7 +50,7 @@ OneKeyConnect.cipherKeyValue({
     askOnDecrypt: true
 });
 ```
-Return a bundle of encrypted values:
+返回多个加密值:
 ```javascript
 OneKeyConnect.cipherKeyValue({
     bundle: [
@@ -59,7 +61,7 @@ OneKeyConnect.cipherKeyValue({
 });
 ```
 ### Result
-Result with only one value
+返回只有一个值
 ```javascript
 {
     success: true,
@@ -68,7 +70,7 @@ Result with only one value
     }
 }
 ```
-Result with bundle of values
+返回多个值
 ```javascript
 {
     success: true,
@@ -89,9 +91,9 @@ Error
 }
 ```
 
-### Migration from older version
+### 从旧版本迁移
 
-version 4 and below:
+版本4及以下:
 ```javascript
 OneKeyConnect.cipherKeyValue(
     "m/49'/0'/0'",     // path
@@ -105,7 +107,7 @@ OneKeyConnect.cipherKeyValue(
     }
 );
 ```
-version 5
+版本 5
 ```javascript
 // params are key-value pairs inside Object
 OneKeyConnect.cipherKeyValue({
@@ -119,7 +121,7 @@ OneKeyConnect.cipherKeyValue({
     // result not changed
 })
 ```
-### try it out
+
 <Playground
     initValue={
 `OneKeyConnect.cipherKeyValue({

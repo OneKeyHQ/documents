@@ -4,7 +4,7 @@ hide_table_of_contents: true
 import Playground from "@src/components/playground";
 
 ## 获取公钥
-检索由给定的BIP32路径派生的BIP32扩展的public。
+检索由给定的BIP32路径派生的BIP32扩展公钥。
 向用户显示所请求密钥的描述，并要求其确认导出。
 
 ES6
@@ -22,22 +22,22 @@ OneKeyConnect.getPublicKey(params).then(function(result) {
 ### 参数
 [****可选的通用参数****](./commonParams)
 #### 导出单个公钥
-*`path` — *必需*`string | Array<number>`的最小长度为1。 [了解更多](./path)
-*`coin`-*可选*`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。如果未设置`coin`，API将尝试从`path`获取网络定义。
-*`crossChain` — *可选*`boolean`高级功能。仅当您知道自己在做什么时才使用它。允许在链之间生成地址。例如，莱特币网络上的比特币路径将以莱特币格式显示跨链地址。
+- `path` — _必需_`string | Array<number>`的最小长度为1。 [了解更多](./path)
+- `coin`-_可选_`string`确定[coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json)文件中指定的网络定义。可以使用硬币“快捷方式”，“名称”或“标签”。如果未设置`coin`，API将尝试从`path`获取网络定义。
+- `crossChain` — _可选_`boolean`高级功能。仅当您知道自己在做什么时才使用它。允许在链之间生成地址。例如，莱特币网络上的比特币路径将以莱特币格式显示跨链地址。
 
 #### 导出公钥包
--`bundle`-`Array`对象的`path`，`coin`和`crossChain`字段
+- `bundle`-`Array`对象的`path`，`coin`和`crossChain`字段
 
-### Example
-Return public key of fifth bitcoin account:
+### 例子
+获取第五个BTC地址的公钥:
 ```javascript
 OneKeyConnect.getPublicKey({
     path: "m/49'/0'/4'",
     coin: "btc"
 });
 ```
-Return a bundle of public keys for multiple bitcoin accounts:
+获取多个BTC地址的公钥:
 ```javascript
 OneKeyConnect.getPublicKey({
     bundle: [
@@ -48,8 +48,8 @@ OneKeyConnect.getPublicKey({
 });
 ```
 
-### Result
-Result with only one public key
+### 返回值
+返回单个公钥
 ```javascript
 {
     success: true,
@@ -66,9 +66,9 @@ Result with only one public key
     }
 }
 ```
-[Read more about BIP32 serialization format](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#Serialization_format)
+[了解有关 BIP32 的更多信息](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#Serialization_format)
 
-Result with bundle of public keys
+返回多个公钥
 ```javascript
 {
     success: true,
@@ -79,7 +79,7 @@ Result with bundle of public keys
     ]
 }
 ```
-Error
+错误返回值
 ```javascript
 {
     success: false,
@@ -89,9 +89,9 @@ Error
 }
 ```
 
-### Migration from older version
+### 从旧版本迁移
 
-version 4 and below:
+版本 4 及以下:
 ```javascript
 OneKeyConnect.getXPubKey("m/49'/0'/0'", function(result) {
     result.path           // not changed
@@ -105,7 +105,7 @@ OneKeyConnect.getXPubKey("m/49'/0'/0'", function(result) {
     // added "depth" field
 });
 ```
-version 5
+版本 5:
 ```javascript
 // params are key-value pairs inside Object
 OneKeyConnect.getPublicKey({
@@ -115,8 +115,6 @@ OneKeyConnect.getPublicKey({
 })
 ```
 
-
-### try it out
 <Playground
     initValue={
 `OneKeyConnect.getPublicKey({
