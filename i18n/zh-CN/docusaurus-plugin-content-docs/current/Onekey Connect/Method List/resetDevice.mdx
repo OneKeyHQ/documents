@@ -1,42 +1,49 @@
 ---
 hide_table_of_contents: true
 ---
-import Playground from "@src/components/playground";
+
+import Playground from '@src/components/playground';
 
 ## 重置设备
-执行设备设置并生成新种子。
+
+恢复出厂设置并生成新的助记词。
 
 ES6
+
 ```javascript
 const result = await OneKeyConnect.resetDevice(params);
 ```
 
 CommonJS
-```javascript
-OneKeyConnect.resetDevice(params).then(function(result) {
 
-});
+```javascript
+OneKeyConnect.resetDevice(params).then(function (result) {});
 ```
 
 ### 参数
-[****可选的通用参数****](./commonParams)
-<br/>
-*`strength` — *可选*`number`可接受的值为[128 | 192 | 256]。 默认设置为256
-*`label` — *可选*`string`
-*`u2fCounter`-*可选*`number`。 默认值设置为当前时间戳(以秒为单位)。
-*`pinProtection`-*可选*`boolean`
-*`passphraseProtection`-*可选*`boolean`
-*`skipBackup`-*可选*`boolean`
-*`noBackup` — —可选*`boolean`创建一个无种子设备
 
-### Example
+[\***\*可选的通用参数\*\***](./commonParams)
+
+<br />
+
+- `strength` — _可选_ `number` 可接受的值为[128 | 192 | 256]。 默认设置为 256
+- `label` — _可选_ `string`
+- `u2fCounter` - _可选_` number`。 默认值设置为当前时间戳(以秒为单位)。
+- `pinProtection` - _可选_ `boolean`
+- `passphraseProtection` - _可选_ `boolean`
+- `skipBackup` - _可选_ `boolean`
+- `noBackup` — _可选_ `boolean` 创建一个无种子设备
+
+### 例子
+
 ```javascript
 OneKeyConnect.resetDevice({
-    label: 'My fancy Trezor',
+  label: 'My fancy Trezor',
 });
 ```
 
-### Result
+### 结果
+
 ```javascript
 {
     success: true,
@@ -45,7 +52,9 @@ OneKeyConnect.resetDevice({
     }
 }
 ```
-Error
+
+错误
+
 ```javascript
 {
     success: false,
@@ -55,12 +64,8 @@ Error
 }
 ```
 
-
-
 <Playground
-    initValue={
-`OneKeyConnect.resetDevice({
+  initValue={`OneKeyConnect.resetDevice({
     label: 'My fancy Trezor',
 });`}
 />
-

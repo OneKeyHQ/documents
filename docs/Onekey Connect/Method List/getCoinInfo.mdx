@@ -1,38 +1,47 @@
 ---
 hide_table_of_contents: true
 ---
-import Playground from "@src/components/playground";
+
+import Playground from '@src/components/playground';
 
 ## Get Coin Info
+
 Returns information about a specified coin from the [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file.
 
 ES6
+
 ```javascript
 const result = await OneKeyConnect.getCoinInfo(params);
 ```
 
 CommonJS
-```javascript
-OneKeyConnect.getCoinInfo(params).then(function(result) {
 
-});
+```javascript
+OneKeyConnect.getCoinInfo(params).then(function (result) {});
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+
+[\***\*Optional common params\*\***](./commonParams)
+
 #### Exporting single address
-* `coin` — *obligatory* `string` coin symbol (btc, eth, bch, ...).
+
+- `coin` — _obligatory_ `string` coin symbol (btc, eth, bch, ...).
 
 ### Example
+
 Get coin info for Bitcoin.
+
 ```javascript
 OneKeyConnect.getCoinInfo({
-    coin: 'btc',
+  coin: 'btc',
 });
 ```
 
 ### Result
+
 Result for Bitcoin
+
 ```javascript
 {
     success: true,
@@ -71,12 +80,8 @@ Result for Bitcoin
 }
 ```
 
-
-
 <Playground
-    initValue={
-`OneKeyConnect.getCoinInfo({
+  initValue={`OneKeyConnect.getCoinInfo({
     coin: 'btc',
 });`}
 />
-
