@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+draft: true
 ---
 import Playground from "@src/components/playground";
 
@@ -19,9 +20,9 @@ OneKeyConnect.rippleGetAddress(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
 #### Exporting single address
-* `path` — *obligatory* `string | Array<number>` minimum length is `5`. [read more](./path)
+* `path` — *required* `string | Array<number>` minimum length is `5`. [read more](./path)
 * `address` — *optional* `string` address for validation (read `Handle button request` section below)
 * `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
@@ -115,4 +116,3 @@ Error
     path: "m/44'/144'/1'/0/0"
 });`}
 />
-

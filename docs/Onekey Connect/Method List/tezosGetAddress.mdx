@@ -1,9 +1,11 @@
 ---
 hide_table_of_contents: true
+draft: true
 ---
 import Playground from "@src/components/playground";
 
 ## Tezos: get address
+
 Display requested address on device and returns it to caller. User is presented with a description of the requested key and asked to confirm the export.
 
 ES6
@@ -19,9 +21,10 @@ OneKeyConnect.tezosGetAddress(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
+
 #### Exporting single address
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `address` — *optional* `string` address for validation (read `Handle button request` section below)
 * `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
@@ -29,26 +32,29 @@ OneKeyConnect.tezosGetAddress(params).then(function(result) {
 * `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
 
 #### Handle button request
-Since trezor-connect@6.0.4 there is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be triggered once the address is displayed on the device.
+There is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be triggered once the address is displayed on the device.
 You can handle this event and display custom UI inside of your application.
 
 If certain conditions are fulfilled popup will not be used at all:
-- the user gave permissions to communicate with Trezor
+- the user gave permissions to communicate with OneKey
 - device is authenticated by pin/passphrase
 - application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
 - parameter `address` is set
 - parameter `showOnTrezor` is set to `true` (or not set at all)
-- application is requesting ONLY ONE(!) address
+- application is requesting ONLY ONE address
 
 
 ### Example
 Display address of first tezos account:
+
 ```javascript
 OneKeyConnect.tezosGetAddress({
     path: "m/44'/1729'/0'"
 });
 ```
+
 Return a bundle of tezos addresses without displaying them on device:
+
 ```javascript
 OneKeyConnect.tezosGetAddress({
     bundle: [
@@ -58,7 +64,9 @@ OneKeyConnect.tezosGetAddress({
     ]
 });
 ```
+
 Validate address using custom UI inside of your application:
+
 ```javascript
 import OneKeyConnect, { UI } from '@onekeyhq/connect';
 
@@ -75,7 +83,9 @@ const result = await OneKeyConnect.tezosGetAddress({
 ```
 
 ### Result
+
 Result with only one address
+
 ```javascript
 {
     success: true,
@@ -86,7 +96,9 @@ Result with only one address
     }
 }
 ```
+
 Result with bundle of addresses
+
 ```javascript
 {
     success: true,
@@ -97,7 +109,9 @@ Result with bundle of addresses
     ]
 }
 ```
+
 Error
+
 ```javascript
 {
     success: false,
@@ -107,12 +121,9 @@ Error
 }
 ```
 
-
-
 <Playground
     initValue={
 `OneKeyConnect.tezosGetAddress({
     path: "m/44'/1729'/0'"
 });`}
 />
-

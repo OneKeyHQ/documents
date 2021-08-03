@@ -2,13 +2,9 @@
 sidebar_position: 3
 ---
 
-## Methods
+# Methods
 
-API call return a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). Resolve is guaranteed to get called
-with a `result` object, even if user closes the window, network connection times
-out, etc. In case of failure `result.success` is set to false and `result.payload.error` is
-the error message. It is recommended to log the error message and let user
-restart the action.
+API call return a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). Resolve is guaranteed to get called with a `result` object, even if user closes the window, network connection times out, etc. In case of failure `result.success` is set to false and `result.payload.error` is the error message. It is recommended to log the error message and let user restart the action.
 
 Every method require an [`Object`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) with combination of [`common`](./Method%20List/commonParams) fields and method specific fields.
 
@@ -31,44 +27,53 @@ Every method require an [`Object`](https://developer.mozilla.org/en-US/docs/Web/
 * [OneKeyConnect.verifyMessage](./Method%20List/verifyMessage)
 
 ### Ethereum
+
 * [OneKeyConnect.ethereumGetAddress](./Method%20List/ethereumGetAddress)
 * [OneKeyConnect.ethereumSignTransaction](./Method%20List/ethereumSignTransaction)
 * [OneKeyConnect.ethereumSignMessage](./Method%20List/ethereumSignMessage)
 * [OneKeyConnect.ethereumVerifyMessage](./Method%20List/ethereumVerifyMessage)
 
 ### Eos
+
 * [OneKeyConnect.eosGetPublicKey](./Method%20List/eosGetPublicKey)
 * [OneKeyConnect.eosSignTransaction](./Method%20List/eosSignTransaction)
 
 ### NEM
+
 * [OneKeyConnect.nemGetAddress](./Method%20List/nemGetAddress)
 * [OneKeyConnect.nemSignTransaction](./Method%20List/nemSignTransaction)
 
 ### Stellar
+
 * [OneKeyConnect.stellarGetAddress](./Method%20List/stellarGetAddress)
 * [OneKeyConnect.stellarSignTransaction](./Method%20List/stellarSignTransaction)
 
 ### Lisk
+
 * [OneKeyConnect.liskGetAddress](./Method%20List/liskGetAddress)
 * [OneKeyConnect.liskSignMessage](./Method%20List/liskSignMessage)
 * [OneKeyConnect.liskVerifyMessage](./Method%20List/liskVerifyMessage)
 * [OneKeyConnect.liskSignTransaction](./Method%20List/liskSignTransaction)
 
 ### Cardano
+
 * [OneKeyConnect.cardanoGetPublicKey](./Method%20List/cardanoGetPublicKey)
 * [OneKeyConnect.cardanoGetAddress](./Method%20List/cardanoGetAddress)
 * [OneKeyConnect.cardanoSignTransaction](./Method%20List/cardanoSignTransaction)
 
 ### Ripple
+
 * [OneKeyConnect.rippleGetAddress](./Method%20List/rippleGetAddress)
 * [OneKeyConnect.rippleSignTransaction](./Method%20List/rippleSignTransaction)
 
 ### Tezos
+
 * [OneKeyConnect.tezosGetAddress](./Method%20List/tezosGetAddress)
 * [OneKeyConnect.tezosGetPublicKey](./Method%20List/tezosGetPublicKey)
 * [OneKeyConnect.tezosSignTransaction](./Method%20List/tezosSignTransaction)
 
 ### Binance
+
 * [OneKeyConnect.binanceGetAddress](./Method%20List/binanceGetAddress)
 * [OneKeyConnect.binanceGetPublicKey](./Method%20List/binanceGetPublicKey)
 * [OneKeyConnect.binanceSignTransaction](./Method%20List/binanceSignTransaction)

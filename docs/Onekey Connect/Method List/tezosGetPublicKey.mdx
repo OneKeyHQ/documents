@@ -1,11 +1,12 @@
 ---
 hide_table_of_contents: true
+draft: true
 ---
 import Playground from "@src/components/playground";
 
 ## Tezos: get public key
-Display requested public key on device and returns it to caller.
-User is presented with a description of the requested public key and asked to confirm the export.
+
+Display requested public key on device and returns it to caller. User is presented with a description of the requested public key and asked to confirm the export.
 
 ES6
 ```javascript
@@ -20,22 +21,28 @@ OneKeyConnect.tezosGetPublicKey(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+
+[**Optional common params**](./commonParams)
+
 #### Exporting single public key
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `showOnTrezor` — *optional* `boolean` determines if public key will be displayed on device.
 
 #### Exporting bundle of public keys
 * `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
 
 ### Example
+
 Result with only one public key
+
 ```javascript
 OneKeyConnect.tezosGetPublicKey({
     path: "m/49'/1729'/0'",
 });
 ```
+
 Result with bundle of public keys
+
 ```javascript
 OneKeyConnect.tezosGetPublicKey({
     bundle: [
@@ -47,7 +54,9 @@ OneKeyConnect.tezosGetPublicKey({
 ```
 
 ### Result
+
 Result with only one public key
+
 ```javascript
 {
     success: true,
@@ -60,6 +69,7 @@ Result with only one public key
 ```
 
 Result with bundle of public keys
+
 ```javascript
 {
     success: true,
@@ -70,7 +80,9 @@ Result with bundle of public keys
     ]
 }
 ```
+
 Error
+
 ```javascript
 {
     success: false,
@@ -80,12 +92,9 @@ Error
 }
 ```
 
-
-
 <Playground
     initValue={
 `OneKeyConnect.tezosGetPublicKey({
     path: "m/49'/1729'/0'",
 });`}
 />
-

@@ -1,6 +1,7 @@
 ---
 hide_table_of_contents: true
 ---
+
 import Playground from "@src/components/playground";
 
 ## Get account info
@@ -20,21 +21,22 @@ OneKeyConnect.getAccountInfo(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
+
 #### Using path
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `coin` — *required* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 
 #### Using public key
-* `descriptor` — *obligatory* `string` public key of account
-* `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `descriptor` — *required* `string` public key of account
+* `coin` — *required* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 
 #### Using discovery
 BIP-0044 account discovery is performed and user is presented with a list of accounts. Result is returned after account selection.
-- `coin` — *obligatory* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+- `coin` — *required* `string` determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
 
 ### Other optional params
-params are forwarded to [BlockBook backend](https://github.com/trezor/blockbook/blob/master/docs/api.md#api-v2) using `@onekeyhq/blockchain-link` package
+params are forwarded to [BlockBook backend](https://github.com/OneKeyHQ/blockbook/blob/master/docs/api.md#api-v2) using `@onekeyhq/blockchain-link` package
 
 
 * `details` — specifies level of details returned by request
@@ -145,53 +147,6 @@ Error
 }
 ```
 
-### Migration from older version
-
-v7 and below:
-```javascript
-OneKeyConnect.getAccountInfo({
-    path: "m/49'/0'/0'",
-}).then(function (result) {
-    result.id               // removed
-    result.serializedPath   // renamed to "path"
-    result.path             // not changed
-    result.xpub             // renamed to "descriptor"
-    result.address          // renamed to "addresses.unused[0].address"
-    result.addressPath      // renamed to "addresses.unused[0].path"
-    result.addressIndex     // removed
-    result.addressSerializedPath // renamed to "addresses.unused[0].path"
-    result.balance   // returned as string
-    result.confirmed // removed
-});
-```
-
-v4 and below:
-```javascript
-OneKeyConnect.getAccountInfo("m/49'/0'/0'", function(result) {
-    result.id               // removed
-    result.serializedPath   // renamed to "path"
-    result.path             // not changed
-    result.xpub             // renamed to "descriptor"
-    result.freshAddress     // renamed to "addresses.unused[0].address"
-    result.freshAddressPath // renamed to "addresses.unused[0].path"
-    result.freshAddressId   // removed
-    result.serializedFreshAddressPath // renamed to "addresses.unused[0].path"
-    result.balance   // returned as string
-    result.confirmed // removed
-
-});
-```
-should be
-```javascript
-// params are key-value pairs inside Object
-OneKeyConnect.getAccountInfo({
-    path: "m/49'/0'/0'",
-    coin: "btc"
-}).then(function(result) {
-    ...
-})
-```
-
 <Playground
     initValue={
 `OneKeyConnect.getAccountInfo({
@@ -199,4 +154,3 @@ OneKeyConnect.getAccountInfo({
     coin: "btc",
 });`}
 />
-

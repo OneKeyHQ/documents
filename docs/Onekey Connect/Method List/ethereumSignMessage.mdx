@@ -20,10 +20,13 @@ OneKeyConnect.ethereumSignMessage(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+
+[**Optional common params**](./commonParams)
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `message` - *obligatory* `string` message to sign in plain text
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `message` - *required* `string` message to sign in plain text
 * `hex` - *optional* `boolean` convert message from hex
 
 ### Example
@@ -53,27 +56,6 @@ Error
         error: string // error message
     }
 }
-```
-
-### Migration from older version
-
-version 4 and below
-```javascript
-OneKeyConnect.ethereumSignMessage("m/44'/60'/0'", "example message", function(result) {
-    result.address  // address without "0x" prefix
-    result.signature
-});
-```
-version 5
-```javascript
-// params are key-value pairs inside Object
-OneKeyConnect.ethereumSignMessage({
-    path: "m/44'/60'/0'",
-    message: "example message"
-}).then(function(result) {
-    result.address   // address with "0x" prefix and checksum
-    result.signature // no change
-})
 ```
 
 <Playground

@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+draft: true
 ---
 import Playground from "@src/components/playground";
 
@@ -21,11 +22,11 @@ OneKeyConnect.tezosSignTransaction(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L104-L108)
-* `path` - *obligatory* `string | Array<number>`
-* `branch` - *obligatory* `string`
-* `operation` - *obligatory* `Object` type of [TezosOperation](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L54)
+* `path` - *required* `string | Array<number>`
+* `branch` - *required* `string`
+* `operation` - *required* `Object` type of [TezosOperation](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L54)
 
 ### Example
 Sign transaction operation
@@ -250,4 +251,3 @@ Error
     }
 });`}
 />
-

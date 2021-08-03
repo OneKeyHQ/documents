@@ -34,18 +34,20 @@ OneKeyConnect.requestLogin(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
-<br/>
+[**Optional common params**](./commonParams)
+
 Common parameter `useEmptyPassphrase` - is always set to `true` and it will be ignored by this method
+
 #### Login using server-side async challenge
-- `callback` — *obligatory* `function` which will be called from API to fetch `challengeHidden` and `challengeVisual` from server
+- `callback` — *required* `function` which will be called from API to fetch `challengeHidden` and `challengeVisual` from server
 
 #### Login without async challenge
-- `challengeHidden` - *obligatory* `string` hexadecimal value
-- `challengeVisual` - *obligatory* `string` text displayed on Trezor
+- `challengeHidden` - *required* `string` hexadecimal value
+- `challengeVisual` - *required* `string` text displayed on OneKey
 
 
 ### Example
+
 ###### Login using server-side async challenge
 ```javascript
 OneKeyConnect.requestLogin({
@@ -88,53 +90,6 @@ Error
 }
 ```
 
-### Server side examples
-
-Here is the reference implementation of the server-side signature verification
-written in various languages:
-
-- [**C#**](server/server.cs)
-- [**Javascript**](server/server.js)
-- [**PHP**](server/server.php)
-- [**Python**](server/server.py)
-- [**Ruby**](server/server.rb)
-
-
-
-### Migration from older version
-
-version 4 and below
-```javascript
-// site icon, optional. at least 48x48px
-var hosticon = 'https://example.com/icon.png';
-// server-side generated and randomized challenges
-var challenge_hidden = '';
-var challenge_visual = '';
-OneKeyConnect.requestLogin(
-    hosticon,                // hosticon is moved to common parameters
-    challenge_hidden,
-    challenge_visual
-    function(result) {
-        result.signatures    // not changed
-        result.public_key    // renamed to "publicKey"
-        result.version       // removed, it's not possible to use this method witch outdated firmware
-        // added "address" field
-    }
-);
-```
-version 5
-```javascript
-// params are key-value pairs inside Object
-OneKeyConnect.requestLogin({
-    challengeHidden: '',
-    challengeVisual: '',
-}).then(function(result) {
-    ...
-})
-```
-
-
-
 <Playground
     initValue={
 `OneKeyConnect.requestLogin({
@@ -142,4 +97,3 @@ OneKeyConnect.requestLogin({
     challengeVisual: 'Login to',
 })`}
 />
-

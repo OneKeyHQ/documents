@@ -6,7 +6,7 @@ import Playground from "@src/components/playground";
 
 ## Lisk: Sign transaction
 Asks device to sign given transaction using the private key derived by given BIP32 path. User is asked to confirm all transaction
-details on Trezor.
+details on OneKey.
 
 ES6
 ```javascript
@@ -21,12 +21,16 @@ OneKeyConnect.liskSignTransaction(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+
+[**Optional common params**](./commonParams)
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L121-L124)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [LiskTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#42-L52)
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `transaction` - *required* `Object` type of [LiskTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#42-L52)
 
 ### Example
+
 ```javascript
 OneKeyConnect.liskSignTransaction(
     path: "m/44'/134'/0'/0'",
@@ -44,7 +48,9 @@ OneKeyConnect.liskSignTransaction(
 ```
 
 ### Result
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L126-L129)
+
 ```javascript
 {
     success: true,
@@ -63,22 +69,20 @@ Error
 }
 ```
 
-
-
 <Playground
     initValue={
-`OneKeyConnect.liskSignTransaction(
+`OneKeyConnect.liskSignTransaction({
     path: "m/44'/134'/0'/0'",
-    transaction: {
-        amount: "10000000",
-        recipientId: "9971262264659915921L",
-        timestamp: 57525937,
-        type: 0,
-        fee: "20000000",
-        asset: {
-            data: "Test data"
+        transaction: {
+            amount: "10000000",
+            recipientId: "9971262264659915921L",
+            timestamp: 57525937,
+            type: 0,
+            fee: "20000000",
+            asset: {
+                data: "Test data"
+            }
         }
     }
 );`}
 />
-

@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+draft: true
 ---
 import Playground from "@src/components/playground";
 
@@ -21,10 +22,10 @@ OneKeyConnect.rippleSignTransaction(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L149-L154)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [RippleTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ripple.js#L36-L42)
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `transaction` - *required* `Object` type of [RippleTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ripple.js#L36-L42)
 
 ### Example
 ```javascript
@@ -80,4 +81,3 @@ Error
     }
 });`}
 />
-

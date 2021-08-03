@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+draft: true
 ---
 import Playground from "@src/components/playground";
 
@@ -20,10 +21,10 @@ OneKeyConnect.eosSignTransaction(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `transaction` - *obligatory* `Object` type of [Transaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/eos.js#L145-L149)
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `transaction` - *required* `Object` type of [Transaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/eos.js#L145-L149)
 
 ### Transfer example
 ```javascript

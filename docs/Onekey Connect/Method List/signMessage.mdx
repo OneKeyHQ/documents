@@ -20,10 +20,12 @@ OneKeyConnect.signMessage(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L131-L135)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `message` - *obligatory* `string`
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `message` - *required* `string`
 * `coin` - *optional* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used. If `coin` is not set API will try to get network definition from `path`.
 * `hex` - *optional* `boolean` convert message from hex
 
@@ -36,7 +38,9 @@ OneKeyConnect.signMessage({
 ```
 
 ### Result
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L113-L116)
+
 ```javascript
 {
     success: true,
@@ -46,7 +50,9 @@ OneKeyConnect.signMessage({
     }
 }
 ```
+
 Error
+
 ```javascript
 {
     success: false,
@@ -56,27 +62,6 @@ Error
 }
 ```
 
-### Migration from older version
-
-version 4 and below
-```javascript
-OneKeyConnect.signMessage("m/44'/0'/0'", "example message", function(result) {
-    ...
-}, "bitcoin");
-```
-version 5
-```javascript
-// params are key-value pairs inside Object
-OneKeyConnect.signMessage({
-    path: "m/44'/0'/0'",
-    message: "example message"
-}).then(function(result) {
-    ...
-})
-```
-
-
-
 <Playground
     initValue={
 `OneKeyConnect.signMessage({
@@ -84,4 +69,3 @@ OneKeyConnect.signMessage({
     message: "example message"
 });`}
 />
-

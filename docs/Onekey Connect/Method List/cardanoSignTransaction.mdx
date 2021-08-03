@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+draft: true
 ---
 
 import Playground from '@src/components/playground';
@@ -32,11 +33,11 @@ OneKeyConnect.cardanoSignTransaction(params).then(function (result) {});
 
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L59-L142)
 
-- `inputs` — _obligatory_ `Array` of [CardanoInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L59)
-- `outputs` - _obligatory_ `Array` of [CardanoOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L74)
-- `fee` - _obligatory_ `String`
-- `protocolMagic` - _obligatory_ `Integer` 764824073 for Mainnet, 42 for Testnet
-- `networkId` - _obligatory_ `Integer` 1 for Mainnet, 0 for Testnet
+- `inputs` — _required_ `Array` of [CardanoInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L59)
+- `outputs` - _required_ `Array` of [CardanoOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L74)
+- `fee` - _required_ `String`
+- `protocolMagic` - _required_ `Integer` 764824073 for Mainnet, 42 for Testnet
+- `networkId` - _required_ `Integer` 1 for Mainnet, 0 for Testnet
 - `ttl` - _optional_ `String`
 - `validityIntervalStart` - _optional_ `String`
 - `certificates` - _optional_ `Array` of [CardanoCertificate](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L119)

@@ -21,24 +21,21 @@ OneKeyConnect.resetDevice(params).then(function (result) {});
 ```
 
 ### Params
+[**Optional common params**](./commonParams)
 
-[\***\*Optional common params\*\***](./commonParams)
-
-<br />
-
-- `strength` — _optional_ `number` Accepted values are [128|192|256]. Default is set to `256`
-- `label` — _optional_ `string`
-- `u2fCounter` — _optional_ `number`. Default value is set to current time stamp in seconds.
-- `pinProtection` — _optional_ `boolean`
-- `passphraseProtection` — _optional_ `boolean`
-- `skipBackup` — _optional_ `boolean`
-- `noBackup` — _optional_ `boolean` create a seedless device
+* `strength` — *optional* `number` Accepted values are [ 128 | 192 | 256 ]. Default is set to `256`
+* `label` — *optional* `string`
+* `u2fCounter` — *optional* `number`. Default value is set to current time stamp in seconds.
+* `pinProtection` — *optional* `boolean`
+* `passphraseProtection` — *optional* `boolean`
+* `skipBackup` — *optional* `boolean`
+* `noBackup` — *optional* `boolean` create a seedless device
 
 ### Example
 
 ```javascript
 OneKeyConnect.resetDevice({
-  label: 'My fancy Trezor',
+    label: 'My fancy OneKey',
 });
 ```
 
@@ -65,7 +62,8 @@ Error
 ```
 
 <Playground
-  initValue={`OneKeyConnect.resetDevice({
-    label: 'My fancy Trezor',
+    initValue={
+`OneKeyConnect.resetDevice({
+    label: 'My fancy OneKey',
 });`}
 />

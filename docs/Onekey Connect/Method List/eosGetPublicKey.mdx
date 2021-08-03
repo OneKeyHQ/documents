@@ -1,5 +1,6 @@
 ---
 hide_table_of_contents: true
+draft: true
 ---
 
 import Playground from "@src/components/playground";
@@ -23,7 +24,7 @@ OneKeyConnect.eosGetPublicKey(params).then(function(result) {
 ### Params
 [**Optional common params**](./commonParams)
 #### Exporting single address
-* `path` — *obligatory* `string | Array<number>` minimum length is `5`. [read more](./path)
+* `path` — *required* `string | Array<number>` minimum length is `5`. [read more](./path)
 * `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of addresses
@@ -48,7 +49,9 @@ OneKeyConnect.eosGetPublicKey({
 ```
 
 ### Result
+
 Result with only one public key
+
 ```javascript
 {
     success: true,
@@ -58,7 +61,9 @@ Result with only one public key
     }
 }
 ```
+
 Result with bundle of public keys sorted by FIFO
+
 ```javascript
 {
     success: true,
@@ -69,7 +74,9 @@ Result with bundle of public keys sorted by FIFO
     ]
 }
 ```
+
 Error
+
 ```javascript
 {
     success: false,

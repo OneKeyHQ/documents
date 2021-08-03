@@ -5,9 +5,7 @@ import Playground from "@src/components/playground";
 
 ## Sign transaction
 
-Asks device to sign given
-inputs and outputs of pre-composed transaction. User is asked to confirm all transaction
-details on Trezor.
+Asks device to sign give inputs and outputs of pre-composed transaction. User is asked to confirm all transaction details on OneKey.
 
 
 ES6
@@ -23,12 +21,15 @@ OneKeyConnect.signTransaction(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+
+[**Optional common params**](./commonParams)
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L169-L164)
-* `coin` - *obligatory* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
-* `inputs` - *obligatory* `Array` of [TransactionInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L100-L108),
-* `outputs` - *obligatory* `Array` of [TransactionOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L113-L131),
-* `refTxs` - *optional* `Array` of [RefTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L139-L144). If you don't want to use build-in `blockbook` backend you can optionally provide those data from your own backend transformed to `Trezor` format. Since Firmware 2.3.0/1.9.0 referenced transactions are required. Zcash and Komodo refTxs should also contains `expiry`, `version_group_id` and `extra_data` fields.
+
+* `coin` - *required* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `inputs` - *required* `Array` of [TransactionInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L100-L108),
+* `outputs` - *required* `Array` of [TransactionOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L113-L131),
+* `refTxs` - *optional* `Array` of [RefTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L139-L144). If you don't want to use build-in `blockbook` backend you can optionally provide those data from your own backend transformed to `OneKey` format.
 * `locktime` - *optional* `number`,
 * `version` - *optional* `number` transaction version,
 * `expiry` - *optional* `number`, only for Decred and Zcash,
@@ -39,6 +40,7 @@ OneKeyConnect.signTransaction(params).then(function(result) {
 * `push` - *optional* `boolean` Broadcast signed transaction to blockchain. Default is set to false
 
 ### Example
+
 ###### PAYTOADDRESS
 ```javascript
 OneKeyConnect.signTransaction({
@@ -65,6 +67,7 @@ OneKeyConnect.signTransaction({
 ```
 
 ###### SPENDP2SHWITNESS
+
 ```javascript
 OneKeyConnect.signTransaction({
     inputs: [
@@ -92,6 +95,7 @@ OneKeyConnect.signTransaction({
 ```
 
 ###### PAYTOADDRESS with refTxs (transaction data provided from custom backend)
+
 ```javascript
 OneKeyConnect.signTransaction({
     inputs: [
@@ -141,8 +145,6 @@ OneKeyConnect.signTransaction({
 });
 ```
 
-
-
 ### Result
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#sign-transaction)
 ```javascript
@@ -164,63 +166,6 @@ Error
     }
 }
 ```
-
-### Migration from older version
-
-version 4 and below
-```javascript
-var inputs = [{
-    address_n: [44 | 0x80000000, 0 | 0x80000000, 2 | 0x80000000, 1, 0],
-    prev_index: 0,
-    prev_hash: 'b035d89d4543ce5713c553d69431698116a822c57c03ddacf3f04b763d1999ac'
-}];
-var outputs = [{
-    address_n: [44 | 0x80000000, 0 | 0x80000000, 2 | 0x80000000, 1, 1],
-    amount: 3181747,
-    script_type: 'PAYTOADDRESS'
-}, {
-    address: '18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2',
-    amount: 200000,
-    script_type: 'PAYTOADDRESS'
-}];
-OneKeyConnect.setCurrency('BTC');
-OneKeyConnect.signTx(
-    inputs,  // amount field retyped to a string
-    outputs, // amount field retyped to a string
-    "example message",
-    function(result) {
-        result.signatures    // not changed
-        result.serialized_tx // renamed to "serializedTx"
-        // added "txid" field if "push" is set to true
-    },
-    "bitcoin"
-);
-```
-version 5
-```javascript
-// params are key-value pairs inside Object
-OneKeyConnect.signTransaction({
-    inputs: [{
-        address_n: [44 | 0x80000000, 0 | 0x80000000, 2 | 0x80000000, 1, 0],
-        prev_index: 0,
-        prev_hash: 'b035d89d4543ce5713c553d69431698116a822c57c03ddacf3f04b763d1999ac'
-    }],
-    outputs: [{
-        address_n: [44 | 0x80000000, 0 | 0x80000000, 2 | 0x80000000, 1, 1],
-        amount: '3181747',
-        script_type: 'PAYTOADDRESS'
-    }, {
-        address: '18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2',
-        amount: '200000',
-        script_type: 'PAYTOADDRESS'
-    }],
-    coin: "btc"
-}).then(function(result) {
-    ...
-})
-```
-
-
 
 <Playground
     initValue={
@@ -246,4 +191,3 @@ OneKeyConnect.signTransaction({
     coin: 'btc'
 });`}
 />
-

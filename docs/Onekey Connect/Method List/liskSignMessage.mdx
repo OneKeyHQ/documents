@@ -20,13 +20,17 @@ OneKeyConnect.liskSignMessage(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+
+[**Optional common params**](./commonParams)
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/lisk.js#L109-L112)
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `message` - *obligatory* `string` message to sign in plain text
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `message` - *required* `string` message to sign in plain text
 
 ### Example
 ```javascript
+
 OneKeyConnect.liskSignMessage({
     path: "m/44'/134'/0'",
     message: "example message"
@@ -34,7 +38,9 @@ OneKeyConnect.liskSignMessage({
 ```
 
 ### Result
+
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L104-L106)
+
 ```javascript
 {
     success: true,
@@ -44,6 +50,7 @@ OneKeyConnect.liskSignMessage({
     }
 }
 ```
+
 Error
 ```javascript
 {
@@ -54,8 +61,6 @@ Error
 }
 ```
 
-
-
 <Playground
     initValue={
 `OneKeyConnect.liskSignMessage({
@@ -63,4 +68,3 @@ Error
     message: "example message"
 });`}
 />
-

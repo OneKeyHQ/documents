@@ -1,11 +1,13 @@
 ---
 hide_table_of_contents: true
 ---
+
 import Playground from "@src/components/playground";
 
 ## Lisk: get public key
+
 Retrieves BIP32 extended public derived by given BIP32 path.
-User is presented with a description of the requested key and asked to confirm the export on Trezor.
+User is presented with a description of the requested key and asked to confirm the export on OneKey.
 
 ES6
 ```javascript
@@ -20,22 +22,29 @@ OneKeyConnect.liskGetPublicKey(params).then(function(result) {
 ```
 
 ### Params
-[****Optional common params****](./commonParams)
+[**Optional common params**](./commonParams)
+
 #### Exporting single address
-* `path` — *obligatory* `string | Array<number>` minimum length is `3`. [read more](./path)
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `false`
 
 #### Exporting bundle of addresses
+
 * `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
 
 ### Example
+
 Display address of first Lisk account:
+
 ```javascript
 OneKeyConnect.liskGetPublicKey({
     path: "m/44'/134'/0'/0'/0'"
 });
 ```
+
 Return a bundle of Lisk addresses without displaying them on device:
+
 ```javascript
 OneKeyConnect.liskGetPublicKey({
     bundle: [
@@ -47,7 +56,9 @@ OneKeyConnect.liskGetPublicKey({
 ```
 
 ### Result
+
 Result with only one address
+
 ```javascript
 {
     success: true,
@@ -58,7 +69,9 @@ Result with only one address
     }
 }
 ```
+
 Result with bundle of addresses sorted by FIFO
+
 ```javascript
 {
     success: true,
@@ -69,7 +82,9 @@ Result with bundle of addresses sorted by FIFO
     ]
 }
 ```
+
 Error
+
 ```javascript
 {
     success: false,
@@ -79,12 +94,9 @@ Error
 }
 ```
 
-
-
 <Playground
     initValue={
 `OneKeyConnect.liskGetPublicKey({
     path: "m/44'/134'/0'/0'/0'"
 });`}
 />
-

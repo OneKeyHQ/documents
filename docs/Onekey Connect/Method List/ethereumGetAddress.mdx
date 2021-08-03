@@ -22,13 +22,13 @@ OneKeyConnect.ethereumGetAddress(params).then(function (result) {});
 
 ### Params
 
-[\***\*Optional common params\*\***](./commonParams)
+[**Optional common params**](./commonParams)
 
 #### Exporting single address
 
-- `path` — _obligatory_ `string | Array<number>` minimum length is `5`. [read more](./path)
-- `address` — _optional_ `string` address for validation (read `Handle button request` section below)
-- `showOnTrezor` — _optional_ `boolean` determines if address will be displayed on device. Default is set to `true`
+- `path` — *required* `string | Array<number>` minimum length is `5`. [read more](./path)
+- `address` — *optional* `string` address for validation (read `Handle button request` section below)
+- `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of addresses
 
@@ -36,7 +36,7 @@ OneKeyConnect.ethereumGetAddress(params).then(function (result) {});
 
 #### Handle button request
 
-Since trezor-connect@6.0.4 there is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be triggered once the address is displayed on the device. You can handle this event and display custom UI inside of your application.
+There is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be triggered once the address is displayed on the device. You can handle this event and display custom UI inside of your application.
 
 If certain conditions are fulfilled popup will not be used at all:
 
@@ -45,7 +45,7 @@ If certain conditions are fulfilled popup will not be used at all:
 - application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
 - parameter `address` is set
 - parameter `showOnTrezor` is set to `true` (or not set at all)
-- application is requesting ONLY ONE(!) address
+- application is requesting ONLY ONE address
 
 ### Example
 
@@ -124,32 +124,6 @@ Error
     }
 }
 ```
-
-### Migration from older version
-
-version 4 and below:
-
-```javascript
-OneKeyConnect.ethereumGetAddress("m/44'/60'/0'", function (result) {
-  result.address; // address without "0x" prefix and without checksum
-  result.path;
-});
-```
-
-version 5
-
-```javascript
-// params are key-value pairs inside Object
-OneKeyConnect.ethereumGetAddress({
-  path: "m/44'/60'/0'",
-}).then(function (result) {
-  result.address; // address with "0x" prefix and checksum
-  result.path; // no change
-  result.serializedPath; // added
-});
-```
-
-
 
 <Playground
   initValue={`OneKeyConnect.ethereumGetAddress({

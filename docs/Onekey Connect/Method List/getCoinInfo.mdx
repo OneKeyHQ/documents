@@ -21,12 +21,10 @@ OneKeyConnect.getCoinInfo(params).then(function (result) {});
 ```
 
 ### Params
-
-[\***\*Optional common params\*\***](./commonParams)
-
+[**Optional common params**](./commonParams)
 #### Exporting single address
 
-- `coin` — _obligatory_ `string` coin symbol (btc, eth, bch, ...).
+* `coin` — *required* `string` coin symbol (btc, eth, bch, ...).
 
 ### Example
 
@@ -71,7 +69,7 @@ Result for Bitcoin
         segwit: true,
         shortcut: "BTC",
         slip44: 0,
-        support: Object { connect: true, trezor1: "1.5.2", trezor2: "2.0.5", … },
+        support: Object { connect: true, … },
         type: "bitcoin",
         xPubMagic: 76067358,
         xPubMagicSegwit: 77429938,
