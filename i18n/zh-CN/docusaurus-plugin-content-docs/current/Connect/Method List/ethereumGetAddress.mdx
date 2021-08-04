@@ -1,0 +1,134 @@
+---
+hide_table_of_contents: true
+---
+
+import Playground from '@src/components/playground';
+
+## 以太坊：获取地址
+
+在设备上显示根据给定的 [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) 路径派生的地址，并将其返回给调用者。钱包会向用户显示所请求的描述，并要求确认在 OneKey 上确认导出。
+
+ES6
+
+```javascript
+const result = await OneKeyConnect.ethereumGetAddress(params);
+```
+
+CommonJS
+
+```javascript
+OneKeyConnect.ethereumGetAddress(params).then(function (result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+#### 获取单个地址
+
+- `path` - *必填* 最小长度为 `5` 的 `string | Array<number>` [了解更多](./path)
+- `address` - *可选* `string` 用于验证的地址（请参阅下面的**处理按钮请求**部分）
+- `showOnTrezor` - *可选* `boolean` 决定是否在设备上显示地址。默认为 `true`
+
+#### 批量获取地址
+
+- `bundle` - 具有 `path` 和 `showOnTrezor` 字段对象的数组
+
+#### 处理按钮请求
+
+可以使用 `UI.ADDRESS_VALIDATION` 事件，该事件一旦在设备上显示地址就会触发。您可以处理此事件并在应用程序内部显示自定义 UI。
+
+如果满足以下任意条件，将不需要 Popup 弹出窗口：
+
+- 用户授予与 OneKey 通信的权限
+- 设备已通过 passphrase/pin 验证
+- 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+- 设置参数 `address`
+- 将参数 `showOnTrezor` 设置为 `true`（或完全不设置）
+- 应用程序仅请求一个地址
+
+### 例子
+
+显示第一个以太坊地址：
+
+```javascript
+OneKeyConnect.ethereumGetAddress({
+  path: "m/44'/60'/0'/0/0",
+});
+```
+
+不在设备上显示的情况下返回批量以太坊地址：
+
+```javascript
+OneKeyConnect.ethereumGetAddress({
+  bundle: [
+    { path: "m/44'/60'/0'/0/0", showOnTrezor: false }, // account 1
+    { path: "m/44'/60'/1'/0/0", showOnTrezor: false }, // account 2
+    { path: "m/44'/60'/2'/0/0", showOnTrezor: false }, // account 3
+  ],
+});
+```
+
+在你的应用里使用事件获取，自定义 UI 逻辑
+
+```javascript
+import OneKeyConnect, { UI } from '@onekeyhq/connect';
+
+OneKeyConnect.on(UI.ADDRESS_VALIDATION, (data) => {
+  console.log('Handle button request', data.address, data.serializedPath);
+  // here you can display custom UI inside of your app
+});
+
+const result = await OneKeyConnect.ethereumGetAddress({
+  path: "m/44'/60'/0'/0/0",
+  address: '0x73d0385F4d8E00C5e6504C6030F47BF6212736A8',
+});
+// dont forget to hide your custom UI after you get the result!
+```
+
+### 结果
+
+获取一个地址
+
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,     // displayed address
+        path: Array<number>, // hardended path
+        serializedPath: string,
+    }
+}
+```
+
+返回多个地址的结果，使用 先进先出 的顺序排序
+
+```javascript
+{
+    success: true,
+    payload: [
+        { address: string, path: Array<number>, serializedPath: string }, // account 1
+        { address: string, path: Array<number>, serializedPath: string }, // account 2
+        { address: string, path: Array<number>, serializedPath: string }  // account 3
+    ]
+}
+```
+
+错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+  initValue={`OneKeyConnect.ethereumGetAddress({
+    path: "m/44'/60'/0'/0/0"
+});`}
+/>

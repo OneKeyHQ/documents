@@ -2,11 +2,9 @@
 sidebar_position: 1
 ---
 
-＃创建一个简单的Dapp
+＃创建一个简单的 Dapp
 
-::: tip提示
-我们将构建此[app](https://metamask.github.io/test-dapp/)
-:::
+::: tip 提示我们将构建此[app](https://metamask.github.io/test-dapp/) :::
 
 ##项目设置
 
@@ -14,14 +12,11 @@ sidebar_position: 1
 
 确保您具有：
 
-1.下载了[MetaMask扩展名](https://metamask.io/download.html)。
-2. Node.js [下载并安装](https://nodejs.org/)
-   3.从GitHub克隆/下载[Project Files](https://github.com/BboyAkers/simple-dapp-tutorial)。
-   4.您最喜欢的文本编辑器或IDE已安装。我个人喜欢[Visual Studio Code](https://code.visualstudio.com/)
+1.下载了[MetaMask 扩展名](https://metamask.io/download.html)。 2. Node.js [下载并安装](https://nodejs.org/) 3.从 GitHub 克隆/下载[Project Files](https://github.com/BboyAkers/simple-dapp-tutorial)。 4.您最喜欢的文本编辑器或 IDE 已安装。我个人喜欢[Visual Studio Code](https://code.visualstudio.com/)
 
 ###打开项目文件夹
 
-打开项目文件夹。导航到“开始”->“ index.html”，然后看一下说明第1部分的注释。在本教程的第一部分中，我们将使用/构建整个部分。
+打开项目文件夹。导航到“开始”->“ index.html”，然后看一下说明第 1 部分的注释。在本教程的第一部分中，我们将使用/构建整个部分。
 
 ###安装依赖项
 
@@ -44,7 +39,7 @@ sidebar_position: 1
 npm install
 ```
 
-这将安装我们项目所需的所有必需依赖项。这将创建一个`node_modules/`文件夹，其中存储了所有依赖项。
+这将安装我们项目所需的所有必填依赖项。这将创建一个`node_modules/`文件夹，其中存储了所有依赖项。
 
 下一轮：
 
@@ -52,13 +47,13 @@ npm install
 npm run serve
 ```
 
-导航到http：//localhost：9011
+导航到 http：//localhost：9011
 
-##基本动作(第1部分)
+##基本动作(第 1 部分)
 
-现在，让我们导航到开始文件夹中的contract.js文件。
+现在，让我们导航到开始文件夹中的 contract.js 文件。
 
-您的文件应如下所示。不用担心第1-31行。
+您的文件应如下所示。不用担心第 1-31 行。
 
 ```javascript
 const forwarderOrigin = 'http://localhost:9010';
@@ -69,35 +64,23 @@ const initialize = () => {
 window.addEventListener('DOMContentLoaded', initialize);
 ```
 
-如您在此处看到的，一旦DOM中的内容加载完毕，我们就会调用我们的initialize函数。现在，在我们开始编写任何代码之前，我们需要查看此应用程序第一部分的任务列表中的内容。
+如您在此处看到的，一旦 DOM 中的内容加载完毕，我们就会调用我们的 initialize 函数。现在，在我们开始编写任何代码之前，我们需要查看此应用程序第一部分的任务列表中的内容。
 
 我们将在第一部分中介绍以下内容：
 
--[连接到MetaMask钱包](./create-dapp.html＃connecting-to-the-metamask-wallet)
--查看我们的eth_accounts结果
--显示我们的网络号码
--显示我们的ChainId
--显示我们的帐户
+-[连接到 MetaMask 钱包](./create-dapp.html＃connecting-to-the-metamask-wallet) -查看我们的 eth_accounts 结果 -显示我们的网络号码 -显示我们的 ChainId -显示我们的帐户
 
-###连接到MetaMask钱包
+###连接到 MetaMask 钱包
 
-我们在Dapp中需要做的第一件事是连接到MetaMask电子钱包。
+我们在 Dapp 中需要做的第一件事是连接到 MetaMask 电子钱包。
 
-1.我们需要创建一个函数来查看是否已安装MetaMask Chrome扩展
-2.如果未安装MetaMask，我们：
-   1.将我们的“ connectButton”更改为“单击此处以安装MetaMask”
-   2.点击该按钮后，我们应该进入一个页面，该页面将允许我们安装扩展程序
-   3.禁用按钮
-3.如果安装了MetaMask，我们：
-   1.将我们的“ connectButton”更改为“ Connect”
-   2.单击该按钮时，它应该允许我们连接到我们的MetaMask钱包
-   3.禁用按钮
+1.我们需要创建一个函数来查看是否已安装 MetaMask Chrome 扩展 2.如果未安装 MetaMask，我们： 1.将我们的“ connectButton”更改为“单击此处以安装 MetaMask” 2.点击该按钮后，我们应该进入一个页面，该页面将允许我们安装扩展程序 3.禁用按钮 3.如果安装了 MetaMask，我们： 1.将我们的“ connectButton”更改为“ Connect” 2.单击该按钮时，它应该允许我们连接到我们的 MetaMask 钱包 3.禁用按钮
 
 让我们开始吧！
 
-### MetaMask扩展检查
+### MetaMask 扩展检查
 
-在我们的代码中，我们需要从index.html连接到我们的按钮
+在我们的代码中，我们需要从 index.html 连接到我们的按钮
 
 ```javascript
 const initialize = () => {
@@ -106,7 +89,7 @@ const initialize = () => {
 };
 ```
 
-接下来，我们创建一个名为`isMetaMaskInstalled`的检查函数，以查看是否已安装MetaMask扩展
+接下来，我们创建一个名为`isMetaMaskInstalled`的检查函数，以查看是否已安装 MetaMask 扩展
 
 ```javascript
 const initialize = () => {
@@ -122,7 +105,8 @@ const initialize = () => {
 };
 ```
 
-接下来，我们需要创建一个“ MetaMaskClientCheck”函数，以查看是否需要根据是否已安装MetaMask Extension来更改按钮文本。
+接下来，我们需要创建一个“ MetaMaskClientCheck”函数，以查看是否需要根据是否已安装 MetaMask Extension 来更改按钮文本。
+
 ```javascript
 const initialize = () => {
   //Basic Actions Section
@@ -151,12 +135,11 @@ const initialize = () => {
 };
 ```
 
-### MetaMask“未安装” Dapp流
+### MetaMask“未安装” Dapp 流
 
-在未安装MetaMask的代码块中，我们要求用户“单击此处安装MetaMask！”，如果单击按钮，则需要进行以下操作：
+在未安装 MetaMask 的代码块中，我们要求用户“单击此处安装 MetaMask！”，如果单击按钮，则需要进行以下操作：
 
-1.将用户重定向到正确的页面以安装扩展程序
-2.禁用按钮
+1.将用户重定向到正确的页面以安装扩展程序 2.禁用按钮
 
 ```javascript
 const MetaMaskClientCheck = () => {
@@ -178,14 +161,9 @@ MetaMaskClientCheck();
 
 我们创建了一个函数，只要单击该按钮并将其禁用，就会调用该函数。 让我们深入研究`onClickInstall`函数并在其中创建逻辑。
 
-::: tip提示
-对于这一部分，我们将使用在执行npm安装时安装的'@ metamask/onboarding'库。 要了解更多信息，请访问[here](https://github.com/MetaMask/metamask-onboarding#metamask-onboarding)
-:::
-在此函数内，我们要：
+::: tip 提示对于这一部分，我们将使用在执行 npm 安装时安装的'@ metamask/onboarding'库。 要了解更多信息，请访问[here](https://github.com/MetaMask/metamask-onboarding#metamask-onboarding) ::: 在此函数内，我们要：
 
-1.将按钮的文本更改为“正在注册”
-2.禁用按钮
-3.开始入职流程
+1.将按钮的文本更改为“正在注册” 2.禁用按钮 3.开始入职流程
 
 在您的“ MetaMaskClientCheck”函数上方，编写/插入此代码。
 
@@ -202,11 +180,11 @@ const onClickInstall = () => {
 };
 ```
 
-伟大的！ 现在，如果最终用户没有MetaMask扩展，我们可以将其安装到哪里。 当他们刷新页面时，以太坊窗口对象将在那里，我们可以继续将其MetaMask钱包连接到我们的Dapp！
+伟大的！ 现在，如果最终用户没有 MetaMask 扩展，我们可以将其安装到哪里。 当他们刷新页面时，以太坊窗口对象将在那里，我们可以继续将其 MetaMask 钱包连接到我们的 Dapp！
 
-### MetaMask“已安装” Dapp流
+### MetaMask“已安装” Dapp 流
 
-接下来，我们需要重新访问`MetaMaskClientCheck`函数，并执行与“未安装MetaMask”块中相似的功能，直到现在我们的“已安装MetaMask”代码块。
+接下来，我们需要重新访问`MetaMaskClientCheck`函数，并执行与“未安装 MetaMask”块中相似的功能，直到现在我们的“已安装 MetaMask”代码块。
 
 ```javascript
 const MetaMaskClientCheck = () => {
@@ -234,10 +212,9 @@ MetaMaskClientCheck();
 
 在此函数内，我们要：
 
-1.创建一个异步函数，该函数将尝试调用'eth_requestAccounts'RPC方法
-2.捕获所有错误并将其记录到控制台
+1.创建一个异步函数，该函数将尝试调用'eth_requestAccounts'RPC 方法 2.捕获所有错误并将其记录到控制台
 
-在您的onClickInstall函数下，编写/插入此代码。
+在您的 onClickInstall 函数下，编写/插入此代码。
 
 ```javascript
 const onClickConnect = async () => {
@@ -251,11 +228,11 @@ const onClickConnect = async () => {
 };
 ```
 
-伟大的！现在，一旦您单击按钮，MetaMask Extension就会弹出并连接您的钱包。
+伟大的！现在，一旦您单击按钮，MetaMask Extension 就会弹出并连接您的钱包。
 
 ### 获取以太坊账户
 
-之后，接下来我们要做的就是每当我们按下eth_accounts按钮时，我们想要获取以太坊账户并显示它。
+之后，接下来我们要做的就是每当我们按下 eth_accounts 按钮时，我们想要获取以太坊账户并显示它。
 
 ```javascript
 //Basic Actions Section
@@ -264,7 +241,7 @@ const getAccountsButton = document.getElementById('getAccounts');
 const getAccountsResult = document.getElementById('getAccountsResult');
 ```
 
-现在，我们已经抓到了eth_accounts按钮，并且要在其中显示它的段落字段，现在我们必须抓取数据。
+现在，我们已经抓到了 eth_accounts 按钮，并且要在其中显示它的段落字段，现在我们必须抓取数据。
 
 在我们的“ MetaMaskClientCheck()”函数下，让我们编写/插入下面的代码。
 

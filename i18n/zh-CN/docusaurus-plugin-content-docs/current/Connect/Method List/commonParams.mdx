@@ -1,0 +1,17 @@
+## 常用参数
+
+每次调用都需要一个对象 [`Object`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)，该 `Object` 具有通用的参数和指定的方法参数。所有通用参数都是可选的。
+
+* `device` - *可选* `Object`
+  - `path` - *必填* `string` 由设备直接调用。与多个连接的设备一起使用时很有用。该值由 [`OneKeyConnectEvent`](../Events) 发出。
+  - `state` - *可选* `string` 设置期望状态。该值由 [`OneKeyConnectEvent`](../Events) 发出。
+  - `instance` - *可选* `number` 设置设备的实例。在使用一个设备和多个密码短语时很有用。该值由 [`OneKeyConnectEvent`](../Events) 发出。
+* `useEmptyPassphrase` - *可选* `boolean` 方法不会要求输入密码。默认设置为 `false`
+* `allowSeedlessDevice` - *可选* `boolean` 允许对具有无密码设置的设备使用 OneKeyConnect 方法。默认设置为 `false`
+* `keepSession` - *可选* `boolean` 直到方法返回结果后，设备会话才会被释放。
+
+任何将 `keepSession` 设置为 `false` 或 `undefined` 的方法被调用执行后，应立刻释放会话。当需要对 OneKeyConnect API 进行多个不同的调用时，不释放会话会显著提升性能。 10 个帐户的示例循环序列应如下所示：
+  - 第一个帐户的 `OneKeyConnect.getPublicKey({设备: {路径: "web01"}, keepSession: true, ... otherParams})`
+  - 同一帐户的 `OneKey.getAddress({设备: {路径: "web01"}, ... otherParams})`
+  - 循环迭代
+  - 在最后一次迭代之后，调用 `OneKeyConnect.getFeatures({设备: {路径: "web01"}, keepSession: false, ... otherParams})`

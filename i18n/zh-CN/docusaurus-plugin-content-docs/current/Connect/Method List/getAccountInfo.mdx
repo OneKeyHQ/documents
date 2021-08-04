@@ -1,0 +1,166 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## 获取帐户信息
+
+获取指定帐户的信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.getAccountInfo(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.getAccountInfo(params).then(function(result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+#### 使用路径
+- `path` - *必填* `string | Array<number>` 的最小长度为 3。 [了解更多](./path)
+- `coin` - *必填* `string` 确定 [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) 文件中指定的代币定义。可以使用 coins.json 文件中代币对象的 "coin_label"，"coin_shortcut" 或 "coin_name"。
+
+#### 使用公钥
+
+- `descriptor` - *必填* `string` 帐户公钥
+- `coin` - *必填* `string` 确定 [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) 文件中指定的代币定义。可以使用 coins.json 文件中代币对象的 "coin_label"，"coin_shortcut" 或 "coin_name"。
+
+#### 使用自动搜索
+
+自动探索发现合法的 [BIP44路径](./path) ，并且向用户显示一个帐户列表，选择帐户后返回结果。
+
+- `coin` - *必填* `string` 确定 [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) 文件中指定的代币定义。可以使用 coins.json 文件中代币对象的 "coin_label"，"coin_shortcut" 或 "coin_name"。
+
+### 其他可选参数
+
+使用 `@onekeyhq/blockchain-link` 包将参数转发到 [BlockBook 后端](https://github.com/trezor/blockbook/blob/master/docs/api.md#api-v2)
+
+
+- `details` 指定请求返回的详细信息级别
+    - `basic`：（默认）仅返回帐户余额，不包含任何派生地址或交易记录。
+    - `tokens`：带有派生地址（类似于比特币的帐户）和 ERC20 令牌（类似于以太坊的帐户）的响应。
+    - `tokenBalances`：与带有余额的 `tokens` 参数相同。
+    - `txs`：`tokenBalances` + 完整的帐户交易记录。
+
+- `tokens` 指定请求返回哪些令牌（xpub地址，默认为非零)
+    - `nonzero`：（默认）仅返回余额为非零的地址
+    - `used`：至少进行一次交易的返回地址
+    - `derived`：返回所有派生的地址
+
+- `page` —`number`交易历史页索引，`subject：txs`的主题
+    - `pageSize`： `number` 交易历史页面大小，`subject：txs`
+    - `from`：来自块过滤器的 "number" 交易历史记录，主题为 "详细信息：txs"
+    - `to`：`number` 交易历史记录以阻止过滤器，`subject：txs`
+    - `gap`：`number` 地址派生间隙大小，`details：令牌` 的主题
+    - `contractFilter`：`string` 仅以太坊式账户：获取 ERC20 代币信息和余额
+    - `marker`：`{分类帐：数字，seq：数字}` 仅 XRP帐户，交易历史记录页面标记
+    - `defaultAccountType`：`normal`，`segwit` 或 `legacy`。指定弹出式窗口中默认使用哪个帐户组作为 "搜索发现" 的账户类型
+
+### 示例
+
+获取第一个比特币账户信息
+
+```javascript
+OneKeyConnect.getAccountInfo({
+    path: "m/49'/0'/0'",
+    coin: "btc",
+});
+```
+
+通过公钥获取账户信息（无需设备）
+
+```javascript
+OneKeyConnect.getAccountInfo({
+    xpub: "xpub6CVKsQYXc9awxgV1tWbG4foDvdcnieK2JkbpPEBKB5WwAPKBZ1mstLbKVB4ov7QzxzjaxNK6EfmNY5Jsk2cG26EVcEkycGW4tchT2dyUhrx",
+    coin: "btc",
+});
+```
+
+自动探索 BIP-44 派生路径的合法账户
+
+```javascript
+OneKeyConnect.getAccountInfo({
+    coin: "btc",
+});
+```
+
+### Result
+```javascript
+{
+    success: true,
+    payload: {
+        id: number,                           // account id
+        path: string,                         // serialized path
+        descriptor: string,                   // account public key
+        legacyXpub?: string,                  // (optional) account public key in legacy format (only for segwit and segwit native accounts)
+        balance: string,                      // account balance (confirmed transactions only)
+        availableBalance: string,             // account balance (including unconfirmed transactions)
+        addresses: {
+            // subject of details:tokens param
+            unused: Array<AccountAddress>, // unused addresses
+            used: Array<AccountAddress>,   // used addresses
+            change: Array<AccountAddress>, // change addresses (internal)
+        }, // list of derived addresses grouped by purpose (Bitcoin-like accounts)
+        history: Array<{
+            total: number,
+            unconfirmed: number,
+            transactions?: Array<AccountTransaction>, // subject of details:txs param
+        }> // account history object
+        utxo?: Array<AccountUtxo>, // account utxos (Bitcoin-like accounts), subject of details:tokens param
+        tokens?: Array<TokenInfo>, // account ERC20 tokens (Ethereum-like accounts), subject of details:tokens param
+        misc?: {
+            // Ethereum-like accounts only
+            nonce: string,
+            erc20Contract?: TokenInfo, // subject of contractFilter param
+            // XRP accounts only
+            sequence?: number,
+            reserve?: string,
+        },
+        page?: {
+            // subject of details:txs param
+            index: number, // current page index
+            size: number,  // current page size
+            total: number, // total pages count
+        },
+        marker?: {
+            // XRP accounts only
+            // subject of details:txs param
+            ledger: number,
+            seq: number,
+        }
+
+    } //
+}
+```
+
+- [AccountInfo](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L108)
+- [AccountAddress](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L34)
+- [AccountTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L83)
+- [AccountUtxo](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L49)
+- [TokenInfo](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/account.js#L24)
+
+错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.getAccountInfo({
+    path: "m/49'/0'/0'",
+    coin: "btc",
+});`}
+/>

@@ -1,0 +1,266 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+
+## Tezos：签署交易
+
+要求设备签署给定的交易。 并要求用户在 OneKey 设备上确认所有交易的详细信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.tezosSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.tezosSignTransaction(params).then(function(result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L104-L108)
+
+- `path` - *必填* `string | Array<number>` 的最小长度为 3。 [了解更多](./path)
+- `branch` - *必填* `string`
+- `operation` - *必填* [TezosOperation](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L54) 的 `Object` 类型
+
+### 示例
+
+签名交易操作
+
+```javascript
+OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/10'",
+    branch: "BLGUkzwvguFu8ei8eLW3KgCbdtrMmv1UCqMvUpHHTGq1UPxypHS",
+    operation: {
+        transaction: {
+            source: "tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo",
+            destination: "tz1Kef7BSg6fo75jk37WkKRYSnJDs69KVqt9",
+            counter: 297,
+            amount: 200000,
+            fee: 10000,
+            gas_limit: 11000,
+            storage_limit: 0
+        }
+    }
+});
+```
+
+使用 reveal 操作签署账户的第一笔交易
+
+```javascript
+OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/10'",
+    branch: "BLGUkzwvguFu8ei8eLW3KgCbdtrMmv1UCqMvUpHHTGq1UPxypHS",
+    operation: {
+        reveal: {
+            source: 'tz1ekQapZCX4AXxTJhJZhroDKDYLHDHegvm1',
+            counter: 575424,
+            fee: 10000,
+            gas_limit: 20000,
+            storage_limit: 0,
+            public_key: 'edpkuTPqWjcApwyD3VdJhviKM5C13zGk8c4m87crgFarQboF3Mp56f',
+        },
+        transaction: {
+            source: 'tz1ekQapZCX4AXxTJhJZhroDKDYLHDHegvm1',
+            destination: 'tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo',
+            counter: 575425,
+            amount: 100000,
+            fee: 10000,
+            gas_limit: 20000,
+            storage_limit: 0,
+        }
+    }
+});
+```
+
+使用 origination 签署交易
+
+```javascript
+OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/0'",
+    branch: "BLHRTdZ5vUKSDbkp5vcG1m6ZTST4SRiHWUhGodysLTbvACwi77d",
+    operation: {
+        origination: {
+            source: "tz1ckrgqGGGBt4jGDmwFhtXc1LNpZJUnA9F2",
+            manager_pubkey: "tz1ckrgqGGGBt4jGDmwFhtXc1LNpZJUnA9F2",
+            delegate: "tz1boot1pK9h2BVGXdyvfQSv8kd1LQM6H889",
+            balance: 100000000,
+            fee: 10000,
+            counter: 20450,
+            gas_limit: 10100,
+            storage_limit: 277,
+            script: "0000001c02000000170500036805010368050202000000080316053d036d03420000000a010000000568656c6c6f"
+        }
+    }
+});
+```
+
+使用 delegation 签署交易
+
+```javascript
+OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/0'",
+    branch: "BMXAKyvzcH1sGQMqpvqXsZGskYU4GuY9Y14c9g3LcNzMRtfLzFa",
+    operation: {
+        delegation: {
+            source: 'tz1Kef7BSg6fo75jk37WkKRYSnJDs69KVqt9',
+            delegate: 'tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo',
+            fee: 20000,
+            counter: 564565,
+            gas_limit: 20000,
+            storage_limit: 0,
+        }
+    }
+});
+```
+
+从 KT 账户签署委托（带有 `manager.tz` 脚本的智能合约）
+
+```javascript
+OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/0'",
+    branch: "BMdPMLXNyMTDp4vR6g7y8mWPk7KZbjoXH3gyWD1Tze43UE3BaPm",
+    operation: {
+        transaction: {
+            source: 'tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo',
+            destination: 'KT1SBj7e8ZhV2VvJtoc73dNRDLRJ9P6VjuVN',
+            counter: 292,
+            amount: 0,
+            fee: 10000,
+            gas_limit: 36283,
+            storage_limit: 0,
+            parameters_manager: {
+                set_delegate: "tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo"
+            }
+        }
+    }
+});
+```
+
+从 KT 帐户签署取消委托（带有 `manager.tz` 脚本的智能合约）
+
+```javascript
+OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/0'",
+    branch: "BL6oaFJeEjtYxafJqEL8hXvSCZmM5d4quyAqjzkBhXvrX97JbQs",
+    operation: {
+        transaction: {
+            source: 'tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo',
+            destination: 'KT1SBj7e8ZhV2VvJtoc73dNRDLRJ9P6VjuVN',
+            counter: 293,
+            amount: 0,
+            fee: 10000,
+            gas_limit: 36283,
+            storage_limit: 0,
+            parameters_manager: {
+                cancel_delegate: true,
+            }
+        }
+    }
+});
+```
+
+从 KT 账户（带有 `manager.tz` 脚本的智能合约）到 tz 账户（隐式账户）的签名交易操作
+
+```javascript
+OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/0'",
+    branch: "BMCKRpEsFYQTdZy8BSLuFqkHmxwXrnRpKncdoVMbeGoggLG3bND",
+    operation: {
+        transaction: {
+            source: 'tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo',
+            destination: 'KT1SBj7e8ZhV2VvJtoc73dNRDLRJ9P6VjuVN',
+            counter: 294,
+            amount: 0,
+            fee: 10000,
+            gas_limit: 36283,
+            storage_limit: 0,
+            parameters_manager: {
+                transfer: {
+                    amount: 200,
+                    destination: 'tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo'
+                }
+            }
+        }
+    }
+});
+```
+
+从一个 KT 账户（带有 `manager.tz` 脚本的智能合约）到另一个 KT 账户（带有 `manager.tz` 脚本的智能合约）签署交易操作
+
+```javascript
+OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/0'",
+    branch: "BMCKRpEsFYQTdZy8BSLuFqkHmxwXrnRpKncdoVMbeGoggLG3bND",
+    operation: {
+        transaction: {
+            source: 'tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo',
+            destination: 'KT1SBj7e8ZhV2VvJtoc73dNRDLRJ9P6VjuVN',
+            counter: 294,
+            amount: 0,
+            fee: 10000,
+            gas_limit: 36283,
+            storage_limit: 0,
+            parameters_manager: {
+                transfer: {
+                    amount: 200,
+                    destination: 'tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo'
+                }
+            }
+        }
+    }
+});
+```
+
+### 结果
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/tezos.js#L110-L114)
+
+```javascript
+{
+    success: true,
+    payload: {
+        signature: string,
+        sig_op_contents: string,
+        operation_hash: string,
+    }
+}
+
+```
+
+错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.tezosSignTransaction({
+    path: "m/44'/1729'/10'",
+    branch: "BLGUkzwvguFu8ei8eLW3KgCbdtrMmv1UCqMvUpHHTGq1UPxypHS",
+    operation: {
+        transaction: {
+            source: "tz1UKmZhi8dhUX5a5QTfCrsH9pK4dt1dVfJo",
+            destination: "tz1Kef7BSg6fo75jk37WkKRYSnJDs69KVqt9",
+            counter: 297,
+            amount: 200000,
+            fee: 10000,
+            gas_limit: 11000,
+            storage_limit: 0
+        }
+    }
+});`}
+/>

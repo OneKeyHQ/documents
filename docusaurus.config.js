@@ -31,13 +31,13 @@ module.exports = {
         {
           type: 'doc',
           docId: 'Extension/Guide/introduction',
-          label: 'Onekey Extension',
+          label: 'Extension',
           position: 'left',
         },
         {
           type: 'doc',
-          docId: 'Onekey Connect/getting-started',
-          label: 'Onekey Connect',
+          docId: 'Connect/getting-started',
+          label: 'Connect (JavaScript SDK)',
           position: 'left',
         },
         {

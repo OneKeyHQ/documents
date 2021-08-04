@@ -1,0 +1,99 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## Eos：获取公钥
+
+在设备上显示由给定的 [BIP44 路径](./path) 派生的请求的公钥地址，并将其返回给请求者。同时向用户显示请求的公钥的描述，并要求确认导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.eosGetPublicKey(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.eosGetPublicKey(params).then(function(result) {
+
+});
+```
+
+### 参数
+[**可选的通用参数**](./commonParams)
+
+#### 导出单个地址
+
+* `path` - *必填* `string | Array<number>` 的最小长度为 5。 [了解更多](./path)
+* `showOnTrezor` - *可选* `boolean` 决定是否在设备上显示地址，默认设置为 `true`。
+
+#### 导出多个地址
+
+* `bundle` - `array` 具有 `path` 和 `showOnTrezor` 字段的对象数组
+
+### 示例
+
+通过 BIP44 派生地址展示公钥
+
+```javascript
+OneKeyConnect.eosGetPublicKey({
+    path: "m/44'/194'/0'/0/0"
+});
+```
+
+返回多个公钥地址，同时不在设备上提示
+
+```javascript
+OneKeyConnect.eosGetPublicKey({
+    bundle: [
+        { path: "m/44'/194'/0'/0/0", showOnTrezor: false }, // public key 1
+        { path: "m/44'/194'/0'/0/1", showOnTrezor: false }, // public key 2
+        { path: "m/44'/194'/0'/0/2", showOnTrezor: false }  // public key 3
+    ]
+});
+```
+
+### 结果
+
+仅展示一个公钥地址
+
+```javascript
+{
+    success: true,
+    payload: {
+        wifPublicKey: string,
+        rawPublicKey: string,
+    }
+}
+```
+
+以 「先进先出」原则展示多个公钥地址
+
+```javascript
+{
+    success: true,
+    payload: [
+        { wifPublicKey: string, rawPublicKey: string }, // public key 1
+        { wifPublicKey: string, rawPublicKey: string }, // public key 2
+        { wifPublicKey: string, rawPublicKey: string }  // public key 3
+    ]
+}
+```
+
+错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.eosGetPublicKey({
+    path: "m/44'/194'/0'/0/0"
+});`}
+/>

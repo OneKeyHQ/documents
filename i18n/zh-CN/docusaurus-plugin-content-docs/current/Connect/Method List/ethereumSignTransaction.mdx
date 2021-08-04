@@ -1,0 +1,82 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## 以太坊：签署交易
+
+要求设备使用由给定的 [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) 路径派生的私钥对给定的交易进行签名。并要求用户在 OneKey 上确认交易的所有详细信息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.ethereumSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.ethereumSignTransaction(params).then(function(result) {
+
+});
+```
+
+### 参数
+[**可选的通用参数**](./commonParams)
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L69-L72)
+
+* `path` - *必填* `string | Array<number>` 的最小长度为 `3`。 [了解更多](./path)
+* `transaction` - *必填* [EthereumTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/ethereum.js#L5)的 `Object` 类型，每个字段值的 "0x" 前缀都是可选的
+
+### 示例
+```javascript
+OneKeyConnect.ethereumSignTransaction({
+    path: "m/44'/60'/0'",
+    transaction: {
+        to: "0x7314e0f1c0e28474bdb6be3e2c3e0453255188f8",
+        value: "0xf4240",
+        data: "0x01",
+        chainId: 1,
+        nonce: "0x0",
+        gasLimit: "0x5208",
+        gasPrice: "0xbebc200"
+    }
+});
+```
+
+### 结果
+###### [结果及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L57-L60)
+```javascript
+{
+    success: true,
+    payload: {
+        v: string, // hexadecimal string with "0x" prefix
+        r: string, // hexadecimal string with "0x" prefix
+        s: string, // hexadecimal string with "0x" prefix
+    }
+}
+```
+错误
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.ethereumSignTransaction({
+    path: "m/44'/60'/0'",
+    transaction: {
+        to: "0x7314e0f1c0e28474bdb6be3e2c3e0453255188f8",
+        value: "0xf4240",
+        data: "0x01",
+        chainId: 1,
+        nonce: "0x0",
+        gasLimit: "0x5208",
+        gasPrice: "0xbebc200"
+    }
+});`}
+/>

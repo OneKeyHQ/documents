@@ -1,0 +1,77 @@
+---
+sidebar_position: 1
+id: getting-started
+title: Getting Started
+---
+
+## 安装
+
+将库安装为 npm 模块：
+
+```shell
+npm install @onekeyhq/connect
+```
+
+或者
+
+```shell
+yarn add @onekeyhq/connect
+```
+
+## 初始化
+
+ES6
+
+```javascript
+import OneKeyConnect from '@onekeyhq/connect';
+```
+
+CommonJS
+
+```javascript
+var OneKeyConnect = require('@onekeyhq/connect').default;
+```
+
+## API 方法
+
+- [方法列表](./Methods)
+
+## 处理事件
+
+- [事件](./Events)
+
+## 运行本地版本（开发模式）
+
+- 克隆存储库：`git clone git@github.com:OneKeyHQ/connect.git`
+- 安装 node_modules 开发依赖 `yarn` 或 `npm install`
+- 运行本地服务器：`yarn dev`
+
+初始化项目
+
+```javascript
+OneKeyConnect.init({
+  connectSrc: 'https://localhost:8088/',
+  lazyLoad: true, // 开启 lazyLoad 会直到调用 OneKeyConnect 方法后才会初始化 iframe.
+  manifest: {
+    email: 'hi@onekey.so',
+    appUrl: 'https://onekey.so',
+  },
+});
+```
+
+## 运行本地版本（自定义分支）
+
+为了运行未发布到 npm 的分支，并且此分支需要更改（大多数情况是在将新方法添加到 OneKeyConnect 时）
+
+- `git checkout custom-feature-branch`
+- `yarn build:npm`
+- `yarn build`
+
+### 使用`yarn link`
+
+- `cd ./npm && yarn link`
+- 在需要使用的项目中: `yarn install @onekeyhq/connect`
+
+### 使用本地文件
+
+在您的项目中：`yarn install @onekeyhq/connect@file:/[local-path-to-repository]`

@@ -1,0 +1,193 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## 签名交易
+
+要求设备给定预先组成的交易的输入和输出签名，要求用户在 OneKey 上确认所有与交易有关的详细信息。
+
+
+ES6
+```javascript
+const result = await OneKeyConnect.signTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.signTransaction(params).then(function(result) {
+
+});
+```
+
+### 参数
+[**可选的通用参数**](./commonParams)
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L169-L164)
+
+- `coin` - *必填* `string` 确定 [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) 文件中指定的代币定义。可以使用 coins.json 文件中代币对象的 "coin_label"，"coin_shortcut" 或 "coin_name"。
+- `inputs` - *必填* [TransactionInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L100-L108) 的数组
+- `outputs` - *必填* [TransactionOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L113-L131) 的数组
+- `refTxs` - *可选* [RefTransaction](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor/protobuf.js#L139-L144) 的数组。如果您不想使用内置的 `blockbook` 后端，则可以选择将您自己的后端中的那些数据转换为`OneKey`支持的格式。
+- `locktime` - *可选* `number`，锁定时间
+- `version` - *可选* `number` 交易版本
+- `expiry` - *可选* `number`，仅适用于 Decred 和 Zcash
+- `versionGroupId` - *可选* `number` 仅用于 Zcash，设置了 `overwintered` 则为 `nVersionGroupId`
+- `overwintered` - *可选* `boolean` 仅适用于 Zcash
+- `timestamp` - *可选* `number` 仅适用于 Capricoin，交易时间戳，
+- `branchId` - *可选* `number`，仅适用于 Zcash，设置了 `overwintered` 时的 BRANCH_ID
+- `push` - *可选* `boolean` 是否将签名的交易广播到链，默认设置为 `false`
+
+### 示例
+###### PAYTOADDRESS
+```javascript
+OneKeyConnect.signTransaction({
+    inputs: [
+        {
+            address_n: [(44 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (2 | 0x80000000) >>> 0, 1, 0],
+            prev_index: 0,
+            prev_hash: 'b035d89d4543ce5713c553d69431698116a822c57c03ddacf3f04b763d1999ac',
+        }
+    ],
+    outputs: [
+        {
+            address_n: [(44 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (2 | 0x80000000) >>> 0, 1, 1],
+            amount: '3181747',
+            script_type: 'PAYTOADDRESS',
+        }, {
+            address: '18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2',
+            amount: '200000',
+            script_type: 'PAYTOADDRESS',
+        }
+    ],
+    coin: 'btc'
+});
+```
+
+###### SPENDP2SHWITNESS
+```javascript
+OneKeyConnect.signTransaction({
+    inputs: [
+        {
+            address_n: [(49 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (2 | 0x80000000) >>> 0, 1, 0],
+            prev_index: 0,
+            prev_hash: 'b035d89d4543ce5713c553d69431698116a822c57c03ddacf3f04b763d1999ac',
+            amount: '3382047',
+            script_type: 'SPENDP2SHWITNESS',
+        }
+    ],
+    outputs: [
+        {
+            address_n: [(49 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (2 | 0x80000000) >>> 0, 1, 1],
+            amount: '3181747',
+            script_type: 'PAYTOP2SHWITNESS',
+        }, {
+            address: '18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2',
+            amount: '200000',
+            script_type: 'PAYTOADDRESS',
+        }
+    ],
+    coin: 'btc'
+});
+```
+
+###### 带有 refTxs 的 PAYTOADDRESS (同时使用自定义后端)
+```javascript
+OneKeyConnect.signTransaction({
+    inputs: [
+        {
+            address_n: [(44 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (2 | 0x80000000) >>> 0, 1, 0],
+            prev_index: 0,
+            prev_hash: 'b035d89d4543ce5713c553d69431698116a822c57c03ddacf3f04b763d1999ac',
+        }
+    ],
+    outputs: [
+        {
+            address_n: [(44 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (2 | 0x80000000) >>> 0, 1, 1],
+            amount: '3181747',
+            script_type: 'PAYTOADDRESS',
+        }, {
+            address: '18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2',
+            amount: '200000',
+            script_type: 'PAYTOADDRESS',
+        }
+    ],
+    refTxs: [
+        {
+            hash: 'b035d89d4543ce5713c553d69431698116a822c57c03ddacf3f04b763d1999ac',
+            inputs: [
+                {
+                    prev_hash: '448946a44f1ef514601ccf9b22cc3e638c69ea3900b67b87517ea673eb0293dc',
+                    prev_index: 0,
+                    script_sig: '47304402202872cb8459eed053dcec0f353c7e293611fe77615862bfadb4d35a5d8807a4cf022015057aa0aaf72ab342b5f8939f86f193ad87b539931911a72e77148a1233e022012103f66bbe3c721f119bb4b8a1e6c1832b98f2cf625d9f59242008411dd92aab8d94',
+                    sequence: 4294967295,
+                }
+            ],
+            bin_outputs: [
+                {
+                    amount: 3431747,
+                    script_pubkey: '76a91441352a84436847a7b660d5e76518f6ebb718dedc88ac',
+                },
+                {
+                    amount: 10000,
+                    script_pubkey: '76a9141403b451c79d34e6a7f6e36806683308085467ac88ac',
+                }
+            ],
+            lock_time: 0,
+            version: 1,
+        },
+    ],
+    coin: 'btc'
+});
+```
+
+
+
+### 结果
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#sign-transaction)
+
+```javascript
+{
+    success: true,
+    payload: {
+        signatures: Array<string>, // Array of signer signatures
+        serializedTx: string,        // serialized transaction
+        txid?: string,             // broadcasted transaction id
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.signTransaction({
+    inputs: [
+        {
+            address_n: [(44 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (2 | 0x80000000) >>> 0, 1, 0],
+            prev_index: 0,
+            prev_hash: 'b035d89d4543ce5713c553d69431698116a822c57c03ddacf3f04b763d1999ac',
+        }
+    ],
+    outputs: [
+        {
+            address_n: [(44 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (2 | 0x80000000) >>> 0, 1, 1],
+            amount: '3181747',
+            script_type: 'PAYTOADDRESS',
+        }, {
+            address: '18WL2iZKmpDYWk1oFavJapdLALxwSjcSk2',
+            amount: '200000',
+            script_type: 'PAYTOADDRESS',
+        }
+    ],
+    coin: 'btc'
+});`}
+/>

@@ -8,29 +8,36 @@ export function usePopupToggle() {
     const [usePopup, setUsePopup] = useLocalStorage('usePopup', false);
     useEffect(() => {
         if (usePopup !== previousPopup) {
-            if (previousPopup === null) {
-                console.log('ass', usePopup, previousPopup);
-                previousPopup = usePopup;
-                console.log('ass', usePopup, previousPopup);
+            console.log('previousPopup', previousPopup, usePopup);
+            console.log(previousPopup);
+            // if (previousPopup !== null) {
+                console.log('-----');
+                OneKeyConnect.dispose();
+                console.log('-----dispose end');
+            // }
 
-                OneKeyConnect.on('UI_EVENT', event => {
-                    console.log('UI_EVENT', event);
-                });
-
-                OneKeyConnect.init({
-                    debug: true,
-                    popup: usePopup,
-                    manifest: {
-                        email: 'hi@onekey.so',
-                        appUrl: 'https://onekey.so',
-                    },
-                });
-            } else {
-                location.reload();
-            }
+            // OneKeyConnect.on('UI_EVENT', event => {
+            //     console.log('UI_EVENT', event);
+            // });
+            // console.log('-----onekey config------', {
+            //     debug: true,
+            //     popup: usePopup,
+            //     manifest: {
+            //         email: 'hi@onekey.so',
+            //         appUrl: 'https://onekey.so',
+            //     },
+            // });
+            // OneKeyConnect.init({
+            //     debug: true,
+            //     popup: usePopup,
+            //     manifest: {
+            //         email: 'hi@onekey.so',
+            //         appUrl: 'https://onekey.so',
+            //     },
+            // });
+            // previousPopup = usePopup;
         }
     }, [usePopup]);
 
     return [usePopup, setUsePopup] as [boolean, Dispatch<SetStateAction<boolean>>];
 }
-

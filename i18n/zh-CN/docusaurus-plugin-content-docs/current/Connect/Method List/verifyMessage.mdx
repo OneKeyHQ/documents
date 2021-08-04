@@ -1,0 +1,81 @@
+---
+hide_table_of_contents: true
+---
+
+import Playground from '@src/components/playground';
+
+## 消息验证
+
+设备通过签名人地址和签名对消息进行验证。
+
+ES6
+
+```javascript
+const result = await OneKeyConnect.verifyMessage(params);
+```
+
+CommonJS
+
+```javascript
+OneKeyConnect.verifyMessage(params).then(function (result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L156-L161)
+
+- `address` - *必填* `string` 签名人地址
+- `message` - *必填* `string` 待验证的消息
+- `signature` - *必填* `base64` 签名，采用 base64 格式字符串
+- `coin` - *必填* `string` 在 [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) 中定义的币种。可以使用币种的字段包含 `coin_shortcut`，`coin_name` 或 `coin_label`
+- `hex` - *可选* `boolean` 是否为十六进制格式的消息
+
+### 示例
+
+```javascript
+OneKeyConnect.verifyMessage({
+  address: '3BD8TL6iShVzizQzvo789SuynEKGpLTms9',
+  message: 'example message',
+  signature: 'JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=',
+  coin: 'btc',
+});
+```
+
+### 返回结果
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L133-L136)
+
+正确返回
+
+```javascript
+{
+    success: true,
+    payload: {
+        message: "Message verified"
+    }
+}
+```
+
+错误返回
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+  initValue={`OneKeyConnect.verifyMessage({
+    address: "3BD8TL6iShVzizQzvo789SuynEKGpLTms9",
+    message: "example message",
+    signature: "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=",
+    coin: "btc"
+});`}
+/>

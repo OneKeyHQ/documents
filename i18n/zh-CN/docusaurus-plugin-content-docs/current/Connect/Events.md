@@ -1,0 +1,41 @@
+---
+sidebar_position: 2
+---
+
+## 处理事件
+
+一旦用户授予托管页面与 API 通信的权限，OneKeyConnect 就会发出事件关于设备状态。可以通过事件对象的 `type` 字段来区分事件，也可以从包中导入所有类型的常量。
+
+ES6
+
+```javascript
+import OneKeyConnect, { DEVICE_EVENT, DEVICE } from '@onekeyhq/connect';
+
+OneKeyConnect.on(DEVICE_EVENT, (event) => {
+  if (event.type === DEVICE.CONNECT) {
+    // DEVICE.CONNECT 事件
+  } else if (event.type === DEVICE.DISCONNECT) {
+    // DEVICE.DISCONNECT 事件
+  }
+});
+```
+
+CommonJS
+
+```javascript
+var OneKeyConnect = require('@onekeyhq/connect').default;
+var DEVICE_EVENT = require('@onekeyhq/connect').DEVICE_EVENT;
+var DEVICE = require('@onekeyhq/connect').DEVICE;
+
+OneKeyConnect.on(DEVICE_EVENT, (event) => {
+  if (event.type === DEVICE.CONNECT) {
+    // DEVICE.CONNECT 事件
+  } else if (event.type === DEVICE.DISCONNECT) {
+    // DEVICE.DISCONNECT 事件
+  }
+});
+```
+
+## 已发布事件列表
+
+`device-connect` `device-disconnect` `device-changed`

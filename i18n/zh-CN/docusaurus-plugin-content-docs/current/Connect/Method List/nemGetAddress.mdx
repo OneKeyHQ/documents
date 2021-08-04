@@ -1,0 +1,132 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## NEM：获取地址
+在设备上显示请求的地址，并将其返回给调用者。
+向用户显示所请求密钥的描述，并要求其确认导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.nemGetAddress(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.nemGetAddress(params).then(function(result) {
+
+});
+```
+
+### 参数
+[**可选的通用参数**](./commonParams)
+
+#### 导出单个地址
+
+- `path` — *必填* `string | Array<number>` 的最小长度为 `5`。 [了解更多](./path)
+- `address` — *可选* `string` 用于验证的地址（请参阅下面的**处理按钮请求**部分）
+- `network`-*可选* `number` `0x68` - 主网, `0x96` - 测试网, `0x60` - Mijin。 默认设置为 `主网`
+- `showOnTrezor`-*可选* `boolean` 决定是否在设备上显示地址。默认设置为 `true`
+
+#### 导出多个
+
+- `bundle` - `Array` 对象的 `path`，`network` 和 `showOnTrezor` 字段
+
+#### 处理按钮请求
+
+可以处理 `UI.ADDRESS_VALIDATION` 事件，该事件一旦在设备上显示地址就会触发，您可以处理此事件并在应用程序内部显示自定义UI。
+
+如果满足某些条件，将完全不使用弹出窗口：
+- 用户已经授予了与 Onekey 通信的权限
+- 设备通过密码验证
+- 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+- 设置参数 `address`
+- 将参数 showOnTrezor 设置为 true(或完全不设置)
+- 应用程序仅请求一个地址
+
+
+### 例子
+
+显示第三个 NEM 地址:
+
+```javascript
+OneKeyConnect.nemGetAddress({
+    path: "m/44'/43'/2'"
+});
+```
+
+返回多个NEM地址并不在设备上显示:
+
+```javascript
+OneKeyConnect.nemGetAddress({
+    bundle: [
+        { path: "m/44'/43'/0'", showOnTrezor: false }, // account 1
+        { path: "m/44'/43'/1'", showOnTrezor: false }, // account 2
+        { path: "m/44'/43'/2'", showOnTrezor: false }  // account 3
+    ]
+});
+```
+
+在您应用程序里的自定义UI上验证地址:
+
+```javascript
+import OneKeyConnect, { UI } from '@onekeyhq/connect';
+
+OneKeyConnect.on(UI.ADDRESS_VALIDATION, data => {
+    console.log("Handle button request", data.address, data.serializedPath);
+    // here you can display custom UI inside of your app
+});
+
+const result = await OneKeyConnect.nemGetAddress({
+    path: "m/44'/43'/0'",
+    address: "TDS7OQUHKNYMSC2WPJA6QUTLJIO22S27B4FMU2AJ",
+});
+// dont forget to hide your custom UI after you get the result!
+```
+
+### 返回值
+
+单个地址
+
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        path: Array<number>,
+        serializedPath: string,
+    }
+}
+```
+
+多个地址
+
+```javascript
+{
+    success: true,
+    payload: [
+        { address: string, path: Array<number>, serializedPath: string }, // account 1
+        { address: string, path: Array<number>, serializedPath: string }, // account 2
+        { address: string, path: Array<number>, serializedPath: string }, // account 3
+    ]
+}
+```
+
+错误返回值
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.nemGetAddress({
+    path: "m/44'/43'/2'"
+});`}
+/>

@@ -1,0 +1,70 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## 以太坊：签名消息
+
+要求设备使用由给定的 [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) 路径派生的私钥对签名消息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.ethereumSignMessage(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.ethereumSignMessage(params).then(function(result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
+
+- `path` - *必填* `string | Array<number>`的最小长度为3。 [了解更多](./path)
+- `message` - *必填* `string` 用于加密的纯文本消息
+- `hex` - *可选* `boolean` 从 16 进制转换出消息
+
+### 例子
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
+
+```javascript
+OneKeyConnect.ethereumSignMessage({
+    path: "m/44'/60'/0'",
+    message: "example message"
+});
+```
+
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        signature: string,
+    }
+}
+```
+
+错误返回值
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.ethereumSignMessage({
+    path: "m/44'/60'/0'",
+    message: "example message"
+});`}
+/>
