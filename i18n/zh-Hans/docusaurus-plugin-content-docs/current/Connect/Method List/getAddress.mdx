@@ -30,7 +30,7 @@ OneKeyConnect.getAddress(params).then(function (result) {
 
 - `path` - *必填* `string | Array<number>` 最小长度为 5。 [了解更多](./path)
 - `address` - *可选* `string` 用于验证的地址(请参阅下面的 `处理按钮请求` 部分)
-- `showOnTrezor` - *可选* `boolean` 是否在设备上显示地址和确认。默认值 `true`
+- `showOnOneKey` - *可选* `boolean` 是否在设备上显示地址和确认。默认值 `true`
 - `coin` - *可选* `string` 在 [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) 中定义的币种。可以使用币种的字段包含 `coin_shortcut`，`coin_name` 或 `coin_label`。如果未指定 `coin` 参数，API 将尝试通过 `path` 参数自动获取币种。
 - `crossChain` - *可选* `boolean` 高级功能，仅当您了解该功能时开启。允许生成跨链地址，例如，莱特币网络上的比特币路径将以莱特币格式显示跨链地址。
 - `multisig` - *可选* 多签脚本类型，参考 [MultisigRedeemScriptType](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/trezor.js#L107) (仅适用于 multisig 多签地址)
@@ -38,7 +38,7 @@ OneKeyConnect.getAddress(params).then(function (result) {
 
 #### 导出多个地址
 
-- `bundle` - `Array` 包含 `path`，`showOnTrezor`，`coin` 和 `crossChain` 字段的对象数组
+- `bundle` - `Array` 包含 `path`，`showOnOneKey`，`coin` 和 `crossChain` 字段的对象数组
 
 #### 处理按钮请求
 
@@ -50,7 +50,7 @@ OneKeyConnect.getAddress(params).then(function (result) {
 - 设备已通过密码验证
 - 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});` 事件
 - 提供了参数 `address`
-- 参数 `showOnTrezor` 为 `true` (或未设置)
+- 参数 `showOnOneKey` 为 `true` (或未设置)
 - 应用程序仅请求一个地址
 
 ### 示例
@@ -69,9 +69,9 @@ OneKeyConnect.getAddress({
 ```javascript
 OneKeyConnect.getAddress({
   bundle: [
-    { path: "m/49'/0'/0'/0/0", showOnTrezor: false }, // address 1
-    { path: "m/49'/0'/0'/0/1", showOnTrezor: false }, // address 2
-    { path: "m/49'/0'/0'/0/2", showOnTrezor: false }, // address 3
+    { path: "m/49'/0'/0'/0/0", showOnOneKey: false }, // address 1
+    { path: "m/49'/0'/0'/0/1", showOnOneKey: false }, // address 2
+    { path: "m/49'/0'/0'/0/2", showOnOneKey: false }, // address 3
   ],
 });
 ```

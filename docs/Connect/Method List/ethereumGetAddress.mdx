@@ -28,11 +28,11 @@ OneKeyConnect.ethereumGetAddress(params).then(function (result) {});
 
 - `path` — *required* `string | Array<number>` minimum length is `5`. [read more](./path)
 - `address` — *optional* `string` address for validation (read `Handle button request` section below)
-- `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
+- `showOnOneKey` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of addresses
 
-- `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+- `bundle` - `Array` of Objects with `path` and `showOnOneKey` fields
 
 #### Handle button request
 
@@ -44,7 +44,7 @@ If certain conditions are fulfilled popup will not be used at all:
 - device is authenticated by pin/passphrase
 - application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
 - parameter `address` is set
-- parameter `showOnTrezor` is set to `true` (or not set at all)
+- parameter `showOnOneKey` is set to `true` (or not set at all)
 - application is requesting ONLY ONE address
 
 ### Example
@@ -62,9 +62,9 @@ Return a bundle of ethereum addresses without displaying them on device:
 ```javascript
 OneKeyConnect.ethereumGetAddress({
   bundle: [
-    { path: "m/44'/60'/0'/0/0", showOnTrezor: false }, // account 1
-    { path: "m/44'/60'/1'/0/0", showOnTrezor: false }, // account 2
-    { path: "m/44'/60'/2'/0/0", showOnTrezor: false }, // account 3
+    { path: "m/44'/60'/0'/0/0", showOnOneKey: false }, // account 1
+    { path: "m/44'/60'/1'/0/0", showOnOneKey: false }, // account 2
+    { path: "m/44'/60'/2'/0/0", showOnOneKey: false }, // account 3
   ],
 });
 ```

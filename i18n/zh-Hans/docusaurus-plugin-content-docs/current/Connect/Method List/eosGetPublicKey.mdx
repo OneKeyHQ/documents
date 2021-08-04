@@ -26,11 +26,11 @@ OneKeyConnect.eosGetPublicKey(params).then(function(result) {
 #### 导出单个地址
 
 * `path` - *必填* `string | Array<number>` 的最小长度为 5。 [了解更多](./path)
-* `showOnTrezor` - *可选* `boolean` 决定是否在设备上显示地址，默认设置为 `true`。
+* `showOnOneKey` - *可选* `boolean` 决定是否在设备上显示地址，默认设置为 `true`。
 
 #### 导出多个地址
 
-* `bundle` - `array` 具有 `path` 和 `showOnTrezor` 字段的对象数组
+* `bundle` - `array` 具有 `path` 和 `showOnOneKey` 字段的对象数组
 
 ### 示例
 
@@ -47,9 +47,9 @@ OneKeyConnect.eosGetPublicKey({
 ```javascript
 OneKeyConnect.eosGetPublicKey({
     bundle: [
-        { path: "m/44'/194'/0'/0/0", showOnTrezor: false }, // public key 1
-        { path: "m/44'/194'/0'/0/1", showOnTrezor: false }, // public key 2
-        { path: "m/44'/194'/0'/0/2", showOnTrezor: false }  // public key 3
+        { path: "m/44'/194'/0'/0/0", showOnOneKey: false }, // public key 1
+        { path: "m/44'/194'/0'/0/1", showOnOneKey: false }, // public key 2
+        { path: "m/44'/194'/0'/0/2", showOnOneKey: false }  // public key 3
     ]
 });
 ```

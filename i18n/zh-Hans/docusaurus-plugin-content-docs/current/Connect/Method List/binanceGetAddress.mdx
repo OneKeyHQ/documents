@@ -33,11 +33,11 @@ OneKeyConnect.binanceGetAddress(params).then(function (result) {
 
 - `path` - *必填* `string | Array<number>` 的最小长度为 `5`。 [了解更多](./path)
 - `address` - *可选* `string` 用于验证的地址（请参阅下面的 `句柄按钮请求` 部分）
-- `showOnTrezor` - *可选* `boolean` 决定是否在设备上显示地址。默认设置为 `true`
+- `showOnOneKey` - *可选* `boolean` 决定是否在设备上显示地址。默认设置为 `true`
 
 #### 导出多个地址
 
-- `bundle` - 一个有 `path` 和 `showOnTrezor` 字段对象的数组
+- `bundle` - 一个有 `path` 和 `showOnOneKey` 字段对象的数组
 
 #### 处理按钮请求
 
@@ -49,7 +49,7 @@ OneKeyConnect.binanceGetAddress(params).then(function (result) {
 - 设备已通过 passphrase/pin 验证
 - 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
 - 设置参数 `address`
-- 将参数 `showOnTrezor` 设置为 `true`（或完全不设置）
+- 将参数 `showOnOneKey` 设置为 `true`（或完全不设置）
 - 应用程序仅请求一个地址
 
 ### 例子
@@ -67,9 +67,9 @@ OneKeyConnect.binanceGetAddress({
 ```javascript
 OneKeyConnect.binanceGetAddress({
   bundle: [
-    { path: "m/44'/714'/0'/0/0", showOnTrezor: false }, // account 1, address 1
-    { path: "m/44'/714'/1'/0/1", showOnTrezor: false }, // account 2, address 2
-    { path: "m/44'/714'/2'/0/2", showOnTrezor: false }, // account 3, address 3
+    { path: "m/44'/714'/0'/0/0", showOnOneKey: false }, // account 1, address 1
+    { path: "m/44'/714'/1'/0/1", showOnOneKey: false }, // account 2, address 2
+    { path: "m/44'/714'/2'/0/2", showOnOneKey: false }, // account 3, address 3
   ],
 });
 ```

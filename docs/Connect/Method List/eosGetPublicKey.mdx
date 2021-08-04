@@ -25,10 +25,10 @@ OneKeyConnect.eosGetPublicKey(params).then(function(result) {
 [**Optional common params**](./commonParams)
 #### Exporting single address
 * `path` — *required* `string | Array<number>` minimum length is `5`. [read more](./path)
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
+* `showOnOneKey` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of addresses
-* `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+* `bundle` - `Array` of Objects with `path` and `showOnOneKey` fields
 
 ### Example
 Displays public key derived from BIP44 path:
@@ -41,9 +41,9 @@ Return a bundle of public keys without displaying them on device:
 ```javascript
 OneKeyConnect.eosGetPublicKey({
     bundle: [
-        { path: "m/44'/194'/0'/0/0", showOnTrezor: false }, // public key 1
-        { path: "m/44'/194'/0'/0/1", showOnTrezor: false }, // public key 2
-        { path: "m/44'/194'/0'/0/2", showOnTrezor: false }  // public key 3
+        { path: "m/44'/194'/0'/0/0", showOnOneKey: false }, // public key 1
+        { path: "m/44'/194'/0'/0/1", showOnOneKey: false }, // public key 2
+        { path: "m/44'/194'/0'/0/2", showOnOneKey: false }  // public key 3
     ]
 });
 ```

@@ -23,10 +23,10 @@ OneKeyConnect.stellarGetAddress(params).then(function(result) {
 #### Exporting single address
 * `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `address` — *optional* `string` address for validation (read `Handle button request` section below)
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
+* `showOnOneKey` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of addresses
-* `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+* `bundle` - `Array` of Objects with `path` and `showOnOneKey` fields
 
 #### Handle button request
 There is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be triggered once the address is displayed on the device.
@@ -37,7 +37,7 @@ If certain conditions are fulfilled popup will not be used at all:
 - device is authenticated by pin/passphrase
 - application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
 - parameter `address` is set
-- parameter `showOnTrezor` is set to `true` (or not set at all)
+- parameter `showOnOneKey` is set to `true` (or not set at all)
 - application is requesting ONLY ONE address
 
 
@@ -56,9 +56,9 @@ Return a bundle of stellar addresses without displaying them on device:
 ```javascript
 OneKeyConnect.stellarGetAddress({
     bundle: [
-        { path: "m/44'/148'/0'", showOnTrezor: false }, // account 1
-        { path: "m/44'/148'/1'", showOnTrezor: false }, // account 2
-        { path: "m/44'/148'/2'", showOnTrezor: false }  // account 3
+        { path: "m/44'/148'/0'", showOnOneKey: false }, // account 1
+        { path: "m/44'/148'/1'", showOnOneKey: false }, // account 2
+        { path: "m/44'/148'/2'", showOnOneKey: false }  // account 3
     ]
 });
 ```

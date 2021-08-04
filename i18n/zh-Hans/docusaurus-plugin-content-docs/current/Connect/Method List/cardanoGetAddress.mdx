@@ -33,7 +33,7 @@ OneKeyConnect.cardanoGetAddress(params).then(function(result) {
 * `address` - *可选* `string` 用于验证的地址（请参阅下面的「处理按钮请求」部分）
 * `protocolMagic` - *必填* `Integer` 764824073（用于主网），42（用于Testnet）
 * `networkId` - *必填* `Integer` 1 代表 Mainnet，0 代表 Testnet
-* `showOnTrezor` - *可选* `boolean` 决定是否在设备上显示地址，默认设置为 `true`。
+* `showOnOneKey` - *可选* `boolean` 决定是否在设备上显示地址，默认设置为 `true`。
 
 #### 导出地址组合
 
@@ -60,7 +60,7 @@ OneKeyConnect.cardanoGetAddress(params).then(function(result) {
 - 设备已通过 pin / passphrase 验证
 - 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
 - 设置参数 `address`
-- 将参数 `showOnTrezor` 设置为 true (或完全不设置)
+- 将参数 `showOnOneKey` 设置为 true (或完全不设置)
 - 应用程序仅请求一个地址
 
 
@@ -150,7 +150,7 @@ OneKeyConnect.cardanoGetAddress({
             },
             protocolMagic: 764824073,
             networkId: 1,
-            showOnTrezor: false
+            showOnOneKey: false
         },
         // base address with staking key hash, account 1, address 1
         {
@@ -161,7 +161,7 @@ OneKeyConnect.cardanoGetAddress({
             },
             protocolMagic: 764824073,
             networkId: 1,
-            showOnTrezor: false
+            showOnOneKey: false
         },
         // byron address, account 2, address 3, testnet
         {
@@ -171,7 +171,7 @@ OneKeyConnect.cardanoGetAddress({
             },
             protocolMagic: 42,
             networkId: 0,
-            showOnTrezor: false
+            showOnOneKey: false
         },
     ]
 });

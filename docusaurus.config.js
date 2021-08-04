@@ -18,7 +18,7 @@ module.exports = {
   projectName: 'onekey', // Usually your repo name.
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'zh-CN'],
+    locales: ['en', 'zh-Hans'],
   },
   themeConfig: {
     hideableSidebar: true,
@@ -32,13 +32,13 @@ module.exports = {
         {
           type: 'doc',
           docId: 'Extension/Guide/introduction',
-          label: 'Extension',
+          label: 'Browser Extension (For Dapp Developer)',
           position: 'left',
         },
         {
           type: 'doc',
           docId: 'Connect/getting-started',
-          label: 'Connect (JavaScript SDK)',
+          label: 'Connect (Hardware JavaScript SDK)',
           position: 'left',
         },
         {

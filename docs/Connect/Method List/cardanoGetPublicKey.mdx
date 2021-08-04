@@ -24,10 +24,10 @@ OneKeyConnect.cardanoGetPublicKey(params).then(function(result) {
 [**Optional common params**](./commonParams)
 #### Exporting single public key
 * `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `showOnTrezor` — *optional* `boolean` determines if publick key will be displayed on device. Default is set to `true`
+* `showOnOneKey` — *optional* `boolean` determines if publick key will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of publick keys
-* `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+* `bundle` - `Array` of Objects with `path` and `showOnOneKey` fields
 
 ### Example
 Display public key of first cardano account:
@@ -40,9 +40,9 @@ Return a bundle of cardano public keys without displaying them on device:
 ```javascript
 OneKeyConnect.cardanoGetPublicKey({
     bundle: [
-        { path: "m/44'/1815'/0'", showOnTrezor: false }, // account 1
-        { path: "m/44'/1815'/1'", showOnTrezor: false }, // account 2
-        { path: "m/44'/1815'/2'", showOnTrezor: false }  // account 3
+        { path: "m/44'/1815'/0'", showOnOneKey: false }, // account 1
+        { path: "m/44'/1815'/1'", showOnOneKey: false }, // account 2
+        { path: "m/44'/1815'/2'", showOnOneKey: false }  // account 3
     ]
 });
 ```

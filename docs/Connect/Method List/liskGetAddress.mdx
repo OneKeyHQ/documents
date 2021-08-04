@@ -25,10 +25,10 @@ OneKeyConnect.liskGetAddress(params).then(function(result) {
 
 * `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `address` — *optional* `string` address for validation (read `Handle button request` section below)
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
+* `showOnOneKey` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of addresses
-* `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+* `bundle` - `Array` of Objects with `path` and `showOnOneKey` fields
 
 #### Handle button request
 
@@ -40,7 +40,7 @@ If certain conditions are fulfilled popup will not be used at all:
 - device is authenticated by pin/passphrase
 - application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
 - parameter `address` is set
-- parameter `showOnTrezor` is set to `true` (or not set at all)
+- parameter `showOnOneKey` is set to `true` (or not set at all)
 - application is requesting ONLY ONE address
 
 
@@ -55,9 +55,9 @@ Return a bundle of Lisk addresses without displaying them on device:
 ```javascript
 OneKeyConnect.liskGetAddress({
     bundle: [
-        { path: "m/44'/134'/0'", showOnTrezor: false }, // account 1
-        { path: "m/44'/134'/1'", showOnTrezor: false }, // account 2
-        { path: "m/44'/134'/2'", showOnTrezor: false }  // account 3
+        { path: "m/44'/134'/0'", showOnOneKey: false }, // account 1
+        { path: "m/44'/134'/1'", showOnOneKey: false }, // account 2
+        { path: "m/44'/134'/2'", showOnOneKey: false }  // account 3
     ]
 });
 ```

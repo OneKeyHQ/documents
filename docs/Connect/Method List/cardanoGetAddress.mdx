@@ -26,7 +26,7 @@ OneKeyConnect.cardanoGetAddress(params).then(function(result) {
 * `address` — *optional* `string` address for validation (read `Handle button request` section below)
 * `protocolMagic` - *required* `Integer` 764824073 for Mainnet, 42 for Testnet
 * `networkId` - *required* `Integer` 1 for Mainnet, 0 for Testnet
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
+* `showOnOneKey` — *optional* `boolean` determines if address will be displayed on device. Default is set to `true`
 
 #### Exporting bundle of addresses
 * `bundle` - `Array` of Objects with single address fields
@@ -49,7 +49,7 @@ If certain conditions are fulfilled popup will not be used at all:
 - device is authenticated by pin/passphrase
 - application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
 - parameter `address` is set
-- parameter `showOnTrezor` is set to `true` (or not set at all)
+- parameter `showOnOneKey` is set to `true` (or not set at all)
 - application is requesting ONLY ONE(!) address
 
 
@@ -127,7 +127,7 @@ OneKeyConnect.cardanoGetAddress({
             },
             protocolMagic: 764824073,
             networkId: 1,
-            showOnTrezor: false
+            showOnOneKey: false
         },
         // base address with staking key hash, account 1, address 1
         {
@@ -138,7 +138,7 @@ OneKeyConnect.cardanoGetAddress({
             },
             protocolMagic: 764824073,
             networkId: 1,
-            showOnTrezor: false
+            showOnOneKey: false
         },
         // byron address, account 2, address 3, testnet
         {
@@ -148,7 +148,7 @@ OneKeyConnect.cardanoGetAddress({
             },
             protocolMagic: 42,
             networkId: 0,
-            showOnTrezor: false
+            showOnOneKey: false
         },
     ]
 });

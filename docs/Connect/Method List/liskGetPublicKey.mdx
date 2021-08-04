@@ -27,11 +27,11 @@ OneKeyConnect.liskGetPublicKey(params).then(function(result) {
 #### Exporting single address
 
 * `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `showOnTrezor` — *optional* `boolean` determines if address will be displayed on device. Default is set to `false`
+* `showOnOneKey` — *optional* `boolean` determines if address will be displayed on device. Default is set to `false`
 
 #### Exporting bundle of addresses
 
-* `bundle` - `Array` of Objects with `path` and `showOnTrezor` fields
+* `bundle` - `Array` of Objects with `path` and `showOnOneKey` fields
 
 ### Example
 
@@ -48,9 +48,9 @@ Return a bundle of Lisk addresses without displaying them on device:
 ```javascript
 OneKeyConnect.liskGetPublicKey({
     bundle: [
-        { path: "m/44'/134'/0'/0'/0'", showOnTrezor: false }, // account 1
-        { path: "m/44'/134'/0'/0'/1'", showOnTrezor: false }, // account 2
-        { path: "m/44'/134'/0'/0'/2'", showOnTrezor: false }  // account 3
+        { path: "m/44'/134'/0'/0'/0'", showOnOneKey: false }, // account 1
+        { path: "m/44'/134'/0'/0'/1'", showOnOneKey: false }, // account 2
+        { path: "m/44'/134'/0'/0'/2'", showOnOneKey: false }  // account 3
     ]
 });
 ```
