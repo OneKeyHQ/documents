@@ -135,7 +135,7 @@ module.exports = {
             defaultSidebarItemsGenerator,
             ...args
           }) {
-            if (process.env.NODE_ENV !== 'production') {
+            if (process.env.NODE_ENV === 'production') {
               args = {
                 ...args,
                 docs: args?.docs?.filter?.(doc => !doc.frontMatter.draft) ?? [],
