@@ -39,7 +39,7 @@ There is a possibility to handle `UI.ADDRESS_VALIDATION` event which will be tri
 You can handle this event and display custom UI inside of your application.
 
 If certain conditions are fulfilled popup will not be used at all:
-- the user gave permissions to communicate with Trezor
+- the user gave permissions to communicate with OneKey
 - device is authenticated by pin/passphrase
 - application has `OneKeyConnect.on(UI.ADDRESS_VALIDATION, () => {});` listener registered
 - parameter `address` is set
