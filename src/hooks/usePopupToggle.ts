@@ -9,14 +9,9 @@ export function usePopupToggle() {
     useEffect(() => {
         if (usePopup !== previousPopup) {
             if (previousPopup === null) {
-                console.log('ass', usePopup, previousPopup);
-                previousPopup = usePopup;
-                console.log('ass', usePopup, previousPopup);
-
                 OneKeyConnect.on('UI_EVENT', event => {
                     console.log('UI_EVENT', event);
                 });
-
                 OneKeyConnect.init({
                     debug: true,
                     popup: usePopup,
@@ -25,6 +20,8 @@ export function usePopupToggle() {
                         appUrl: 'https://onekey.so',
                     },
                 });
+                previousPopup = usePopup;
+
             } else {
                 location.reload();
             }
@@ -33,4 +30,3 @@ export function usePopupToggle() {
 
     return [usePopup, setUsePopup] as [boolean, Dispatch<SetStateAction<boolean>>];
 }
-

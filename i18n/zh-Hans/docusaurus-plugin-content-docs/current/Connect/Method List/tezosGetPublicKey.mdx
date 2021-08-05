@@ -1,0 +1,100 @@
+---
+hide_table_of_contents: true
+draft: true
+---
+
+import Playground from "@src/components/playground";
+
+## Tezos：获取公钥
+
+在设备上显示请求的公共密钥，并将其返回给调用者，向用户在 OneKey 设备上显示请求的公共密钥的描述，并要求确认导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.tezosGetPublicKey(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.tezosGetPublicKey(params).then(function(result) {
+
+});
+```
+
+### 参数
+[**可选的通用参数**](./commonParams)
+
+#### 导出单个公钥
+
+- `path` - *必填* `string | Array<number>` 的最小长度为 3。 [了解更多](./path)
+- `showOnOneKey` - *可选*`boolean` 决定是否在设备上显示公钥。
+
+#### 导出多个公钥
+
+* `bundle` - `array` 具有 `path` 和 `showOnOneKey` 字段的对象数组
+
+### 示例
+
+展示单个地址的公钥
+
+```javascript
+OneKeyConnect.tezosGetPublicKey({
+    path: "m/49'/1729'/0'",
+});
+```
+
+展示多个地址的公钥
+```javascript
+OneKeyConnect.tezosGetPublicKey({
+    bundle: [
+        { path: "m/49'/1729'/0'" }, // account 1
+        { path: "m/49'/1729'/1'" }, // account 2
+        { path: "m/49'/1729'/2'" }  // account 3
+    ]
+});
+```
+
+### 结果
+
+单个地址的公钥
+```javascript
+{
+    success: true,
+    payload: {
+        publicKey: string,
+        path: Array<number>,
+        serializedPath: string,
+    }
+}
+```
+
+返回多个地址的公钥结果
+```javascript
+{
+    success: true,
+    payload: [
+        { path, serializedPath, publicKey }, // account 1
+        { path, serializedPath, publicKey }, // account 2
+        { path, serializedPath, publicKey }, // account 3
+    ]
+}
+```
+
+错误
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+
+
+<Playground
+    initValue={
+`OneKeyConnect.tezosGetPublicKey({
+    path: "m/49'/1729'/0'",
+});`}
+/>

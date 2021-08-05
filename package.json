@@ -1,13 +1,12 @@
 {
   "name": "onekey-document",
-  "version": "0.0.1",
   "private": true,
   "license": "MIT",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "start:en": "yarn start",
-    "start:zh": "yarn start --locale zh-CN",
+    "start:zh": "yarn start --locale zh-Hans",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -22,19 +21,20 @@
     "postinstall": "node scripts/getTypesForMonaco.js"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.75",
-    "@docusaurus/preset-classic": "2.0.0-alpha.75",
+    "@docusaurus/core": "2.0.0-beta.4",
+    "@docusaurus/preset-classic": "2.0.0-beta.4",
     "@mdx-js/react": "^1.6.22",
     "@onekeyhq/connect": "^8.2.3",
     "clsx": "^1.1.1",
     "file-loader": "^6.2.0",
     "monaco-editor": "^0.23.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-sticky-el": "^2.0.9"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@docusaurus/module-type-aliases": "^2.0.0-alpha.75",
+    "@docusaurus/module-type-aliases": "^2.0.0-beta.4",
     "@tsconfig/docusaurus": "^1.0.2",
     "@types/react": "^17.0.5",
     "@types/react-helmet": "^6.1.1",

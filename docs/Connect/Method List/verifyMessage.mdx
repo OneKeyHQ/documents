@@ -1,0 +1,76 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## Verify message
+
+Asks device to verify a message using the signer address and signature.
+
+ES6
+```javascript
+const result = await OneKeyConnect.verifyMessage(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.verifyMessage(params).then(function(result) {
+
+});
+```
+
+### Params
+
+[**Optional common params**](./commonParams)
+
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L156-L161)
+* `address` - *required* `string` signer address,
+* `message` - *required* `string` signed message,
+* `signature` - *required* `string` signature in base64 format,
+* `coin` - *required* `string` Determines network definition specified in [coins.json](https://github.com/OneKeyHQ/connect/blob/onekey/src/data/coins.json) file. Coin `shortcut`, `name` or `label` can be used.
+* `hex` - *optional* `boolean` convert message from hex
+
+### Example
+
+```javascript
+OneKeyConnect.verifyMessage({
+    address: "3BD8TL6iShVzizQzvo789SuynEKGpLTms9",
+    message: "example message",
+    signature: "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=",
+    coin: "btc"
+});
+```
+
+### Result
+
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L133-L136)
+
+```javascript
+{
+    success: true,
+    payload: {
+        message: "Message verified"
+    }
+}
+```
+
+Error
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.verifyMessage({
+    address: "3BD8TL6iShVzizQzvo789SuynEKGpLTms9",
+    message: "example message",
+    signature: "JO7vL3tOB1qQyfSeIVLvdEw9G1tCvL+lNj78XDAVM4t6UptADs3kXDTO2+2ZeEOLFL4/+wm+BBdSpo3kb3Cnsas=",
+    coin: "btc"
+});`}
+/>

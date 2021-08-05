@@ -1,0 +1,112 @@
+---
+hide_table_of_contents: true
+---
+
+import Playground from '@src/components/playground';
+
+## 请求登录
+
+通过 Onekey 设备进行 `质询-响应` 身份认证，防止重放攻击。
+
+每次登录请求时，可以使用服务器生成的随机的不可见的 `challengeHidden` ，也可以提供明文显示在设备上的 `challengeVisual` 参数。
+
+服务器后端会判断签名、 `challengeHidden`, `challengeVisual` 与 `publicKey` 是否匹配。
+
+如果验证通过，后端服务会创建一个账户（ 如果 `publicKey` 首次出现），或者登录该账户（如果 `publicKey` 是已知账户）
+
+完整的机制，请查阅`质询-响应`章节 [SLIP-0013：使用分层确定进行身份验证](https://github.com/satoshilabs/slips/blob/master/slip-0013.md)。
+
+ES6
+
+```javascript
+const result = await OneKeyConnect.requestLogin(params);
+```
+
+CommonJS
+
+```javascript
+OneKeyConnect.requestLogin(params).then(function (result) {});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+公用参数 `useEmptyPassphrase`，始终为`true`，此方法将忽略它。
+
+#### 服务器端异步质询登录
+
+- `callback` - *必填* `function` 调用服务器 API 返回参数 `challengeHidden` 和 `challengeVisual`。
+
+#### 同步登录
+
+- `challengeHidden` - *必填* `string` 十六进制值
+- `challengeVisual` - *必填* `string` 在设备上显示的质询编码
+
+### 示例
+
+###### 服务器异步质询登录
+
+```javascript
+OneKeyConnect.requestLogin({
+  callback: function () {
+    // here should be a request to server to fetch "challengeHidden" and "challengeVisual"
+    return {
+      challengeHidden: '0123456789abcdef',
+      challengeVisual: 'Login to',
+    };
+  },
+});
+```
+
+###### 同步登录
+
+```javascript
+OneKeyConnect.requestLogin({
+  challengeHidden: '0123456789abcdef',
+  challengeVisual: 'Login to',
+});
+```
+
+### 返回结果
+
+正确返回
+
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        publicKey: string,
+        signature: string,
+    }
+}
+```
+
+错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### 服务器代码示例
+
+以下为服务端语言实现的签名认证示例代码
+
+- [**C#**](server/server.cs)
+- [**Javascript**](server/server.js)
+- [**PHP**](server/server.php)
+- [**Python**](server/server.py)
+- [**Ruby**](server/server.rb)
+
+<Playground
+  initValue={`OneKeyConnect.requestLogin({
+    challengeHidden: '0123456789abcdef',
+    challengeVisual: 'Login to',
+})`}
+/>

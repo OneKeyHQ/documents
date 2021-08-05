@@ -18,9 +18,10 @@ module.exports = {
   projectName: 'onekey', // Usually your repo name.
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'zh-CN'],
+    locales: ['en', 'zh-Hans'],
   },
   themeConfig: {
+    hideableSidebar: true,
     navbar: {
       title: 'OneKey',
       logo: {
@@ -31,13 +32,13 @@ module.exports = {
         {
           type: 'doc',
           docId: 'Extension/Guide/introduction',
-          label: 'Onekey Extension',
+          label: 'Browser Extension (For Dapp Developer)',
           position: 'left',
         },
         {
           type: 'doc',
-          docId: 'Onekey Connect/getting-started',
-          label: 'Onekey Connect',
+          docId: 'Connect/getting-started',
+          label: 'Connect (Hardware JavaScript SDK)',
           position: 'left',
         },
         {
@@ -124,10 +125,26 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
+          sidebarCollapsible: true,
+          sidebarCollapsed: false,
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           // Please change this to your repo.
           editUrl: 'https://github.com/onekeyhq/document/edit/master/',
+          sidebarItemsGenerator: async function ({
+            defaultSidebarItemsGenerator,
+            ...args
+          }) {
+            if (process.env.NODE_ENV === 'production') {
+              args = {
+                ...args,
+                docs: args?.docs?.filter?.(doc => !doc.frontMatter.draft) ?? [],
+              };
+            }
+            const sidebarItems = await defaultSidebarItemsGenerator(args);
+            return sidebarItems;
+          },
+
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

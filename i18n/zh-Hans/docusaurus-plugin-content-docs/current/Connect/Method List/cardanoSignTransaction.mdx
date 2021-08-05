@@ -1,0 +1,307 @@
+---
+hide_table_of_contents: true
+draft: true
+---
+
+import Playground from '@src/components/playground';
+
+## Cardano：签署交易
+
+在钱包设备让用户授权给定的交易。用户会在 OneKey 上被询问是否确认交易信息。
+
+ES6
+
+```javascript
+const result = await OneKeyConnect.cardanoSignTransaction(params);
+```
+
+CommonJS
+
+```javascript
+OneKeyConnect.cardanoSignTransaction(params).then(function (result) {
+
+});
+```
+
+### 注意
+
+**很遗憾，我们知道：每笔交易目前最多支持约 14 个输入。我们会在未来添加 Cardano 交易流功能来解决此问题。目前一种解决方法是将多个输入拆成更小的输入。**
+
+**在 OneKey 固件里每个序列化交易的输出大小限制为 512 字节。这是一种缓解措施，由于目前传输的信息都储存在内存中，这样可以防止发送超出 OneKey 内存大小的信息，如果使用 Cardano 的流式传输就没有此限制。**
+
+### 参数
+
+[可选的通用参数](./commonParams)
+
+[Flow 类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L59-L142)
+
+- `inputs` - *必填* [CardanoInput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L59) 对象的`数组类型`
+- `outputs` - *必填* [CardanoOutput](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L74) 对象的`数组类型`
+- `fee` - *必填* `String`
+- `protocolMagic` - *必填* `Integer` 764824073（用于主网），42（用于 Testnet）
+- `networkId` - *必填* `Integer` 1 代表 Mainnet，0 代表 Testnet
+- `ttl` - *可选* `String`
+- `validityIntervalStart` - *可选* `String`
+- `certificates` - *可选* [CardanoCertificate](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L119) 对象的`数组类型`
+- `withdrawals` - *可选* [CardanoWithdrawal](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L126) 对象的`数组类型`
+- `metadata` - *可选* `String`
+
+### 关于质押池 Stake Pool 验证
+
+OneKey 支持作为池所有者对质押池注册证书进行签名。
+
+交易可能包含外部信息（比如池操作员提供的信息），OneKey 无法验证它们是否来自外部，因此，如果我们允许使用密钥对交易进行签名，则可能会使用户从输入中损失本不打算花费的钱。
+
+此外，在交易中，有可能在无意的情况下签署提款。
+
+为了减轻这些风险，我们为质押池注册交易添加了特殊的验证规则，该规则也已在 OneKey 上进行了验证。验证规则如下：
+
+1. 交易中不得包含任何其他证书，甚至不得包含其他权益池注册
+2. 交易不得包含任何提款
+3. 交易输入必须全部是外部的，即 path 必须是 `undefined` 或 `null`
+4. 只有一个所有者能进行押注，其余的所有者只能使用 bech32 编码的奖励地址
+
+### 举例
+
+#### 正常交易签名
+
+```javascript
+OneKeyConnect.cardanoSignTransaction({
+  inputs: [
+    {
+      path: "m/44'/1815'/0'/0/1",
+      prev_hash: '1af8fa0b754ff99253d983894e63a2b09cbb56c833ba18c3384210163f63dcfc',
+      prev_index: 0,
+    },
+  ],
+  outputs: [
+    {
+      address: 'Ae2tdPwUPEZCanmBz5g2GEwFqKTKpNJcGYPKfDxoNeKZ8bRHr8366kseiK2',
+      amount: '3003112',
+    },
+    {
+      addressParameters: {
+        addressType: 0,
+        path: "m/1852'/1815'/0'/0/0",
+        stakingPath: "m/1852'/1815'/0'/2/0",
+      },
+      amount: '7120787',
+    },
+    {
+      address:
+        'addr1q84sh2j72ux0l03fxndjnhctdg7hcppsaejafsa84vh7lwgmcs5wgus8qt4atk45lvt4xfxpjtwfhdmvchdf2m3u3hlsd5tq5r',
+      amount: '2000000',
+      tokenBundle: [
+        {
+          policyId: '95a292ffee938be03e9bae5657982a74e9014eb4960108c9e23a5b39',
+          tokens: [
+            {
+              assetNameBytes: '74652474436f696e',
+              amount: '7878754',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  fee: '42',
+  ttl: '10',
+  validityIntervalStart: '20',
+  certificates: [
+    {
+      type: 0,
+      path: "m/1852'/1815'/0'/2/0",
+    },
+    {
+      type: 1,
+      path: "m/1852'/1815'/0'/2/0",
+    },
+    {
+      type: 2,
+      path: "m/1852'/1815'/0'/2/0",
+      pool: 'f61c42cbf7c8c53af3f520508212ad3e72f674f957fe23ff0acb4973',
+    },
+  ],
+  withdrawals: [
+    {
+      path: "m/1852'/1815'/0'/2/0",
+      amount: '1000',
+    },
+  ],
+  metadata:
+    'a200a11864a118c843aa00ff01a119012c590100aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+  protocolMagic: 764824073,
+  networkId: 1,
+});
+```
+
+#### 注册质押池 Stake Pool
+
+```javascript
+OneKeyConnect.cardanoSignTransaction({
+  inputs: [
+    {
+      // notice no path is provided here
+      prev_hash: '3b40265111d8bb3c3c608d95b3a0bf83461ace32d79336579a1939b3aad1c0b7',
+      prev_index: 0,
+    },
+  ],
+  outputs: {
+    address: 'addr1q84sh2j72ux0l03fxndjnhctdg7hcppsaejafsa84vh7lwgmcs5wgus8qt4atk45lvt4xfxpjtwfhdmvchdf2m3u3hlsd5tq5r',
+    amount: '1000000',
+  },
+  fee: '300000',
+  ttl: '500000000',
+  protocolMagic: 764824073,
+  networkId: 1,
+  certificates: [
+    {
+      type: 3, // stake pool registration certificate type
+      poolParameters: {
+        poolId: 'f61c42cbf7c8c53af3f520508212ad3e72f674f957fe23ff0acb4973',
+        vrfKeyHash: '198890ad6c92e80fbdab554dda02da9fb49d001bbd96181f3e07f7a6ab0d0640',
+        pledge: '500000000', // amount in lovelace
+        cost: '340000000', // amount in lovelace
+        margin: {
+          // numerator/denominator should be <= 1 which is translated then to a percentage
+          numerator: '1',
+          denominator: '2',
+        },
+        rewardAccount: 'stake1uya87zwnmax0v6nnn8ptqkl6ydx4522kpsc3l3wmf3yswygwx45el', // bech32-encoded stake pool reward account
+        owners: [
+          {
+            stakingKeyPath: "m/1852'/1815'/0'/2/0", // this is the path to the owner's key that will be signing the tx on OneKey
+          },
+          {
+            stakingKeyHash: '3a7f09d3df4cf66a7399c2b05bfa234d5a29560c311fc5db4c490711', // other owner
+          },
+        ],
+        relays: [
+          {
+            type: 0, // single host ip address
+            ipv4Address: '192.168.0.1',
+            ipv6Address: '2001:0db8:85a3:0000:0000:8a2e:0370:7334', // ipv6 address in full form
+            port: 1234,
+          },
+          {
+            type: 0,
+            ipv6Address: '2001:0db8:85a3:0000:0000:8a2e:0370:7334',
+            port: 1234,
+          },
+          {
+            type: 0,
+            ipv4Address: '192.168.0.1',
+            port: 1234,
+          },
+          {
+            type: 1, // single hostname
+            hostName: 'www.test.test',
+            port: 1234,
+          },
+          {
+            type: 2, // multiple host names
+            hostName: 'www.test2.test', // max 64 characters long
+          },
+        ],
+        metadata: {
+          url: 'https://www.test.test', // max 64 characters long
+          hash: '914c57c1f12bbf4a82b12d977d4f274674856a11ed4b9b95bd70f5d41c5064a6',
+        },
+      },
+    },
+  ],
+});
+```
+
+### 结果
+
+###### [Flow 类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/networks/cardano.js#L144-L147)
+
+```javascript
+{
+    success: true,
+    payload: {
+        hash: string,
+        serializedTx: string,
+    }
+}
+```
+
+Error 错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+  initValue={`OneKeyConnect.cardanoSignTransaction({
+    inputs: [
+        {
+            path: "m/44'/1815'/0'/0/1",
+            prev_hash: "1af8fa0b754ff99253d983894e63a2b09cbb56c833ba18c3384210163f63dcfc",
+            prev_index: 0,
+        }
+    ],
+    outputs: [
+        {
+            address: "Ae2tdPwUPEZCanmBz5g2GEwFqKTKpNJcGYPKfDxoNeKZ8bRHr8366kseiK2",
+            amount: "3003112",
+        },
+        {
+            addressParameters: {
+                addressType: 0,
+                path: "m/1852'/1815'/0'/0/0",
+                stakingPath: "m/1852'/1815'/0'/2/0",
+            },
+            amount: "7120787",
+        },
+        {
+            address: 'addr1q84sh2j72ux0l03fxndjnhctdg7hcppsaejafsa84vh7lwgmcs5wgus8qt4atk45lvt4xfxpjtwfhdmvchdf2m3u3hlsd5tq5r',
+            amount: '2000000',
+            tokenBundle: [
+                {
+                    policyId: "95a292ffee938be03e9bae5657982a74e9014eb4960108c9e23a5b39",
+                    tokens: [
+                        {
+                            assetNameBytes: "74652474436f696e",
+                            amount: "7878754"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    fee: "42",
+    ttl: "10",
+    validityIntervalStart: "20",
+    certificates: [
+        {
+            type: 0,
+            path: "m/1852'/1815'/0'/2/0",
+        },
+        {
+            type: 1,
+            path: "m/1852'/1815'/0'/2/0",
+        },
+        {
+            type: 2,
+            path: "m/1852'/1815'/0'/2/0",
+            pool: "f61c42cbf7c8c53af3f520508212ad3e72f674f957fe23ff0acb4973",
+        },
+    ],
+    withdrawals: [
+        {
+            path: "m/1852'/1815'/0'/2/0",
+            amount: "1000",
+        }
+    ],
+    metadata: "a200a11864a118c843aa00ff01a119012c590100aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    protocolMagic: 764824073,
+    networkId: 1,
+});`}
+/>

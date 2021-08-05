@@ -1,0 +1,69 @@
+---
+hide_table_of_contents: true
+---
+
+import Playground from '@src/components/playground';
+
+## 重置设备
+
+恢复出厂设置并生成新的助记词。
+
+ES6
+
+```javascript
+const result = await OneKeyConnect.resetDevice(params);
+```
+
+CommonJS
+
+```javascript
+OneKeyConnect.resetDevice(params).then(function (result) {});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+- `strength` - *可选* `number` 可接受的值为[ 128 | 192 | 256 ]。 默认设置为 256
+- `label` - *可选* `string` 设备标签
+- `u2fCounter` - *可选*` number`。 默认值设置为当前时间戳（以秒为单位）。
+- `pinProtection` - *可选* `boolean` 是否需要 pin 保护
+- `passphraseProtection` - *可选* `boolean` 是否 passphrase 保护
+- `skipBackup` - *可选* `boolean` 跳过备份
+- `noBackup` - *可选* `boolean` 创建一个无种子设备
+
+### 例子
+
+```javascript
+OneKeyConnect.resetDevice({
+  label: 'My fancy OneKey',
+});
+```
+
+### 结果
+
+```javascript
+{
+    success: true,
+    payload: {
+        message: 'Device successfully initialized'
+    }
+}
+```
+
+错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+  initValue={`OneKeyConnect.resetDevice({
+    label: 'My fancy OneKey',
+});`}
+/>

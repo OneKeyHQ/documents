@@ -1,0 +1,128 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## Stellar：获取地址
+
+在设备上显示请求的地址，并将其返回给调用者。向用户在 OneKey 设备上显示所请求密钥的描述，并要求其确认导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.stellarGetAddress(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.stellarGetAddress(params).then(function(result) {
+
+});
+```
+
+### 参数
+[**可选的通用参数**](./commonParams)
+
+#### 导出单个地址
+
+- `path` - *必填* `string | Array<number>` 的最小长度为 `3`。 [了解更多](./path)
+- `address` - *可选* `string` 用于验证的地址（请参阅下面的**处理按钮请求**部分）
+- `showOnOneKey` - *可选* `boolean` 决定是否在设备上显示地址。默认设置为 `true`
+
+#### 导出多个地址
+
+- `bundle` - `array` 具有 `path` 和 `showOnOneKey` 字段的对象
+
+#### 处理按钮请求
+
+可以处理 `UI.ADDRESS_VALIDATION` 事件，该事件一旦在设备上显示地址就会触发，您可以处理此事件并在应用程序内部显示自定义UI。
+
+如果满足某些条件，将完全不使用弹出窗口：
+- 用户授予与 OneKey 通信的权限
+- 设备通过 pin/passphrase 验证
+- 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+- 设置参数 `address`
+- 将参数 `showOnOneKey` 设置为 true (或完全不设置)
+- 应用程序仅请求一个地址
+
+
+### 示例
+
+展示第一个 stellar 账户地址
+
+```javascript
+OneKeyConnect.stellarGetAddress({
+    path: "m/44'/148'/0'"
+});
+```
+
+展示多个 stellar 账户地址且无需在设备上确认
+
+```javascript
+OneKeyConnect.stellarGetAddress({
+    bundle: [
+        { path: "m/44'/148'/0'", showOnOneKey: false }, // account 1
+        { path: "m/44'/148'/1'", showOnOneKey: false }, // account 2
+        { path: "m/44'/148'/2'", showOnOneKey: false }  // account 3
+    ]
+});
+```
+
+使用自定义 UI 处理设备确认提示
+```javascript
+import OneKeyConnect, { UI } from '@onekeyhq/connect';
+
+OneKeyConnect.on(UI.ADDRESS_VALIDATION, data => {
+    console.log("Handle button request", data.address, data.serializedPath);
+    // here you can display custom UI inside of your app
+});
+
+const result = await OneKeyConnect.stellarGetAddress({
+    path: "m/44'/148'/0'/0/0",
+    address: "GAXSFOOGF4ELO5HT5PTN23T5XE6D5QWL3YBHSVQ2HWOFEJNYYMRJENBV",
+});
+// dont forget to hide your custom UI after you get the result!
+```
+
+### 结果
+
+单地址返回结果
+
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        path: Array<number>,
+        serializedPath: string,
+    }
+}
+```
+
+多个地址返回结果
+```javascript
+{
+    success: true,
+    payload: [
+        { address: string, path: Array<number>, serializedPath: string }, // account 1
+        { address: string, path: Array<number>, serializedPath: string }, // account 2
+        { address: string, path: Array<number>, serializedPath: string }, // account 3
+    ]
+}
+```
+
+错误
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.stellarGetAddress({
+    path: "m/44'/148'/0'"
+});`}
+/>

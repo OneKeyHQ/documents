@@ -1,0 +1,35 @@
+---
+hide_table_of_contents: true
+sidebar_position: 1
+---
+
+## 路径
+- `path` - `string | Array <number>` 在 [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) 路径方案规定的字符串或合法的硬化地址。
+
+### 例子
+
+使用 BIP44 派生路径的比特币帐户
+
+```javascript
+"m/49'/0/'0'"
+```
+
+使用BIP44派生路径的比特币帐户（同上）
+
+```javascript
+[(49 | 0x80000000) >>> 0, (0 | 0x80000000 >>> 0), (0 | 0x80000000) >>> 0]
+```
+
+使用比特币帐户的派生出来的第一个地址
+
+```javascript
+"m/49'/0/'0'/0/0"
+```
+
+使用比特币帐户的派生出来的第一个地址（同上）
+
+```javascript
+[(49 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, 0, 0]
+```
+
+[查看更多示例](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki#examples)
