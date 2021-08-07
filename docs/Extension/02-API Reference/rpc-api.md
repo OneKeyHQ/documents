@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # RPC API
 
-MetaMask uses the [`ethereum.request(args)` method](./ethereum-provider.html#ethereum-request-args) to wrap an RPC API.
+OneKey uses the [`ethereum.request(args)` method](./ethereum-provider.html#ethereum-request-args) to wrap an RPC API.
 
 The API is based on an interface exposed by all Ethereum clients, along with a growing number of methods that may or may not be supported by other wallets.
 
@@ -31,7 +31,7 @@ Important methods from this API include:
 
 ## Permissions
 
-MetaMask introduced Web3 Wallet Permissions via [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255).
+OneKey introduced Web3 Wallet Permissions via [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255).
 In this permissions system, each RPC method is either _restricted_ or _open_.
 If a method is restricted, an external _domain_ (like a web3 site) must have the corresponding permission in order to call it.
 Open methods, meanwhile, do not require permissions to call, but may require confirmation by the user in order to succeed (e.g. `eth_sendTransaction`).
@@ -39,7 +39,7 @@ Open methods, meanwhile, do not require permissions to call, but may require con
 Currently, the only permission is `eth_accounts`, which allows you to access the user's Ethereum address(es).
 More permissions will be added in the future.
 
-Under the hood, permissions are plain, JSON-compatible objects, with a number of fields that are mostly used internally by MetaMask.
+Under the hood, permissions are plain, JSON-compatible objects, with a number of fields that are mostly used internally by OneKey.
 The following interface lists the fields that may be of interest to consumers:
 
 ```typescript
@@ -52,7 +52,7 @@ interface Web3WalletPermission {
 }
 ```
 
-The permissions system is implemented in the [`rpc-cap` package](https://github.com/MetaMask/rpc-cap).
+The permissions system is implemented in the [`rpc-cap` package](https://github.com/onekeyhq/rpc-cap).
 If you're interested in learning more about the theory behind this _capability_-inspired permissions system, we encourage you to take a look at [EIP-2255](https://eips.ethereum.org/EIPS/eip-2255).
 
 ### eth_requestAccounts
@@ -75,7 +75,7 @@ Requests that the user provides an Ethereum address to be identified by.
 Returns a Promise that resolves to an array of a single Ethereum address string.
 If the user denies the request, the Promise will reject with a `4001` error.
 
-The request causes a MetaMask popup to appear.
+The request causes a OneKey popup to appear.
 You should only request the user's accounts in response to user action, such as a button click.
 You should always disable the button that caused the request to be dispatched, while the request is still pending.
 
@@ -93,7 +93,7 @@ function connect() {
     .catch((error) => {
       if (error.code === 4001) {
         // EIP-1193 userRejectedRequest error
-        console.log('Please connect to MetaMask.');
+        console.log('Please connect to OneKey.');
       } else {
         console.error(error);
       }
@@ -104,7 +104,7 @@ function connect() {
 ### wallet_getPermissions
 
 :::tip Platform Availability
-This RPC method is not yet available in MetaMask Mobile.
+This RPC method is not yet available in OneKey Mobile.
 :::
 
 #### Returns
@@ -120,7 +120,7 @@ If the caller has no permissions, the array will be empty.
 ### wallet_requestPermissions
 
 :::tip Platform Availability
-This RPC method is not yet available in MetaMask Mobile.
+This RPC method is not yet available in OneKey Mobile.
 :::
 
 #### Parameters
@@ -145,7 +145,7 @@ Requests the given permissions from the user.
 Returns a Promise that resolves to a non-empty array of `Web3WalletPermission` objects, corresponding to the caller's current permissions.
 If the user denies the request, the Promise will reject with a `4001` error.
 
-The request causes a MetaMask popup to appear.
+The request causes a OneKey popup to appear.
 You should only request permissions in response to user action, such as a button click.
 
 #### Example
@@ -183,7 +183,7 @@ function requestPermissions() {
 ### eth_decrypt
 
 :::tip Platform Availability
-This RPC method is not yet available in MetaMask Mobile.
+This RPC method is not yet available in OneKey Mobile.
 :::
 
 #### Parameters
@@ -199,7 +199,7 @@ This RPC method is not yet available in MetaMask Mobile.
 
 #### Description
 
-Requests that MetaMask decrypts the given encrypted message.
+Requests that OneKey decrypts the given encrypted message.
 The message must have been encrypted using the public encryption key of the given Ethereum address.
 Returns a Promise that resolves to the decrypted message, or rejects if the decryption attempt fails.
 
@@ -222,7 +222,7 @@ ethereum
 ### eth_getEncryptionPublicKey
 
 :::tip Platform Availability
-This RPC method is not yet available in MetaMask Mobile.
+This RPC method is not yet available in OneKey Mobile.
 :::
 
 #### Parameters
@@ -268,7 +268,7 @@ ethereum
 #### Encrypting
 
 The point of the encryption key is of course to encrypt things.
-Here's an example of how to encrypt a message using [`eth-sig-util`](https://github.com/MetaMask/eth-sig-util):
+Here's an example of how to encrypt a message using [`eth-sig-util`](https://github.com/OneKeyhq/eth-sig-util):
 
 ```javascript
 const ethUtil = require('ethereumjs-util');
@@ -297,7 +297,7 @@ This method is specified by [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085).
 
 - `Array`
 
-  0. `AddEthereumChainParameter` - Metadata about the chain that will be added to MetaMask.
+  0. `AddEthereumChainParameter` - Metadata about the chain that will be added to OneKey.
 
 For the `rpcUrls` and `blockExplorerUrls` arrays, at least one element is required, and only the first element will be used.
 
@@ -322,21 +322,21 @@ interface AddEthereumChainParameter {
 
 #### Description
 
-Creates a confirmation asking the user to add the specified chain to MetaMask.
+Creates a confirmation asking the user to add the specified chain to OneKey.
 The user may choose to switch to the chain once it has been added.
 
 As with any method that causes a confirmation to appear, `wallet_addEthereumChain`
 should **only** be called as a result of direct user action, such as the click of a button.
 
-MetaMask stringently validates the parameters for this method, and will reject the request
+OneKey stringently validates the parameters for this method, and will reject the request
 if any parameter is incorrectly formatted.
-In addition, MetaMask will reject the request under the following circumstances:
+In addition, OneKey will reject the request under the following circumstances:
 
 - If the RPC endpoint doesn't respond to RPC calls.
 - If the RPC endpoint returns a different chain ID when `eth_chainId` is called.
-- If the chain ID corresponds to any default MetaMask chains.
+- If the chain ID corresponds to any default OneKey chains.
 
-MetaMask does not yet support chains with native currencies that do not have 18 decimals,
+OneKey does not yet support chains with native currencies that do not have 18 decimals,
 but may do so in the future.
 
 ### wallet_registerOnboarding
@@ -352,14 +352,14 @@ Please see the [Onboarding Library documentation](./onboarding-library.html) for
 
 #### Description
 
-Registers the requesting site with MetaMask as the initiator of onboarding.
+Registers the requesting site with OneKey as the initiator of onboarding.
 Returns a Promise that resolves to `true`, or rejects if there's an error.
 
-This method is intended to be called after MetaMask has been installed, but before the MetaMask onboarding has completed.
-You can use this method to inform MetaMask that you were the one that suggested installing MetaMask.
-This lets MetaMask redirect the user back to your site after onboarding has completed.
+This method is intended to be called after OneKey has been installed, but before the OneKey onboarding has completed.
+You can use this method to inform OneKey that you were the one that suggested installing OneKey.
+This lets OneKey redirect the user back to your site after onboarding has completed.
 
-Instead of calling this method directly, you should use the [`@metamask/onboarding` library](https://github.com/MetaMask/metamask-onboarding).
+Instead of calling this method directly, you should use the [`@onekey/onboarding` library](https://github.com/OneKeyhq/metamask-onboarding).
 
 ### wallet_watchAsset
 
@@ -379,7 +379,7 @@ This method is specified by [EIP-747](https://eips.ethereum.org/EIPS/eip-747).
 
 #### Description
 
-Requests that the user tracks the token in MetaMask.
+Requests that the user tracks the token in OneKey.
 Returns a `boolean` indicating if the token was successfully added.
 
 Most Ethereum wallets support some set of tokens, usually from a centrally curated registry of tokens.
@@ -435,7 +435,7 @@ Returns a Promise that resolves to a string, matching either:
 
 If neither condition is met, the Promise will reject with an error.
 
-MetaMask previously introduced this feature per the proposed [EIP-945](https://github.com/ethereum/EIPs/issues/945).
+OneKey previously introduced this feature per the proposed [EIP-945](https://github.com/ethereum/EIPs/issues/945).
 The functionality was temporarily removed before being reintroduced as this RPC method.
 
 #### Example

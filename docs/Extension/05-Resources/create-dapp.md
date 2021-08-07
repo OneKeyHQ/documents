@@ -14,7 +14,7 @@ Before you set up make sure you've visited and gone through our [Getting Started
 
 Make sure you have:
 
-1. The [MetaMask Extension](https://metamask.io/download.html) downloaded.
+1. The [OneKey Extension](https://metamask.io/download.html) downloaded.
 2. Node.js [Downloaded and Installed](https://nodejs.org/)
 3. Clone/Download the [Project Files](https://github.com/BboyAkers/simple-dapp-tutorial) from GitHub.
 4. Your favorite Text Editor or IDE installed. I personally like [Visual Studio Code](https://code.visualstudio.com/)
@@ -73,29 +73,29 @@ As you can see here, as soon as the content in the DOM is loaded we are calling 
 
 What we'll cover in part one:
 
-- [Connecting to the MetaMask Wallet](./create-dapp.html#connecting-to-the-metamask-wallet)
+- [Connecting to the OneKey Wallet](./create-dapp.html#connecting-to-the-metamask-wallet)
 - See our eth_accounts result
 - Display our network number
 - Display our ChainId
 - Display our Accounts
 
-### Connecting to the MetaMask Wallet
+### Connecting to the OneKey Wallet
 
-The first thing we need to do in our Dapp is to connect to our MetaMask Wallet.
+The first thing we need to do in our Dapp is to connect to our OneKey Wallet.
 
-1. We need to create a function to see if the MetaMask Chrome extension is installed
-2. If MetaMask is not installed we:
-   1. Change our `connectButton` to `Click here to install MetaMask`
+1. We need to create a function to see if the OneKey Chrome extension is installed
+2. If OneKey is not installed we:
+   1. Change our `connectButton` to `Click here to install OneKey`
    2. When clicking that button it should take us to a page that will allow us to install the extension
    3. Disable the button
-3. If MetaMask is installed we:
+3. If OneKey is installed we:
    1. Change our `connectButton` to `Connect`
-   2. When clicking that button it should allow us to connect to our MetaMask wallet
+   2. When clicking that button it should allow us to connect to our OneKey wallet
    3. Disable the button
 
 Let's get to it!!
 
-### MetaMask Extension Check
+### OneKey Extension Check
 
 In our code we need to connect to our button from our index.html
 
@@ -106,14 +106,14 @@ const initialize = () => {
 };
 ```
 
-Next we create a check function called `isMetaMaskInstalled` to see if the MetaMask extension is installed
+Next we create a check function called `isMetaMaskInstalled` to see if the OneKey extension is installed
 
 ```javascript
 const initialize = () => {
   //Basic Actions Section
   const onboardButton = document.getElementById('connectButton');
 
-  //Created check function to see if the MetaMask extension is installed
+  //Created check function to see if the OneKey extension is installed
   const isMetaMaskInstalled = () => {
     //Have to check the ethereum binding on the window object to see if it's installed
     const { ethereum } = window;
@@ -122,14 +122,14 @@ const initialize = () => {
 };
 ```
 
-Next we need to create a `MetaMaskClientCheck` function to see if we need to change the button text based on if the MetaMask Extension is installed or not.
+Next we need to create a `MetaMaskClientCheck` function to see if we need to change the button text based on if the OneKey Extension is installed or not.
 
 ```javascript
 const initialize = () => {
   //Basic Actions Section
   const onboardButton = document.getElementById('connectButton');
 
-  //Created check function to see if the MetaMask extension is installed
+  //Created check function to see if the OneKey extension is installed
   const isMetaMaskInstalled = () => {
     //Have to check the ethereum binding on the window object to see if it's installed
     const { ethereum } = window;
@@ -138,10 +138,10 @@ const initialize = () => {
 
   //------Inserted Code------\\
   const MetaMaskClientCheck = () => {
-    //Now we check to see if MetaMask is installed
+    //Now we check to see if OneKey is installed
     if (!isMetaMaskInstalled()) {
       //If it isn't installed we ask the user to click to install it
-      onboardButton.innerText = 'Click here to install MetaMask!';
+      onboardButton.innerText = 'Click here to install OneKey!';
     } else {
       //If it is installed we change our button text
       onboardButton.innerText = 'Connect';
@@ -152,9 +152,9 @@ const initialize = () => {
 };
 ```
 
-### MetaMask "Not Installed" Dapp Flow
+### OneKey "Not Installed" Dapp Flow
 
-In our code block where MetaMask isn't installed and we ask the user to `'Click here to install MetaMask!'`, we need to make it if our button is clicked we:
+In our code block where OneKey isn't installed and we ask the user to `'Click here to install OneKey!'`, we need to make it if our button is clicked we:
 
 1. Redirect the user to the proper page to install the extension
 2. Disable the button
@@ -164,7 +164,7 @@ const MetaMaskClientCheck = () => {
   //Now we check to see if Metmask is installed
   if (!isMetaMaskInstalled()) {
     //If it isn't installed we ask the user to click to install it
-    onboardButton.innerText = 'Click here to install MetaMask!';
+    onboardButton.innerText = 'Click here to install OneKey!';
     //When the button is clicked we call this function
     onboardButton.onclick = onClickInstall;
     //The button is now disabled
@@ -180,7 +180,7 @@ MetaMaskClientCheck();
 We've created a function that will be called whenever we click the button and disabled it. Let's dive into the `onClickInstall` function and create the logic inside of it.
 
 :::tip Tip
-For this part we will be using the '@metamask/onboarding' library we installed when we did the npm install. To learn more visit [here](https://github.com/MetaMask/metamask-onboarding#metamask-onboarding)
+For this part we will be using the '@metamask/onboarding' library we installed when we did the npm install. To learn more visit [here](https://github.com/OneKey/metamask-onboarding#metamask-onboarding)
 :::
 Inside this function we want to:
 
@@ -191,7 +191,7 @@ Inside this function we want to:
 Above your `MetaMaskClientCheck` function write/insert this code.
 
 ```javascript
-//We create a new MetaMask onboarding object to use in our app
+//We create a new OneKey onboarding object to use in our app
 const onboarding = new MetaMaskOnboarding({ forwarderOrigin });
 
 //This will start the onboarding proccess
@@ -203,26 +203,26 @@ const onClickInstall = () => {
 };
 ```
 
-GREAT! We've now made it to where if our end user doesn't have the MetaMask Extension they can install it. When they refresh the page the ethereum window object will be there and we can get on to connecting their MetaMask wallet to our Dapp!
+GREAT! We've now made it to where if our end user doesn't have the OneKey Extension they can install it. When they refresh the page the ethereum window object will be there and we can get on to connecting their OneKey wallet to our Dapp!
 
-### MetaMask "Installed" Dapp Flow
+### OneKey "Installed" Dapp Flow
 
-Next we need to revisit our `MetaMaskClientCheck` function and do similar functionality of what we did in our "MetaMask Not Installed" block to now our "MetaMask Is Installed" block of code.
+Next we need to revisit our `MetaMaskClientCheck` function and do similar functionality of what we did in our "OneKey Not Installed" block to now our "OneKey Is Installed" block of code.
 
 ```javascript
 const MetaMaskClientCheck = () => {
   //Now we check to see if Metmask is installed
   if (!isMetaMaskInstalled()) {
     //If it isn't installed we ask the user to click to install it
-    onboardButton.innerText = 'Click here to install MetaMask!';
+    onboardButton.innerText = 'Click here to install OneKey!';
     //When the button is clicked we call th is function
     onboardButton.onclick = onClickInstall;
     //The button is now disabled
     onboardButton.disabled = false;
   } else {
-    //If MetaMask is installed we ask the user to connect to their wallet
+    //If OneKey is installed we ask the user to connect to their wallet
     onboardButton.innerText = 'Connect';
-    //When the button is clicked we call this function to connect the users MetaMask Wallet
+    //When the button is clicked we call this function to connect the users OneKey Wallet
     onboardButton.onclick = onClickConnect;
     //The button is now disabled
     onboardButton.disabled = false;
@@ -243,7 +243,7 @@ Under your `onClickInstall` function write/insert this code.
 ```javascript
 const onClickConnect = async () => {
   try {
-    // Will open the MetaMask UI
+    // Will open the OneKey UI
     // You should disable this button while the request is pending!
     await ethereum.request({ method: 'eth_requestAccounts' });
   } catch (error) {
@@ -252,7 +252,7 @@ const onClickConnect = async () => {
 };
 ```
 
-Great! Now once you click the button the MetaMask Extension will pop up and connect your wallet.
+Great! Now once you click the button the OneKey Extension will pop up and connect your wallet.
 
 ### Get Ethereum Accounts
 

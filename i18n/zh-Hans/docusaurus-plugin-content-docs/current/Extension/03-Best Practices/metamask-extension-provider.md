@@ -46,7 +46,7 @@ Add MetaMask's extension ID for that browser's store to the config file.
 ```javascript
 {
   "CHROME_ID": "nkbihfbeogaeaoehlefnkodbefgpgknn",
-  "FIREFOX_ID": "webextension@metamask.io"
+  "FIREFOX_ID": "webextension@onekey.io"
 }
 ```
 

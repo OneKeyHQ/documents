@@ -4,22 +4,21 @@ sidebar_position: 4
 
 # Signing Data
 
-Since MetaMask makes cryptographic keys available to each user, websites can use these signatures for a variety of uses. Here are a few guides related to specific use cases:
+Since OneKey makes cryptographic keys available to each user, websites can use these signatures for a variety of uses. Here are a few guides related to specific use cases:
 
 - [Authenticating websites](https://medium.com/hackernoon/writing-for-blockchain-wallet-signature-request-messages-6ede721160d5)
-- Some examples of signing off-chain messages for an on-chain protocol from our [MetaTransaction Hackathon](https://medium.com/metamask/our-metatransaction-hackathon-winner-a620551ccb9b)
 
-## Signing Data with MetaMask
+## Signing Data with OneKey
 
 If you’d like to jump to some working signature examples, [you can visit this repository](https://github.com/danfinlay/js-eth-personal-sign-examples).
 
-If you’d like to read our JavaScript implementations of these methods, they are all available in the npm package [eth-sig-util](https://github.com/MetaMask/eth-sig-util).
+If you’d like to read our JavaScript implementations of these methods, they are all available in the npm package [eth-sig-util](https://github.com/onekeyhq/eth-sig-util).
 
-Note that MetaMask supports signing transactions with Trezor and Ledger hardware wallets. These hardware wallets currently only support signing data using the `personal_sign` method. If you have trouble logging in to a website or dapp when using a Ledger or Trezor, the site may be requesting you sign data via an unsupported method, in which case we recommend using your standard MetaMask account.
+Note that OneKey supports signing transactions with Trezor and Ledger hardware wallets. These hardware wallets currently only support signing data using the `personal_sign` method. If you have trouble logging in to a website or dapp when using a Ledger or Trezor, the site may be requesting you sign data via an unsupported method, in which case we recommend using your standard OneKey account.
 
 ## A Brief History
 
-There are currently six signing methods in MetaMask, and you might wonder the history of these methods. Studying the history of these methods has some lessons in it for the emergent lessons of decentralized standards emergence. Our current five methods are:
+There are currently six signing methods in OneKey, and you might wonder the history of these methods. Studying the history of these methods has some lessons in it for the emergent lessons of decentralized standards emergence. Our current five methods are:
 
 - `eth_sign`
 - `personal_sign`
@@ -28,7 +27,7 @@ There are currently six signing methods in MetaMask, and you might wonder the hi
 - `signTypedData_v3`
 - `signTypedData_v4`
 
-There are likely to be many more over time. When MetaMask first started, the Provider API wasn’t designed to be exposed to untrusted websites, and so some considerations weren’t taken as seriously as they were later.
+There are likely to be many more over time. When OneKey first started, the Provider API wasn’t designed to be exposed to untrusted websites, and so some considerations weren’t taken as seriously as they were later.
 
 In particular, the method `eth_sign` is an open-ended signing method that allows signing an arbitrary hash, which means it can be used to sign transactions, or any other data, making it a dangerous phishing risk.
 
@@ -50,8 +49,6 @@ I hope this has been a useful introduction to the history of our signing methods
 
 This early version of the spec lacked some later security improvements, and should generally be neglected in favor of [signTypedData_v3](#sign-typed-data-v3).
 
-Also known as `signTypedData`, originally premiered October 2017 in [this blog post](https://medium.com/metamask/scaling-web3-with-signtypeddata-91d6efc8b290), this method was the original state-channel-centric signing method.
-
 The `signTypedData` family has a few major design considerations:
 
 - Cheap to verify on chain
@@ -66,8 +63,6 @@ The method `signTypedData_v3` currently represents the latest version of the [EI
 
 This does not mean it is perfect, and we do already have a `v4` in prototype stage (which supports recursive structs and arrays), but we do intend to protect this namespace and keep it compatible going forwards.
 
-We have a [great introductory blog post to this method here](https://medium.com/metamask/eip712-is-coming-what-to-expect-and-how-to-use-it-bb92fd1a7a26).
-
 Hopefully soon we will also have good examples for parsing method input into structs for verification on-chain (great contribution opportunity!)
 
 ## Sign Typed Data v4
@@ -75,8 +70,6 @@ Hopefully soon we will also have good examples for parsing method input into str
 The method `signTypedData_v4` currently represents the latest version of the [EIP-712 spec](https://eips.ethereum.org/EIPS/eip-712), with added support for arrays and with a breaking fix for the way structs are encoded.
 
 This does not mean it is perfect, and does not mean we will not eventually have a `v5`, but we do intend to protect this namespace and keep it compatible going forwards.
-
-We have a [great introductory blog post to this method here](https://medium.com/metamask/eip712-is-coming-what-to-expect-and-how-to-use-it-bb92fd1a7a26).
 
 Hopefully soon we will also have good examples for parsing method input into structs for verification on-chain (great contribution opportunity!)
 
@@ -109,7 +102,7 @@ Hopefully soon we will also have good examples for parsing method input into str
 
 `message`: Completely open to what you would like the structure of it to be. Every field is optional.
 
-Below is an example of signing typed data with MetaMask. Reference [here](https://github.com/danfinlay/js-eth-personal-sign-examples)
+Below is an example of signing typed data with OneKey. Reference [here](https://github.com/danfinlay/js-eth-personal-sign-examples)
 
 ### Example
 

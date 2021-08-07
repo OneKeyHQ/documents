@@ -53,15 +53,15 @@ sidebar_position: 2
 
 如果您决定需要便利库，则必须将“ window.web3”的用法转换为更新的便利库。我们建议使用[`ethers`](https://npmjs.com/package/ethers)([documentation](https://docs.ethers.io/))。
 
-### 使用`@metamask/legacy-web3`
+### 使用`@onekey/legacy-web3`
 
 :::警告我们强烈建议您在求助于此之前，先考虑另外两个迁移路径之一。它不是面向未来的，因此我们不会在其中添加新功能。 :::
 
-最后，如果您只是想让您的 web3 网站继续工作，我们创建了[`@ metamask/legacy-web3`](https://npmjs.com/package/@metamask/legacy-web3)。这个软件包是对我们的`window.web3`的直接替代，您甚至可以在所有平台上删除`window.web3`之前，也可以将其添加到您的网站中。
+最后，如果您只是想让您的 web3 网站继续工作，我们创建了[`@ metamask/legacy-web3`](https://npmjs.com/package/@onekey/legacy-web3)。这个软件包是对我们的`window.web3`的直接替代，您甚至可以在所有平台上删除`window.web3`之前，也可以将其添加到您的网站中。
 
 @ metamask/legacy-web3 应该与我们注入的 window.web3 完全一样，包括刷新链/网络更改页面，但是*我们不能保证它能完美地工作*。我们不会修复web3@0.20.7和 MetaMask 本身之间的任何将来的不兼容性，也不会修复web3@0.20.7本身的任何错误。
 
-有关安装和使用说明，请参阅[npm 列表](https://npmjs.com/package/@metamask/legacy-web3)。
+有关安装和使用说明，请参阅[npm 列表](https://npmjs.com/package/@onekey/legacy-web3)。
 
 ### 使用 MetaMask 旧版 Web3 扩展
 

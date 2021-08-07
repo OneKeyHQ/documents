@@ -18,7 +18,7 @@ sidebar_position: 3
 
 ### 提供程序可用性
 
-如果您使用[`@ metamask/detect-provider`](https://npmjs.com/package/@metamask/detect-provider)，则无需担心。它将可靠地检测到移动提供商和扩展提供商。
+如果您使用[`@ metamask/detect-provider`](https://npmjs.com/package/@onekey/detect-provider)，则无需担心。它将可靠地检测到移动提供商和扩展提供商。
 
 如果您不使用`detect-provider`软件包，则必须手动检测移动提供商。
 

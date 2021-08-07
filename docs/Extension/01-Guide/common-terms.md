@@ -7,7 +7,7 @@ sidebar_position: 3
 ## Words are Hard
 
 <p id="agoctitecs_p">
-  This is a list of terms you might encounter when using the MetaMask interface.
+  This is a list of terms you might encounter when using the OneKey interface.
 </p>
 
 #### [You can also read in Spanish](https://github.com/faraggi/words-are-hard-es/blob/master/words-are-hard-es.md), thanks to [faraggi](https://github.com/faraggi)
@@ -19,7 +19,7 @@ sidebar_position: 3
 <ul>
   <li id="wallet_l1">The interface / client / wrapper / holder that you use to manage your account(s).</li>
 
-  <li id="wallet_l2">Example: MetaMask.io, your Ledger Hardware Wallet, a Multisig Wallet Contract.</li>
+  <li id="wallet_l2">Example: OneKey.so, your Hardware Wallet, a Multisig Wallet Contract.</li>
 </ul>
 
 ### Account
@@ -101,7 +101,7 @@ sidebar_position: 3
     A (typically) 12 or 24 word phrase that allows you to access infinite number of accounts.
   </li>
   <li id="mphrase_l3">
-    Used by Ledger, TREZOR, MetaMask, Jaxx, and others.
+    Used by Ledger, TREZOR, OneKey, Jaxx, and others.
   </li>
   <li id="mphrase_l4">
     Originates from <a href='https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki' target='_blank'>BIP 39 Spec</a>.

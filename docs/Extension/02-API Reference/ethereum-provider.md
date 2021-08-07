@@ -13,16 +13,16 @@ If you are an Ethereum application developer and are looking for information abo
 please see our [Migration Guide](./provider-migration.html) for more details.
 :::
 
-MetaMask injects a global API into websites visited by its users at `window.ethereum`.
+OneKey injects a global API into websites visited by its users at `window.ethereum`.
 This API allows websites to request users' Ethereum accounts, read data from blockchains the user is connected to, and suggest that the user sign messages and transactions.
 The presence of the provider object indicates an Ethereum user.
-We recommend using [`@metamask/detect-provider`](https://npmjs.com/package/@metamask/detect-provider) to detect our provider, on any platform or browser.
+We recommend using [`@onekey/detect-provider`](https://npmjs.com/package/@onekey/detect-provider) to detect our provider, on any platform or browser.
 
 The Ethereum JavaScript provider API is specified by [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193).
 
 ```javascript
 // This function detects most providers injected at window.ethereum
-import detectEthereumProvider from '@metamask/detect-provider';
+import detectEthereumProvider from '@onekey/detect-provider';
 
 const provider = await detectEthereumProvider();
 
@@ -31,7 +31,7 @@ if (provider) {
   // provider === window.ethereum
   startApp(provider); // initialize your app
 } else {
-  console.log('Please install MetaMask!');
+  console.log('Please install OneKey!');
 }
 ```
 
@@ -57,7 +57,7 @@ If you are in need of higher-level abstractions than those provided by this API,
 
 ## Chain IDs
 
-These are the IDs of the Ethereum chains that MetaMask supports by default.
+These are the IDs of the Ethereum chains that OneKey supports by default.
 Consult [chainid.network](https://chainid.network) for more.
 
 | Hex  | Decimal | Network                         |
@@ -76,10 +76,10 @@ Consult [chainid.network](https://chainid.network) for more.
 ### ethereum.isMetaMask
 
 :::warning Note
-This property is non-standard. Non-MetaMask providers may also set this property to `true`.
+This property is non-standard. Non-OneKey providers may also set this property to `true`.
 :::
 
-`true` if the user has MetaMask installed.
+`true` if the user has OneKey installed.
 
 ## Methods
 
@@ -112,7 +112,7 @@ interface RequestArguments {
 ethereum.request(args: RequestArguments): Promise<unknown>;
 ```
 
-Use `request` to submit RPC requests to Ethereum via MetaMask.
+Use `request` to submit RPC requests to Ethereum via OneKey.
 It returns a `Promise` that resolves to the result of the RPC method call.
 
 The `params` and return value will vary by RPC method.
@@ -120,9 +120,9 @@ In practice, if a method has any `params`, they are almost always of type `Array
 
 If the request fails for any reason, the Promise will reject with an [Ethereum RPC Error](#errors).
 
-MetaMask supports most standardized Ethereum RPC methods, in addition to a number of methods that may not be
+OneKey supports most standardized Ethereum RPC methods, in addition to a number of methods that may not be
 supported by other wallets.
-See the MetaMask [RPC API documentation](./rpc-api.html) for details.
+See the OneKey [RPC API documentation](./rpc-api.html) for details.
 
 #### Example
 
@@ -155,7 +155,7 @@ ethereum
 
 ## Events
 
-The MetaMask provider implements the [Node.js `EventEmitter`](https://nodejs.org/api/events.html) API.
+The OneKey provider implements the [Node.js `EventEmitter`](https://nodejs.org/api/events.html) API.
 This sections details the events emitted via that API.
 There are innumerable `EventEmitter` guides elsewhere, but you can listen for events like this:
 
@@ -183,7 +183,7 @@ interface ConnectInfo {
 ethereum.on('connect', handler: (connectInfo: ConnectInfo) => void);
 ```
 
-The MetaMask provider emits this event when it first becomes able to submit RPC requests to a chain.
+The OneKey provider emits this event when it first becomes able to submit RPC requests to a chain.
 We recommend using a `connect` event handler and the [`ethereum.isConnected()` method](#ethereum-isconnected) in order to determine when/if the provider is connected.
 
 ### disconnect
@@ -192,7 +192,7 @@ We recommend using a `connect` event handler and the [`ethereum.isConnected()` m
 ethereum.on('disconnect', handler: (error: ProviderRpcError) => void);
 ```
 
-The MetaMask provider emits this event if it becomes unable to submit RPC requests to any chain.
+The OneKey provider emits this event if it becomes unable to submit RPC requests to any chain.
 In general, this will only happen due to network connectivity issues or some unforeseen error.
 
 Once `disconnect` has been emitted, the provider will not accept any new requests until the connection to the chain has been re-restablished, which requires reloading the page.
@@ -204,7 +204,7 @@ You can also use the [`ethereum.isConnected()` method](#ethereum-isconnected) to
 ethereum.on('accountsChanged', handler: (accounts: Array<string>) => void);
 ```
 
-The MetaMask provider emits this event whenever the return value of the `eth_accounts` RPC method changes.
+The OneKey provider emits this event whenever the return value of the `eth_accounts` RPC method changes.
 `eth_accounts` returns an array that is either empty or contains a single account address.
 The returned address, if any, is the address of the most recently used account that the caller is permitted to access.
 Callers are identified by their URL _origin_, which means that all sites with the same origin share the same permissions.
@@ -218,14 +218,14 @@ We plan to allow the `eth_accounts` array to be able to contain multiple address
 ### chainChanged
 
 :::tip Tip
-See the [Chain IDs section](#chain-ids) for MetaMask's default chains and their chain IDs.
+See the [Chain IDs section](#chain-ids) for OneKey's default chains and their chain IDs.
 :::
 
 ```typescript
 ethereum.on('chainChanged', handler: (chainId: string) => void);
 ```
 
-The MetaMask provider emits this event when the currently connected chain changes.
+The OneKey provider emits this event when the currently connected chain changes.
 
 All RPC requests are submitted to the currently connected chain.
 Therefore, it's critical to keep track of the current chain ID by listening for this event.
@@ -247,7 +247,7 @@ interface ProviderMessage {
 ethereum.on('message', handler: (message: ProviderMessage) => void);
 ```
 
-The MetaMask provider emits this event when it receives some message that the consumer should be notified of.
+The OneKey provider emits this event when it receives some message that the consumer should be notified of.
 The kind of message is identified by the `type` string.
 
 RPC subscription updates are a common use case for the `message` event.
@@ -255,7 +255,7 @@ For example, if you create a subscription using `eth_subscribe`, each subscripti
 
 ## Errors
 
-All errors thrown or returned by the MetaMask provider follow this interface:
+All errors thrown or returned by the OneKey provider follow this interface:
 
 ```typescript
 interface ProviderRpcError extends Error {
@@ -279,7 +279,7 @@ Common codes and their meaning include:
 For the complete list of errors, please see [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193#provider-errors) and [EIP-1474](https://eips.ethereum.org/EIPS/eip-1474#error-codes).
 
 :::tip Tip
-The [`eth-rpc-errors`](https://npmjs.com/package/eth-rpc-errors) package implements all RPC errors thrown by the MetaMask provider, and can help you identify their meaning.
+The [`eth-rpc-errors`](https://npmjs.com/package/eth-rpc-errors) package implements all RPC errors thrown by the OneKey provider, and can help you identify their meaning.
 :::
 
 ## Using the Provider
@@ -299,7 +299,7 @@ There is no guarantee that the methods and properties defined in this section wi
 Use it at your own risk.
 :::
 
-We expose some experimental, MetaMask-specific methods under the `ethereum._metamask` property.
+We expose some experimental, OneKey-specific methods under the `ethereum._metamask` property.
 
 ## Experimental Methods
 
@@ -309,8 +309,8 @@ We expose some experimental, MetaMask-specific methods under the `ethereum._meta
 ethereum._metamask.isUnlocked(): Promise<boolean>;
 ```
 
-This method returns a `Promise` that resolves to a `boolean` indicating if MetaMask is unlocked by the user.
-MetaMask must be unlocked in order to perform any operation involving user accounts.
+This method returns a `Promise` that resolves to a `boolean` indicating if OneKey is unlocked by the user.
+OneKey must be unlocked in order to perform any operation involving user accounts.
 Note that this method does not indicate if the user has exposed any accounts to the caller.
 
 ## Legacy API
@@ -320,7 +320,7 @@ You should **never** rely on any of these methods, properties, or events in prac
 :::
 
 This section documents our legacy provider API.
-MetaMask only supported this API before the provider API was standardized via [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) in 2020.
+OneKey only supported this API before the provider API was standardized via [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) in 2020.
 Because of this, you may find web3 sites that use this API, or other providers that implement it.
 
 ## Legacy Properties

@@ -4,20 +4,20 @@ sidebar_position: 4
 
 # Onboarding Library
 
-As an Ethereum enabled site developer, sending users offsite to install MetaMask presents challenges. Most notably, you must inform the user to return to your site and refresh their browser after the installation. Your site will detect the user's newly installed MetaMask extension only after that refresh. We at MetaMask care deeply about user experience, and we knew that this workflow needed to be improved.
+As an Ethereum enabled site developer, sending users offsite to install OneKey presents challenges. Most notably, you must inform the user to return to your site and refresh their browser after the installation. Your site will detect the user's newly installed OneKey extension only after that refresh. We at OneKey care deeply about user experience, and we knew that this workflow needed to be improved.
 
-MetaMask now provides a [metamask-onboarding library](https://github.com/MetaMask/metamask-onboarding) designed to improve and simplify the onboarding experience. The new library exposes an API to initiate the onboarding process. In the process, it registers your site as the origin of the onboarding request. MetaMask will check for this origin after the user completes the onboarding flow. If it finds an origin, the final confirmation button of the MetaMask onboarding flow will indicate that the user will be redirected back to your site.
+OneKey now provides a [metamask-onboarding library](https://github.com/onekeyhq/metamask-onboarding) designed to improve and simplify the onboarding experience. The new library exposes an API to initiate the onboarding process. In the process, it registers your site as the origin of the onboarding request. OneKey will check for this origin after the user completes the onboarding flow. If it finds an origin, the final confirmation button of the OneKey onboarding flow will indicate that the user will be redirected back to your site.
 
 ## Getting Started
 
-1. Install @metamask/onboarding using npm or yarn.
+1. Install @onekey/onboarding using npm or yarn.
 2. Import the Onboarding Library or include it in your page.
 
 ```javascript
 // As an ES6 module
-import MetaMaskOnboarding from '@metamask/onboarding';
+import MetaMaskOnboarding from '@onekey/onboarding';
 // Or as an ES5 module
-const MetaMaskOnboarding = require('@metamask/onboarding');
+const MetaMaskOnboarding = require('@onekey/onboarding');
 ```
 
 If you'd prefer you can instead include the prebuilt ES5 bundle that ships with the library:
@@ -50,10 +50,10 @@ onboarding.startOnboarding();
 ### Using React
 
 ```jsx
-import MetaMaskOnboarding from '@metamask/onboarding';
+import MetaMaskOnboarding from '@onekey/onboarding';
 import React from 'react';
 
-const ONBOARD_TEXT = 'Click here to install MetaMask!';
+const ONBOARD_TEXT = 'Click here to install OneKey!';
 const CONNECT_TEXT = 'Connect';
 const CONNECTED_TEXT = 'Connected';
 
@@ -116,7 +116,7 @@ export function OnboardingButton() {
 
 ### Using TypeScript
 
-We ship our TypeScript types with `@metamask/onboarding`. Modifying the above example to get type safety when using the onboarding library is simple:
+We ship our TypeScript types with `@onekey/onboarding`. Modifying the above example to get type safety when using the onboarding library is simple:
 
 ```jsx
   -const onboarding = React.useRef();
@@ -133,7 +133,7 @@ Doing this step will give you editor auto-completion for the methods exposed by 
 <!DOCTYPE html>
 <html lang="en-CA">
   <head>
-    <title>MetaMask Onboarding Example</title>
+    <title>OneKey Onboarding Example</title>
     <meta charset="UTF-8" />
   </head>
   <body>
@@ -148,7 +148,7 @@ Doing this step will give you editor auto-completion for the methods exposed by 
 
         const updateButton = () => {
           if (!MetaMaskOnboarding.isMetaMaskInstalled()) {
-            onboardButton.innerText = 'Click here to install MetaMask!';
+            onboardButton.innerText = 'Click here to install OneKey!';
             onboardButton.onclick = () => {
               onboardButton.innerText = 'Onboarding in progress';
               onboardButton.disabled = true;

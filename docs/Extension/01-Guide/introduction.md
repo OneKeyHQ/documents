@@ -30,7 +30,7 @@ OneKey was created to meet the needs of secure and usable Ethereum-based web sit
 
 OneKey allows users to manage accounts and their keys in a variety of ways, including hardware wallets, while isolating them from the site context. This is a great security improvement over storing the user keys on a single central server, or even in local storage, which can allow for [mass account thefts](https://www.ccn.com/cryptocurrency-exchange-etherdelta-hacked-in-dns-hijacking-scheme/).
 
-This security feature also comes with developer convenience: For developers, you simply interact with the globally available `ethereum` API that identifies the users of web3-compatible browsers (like OneKey users), and whenever you request a transaction signature (like `eth_sendTransaction`, `eth_signTypedData`, or others), OneKey will prompt the user in as comprehensible a way as possible. This keeps users informed, and leaves attackers left trying to phish individual users rather than performing mass hacks (although [DNS hacks can still be used for phishing en masse](https://medium.com/metamask/new-phishing-strategy-becoming-common-1b1123837168)).
+This security feature also comes with developer convenience: For developers, you simply interact with the globally available `ethereum` API that identifies the users of web3-compatible browsers (like OneKey users), and whenever you request a transaction signature (like `eth_sendTransaction`, `eth_signTypedData`, or others), OneKey will prompt the user in as comprehensible a way as possible.
 
 ## Blockchain Connection
 

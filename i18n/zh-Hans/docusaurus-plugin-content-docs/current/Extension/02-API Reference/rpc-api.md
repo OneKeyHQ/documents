@@ -359,7 +359,7 @@ Please see the [Onboarding Library documentation](./onboarding-library.html) for
 您可以使用此方法通知MetaMask您是建议安装MetaMask的人。
 这样，在入职完成后，MetaMask会将用户重定向到您的站点。
 
-而不是直接调用此方法，您应该使用[`@metamask/onboarding` library](https://github.com/MetaMask/metamask-onboarding).
+而不是直接调用此方法，您应该使用[`@onekey/onboarding` library](https://github.com/MetaMask/metamask-onboarding).
 
 ### wallet_watchAsset
 

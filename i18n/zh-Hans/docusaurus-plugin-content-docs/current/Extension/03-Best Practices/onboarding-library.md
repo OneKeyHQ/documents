@@ -15,9 +15,9 @@ MetaMask现在提供了一个[metamask-onboarding库](https://github.com/MetaMas
 
 ```javascript
 // As an ES6 module
-import MetaMaskOnboarding from '@metamask/onboarding';
+import MetaMaskOnboarding from '@onekey/onboarding';
 // Or as an ES5 module
-const MetaMaskOnboarding = require('@metamask/onboarding');
+const MetaMaskOnboarding = require('@onekey/onboarding');
 ```
 
 If you'd prefer you can instead include the prebuilt ES5 bundle that ships with the library:
@@ -50,7 +50,7 @@ onboarding.startOnboarding();
 ### Using React
 
 ```jsx
-import MetaMaskOnboarding from '@metamask/onboarding';
+import MetaMaskOnboarding from '@onekey/onboarding';
 import React from 'react';
 
 const ONBOARD_TEXT = 'Click here to install MetaMask!';
@@ -116,7 +116,7 @@ export function OnboardingButton() {
 
 ### Using TypeScript
 
-We ship our TypeScript types with `@metamask/onboarding`. Modifying the above example to get type safety when using the onboarding library is simple:
+We ship our TypeScript types with `@onekey/onboarding`. Modifying the above example to get type safety when using the onboarding library is simple:
 
 ```jsx
   -const onboarding = React.useRef();

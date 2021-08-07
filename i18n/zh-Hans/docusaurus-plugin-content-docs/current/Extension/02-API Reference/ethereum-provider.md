@@ -16,13 +16,13 @@ sidebar_position: 1
 MetaMask将全局API注入其用户在“ window.ethereum”访问的网站中。
 该API允许网站请求用户的以太坊帐户，从用户连接的区块链中读取数据，并建议用户签署消息和交易。
 提供者对象的存在指示以太坊用户。
-我们建议在任何平台或浏览器上使用[`@metamask/detect-provider`](https://npmjs.com/package/@metamask/detect-provider) 检测我们的提供商。
+我们建议在任何平台或浏览器上使用[`@onekey/detect-provider`](https://npmjs.com/package/@onekey/detect-provider) 检测我们的提供商。
 
 以太坊JavaScript提供程序API由[EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) 指定。
 
 ```javascript
 // This function detects most providers injected at window.ethereum
-import detectEthereumProvider from '@metamask/detect-provider';
+import detectEthereumProvider from '@onekey/detect-provider';
 
 const provider = await detectEthereumProvider();
 

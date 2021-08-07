@@ -4,15 +4,15 @@ sidebar_position: 1
 
 # Registering Your Contract's Method Names
 
-MetaMask uses the Parity on-chain registry of function signatures to display method names on the confirm screen.
-For many common method names, like token methods, this allows MetaMask to successfully look up the method names by their [method signature](https://solidity.readthedocs.io/en/v0.4.21/abi-spec.html).
-However, sometimes you're using a method that is not in that on-chain registry, and MetaMask will simply display `Contract Interaction` to the user.
+OneKey uses the Parity on-chain registry of function signatures to display method names on the confirm screen.
+For many common method names, like token methods, this allows OneKey to successfully look up the method names by their [method signature](https://solidity.readthedocs.io/en/v0.4.21/abi-spec.html).
+However, sometimes you're using a method that is not in that on-chain registry, and OneKey will simply display `Contract Interaction` to the user.
 
-To add your contract's function names to this registry so it shows in the MetaMask interface, follow the below steps.
+To add your contract's function names to this registry so it shows in the OneKey interface, follow the below steps.
 
 1. Go to the [Mainnet Parity signature registration contract on etherscan](https://etherscan.io/address/0x44691b39d1a75dc4e0a0346cbb15e310e6ed1e86#writeContract)
 
-2. Connect MetaMask
+2. Connect OneKey
 
 3. Use etherscan's write contract feature to input the string value (without quotes or spaces) to the register function
 
@@ -24,7 +24,7 @@ To add your contract's function names to this registry so it shows in the MetaMa
 
 4. Click "write"
 
-5. Approve the transaction in MetaMask (you only pay gas)
+5. Approve the transaction in OneKey (you only pay gas)
 
 ## Verify
 
@@ -44,6 +44,6 @@ To add your contract's function names to this registry so it shows in the MetaMa
 ### Using `eth-method-registry`
 
 - You can also use the [signature registry](https://rinkeby.etherscan.io/address/0x0c0831fb1ec7442485fb41a033ba188389a990b4) deployed on Rinkeby
-  - [`eth-method-registry`](https://github.com/MetaMask/eth-method-registry) is used to lookup methods in MetaMask.
-  - Note that MetaMask reads from the Mainnet `eth-method-registry` endpoint, regardless of user's network.
+  - [`eth-method-registry`](https://github.com/OneKey/eth-method-registry) is used to lookup methods in OneKey.
+  - Note that OneKey reads from the Mainnet `eth-method-registry` endpoint, regardless of user's network.
   - For more details, see [this StackExchange answer](https://ethereum.stackexchange.com/questions/59678/metamask-shows-unknown-function-when-calling-method-send-function).
