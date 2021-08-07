@@ -47,7 +47,7 @@ module.exports = {
         },
         // Please keep GitHub link to the right for consistency.
         {
-          href: 'https://github.com/onekeyhq/document',
+          href: 'https://github.com/onekeyhq/documents',
           label: 'GitHub',
           position: 'right',
         },
@@ -130,7 +130,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           // Please change this to your repo.
-          editUrl: 'https://github.com/onekeyhq/document/edit/master/',
+          editUrl: 'https://github.com/onekeyhq/documents/edit/main/',
           sidebarItemsGenerator: async function ({
             defaultSidebarItemsGenerator,
             ...args
