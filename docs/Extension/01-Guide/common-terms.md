@@ -10,8 +10,6 @@ sidebar_position: 3
   This is a list of terms you might encounter when using the OneKey interface.
 </p>
 
-#### [You can also read in Spanish](https://github.com/faraggi/words-are-hard-es/blob/master/words-are-hard-es.md), thanks to [faraggi](https://github.com/faraggi)
-
 ---
 
 ### Wallet
@@ -19,7 +17,7 @@ sidebar_position: 3
 <ul>
   <li id="wallet_l1">The interface / client / wrapper / holder that you use to manage your account(s).</li>
 
-  <li id="wallet_l2">Example: OneKey.so, your Hardware Wallet, a Multisig Wallet Contract.</li>
+  <li id="wallet_l2">Example: OneKey hardware, a Multisig Wallet Contract.</li>
 </ul>
 
 ### Account
@@ -32,7 +30,7 @@ sidebar_position: 3
   <li id="account_l3"> Just like your Reddit account has a <code> username (public)</code> and <code> password (private)</code>, so does your Ethereum account. For additional security, you can use a password to encrypt your private key which would result in a <code> username (public)</code> and <code> password (private)</code> and <code> password for that password (private + more secure)</code>. See the <code> Keystore File</code> section. </li>
 </ul>
 
-### Address _("Public Key")_
+### Address ("Public Key")
 
 <ul>
   <li id="address_l1">You use this to send funds <b>to</b> an account.</li>
@@ -146,16 +144,12 @@ sidebar_position: 3
   <li id="addressIdent_l2">
     It is an easy way to see if your address is correct.
   </li>
-  <li id="addressIdent_l3">
-    <a href='http://i.imgur.com/lHUrIiZ.jpg' target='_blank'> Example 1 </a>
-  </li>
-  <li id="addressIdent_l4">
-    <a href='http://i.imgur.com/FvyLewS.jpg' target='_blank'> Example 2 </a>
-  </li>
   <li id="addressIdent_l5">
     <em>Note: the above addresses are a single character different but have remarkably different icons and colors. Magic!</em>
   </li>
 </ul>
+
+![Example 1](http://i.imgur.com/lHUrIiZ.jpg) ![Example 2](http://i.imgur.com/FvyLewS.jpg)
 
 ### Hexadecimal
 
@@ -292,9 +286,5 @@ sidebar_position: 3
     A decentralized publicly owned ledger.
   </li>
 </ul>
-
-<p id="fixGlossary">
-  All feedback, rewrites, clarification, typo-fixing, and requests for additions are more than welcome. ?
-</p>
 
 <p>Thanks to <a href="https://support.mycrypto.com/getting-started/ethereum-glossary.html" target="_blank">MyCrypto</a> for this Glossary's starting point</p>

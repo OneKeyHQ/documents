@@ -13,7 +13,7 @@ Welcome to OneKey’s Developer Documentation. This documentation is for learnin
 - For up to the minute news, follow our [Twitter](https://twitter.com/OneKeyHQ) or [Reddit](https://www.reddit.com/r/OneKeyHQ) pages.
 - To learn how to contribute to the OneKey project itself, visit our [Internal Docs](https://github.com/OneKeyHQ/onekey-extension/tree/master/docs).
 
-## Why OneKey
+## Why OneKey Browser Extension
 
 OneKey was created to meet the needs of secure and usable Ethereum-based web sites. In particular, it handles account management and connecting the user to the blockchain.
 
