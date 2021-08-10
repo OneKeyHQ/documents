@@ -13,10 +13,6 @@ All RPC method requests can return errors.
 Make sure to handle errors for every call to `ethereum.request(args)`.
 :::
 
-## Table of Contents
-
-[[toc]]
-
 ## Ethereum JSON-RPC Methods
 
 For the Ethereum JSON-RPC API, please see [the Ethereum wiki](https://eth.wiki/json-rpc/API#json-rpc-methods).

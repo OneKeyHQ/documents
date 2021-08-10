@@ -5,23 +5,22 @@ title: Getting Started
 description: Handling assets in Docusaurus Markdown
 ---
 
-To develop for OneKey Extension, install OneKey Extension on your development machine. [Download here](https://onekey.so/plugin/).
+To develop for OneKey Browser Extension, install it on your development machine. [Download here](https://onekey.so/plugin/).
 
 :::warning A quick note...
 This guide assumes intermediate knowledge of HTML, CSS, and JavaScript.
 :::
 
-Once OneKey is installed and running, you should find that new browser tabs have a `window.ethereum` object available in the developer console.
+Once OneKey Browser Extension is installed and running, you should find that new browser tabs have a `window.ethereum` object available in the developer console.
 This is how your website will interact with OneKey.
 
 You can review the full API for that object [here](/Extension/API%20Reference/ethereum-provider).
-Note that in **over the course of 2020**, we are introducing significant changes to this API, and we recommend that you refer to its documentation.
 
 ## Basic Considerations
 
 ### Web3 Browser Detection
 
-To verify if the browser is running OneKey, copy and paste the code snippet below in the developer console of your web browser:
+To verify if the browser is running OneKey Browser Extension, copy and paste the code snippet below in the developer console of your web browser:
 
 ```javascript
 if (typeof window.ethereum !== 'undefined') {
@@ -33,7 +32,7 @@ You can review the full API for the `window.ethereum` object [here](/Extension/A
 
 ### Running a Test Network
 
-In the top right menu of OneKey, select the network that you are currently connected to. Among several popular defaults, you'll find `Custom RPC` and `Localhost 8545`. These are both useful for connecting to a test blockchain, like [ganache](https://www.trufflesuite.com/ganache). You can quickly install and start Ganache if you have `npm` installed with `npm i -g ganache-cli && ganache-cli`.
+In the top right menu of OneKey Browser Extension, select the network that you are currently connected to. Among several popular defaults, you'll find `Custom RPC` and `Localhost 8545`. These are both useful for connecting to a test blockchain, like [ganache](https://www.trufflesuite.com/ganache). You can quickly install and start Ganache if you have `npm` installed with `npm i -g ganache-cli && ganache-cli`.
 
 Ganache has some great features for starting your application with different states. If your application starts with the `-m` flag, you can feed it the same seed phrase you have in your OneKey, and the test network will give each of your first 10 accounts 100 test ether, which makes it easier to start work.
 
@@ -44,11 +43,11 @@ Since your seed phrase is the power to control all your accounts, it is probably
 If you're running a test blockchain and restart it, you can accidentally confuse OneKey because it calculates the next [nonce](./sending-transactions.html#nonce-ignored)
 based on both the network state _and_ the known sent transactions.
 
-To clear OneKey's transaction queue, and effectively reset its nonce calculation, you can use the `Reset Account` button in `Settings` (available in the top-right sandwich menu).
+To clear OneKey Browser Extension's transaction queue, and effectively reset its nonce calculation, you can use the `Reset Account` button in `Settings` (available in the top-right menu).
 
 ### Detecting OneKey
 
-If you want to differentiate OneKey from other ethereum-compatible browsers, you can detect OneKey using `ethereum.isOneKey`.
+If you want to differentiate OneKey Browser Extension from other ethereum-compatible browsers, you can detect OneKey Browser Extension using `ethereum.isOneKey`.
 
 ### User State
 
@@ -76,34 +75,19 @@ ethereum.request({ method: 'eth_requestAccounts' });
 ```
 
 **Example:**
-```
-<EthConnectButton />
-```
-
-::::tabs :options="{ useUrlFragment: false }"
-
-:::tab HTML
 
 ```html
 <button class="enableEthereumButton">Enable Ethereum</button>
 ```
 
-:::
-
-:::tab JavaScript
-
 ```javascript
 const ethereumButton = document.querySelector('.enableEthereumButton');
 
 ethereumButton.addEventListener('click', () => {
-  //Will Start the metamask extension
+  // Will Start the OneKey Browser Extension
   ethereum.request({ method: 'eth_requestAccounts' });
 });
 ```
-
-:::
-
-::::
 
 This promise-returning function resolves with an array of hex-prefixed ethereum addresses, which can be used as general account references when sending transactions.
 
@@ -120,22 +104,10 @@ const account = accounts[0];
 
 **Example:**
 
-```
-<EthAsyncConnectButton />
-```
-
-::::tabs :options="{ useUrlFragment: false }"
-
-:::tab HTML
-
 ```html
 <button class="enableEthereumButton">Enable Ethereum</button>
 <h2>Account: <span class="showAccount"></span></h2>
 ```
-
-:::
-
-:::tab JavaScript
 
 ```javascript
 const ethereumButton = document.querySelector('.enableEthereumButton');
@@ -151,10 +123,6 @@ async function getAccount() {
   showAccount.innerHTML = account;
 }
 ```
-
-:::
-
-::::
 
 ## Choosing a Convenience Library
 
