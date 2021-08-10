@@ -7,7 +7,7 @@ sidebar_position: 3
 ## 单词很难
 
 <p id ="agoctitecs_p">
-  这是使用MetaMask界面时可能遇到的术语的列表。
+  这是使用OneKey界面时可能遇到的术语的列表。
 </p>
 
 #### [您也可以用西班牙语阅读](https://github.com/faraggi/words-are-hard-es/blob/master/words-are-hard-es.md)，感谢[faraggi](https://github.com/faraggi)
@@ -19,7 +19,7 @@ sidebar_position: 3
 <ul>
   <li id ="wallet_l1">您用来管理帐户的界面/客户端/包装器/所有者。</li>
 
-  <li id ="wallet_l2">示例：MetaMask.io，您的Ledger硬件钱包，Multisig钱包合同。</li>
+  <li id ="wallet_l2">示例：OneKey.So，您的 OneKey 硬件钱包，Multisig钱包合同。</li>
 </ul>
 
 ### 帐户
@@ -101,7 +101,7 @@ sidebar_position: 3
     一个(通常)12或24个单词的短语，使您可以访问无限数量的帐户。
   </li>
   <li id ="mphrase_l3">
-    由Ledger，TREZOR，MetaMask，Jaxx等使用。
+    由Ledger，TREZOR，OneKey，Jaxx等使用。
   </li>
   <li id ="mphrase_l4">
     源自<a href='https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki' target='_blank'> BIP 39规范</a>。

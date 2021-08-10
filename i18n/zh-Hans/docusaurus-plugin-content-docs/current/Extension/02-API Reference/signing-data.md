@@ -4,22 +4,22 @@ sidebar_position: 4
 
 ＃签署数据
 
-由于MetaMask使每个用户都可以使用加密密钥，因此网站可以将这些签名用于多种用途。以下是与特定用例相关的一些指南：
+由于OneKey使每个用户都可以使用加密密钥，因此网站可以将这些签名用于多种用途。以下是与特定用例相关的一些指南：
 
 -[认证网站](https://medium.com/hackernoon/writing-for-blockchain-wallet-signature-request-messages-6ede721160d5)
 -从我们的[MetaTransaction Hackathon]中为链上协议签署链下消息的一些示例(https://medium.com/metamask/our-metatransaction-hackathon-winner-a620551ccb9b)
 
-## 使用MetaMask签名数据
+## 使用OneKey签名数据
 
 如果您想跳到一些有效的签名示例，请[可以访问此存储库](https://github.com/danfinlay/js-eth-personal-sign-examples)。
 
-如果您想阅读我们对这些方法的JavaScript实现，则可以在npm软件包[eth-sig-util](https://github.com/MetaMask/eth-sig-util)中找到它们。
+如果您想阅读我们对这些方法的JavaScript实现，则可以在npm软件包[eth-sig-util](https://github.com/OneKey/eth-sig-util)中找到它们。
 
-请注意，MetaMask支持使用Trezor和Ledger硬件钱包进行签名交易。这些硬件钱包目前仅支持使用“ personal_sign”方法签名的数据。如果在使用Ledger或Trezor时登录网站或dapp时遇到问题，则该站点可能会要求您通过不支持的方法对数据进行签名，在这种情况下，我们建议您使用标准的MetaMask帐户。
+请注意，OneKey支持使用Trezor和Ledger硬件钱包进行签名交易。这些硬件钱包目前仅支持使用“ personal_sign”方法签名的数据。如果在使用Ledger或Trezor时登录网站或dapp时遇到问题，则该站点可能会要求您通过不支持的方法对数据进行签名，在这种情况下，我们建议您使用标准的OneKey帐户。
 
 ## 一个简短的历史
 
-MetaMask当前有六种签名方法，您可能想知道这些方法的历史。对这些方法的历史进行研究对于分散式标准出现的新兴教训具有一定的借鉴意义。我们目前的五种方法是：
+OneKey当前有六种签名方法，您可能想知道这些方法的历史。对这些方法的历史进行研究对于分散式标准出现的新兴教训具有一定的借鉴意义。我们目前的五种方法是：
 
 -`eth_sign`
 -`personal_sign`
@@ -28,7 +28,7 @@ MetaMask当前有六种签名方法，您可能想知道这些方法的历史。
 -`signTypedData_v3`
 -`signTypedData_v4`
 
-随着时间的流逝，可能还会有更多。当MetaMask首次启动时，提供程序API的设计初衷并不是要暴露给不受信任的网站，因此，一些注意事项并未像后来那样被重视。
+随着时间的流逝，可能还会有更多。当OneKey首次启动时，提供程序API的设计初衷并不是要暴露给不受信任的网站，因此，一些注意事项并未像后来那样被重视。
 
 特别地，方法eth_sign是一种开放式签名方法，它允许对任意哈希进行签名，这意味着它可用于对交易或任何其他数据进行签名，从而使其具有危险的网络钓鱼风险。
 
@@ -109,7 +109,7 @@ verifyingContract：这是额外的保证层。即使两个开发人员最终使
 
 `message`：完全开放给您想要的结构。每个字段都是可选的。
 
-以下是使用MetaMask对输入的数据进行签名的示例。参考[这里](https://github.com/danfinlay/js-eth-personal-sign-examples)
+以下是使用OneKey对输入的数据进行签名的示例。参考[这里](https://github.com/danfinlay/js-eth-personal-sign-examples)
 
 ### 例子
 

@@ -4,9 +4,9 @@ sidebar_position: 4
 
 # 入职图书馆
 
-作为支持以太坊的站点开发人员，让用户离开现场安装MetaMask带来了挑战。最值得注意的是，您必须在安装后通知用户返回您的站点并刷新其浏览器。您的站点只有在刷新后才能检测到用户的新安装的MetaMask扩展。 MetaMask的我们深切关注用户体验，并且我们知道需要改进此工作流程。
+作为支持以太坊的站点开发人员，让用户离开现场安装OneKey带来了挑战。最值得注意的是，您必须在安装后通知用户返回您的站点并刷新其浏览器。您的站点只有在刷新后才能检测到用户的新安装的OneKey扩展。 OneKey的我们深切关注用户体验，并且我们知道需要改进此工作流程。
 
-MetaMask现在提供了一个[metamask-onboarding库](https://github.com/MetaMask/metamask-onboarding)，旨在改善和简化入门体验。新的库公开了一个API，以启动入职过程。在此过程中，它将您的站点注册为入职请求的来源。用户完成入职流程后，MetaMask将检查此来源。如果找到原点，则MetaMask入职流程的最终确认按钮将指示该用户将被重定向回您的站点。
+OneKey现在提供了一个[metamask-onboarding库](https://github.com/OneKey/metamask-onboarding)，旨在改善和简化入门体验。新的库公开了一个API，以启动入职过程。在此过程中，它将您的站点注册为入职请求的来源。用户完成入职流程后，OneKey将检查此来源。如果找到原点，则OneKey入职流程的最终确认按钮将指示该用户将被重定向回您的站点。
 
 ## 入门
 
@@ -15,9 +15,9 @@ MetaMask现在提供了一个[metamask-onboarding库](https://github.com/MetaMas
 
 ```javascript
 // As an ES6 module
-import MetaMaskOnboarding from '@onekey/onboarding';
+import OneKeyOnboarding from '@onekey/onboarding';
 // Or as an ES5 module
-const MetaMaskOnboarding = require('@onekey/onboarding');
+const OneKeyOnboarding = require('@onekey/onboarding');
 ```
 
 If you'd prefer you can instead include the prebuilt ES5 bundle that ships with the library:
@@ -29,7 +29,7 @@ If you'd prefer you can instead include the prebuilt ES5 bundle that ships with 
 3. Create a new instance of the Onboarding library
 
 ```javascript
-const onboarding = new MetaMaskOnboarding();
+const onboarding = new OneKeyOnboarding();
 ```
 
 4. Start the onboarding process in response to a user event (e.g. a button click).
@@ -43,17 +43,17 @@ onboarding.startOnboarding();
 ### Basic Usage
 
 ```javascript
-const onboarding = new MetaMaskOnboarding();
+const onboarding = new OneKeyOnboarding();
 onboarding.startOnboarding();
 ```
 
 ### Using React
 
 ```jsx
-import MetaMaskOnboarding from '@onekey/onboarding';
+import OneKeyOnboarding from '@onekey/onboarding';
 import React from 'react';
 
-const ONBOARD_TEXT = 'Click here to install MetaMask!';
+const ONBOARD_TEXT = 'Click here to install OneKey!';
 const CONNECT_TEXT = 'Connect';
 const CONNECTED_TEXT = 'Connected';
 
@@ -65,12 +65,12 @@ export function OnboardingButton() {
 
   React.useEffect(() => {
     if (!onboarding.current) {
-      onboarding.current = new MetaMaskOnboarding();
+      onboarding.current = new OneKeyOnboarding();
     }
   }, []);
 
   React.useEffect(() => {
-    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+    if (OneKeyOnboarding.isOneKeyInstalled()) {
       if (accounts.length > 0) {
         setButtonText(CONNECTED_TEXT);
         setDisabled(true);
@@ -86,7 +86,7 @@ export function OnboardingButton() {
     function handleNewAccounts(newAccounts) {
       setAccounts(newAccounts);
     }
-    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+    if (OneKeyOnboarding.isOneKeyInstalled()) {
       window.ethereum
         .request({ method: 'eth_requestAccounts' })
         .then(handleNewAccounts);
@@ -98,7 +98,7 @@ export function OnboardingButton() {
   }, []);
 
   const onClick = () => {
-    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+    if (OneKeyOnboarding.isOneKeyInstalled()) {
       window.ethereum
         .request({ method: 'eth_requestAccounts' })
         .then((newAccounts) => setAccounts(newAccounts));
@@ -120,7 +120,7 @@ We ship our TypeScript types with `@onekey/onboarding`. Modifying the above exam
 
 ```jsx
   -const onboarding = React.useRef();
-  +const onboarding = React.useRef<MetaMaskOnboarding>();
+  +const onboarding = React.useRef<OneKeyOnboarding>();
 ```
 
 Doing this step will give you editor auto-completion for the methods exposed by the library, and helpful documentation.
@@ -133,7 +133,7 @@ Doing this step will give you editor auto-completion for the methods exposed by 
 <!DOCTYPE html>
 <html lang="en-CA">
   <head>
-    <title>MetaMask Onboarding Example</title>
+    <title>OneKey Onboarding Example</title>
     <meta charset="UTF-8" />
   </head>
   <body>
@@ -142,13 +142,13 @@ Doing this step will give you editor auto-completion for the methods exposed by 
     <script src="./metamask-onboarding.bundle.js"></script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
-        const onboarding = new MetaMaskOnboarding();
+        const onboarding = new OneKeyOnboarding();
         const onboardButton = document.getElementById('onboard');
         let accounts;
 
         const updateButton = () => {
-          if (!MetaMaskOnboarding.isMetaMaskInstalled()) {
-            onboardButton.innerText = 'Click here to install MetaMask!';
+          if (!OneKeyOnboarding.isOneKeyInstalled()) {
+            onboardButton.innerText = 'Click here to install OneKey!';
             onboardButton.onclick = () => {
               onboardButton.innerText = 'Onboarding in progress';
               onboardButton.disabled = true;
@@ -169,7 +169,7 @@ Doing this step will give you editor auto-completion for the methods exposed by 
         };
 
         updateButton();
-        if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+        if (OneKeyOnboarding.isOneKeyInstalled()) {
           window.ethereum.on('accountsChanged', (newAccounts) => {
             accounts = newAccounts;
             updateButton();

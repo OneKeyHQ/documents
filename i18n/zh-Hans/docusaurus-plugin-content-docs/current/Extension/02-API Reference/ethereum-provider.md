@@ -13,7 +13,7 @@ sidebar_position: 1
 有关更多详细信息，请参见我们的[迁移指南](./provider-migration.html)。
 :::
 
-MetaMask将全局API注入其用户在“ window.ethereum”访问的网站中。
+OneKey将全局API注入其用户在“ window.ethereum”访问的网站中。
 该API允许网站请求用户的以太坊帐户，从用户连接的区块链中读取数据，并建议用户签署消息和交易。
 提供者对象的存在指示以太坊用户。
 我们建议在任何平台或浏览器上使用[`@onekey/detect-provider`](https://npmjs.com/package/@onekey/detect-provider) 检测我们的提供商。
@@ -31,7 +31,7 @@ if (provider) {
   // provider === window.ethereum
   startApp(provider); // initialize your app
 } else {
-  console.log('Please install MetaMask!');
+  console.log('Please install OneKey!');
 }
 ```
 
@@ -57,7 +57,7 @@ if (provider) {
 
 ## 链ID
 
-这些是默认情况下MetaMask支持的以太坊链的ID。
+这些是默认情况下OneKey支持的以太坊链的ID。
 有关更多信息，请咨询[chainid.network](https://chainid.network).
 
 | Hex  | Decimal | Network                         |
@@ -73,13 +73,13 @@ if (provider) {
 
 ## 特性
 
-### ethereum.isMetaMask
+### ethereum.isOneKey
 
 :::警告注意
-此属性是非标准的。非MetaMask提供者也可以将此属性设置为“ true”。
+此属性是非标准的。非OneKey提供者也可以将此属性设置为“ true”。
 :::
 
-如果用户已安装MetaMask，则为true。
+如果用户已安装OneKey，则为true。
 
 ## 方法
 
@@ -112,7 +112,7 @@ interface RequestArguments {
 ethereum.request(args: RequestArguments): Promise<unknown>;
 ```
 
-使用`request`通过MetaMask将RPC请求提交给以太坊。
+使用`request`通过OneKey将RPC请求提交给以太坊。
 它返回一个Promise，解析为RPC方法调用的结果。
 
 参数和返回值将因RPC方法而异。
@@ -120,9 +120,9 @@ ethereum.request(args: RequestArguments): Promise<unknown>;
 
 如果请求由于任何原因而失败，则Promise将拒绝并返回[以太坊RPC错误](#errors)。
 
-除了许多可能不支持的方法外，MetaMask还支持大多数标准化的以太坊RPC方法。
+除了许多可能不支持的方法外，OneKey还支持大多数标准化的以太坊RPC方法。
 其他钱包支持。
-有关详细信息，请参见MetaMask [RPC API documentation](./rpc-api.html) 。
+有关详细信息，请参见OneKey [RPC API documentation](./rpc-api.html) 。
 
 #### 示例
 
@@ -155,7 +155,7 @@ ethereum
 
 ## 事件
 
-MetaMask提供程序实现了[Node.js `EventEmitter`](https://nodejs.org/api/events.html) API。
+OneKey提供程序实现了[Node.js `EventEmitter`](https://nodejs.org/api/events.html) API。
 本节详细介绍了通过该API发出的事件。
 在其他地方有无数的`EventEmitter`指南，但是您可以监听这样的事件：
 
@@ -183,7 +183,7 @@ interface ConnectInfo {
 ethereum.on('connect', handler: (connectInfo: ConnectInfo) => void);
 ```
 
-当MetaMask提供程序首次能够将RPC请求提交到链时，它将发出此事件。
+当OneKey提供程序首次能够将RPC请求提交到链时，它将发出此事件。
 我们建议使用connect事件处理程序和[ethereum.isConnected()方法](＃ethereum-isconnected)，以确定何时/是否连接了提供程序。
 
 ### 断开连接
@@ -192,7 +192,7 @@ ethereum.on('connect', handler: (connectInfo: ConnectInfo) => void);
 ethereum.on('disconnect', handler: (error: ProviderRpcError) => void);
 ```
 
-如果MetaMask提供程序无法将RPC请求提交到任何链，它将发出此事件。
+如果OneKey提供程序无法将RPC请求提交到任何链，它将发出此事件。
 通常，这只会由于网络连接问题或某些无法预料的错误而发生。
 
 一旦发出“ disconnect”，在重新建立与链的连接之前，提供者将不接受任何新请求，这需要重新加载页面。
@@ -204,7 +204,7 @@ ethereum.on('disconnect', handler: (error: ProviderRpcError) => void);
 ethereum.on('accountsChanged', handler: (accounts: Array<string>) => void);
 ```
 
-每当`eth_accounts` RPC方法的返回值更改时，MetaMask提供程序都会发出此事件。
+每当`eth_accounts` RPC方法的返回值更改时，OneKey提供程序都会发出此事件。
 eth_accounts返回一个为空或包含单个帐户地址的数组。
 返回的地址(如果有)是允许呼叫者访问的最近使用的帐户的地址。
 呼叫者通过其URL _origin_进行标识，这意味着所有具有相同来源的站点都共享相同的权限。
@@ -218,14 +218,14 @@ eth_accounts返回一个为空或包含单个帐户地址的数组。
 ### chainChanged
 
 :::tip 提示
-有关MetaMask的默认链及其链ID，请参见[链ID部分](#chain-ids)。
+有关OneKey的默认链及其链ID，请参见[链ID部分](#chain-ids)。
 :::
 
 ```typescript
 ethereum.on('chainChanged', handler: (chainId: string) => void);
 ```
 
-当前连接的链发生更改时，MetaMask提供程序将发出此事件。
+当前连接的链发生更改时，OneKey提供程序将发出此事件。
 
 所有RPC请求都将提交到当前连接的链。
 因此，通过侦听此事件来跟踪当前链ID是至关重要的。
@@ -247,7 +247,7 @@ interface ProviderMessage {
 ethereum.on('message', handler: (message: ProviderMessage) => void);
 ```
 
-当MetaMask提供程序收到一些应通知消费者的消息时，它将发出此事件。
+当OneKey提供程序收到一些应通知消费者的消息时，它将发出此事件。
 消息的类型由`type`字符串标识。
 
 RPC订阅更新是`message`事件的常见用例。
@@ -255,7 +255,7 @@ RPC订阅更新是`message`事件的常见用例。
 
 ## 错误
 
-MetaMask提供程序引发或返回的所有错误均遵循以下界面：
+OneKey提供程序引发或返回的所有错误均遵循以下界面：
 
 ```typescript
 interface ProviderRpcError extends Error {
@@ -279,7 +279,7 @@ interface ProviderRpcError extends Error {
 有关错误的完整列表，请参阅[EIP-1193](https://eips.ethereum.org/EIPS/eip-1193#provider-errors) 和[EIP-1474](https：//eips.ethereum。 org/EIPS/eip-1474＃error-codes)。
 
 :::tip 提示
-[`eth-rpc-errors`](https://npmjs.com/package/eth-rpc-errors) 包实现了MetaMask提供程序抛出的所有RPC错误，并可以帮助您确定其含义。
+[`eth-rpc-errors`](https://npmjs.com/package/eth-rpc-errors) 包实现了OneKey提供程序抛出的所有RPC错误，并可以帮助您确定其含义。
 :::
 
 ## 使用提供者
@@ -299,7 +299,7 @@ interface ProviderRpcError extends Error {
 需要您自担风险使用它。
 :::
 
-我们在`ethereum._metamask`属性下公开了一些MetaMask特定的实验方法。
+我们在`ethereum._metamask`属性下公开了一些OneKey特定的实验方法。
 
 ## 实验方法
 
@@ -309,8 +309,8 @@ interface ProviderRpcError extends Error {
 ethereum._metamask.isUnlocked(): Promise<boolean>;
 ```
 
-该方法返回一个Promise，该Promise解析为一个布尔值，指示用户是否已解锁MetaMask。
-必须解锁MetaMask才能执行涉及用户帐户的任何操作。
+该方法返回一个Promise，该Promise解析为一个布尔值，指示用户是否已解锁OneKey。
+必须解锁OneKey才能执行涉及用户帐户的任何操作。
 请注意，此方法不指示用户是否向呼叫者公开了任何帐户。
 
 ##旧版API
@@ -320,7 +320,7 @@ ethereum._metamask.isUnlocked(): Promise<boolean>;
 :::
 
 本部分记录了我们的旧版提供程序API。
-在2020年通过[EIP-1193](https://eips.ethereum.org/EIPS/eip-1193)对提供商API进行标准化之前，MetaMask仅支持此API。
+在2020年通过[EIP-1193](https://eips.ethereum.org/EIPS/eip-1193)对提供商API进行标准化之前，OneKey仅支持此API。
 因此，您可能会发现使用此API的web3站点，或其他实现此API的提供程序。
 
 ##旧版属性

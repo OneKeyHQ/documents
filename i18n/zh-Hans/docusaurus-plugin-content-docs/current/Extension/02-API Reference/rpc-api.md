@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # RPC API
 
-MetaMask使用[`ethereum.request(args)`方法](./ethereum-provider.html＃ethereum-request-args)包装RPC API。
+OneKey使用[`ethereum.request(args)`方法](./ethereum-provider.html＃ethereum-request-args)包装RPC API。
 
 该API基于所有以太坊客户端公开的接口，以及越来越多的其他钱包可能支持或可能不支持的方法。
 
@@ -31,7 +31,7 @@ MetaMask使用[`ethereum.request(args)`方法](./ethereum-provider.html＃ethere
 
 ## 权限
 
-MetaMask通过[EIP-2255](https://eips.ethereum.org/EIPS/eip-2255)引入了Web3电子钱包权限。
+OneKey通过[EIP-2255](https://eips.ethereum.org/EIPS/eip-2255)引入了Web3电子钱包权限。
 在此权限系统中，每个RPC方法都是_restricted_或_open_。
 如果方法受到限制，则外部_domain_(例如Web3站点)必须具有相应的权限才能调用它。
 同时，开放方法不需要调用权限，但可能需要用户确认才能成功(例如eth_sendTransaction)。
@@ -39,7 +39,7 @@ MetaMask通过[EIP-2255](https://eips.ethereum.org/EIPS/eip-2255)引入了Web3�
 当前，唯一的权限是`eth_accounts`，它允许您访问用户的以太坊地址。
 将来会添加更多权限。
 
-在底层，权限是与JSON兼容的普通对象，具有许多字段，这些字段大多数由MetaMask在内部使用。
+在底层，权限是与JSON兼容的普通对象，具有许多字段，这些字段大多数由OneKey在内部使用。
 以下界面列出了消费者可能感兴趣的字段：
 
 ```typescript
@@ -52,7 +52,7 @@ interface Web3WalletPermission {
 }
 ```
 
-权限系统在[`rpc-cap`包](https://github.com/MetaMask/rpc-cap)中实现。
+权限系统在[`rpc-cap`包](https://github.com/OneKey/rpc-cap)中实现。
 如果您有兴趣了解有关此_capability_启发式权限系统背后的理论的更多信息，我们建议您查看[EIP-2255](https://eips.ethereum.org/EIPS/eip-2255)。
 
 ### eth_request帐户
@@ -75,7 +75,7 @@ string []-单个十六进制以太坊地址字符串的数组。
 返回一个Promise，它解析为单个以太坊地址字符串的数组。
 如果用户拒绝该请求，则Promise将拒绝并显示“ 4001”错误。
 
-该请求将导致出现一个MetaMask弹出窗口。
+该请求将导致出现一个OneKey弹出窗口。
 您只应响应用户的操作(例如单击按钮)来请求用户的帐户。
 在请求仍处于挂起状态时，应始终禁用导致调度请求的按钮。
 
@@ -93,7 +93,7 @@ function connect() {
     .catch((error) => {
       if (error.code === 4001) {
         // EIP-1193 userRejectedRequest error
-        console.log('Please connect to MetaMask.');
+        console.log('Please connect to OneKey.');
       } else {
         console.error(error);
       }
@@ -104,7 +104,7 @@ function connect() {
 ### wallet_getPermissions
 
 ::: tip平台可用性
-此RPC方法在MetaMask Mobile中尚不可用。
+此RPC方法在OneKey Mobile中尚不可用。
 :::
 
 #### 返回
@@ -120,7 +120,7 @@ Web3WalletPermission []-调用方权限的数组。
 ### wallet_requestPermissions
 
 ::: tip平台可用性
-此RPC方法在MetaMask Mobile中尚不可用。
+此RPC方法在OneKey Mobile中尚不可用。
 :::
 
 #### 参数
@@ -145,7 +145,7 @@ Web3WalletPermission []-调用方权限的数组。
 返回一个Promise，该Promise解析为`Web3WalletPermission`对象的非空数组，对应于调用者的当前权限。
 如果用户拒绝该请求，则Promise将拒绝并显示“ 4001”错误。
 
-该请求将导致出现一个MetaMask弹出窗口。
+该请求将导致出现一个OneKey弹出窗口。
 您仅应请求权限来响应用户操作，例如单击按钮。
 
 #### 例子
@@ -183,7 +183,7 @@ function requestPermissions() {
 ### eth_decrypt
 
 ::: tip平台可用性
-此RPC方法在MetaMask Mobile中尚不可用。
+此RPC方法在OneKey Mobile中尚不可用。
 :::
 
 #### 参数
@@ -199,7 +199,7 @@ function requestPermissions() {
 
 #### 描述
 
-请求MetaMask解密给定的加密消息。
+请求OneKey解密给定的加密消息。
 必须使用给定以太坊地址的公共加密密钥对消息进行加密。
 返回一个解析为已解密消息的Promise，如果解密尝试失败，则拒绝该Promise。
 
@@ -222,7 +222,7 @@ ethereum
 ### eth_getEncryptionPublicKey
 
 ::: tip平台可用性
-此RPC方法在MetaMask Mobile中尚不可用。
+此RPC方法在OneKey Mobile中尚不可用。
 :::
 
 #### 参数
@@ -268,7 +268,7 @@ ethereum
 #### Encrypting
 
 The point of the encryption key is of course to encrypt things.
-Here's an example of how to encrypt a message using [`eth-sig-util`](https://github.com/MetaMask/eth-sig-util):
+Here's an example of how to encrypt a message using [`eth-sig-util`](https://github.com/OneKey/eth-sig-util):
 
 ```javascript
 const ethUtil = require('ethereumjs-util');
@@ -297,7 +297,7 @@ This method is specified by [EIP-3085](https://eips.ethereum.org/EIPS/eip-3085).
 
 - `Array`
 
-  0. `AddEthereumChainParameter` - Metadata about the chain that will be added to MetaMask.
+  0. `AddEthereumChainParameter` - Metadata about the chain that will be added to OneKey.
 
 For the `rpcUrls` and `blockExplorerUrls` arrays, at least one element is required, and only the first element will be used.
 
@@ -322,21 +322,21 @@ interface AddEthereumChainParameter {
 
 #### Description
 
-创建一个确认，要求用户将指定的链添加到MetaMask。
+创建一个确认，要求用户将指定的链添加到OneKey。
 一旦添加了链，用户可以选择切换到链。
 
 与导致确认出现的任何方法一样，`wallet_addEthereumChain`
 应该仅由于直接用户操作(例如单击按钮)而被调用。
 
-MetaMask严格验证此方法的参数，并将拒绝该请求
+OneKey严格验证此方法的参数，并将拒绝该请求
 如果任何参数格式错误。
-此外，在以下情况下，MetaMask将拒绝该请求：
+此外，在以下情况下，OneKey将拒绝该请求：
 
 -如果RPC端点不响应RPC调用。
 -如果在调用`eth_chainId`时RPC端点返回了不同的链ID。
--如果链ID对应于任何默认的MetaMask链。
+-如果链ID对应于任何默认的OneKey链。
 
-MetaMask尚不支持使用不带18个小数位的本国货币的链，
+OneKey尚不支持使用不带18个小数位的本国货币的链，
 但将来可能会这样做。
 
 ### wallet_registerOnboarding
@@ -352,14 +352,14 @@ Please see the [Onboarding Library documentation](./onboarding-library.html) for
 
 #### Description
 
-将请求站点注册为MetaMask作为入职发起者。
+将请求站点注册为OneKey作为入职发起者。
 返回解析为true的Promise，如果有错误，则拒绝。
 
-此方法旨在在安装MetaMask之后但未完成MetaMask入门之前调用。
-您可以使用此方法通知MetaMask您是建议安装MetaMask的人。
-这样，在入职完成后，MetaMask会将用户重定向到您的站点。
+此方法旨在在安装OneKey之后但未完成OneKey入门之前调用。
+您可以使用此方法通知OneKey您是建议安装OneKey的人。
+这样，在入职完成后，OneKey会将用户重定向到您的站点。
 
-而不是直接调用此方法，您应该使用[`@onekey/onboarding` library](https://github.com/MetaMask/metamask-onboarding).
+而不是直接调用此方法，您应该使用[`@onekey/onboarding` library](https://github.com/OneKey/metamask-onboarding).
 
 ### wallet_watchAsset
 
@@ -379,7 +379,7 @@ This method is specified by [EIP-747](https://eips.ethereum.org/EIPS/eip-747).
 
 #### Description
 
-请求用户在MetaMask中跟踪令牌。
+请求用户在OneKey中跟踪令牌。
 返回一个“布尔值”，指示是否成功添加了令牌。
 
 大多数以太坊钱包都支持某些令牌集，通常是从中央策划的令牌注册表中获取的。
@@ -435,7 +435,7 @@ ethereum.request({
 
 如果两个条件都不满足，则Promise将拒绝并显示错误。
 
-MetaMask之前根据建议的[EIP-945](https://github.com/ethereum/EIPs/issues/945) 引入了此功能。
+OneKey之前根据建议的[EIP-945](https://github.com/ethereum/EIPs/issues/945) 引入了此功能。
 在将该功能重新引入此RPC方法之前，该功能已被暂时删除。
 
 #### Example
