@@ -46,16 +46,18 @@ if (provider) {
 
 这些是默认情况下 OneKey 浏览器插件支持的 EVM 链的 ID，有关更多信息，请查阅 [chainid.network](https://chainid.network)。
 
-| 十六进制  | 十进制 | 网络                         |
-| ---- | ------- | ------------------------------- |
-| 0x1  | 1       | Ethereum 以太坊主网 (Mainnet) |
-| 0x38 | 56      | BSC 币安智能链主网              |
-| 0x3  | 3       | Ropsten Test Network            |
-| 0x4  | 4       | Rinkeby Test Network            |
-| 0x5  | 5       | Goerli Test Network             |
-| 0x2a | 42      | Kovan Test Network              |
-| 0x80 | 128     | Kovan Test Network              |
-| 0x89 | 137     | Kovan Test Network              |
+| 十六进制  | 十进制 | 网络                      |
+| ---- | ------- | -------------------------- |
+| 0x1  | 1       | Ethereum 以太坊主网          |
+| 0x38 | 56      | BSC 币安智能链主网           |
+| 0x80 | 128     | HECO 火币生态链主网            |
+| 0x41 | 65      | OEC 欧易交易链主网              |
+| 0x89 | 137     | Polygon 主网              |
+| 0xfa | 250     | Fantom 主网              |
+| 0x64 | 100     | xDai 主网              |
+| 0x3  | 3       | Ropsten 测试网             |
+| 0x2a | 42      | kovan 测试网              |
+| 0x4  | 4       | Rinkeby 测试网            |
 
 ## 方法
 
