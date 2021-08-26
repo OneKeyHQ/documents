@@ -21,6 +21,7 @@ if (window.ethereum && window.ethereum.switchProvider) {
   window.ethereum.switchProvider('metamask');
 }
 // After the switchProvider is executed, the subsequent operation window.ethereum must be the metamask injected into the page
+```
 
 ## Other options
 
