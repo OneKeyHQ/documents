@@ -56,15 +56,13 @@ Consult [chainid.network](https://chainid.network) for more.
 | 0x1  | 1       | Ethereum Main Network (Mainnet) |
 | 0x38 | 56      | Binance Smart Chain (Mainnet)   |
 | 0x80 | 128     | Huobi Eco Chain (Mainnet)       |
+| 0x41 | 65      | OEC Mainnet                 |
 | 0x89 | 137     | Matic (Polygon)                 |
-| 0x1  | 1       | Ethereum Main Network (Mainnet) |
-| 0x1  | 1       | Ethereum Main Network (Mainnet) |
-| 0x1  | 1       | Ethereum Main Network (Mainnet) |
-| 0x3  | 3       | Ropsten Test Network            |
-| 0x4  | 4       | Rinkeby Test Network            |
-| 0x5  | 5       | Goerli Test Network             |
-| 0x2a | 42      | Kovan Test Network              |
-
+| 0xfa | 250     | Fantom Main Network              |
+| 0x64 | 100     | xDai Main Network              |
+| 0x3  | 3       | Ropsten Testnet             |
+| 0x2a | 42      | kovan Testnet              |
+| 0x4  | 4       | Rinkeby Testnet            |
 
 ## Properties
 
