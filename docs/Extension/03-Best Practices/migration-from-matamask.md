@@ -4,16 +4,23 @@ sidebar_position: 4
 
 # Migration from MetaMask
 
-If there is already a Dapp Web Application compatible with the latest MetaMask before, it will be very easy to be compatible with the OneKey browser Extension.
+If there is already a Dapp Web Application compatible with the latest MetaMask (Metamask v8 or later) before, it will be very easy to be compatible with the OneKey browser Extension.
 
-The latest MetaMask will inject the `window.ethereum` object to make the page manipulate the user's account in the metamask and obtain configuration information. Similarly, while `window.onekey` maintains a large number of APIs compatible with `window.ethereum`, it also injects `window.ethereum` to ensure the compatibility of other Dapps with OneKey browser Extension. Users can manually turn on "Alternative MetaMask" in OneKey browser Extension v2.0.1 or later to prevent possible conflicts during co-installation with MetaMask.
+The latest MetaMask will inject the `window.ethereum` object to make the page manipulate the user's account in the metamask and obtain configuration information. Similarly, while `window.onekey` maintains a large number of APIs compatible with `window.ethereum`, and OneKey Browser Extension also injects `window.ethereum` to ensure the compatibility of other Dapps. Users can manually turn on "Alternative MetaMask" in OneKey browser Extension v2.0.1 or later to prevent possible conflicts during co-installation with MetaMask.
 
 ## Best Practices
 
 It is recommended that Dapp developers completely distinguish the two objects of `window.onekey` and `window.ethereum` when calling internal methods, namely:
 
 - If you want the logic triggered by the OneKey browser Extension will completely use `window.onekey` for subsequent operations.
-- If you want the logic triggered by the MetaMask browser Extension will completely use `window.ethereum` for subsequent operations.
+- If you want the logic triggered by the MetaMask browser Extension will completely use `window.ethereum` for subsequent operations.At the same time, through the following JS code, you can ensure that the user wakes up MetaMask.
+
+```js
+// If you want to operate the methods and logic of MetaMask related providers
+if (window.ethereum && window.ethereum.switchProvider) {
+  window.ethereum.switchProvider('metamask');
+}
+// After the switchProvider is executed, the subsequent operation window.ethereum must be the metamask injected into the page
 
 ## Other options
 
