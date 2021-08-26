@@ -1,0 +1,137 @@
+---
+hide_table_of_contents: true
+draft: true
+---
+
+import Playground from '@src/components/playground';
+
+（在 OneKey Pro 上支持）
+
+## Binance：获取地址
+
+用 [BIP44 路径](./path) 查询派生的地址，用户会在 OneKey 上弹出是否导出的权限提示。
+
+ES6
+
+```javascript
+const result = await OneKeyConnect.binanceGetAddress(params);
+```
+
+CommonJS
+
+```javascript
+OneKeyConnect.binanceGetAddress(params).then(function (result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+#### 导出单个地址
+
+- `path` - *必填* `string | Array<number>` 的最小长度为 `5`。 [了解更多](./path)
+- `address` - *可选* `string` 用于验证的地址（请参阅下面的 `句柄按钮请求` 部分）
+- `showOnOneKey` - *可选* `boolean` 决定是否在设备上显示地址。默认设置为 `true`
+
+#### 导出多个地址
+
+- `bundle` - 一个有 `path` 和 `showOnOneKey` 字段对象的数组
+
+#### 处理按钮请求
+
+可以使用 `UI.ADDRESS_VALIDATION` 事件，该事件一旦在设备上显示地址就会触发。您可以处理此事件并在应用程序内部显示自定义 UI。
+
+如果满足以下任意条件，将不需要 Popup 弹出窗口：
+
+- 用户授予与 OneKey 通信的权限
+- 设备已通过 passphrase/pin 验证
+- 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+- 设置参数 `address`
+- 将参数 `showOnOneKey` 设置为 `true`（或完全不设置）
+- 应用程序仅请求一个地址
+
+### 例子
+
+显示第一个地址：
+
+```javascript
+OneKeyConnect.binanceGetAddress({
+  path: "m/44'/714'/0'/0/0",
+});
+```
+
+不在屏幕上显示，返回多个地址
+
+```javascript
+OneKeyConnect.binanceGetAddress({
+  bundle: [
+    { path: "m/44'/714'/0'/0/0", showOnOneKey: false }, // account 1, address 1
+    { path: "m/44'/714'/1'/0/1", showOnOneKey: false }, // account 2, address 2
+    { path: "m/44'/714'/2'/0/2", showOnOneKey: false }, // account 3, address 3
+  ],
+});
+```
+
+在你的应用里使用事件捕获，自定义 UI 逻辑
+
+```javascript
+import OneKeyConnect, { UI } from '@onekeyhq/connect';
+
+OneKeyConnect.on(UI.ADDRESS_VALIDATION, (data) => {
+  console.log('Handle button request', data.address, data.serializedPath);
+  // 在这里显示你应用自定义的 UI
+});
+
+const result = await OneKeyConnect.binanceGetAddress({
+  path: "m/44'/714'/0'/0/0",
+  address: 'bnb1afwh46v6nn30nkmugw5swdmsyjmlxslgjfugre',
+});
+// 别忘了在获取到结果后 隐藏你的自定义 UI
+```
+
+### 结果
+
+获取一个地址
+
+```javascript
+{
+    success: true,
+    payload: {
+        path: Array<number>, // hardended path
+        serializedPath: string,
+        address: string,
+    }
+}
+```
+
+使用 数组 获取多个地址
+
+```javascript
+{
+    success: true,
+    payload: [
+        { path: Array<number>, serializedPath: string, address: string }, // account 1, address 1
+        { path: Array<number>, serializedPath: string, address: string }, // account 2, address 2
+        { path: Array<number>, serializedPath: string, address: string }  // account 3, address 3
+    ]
+}
+```
+
+错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+  initValue={`OneKeyConnect.binanceGetAddress({
+    path: "m/44'/714'/0'/0/0"
+});`}
+/>

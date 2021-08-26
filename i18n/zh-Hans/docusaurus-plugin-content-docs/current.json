@@ -1,0 +1,26 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.ExtensionSidebar.category.Guide": {
+    "message": "介绍",
+    "description": "The label for category Guide in sidebar ExtensionSidebar"
+  },
+  "sidebar.ExtensionSidebar.category.API Reference": {
+    "message": "API 介绍",
+    "description": "The label for category API Reference in sidebar ExtensionSidebar"
+  },
+  "sidebar.ExtensionSidebar.category.Best Practices": {
+    "message": "最佳实践",
+    "description": "The label for category Best Practices in sidebar ExtensionSidebar"
+  },
+  "sidebar.ExtensionSidebar.category.Resources": {
+    "message": "其他资源",
+    "description": "The label for category Resources in sidebar ExtensionSidebar"
+  },
+  "sidebar.ConnectSidebar.category.Method List": {
+    "message": "方法列表",
+    "description": "The label for category Method List in sidebar ConnectSidebar"
+  }
+}

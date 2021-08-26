@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "OneKey",
+    "description": "The title in the navbar"
+  },
+  "item.label.Browser Extension (For Dapp Developer)": {
+    "message": "浏览器插件 (面向 Dapp 开发者)",
+    "description": "Navbar item with label Browser Extension (For Dapp Developer)"
+  },
+  "item.label.Connect (Hardware JavaScript SDK)": {
+    "message": "Connect (硬件 JavaScript SDK)",
+    "description": "Navbar item with label Connect (Hardware JavaScript SDK)"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

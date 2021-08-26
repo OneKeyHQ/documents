@@ -1,0 +1,94 @@
+{
+  "link.title.PRODUCT": {
+    "message": "产品",
+    "description": "The title of the footer links column with title=PRODUCT in the footer"
+  },
+  "link.title.RESOURCE": {
+    "message": "资源",
+    "description": "The title of the footer links column with title=RESOURCE in the footer"
+  },
+  "link.title.BUSINESS COOPERATION": {
+    "message": "商务合作",
+    "description": "The title of the footer links column with title=BUSINESS COOPERATION in the footer"
+  },
+  "link.title.CRYPTO ASSETS": {
+    "message": "加密资产",
+    "description": "The title of the footer links column with title=CRYPTO ASSETS in the footer"
+  },
+  "link.item.label.Mobile Wallet": {
+    "message": "移动 App",
+    "description": "The label of footer link with label=Mobile Wallet linking to https://onekey.so/download"
+  },
+  "link.item.label.Hardware Device": {
+    "message": "硬件设备",
+    "description": "The label of footer link with label=Hardware Device linking to https://onekey.so/hardware"
+  },
+  "link.item.label.Browser Extension": {
+    "message": "浏览器插件",
+    "description": "The label of footer link with label=Browser Extension linking to https://onekey.so/plugin"
+  },
+  "link.item.label.Team": {
+    "message": "团队",
+    "description": "The label of footer link with label=Team linking to https://onekey.so/team"
+  },
+  "link.item.label.System Status": {
+    "message": "系统状态",
+    "description": "The label of footer link with label=System Status linking to https://onekeyhq.github.io/upptime"
+  },
+  "link.item.label.Open Source Community": {
+    "message": "开源社区",
+    "description": "The label of footer link with label=Open Source Community linking to https://github.com/OneKeyHQ/OneKey-Wallet"
+  },
+  "link.item.label.Media Kits": {
+    "message": "媒体素材",
+    "description": "The label of footer link with label=Media Kits linking to https://help.onekey.so/hc/en-us/articles/360002200956"
+  },
+  "link.item.label.Privacy Agreement": {
+    "message": "隐私协议",
+    "description": "The label of footer link with label=Privacy Agreement linking to https://help.onekey.so/hc/en-us/articles/360002014776"
+  },
+  "link.item.label.User Agreement": {
+    "message": "用户协议",
+    "description": "The label of footer link with label=User Agreement linking to https://help.onekey.so/hc/en-us/articles/360002003315"
+  },
+  "link.item.label.Submit Dapp": {
+    "message": "提交 Dapp",
+    "description": "The label of footer link with label=Submit Dapp linking to https://jp.mikecrm.com/6lD8P5t"
+  },
+  "link.item.label.Submit Token": {
+    "message": "提交 Token",
+    "description": "The label of footer link with label=Submit Token linking to https://jp.mikecrm.com/J3Z4FMg"
+  },
+  "link.item.label.Venture Capital": {
+    "message": "风险投资",
+    "description": "The label of footer link with label=Venture Capital linking to https://onekey.so/ventures"
+  },
+  "link.item.label.Sales Alliance": {
+    "message": "销售联盟",
+    "description": "The label of footer link with label=Sales Alliance linking to https://help.onekey.so/hc/en-us/articles/360002658076"
+  },
+  "link.item.label.Advertising": {
+    "message": "广告投放",
+    "description": "The label of footer link with label=Advertising linking to https://help.onekey.so/hc/en-us/articles/360002658096"
+  },
+  "link.item.label.Investor Relations": {
+    "message": "投资者关系",
+    "description": "The label of footer link with label=Investor Relations linking to https://onekey.so/invest"
+  },
+  "link.item.label.Bitcoin (BTC)": {
+    "message": "Bitcoin (BTC)",
+    "description": "The label of footer link with label=Bitcoin (BTC) linking to https://onekey.so/coins/btc"
+  },
+  "link.item.label.Ethereum (ETH)": {
+    "message": "Ethereum (ETH)",
+    "description": "The label of footer link with label=Ethereum (ETH) linking to https://onekey.so/coins/eth"
+  },
+  "link.item.label.Litecoin (LTC)": {
+    "message": "Litecoin (LTC)",
+    "description": "The label of footer link with label=Litecoin (LTC) linking to https://onekey.so/coins/ltc"
+  },
+  "copyright": {
+    "message": "Copyright © 2021 OneKey, Inc. All rights reserved.",
+    "description": "The footer copyright"
+  }
+}
