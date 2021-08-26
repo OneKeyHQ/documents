@@ -11,7 +11,7 @@ To develop for OneKey Browser Extension, install it on your development machine.
 This guide assumes intermediate knowledge of HTML, CSS, and JavaScript.
 :::
 
-Once OneKey Browser Extension is installed and running, you should find that new browser tabs have a `window.ethereum` object available in the developer console.
+Once OneKey Browser Extension is installed and running, you should find that new browser tabs have a `window.onekey` object available in the developer console.
 This is how your website will interact with OneKey.
 
 You can review the full API for that object [here](/Extension/API%20Reference/ethereum-provider).
@@ -23,12 +23,12 @@ You can review the full API for that object [here](/Extension/API%20Reference/et
 To verify if the browser is running OneKey Browser Extension, copy and paste the code snippet below in the developer console of your web browser:
 
 ```javascript
-if (typeof window.ethereum !== 'undefined') {
+if (typeof window !== 'undefined' && window.onekey) {
   console.log('OneKey is installed!');
 }
 ```
 
-You can review the full API for the `window.ethereum` object [here](/Extension/API%20Reference/ethereum-provider).
+You can review the full API for the `window.onekey` object [here](/Extension/API%20Reference/onekey-provider).
 
 ### Running a Test Network
 
@@ -47,7 +47,7 @@ To clear OneKey Browser Extension's transaction queue, and effectively reset its
 
 ### Detecting OneKey
 
-If you want to differentiate OneKey Browser Extension from other ethereum-compatible browsers, you can detect OneKey Browser Extension using `ethereum.isOneKey`.
+If you want to differentiate OneKey Browser Extension from other ethereum-compatible browsers, you can detect OneKey Browser Extension using `window.onekey`.
 
 ### User State
 
@@ -56,8 +56,8 @@ Currently there are a few stateful things to consider when interacting with this
 - What is the current network?
 - What is the current account?
 
-Both of these are available synchronously as `ethereum.networkVersion` and `ethereum.selectedAddress`.
-You can listen for changes using events too, see ([the API reference](./ethereum-provider.html)).
+Both of these are available synchronously as `onekey.networkVersion` and `onekey.selectedAddress`.
+You can listen for changes using events too, see ([the API reference](./onekey-provider.html)).
 
 ### Connecting to OneKey
 
@@ -71,7 +71,7 @@ We recommend that you provide a button to allow the user to connect OneKey to yo
 Clicking this button should call the following method:
 
 ```javascript
-ethereum.request({ method: 'eth_requestAccounts' });
+onekey.request({ method: 'eth_requestAccounts' });
 ```
 
 **Example:**
@@ -85,7 +85,7 @@ const ethereumButton = document.querySelector('.enableEthereumButton');
 
 ethereumButton.addEventListener('click', () => {
   // Will Start the OneKey Browser Extension
-  ethereum.request({ method: 'eth_requestAccounts' });
+  onekey.request({ method: 'eth_requestAccounts' });
 });
 ```
 
@@ -96,7 +96,7 @@ Over time, this method is intended to grow to include various additional paramet
 Since it returns a promise, if you're in an `async` function, you may log in like this:
 
 ```javascript
-const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+const accounts = await onekey.request({ method: 'eth_requestAccounts' });
 const account = accounts[0];
 // We currently only ever provide a single account,
 // but the array gives us some room to grow.
@@ -118,7 +118,7 @@ ethereumButton.addEventListener('click', () => {
 });
 
 async function getAccount() {
-  const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  const accounts = await onekey.request({ method: 'eth_requestAccounts' });
   const account = accounts[0];
   showAccount.innerHTML = account;
 }

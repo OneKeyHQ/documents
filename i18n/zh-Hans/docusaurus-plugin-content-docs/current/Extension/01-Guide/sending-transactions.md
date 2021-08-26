@@ -10,7 +10,7 @@ sidebar_position: 6
 
 它们始终由区块链账户的签名来启动，也就是说任何一笔交易行为都需要账户密钥对中私钥的签名。
 
-在 OneKey 浏览器插件中，可以直接使用 `ethereum.request` 方法来唤醒并发送交易，同时构造类似这样的 `options` 对象：
+在 OneKey 浏览器插件中，可以直接使用 `onekey.request` 方法来唤醒并发送交易，同时构造类似这样的 `options` 对象：
 
 ```javascript
 const transactionParameters = {
@@ -18,14 +18,14 @@ const transactionParameters = {
   gasPrice: '0x09184e72a000', // 自定义 gas 费，会在确认时出现在弹窗中
   gas: '0x2710', // 自定义 gas 费，会在确认时出现在弹窗中
   to: '0x0000000000000000000000000000000000000000', // 发送到的账户地址，合约交易处理时可不填，普通交易必填
-  from: ethereum.selectedAddress, // 当前用户激活地址
+  from: onekey.selectedAddress, // 当前用户激活地址
   value: '0x00', // 发送代币的数量
   data: '0x7f7465737432000000000000000000000000000000000000000000000000000000600057', // 可选参数，但是初始化合约时需要此内容
   chainId: '0x3', // 目前此参数会由浏览器插件自动补全，但我们建议您操作时构造此参数
 };
 
 // txHash 是一个十六进制字符串，因为需要发送 RPC 请求，所以他有可能会失败并抛出错误
-const txHash = await ethereum.request({
+const txHash = await onekey.request({
   method: 'eth_sendTransaction',
   params: [transactionParameters],
 });
@@ -48,7 +48,7 @@ let accounts = [];
 
 // 发送 eth 到对应地址
 sendEthButton.addEventListener('click', () => {
-  ethereum
+  onekey
     .request({
       method: 'eth_sendTransaction',
       params: [
@@ -70,7 +70,7 @@ ethereumButton.addEventListener('click', () => {
 });
 
 async function getAccount() {
-  accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  accounts = await onekey.request({ method: 'eth_requestAccounts' });
 }
 ```
 

@@ -4,13 +4,13 @@ sidebar_position: 3
 
 # RPC API
 
-OneKey uses the [`ethereum.request(args)` method](./ethereum-provider.html#ethereum-request-args) to wrap an RPC API.
+OneKey uses the [`onekey.request(args)` method](./onekey-provider.html#onekey-request-args) to wrap an RPC API.
 
 The API is based on an interface exposed by all Ethereum clients, along with a growing number of methods that may or may not be supported by other wallets.
 
 :::tip Tip
 All RPC method requests can return errors.
-Make sure to handle errors for every call to `ethereum.request(args)`.
+Make sure to handle errors for every call to `onekey.request(args)`.
 :::
 
 ## Ethereum JSON-RPC Methods
@@ -55,7 +55,7 @@ If you're interested in learning more about the theory behind this _capability_-
 
 :::tip EIP-1102
 This method is specified by [EIP-1102](https://eips.ethereum.org/EIPS/eip-1102).
-It is equivalent to the deprecated [`ethereum.enable()`](./ethereum-provider.html#ethereum-enable) provider API method.
+It is equivalent to the deprecated [`onekey.enable()`](./onekey-provider.html#onekey-enable) provider API method.
 
 Under the hood, it calls [`wallet_requestPermissions`](#wallet-requestpermissions) for the `eth_accounts` permission.
 Since `eth_accounts` is currently the only permission, this method is all you need for now.
@@ -83,7 +83,7 @@ If you can't retrieve the user's account(s), you should encourage the user to in
 document.getElementById('connectButton', connect);
 
 function connect() {
-  ethereum
+  onekey
     .request({ method: 'eth_requestAccounts' })
     .then(handleAccountsChanged)
     .catch((error) => {
@@ -150,7 +150,7 @@ You should only request permissions in response to user action, such as a button
 document.getElementById('requestPermissionsButton', requestPermissions);
 
 function requestPermissions() {
-  ethereum
+  onekey
     .request({
       method: 'wallet_requestPermissions',
       params: [{ eth_accounts: {} }],
@@ -204,7 +204,7 @@ See [`eth_getEncryptionPublicKey`](#eth-getencryptionpublickey) for more informa
 #### Example
 
 ```javascript
-ethereum
+onekey
   .request({
     method: 'eth_decrypt',
     params: [encryptedMessage, accounts[0]],
@@ -243,7 +243,7 @@ The public key is computed from entropy associated with the specified user accou
 ```javascript
 let encryptionPublicKey;
 
-ethereum
+onekey
   .request({
     method: 'eth_getEncryptionPublicKey',
     params: [accounts[0]], // you must have access to the specified account
@@ -334,119 +334,3 @@ In addition, OneKey will reject the request under the following circumstances:
 
 OneKey does not yet support chains with native currencies that do not have 18 decimals,
 but may do so in the future.
-
-### wallet_registerOnboarding
-
-:::tip Tip
-As an API consumer, you are unlikely to have to call this method yourself.
-Please see the [Onboarding Library documentation](./onboarding-library.html) for more information.
-:::
-
-#### Returns
-
-`boolean` - `true` if the request was successful, `false` otherwise.
-
-#### Description
-
-Registers the requesting site with OneKey as the initiator of onboarding.
-Returns a Promise that resolves to `true`, or rejects if there's an error.
-
-This method is intended to be called after OneKey has been installed, but before the OneKey onboarding has completed.
-You can use this method to inform OneKey that you were the one that suggested installing OneKey.
-This lets OneKey redirect the user back to your site after onboarding has completed.
-
-Instead of calling this method directly, you should use the [`@onekey/onboarding` library](https://github.com/OneKeyhq/metamask-onboarding).
-
-### wallet_watchAsset
-
-:::tip EIP-747
-This method is specified by [EIP-747](https://eips.ethereum.org/EIPS/eip-747).
-:::
-
-#### Parameters
-
-- `WatchAssetParams` - The metadata of the asset to watch.
-
-<<< @/docs/snippets/WatchAssetParams.ts
-
-#### Returns
-
-`boolean` - `true` if the the token was added, `false` otherwise.
-
-#### Description
-
-Requests that the user tracks the token in OneKey.
-Returns a `boolean` indicating if the token was successfully added.
-
-Most Ethereum wallets support some set of tokens, usually from a centrally curated registry of tokens.
-`wallet_watchAsset` enables web3 application developers to ask their users to track tokens in their wallets, at runtime.
-Once added, the token is indistinguishable from those added via legacy methods, such as a centralized registry.
-
-#### Example
-
-```javascript
-ethereum.request({
-  method: 'wallet_watchAsset',
-  params: {
-    type: 'ERC20',
-    options: {
-      address: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
-      symbol: 'FOO',
-      decimals: 18,
-      image: 'https://foo.io/token-image.svg',
-    },
-  },
-});
-  .then((success) => {
-    if (success) {
-      console.log('FOO successfully added to wallet!')
-    } else {
-      throw new Error('Something went wrong.')
-    }
-  })
-  .catch(console.error)
-```
-
-## Mobile Specific RPC Methods
-
-### wallet_scanQRCode
-
-#### Parameters
-
-- `Array`
-
-  0. `string` - (optional) A regular expression for matching arbitrary QR code strings
-
-#### Returns
-
-`string` - The string corresponding to the scanned QR code.
-
-#### Description
-
-Requests that the user scans a QR code using their device camera.
-Returns a Promise that resolves to a string, matching either:
-
-1. The regex parameter, if provided
-2. An ethereum address, if no regex parameter was provided
-
-If neither condition is met, the Promise will reject with an error.
-
-OneKey previously introduced this feature per the proposed [EIP-945](https://github.com/ethereum/EIPs/issues/945).
-The functionality was temporarily removed before being reintroduced as this RPC method.
-
-#### Example
-
-```javascript
-ethereum
-  .request({
-    method: 'wallet_scanQRCode',
-    // The regex string must be valid input to the RegExp constructor, if provided
-    params: ['\\D'],
-  })
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-```

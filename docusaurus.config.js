@@ -17,7 +17,7 @@ module.exports = {
   organizationName: 'onekeyhq', // Usually your GitHub org/user name.
   projectName: 'onekey', // Usually your repo name.
   i18n: {
-    defaultLocale: 'en',
+    defaultLocale: 'zh-Hans',
     locales: ['en', 'zh-Hans'],
   },
   themeConfig: {
@@ -59,15 +59,15 @@ module.exports = {
         {
           title: 'PRODUCT',
           items: [
-            {label: 'Mobile Wallet', href: 'https://onekey.so/download'},
-            {label: 'Hardware Device', href: 'https://onekey.so/hardware'},
-            {label: 'Browser Extension', href: 'https://onekey.so/plugin'},
+            { label: 'Mobile Wallet', href: 'https://onekey.so/download' },
+            { label: 'Hardware Device', href: 'https://onekey.so/hardware' },
+            { label: 'Browser Extension', href: 'https://onekey.so/plugin' },
           ],
         },
         {
           title: 'RESOURCE',
           items: [
-            {label: 'Team', href: 'https://onekey.so/team'},
+            { label: 'Team', href: 'https://onekey.so/team' },
             {
               label: 'System Status',
               href: 'https://onekeyhq.github.io/upptime',
@@ -93,9 +93,9 @@ module.exports = {
         {
           title: 'BUSINESS COOPERATION',
           items: [
-            {label: 'Submit Dapp', href: 'https://jp.mikecrm.com/6lD8P5t'},
-            {label: 'Submit Token', href: 'https://jp.mikecrm.com/J3Z4FMg'},
-            {label: 'Venture Capital', href: 'https://onekey.so/ventures'},
+            { label: 'Submit Dapp', href: 'https://jp.mikecrm.com/6lD8P5t' },
+            { label: 'Submit Token', href: 'https://jp.mikecrm.com/J3Z4FMg' },
+            { label: 'Venture Capital', href: 'https://onekey.so/ventures' },
             {
               label: 'Sales Alliance',
               href: 'https://help.onekey.so/hc/en-us/articles/360002658076',
@@ -104,15 +104,15 @@ module.exports = {
               label: 'Advertising',
               href: 'https://help.onekey.so/hc/en-us/articles/360002658096',
             },
-            {label: 'Investor Relations', href: 'https://onekey.so/invest'},
+            { label: 'Investor Relations', href: 'https://onekey.so/invest' },
           ],
         },
         {
           title: 'CRYPTO ASSETS',
           items: [
-            {label: 'Bitcoin (BTC)', href: 'https://onekey.so/coins/btc'},
-            {label: 'Ethereum (ETH)', href: 'https://onekey.so/coins/eth'},
-            {label: 'Litecoin (LTC)', href: 'https://onekey.so/coins/ltc'},
+            { label: 'Bitcoin (BTC)', href: 'https://onekey.so/coins/btc' },
+            { label: 'Ethereum (ETH)', href: 'https://onekey.so/coins/eth' },
+            { label: 'Litecoin (LTC)', href: 'https://onekey.so/coins/ltc' },
           ],
         },
       ],
@@ -153,7 +153,7 @@ module.exports = {
     ],
   ],
   plugins: [
-      require.resolve('./src/plugins/monaco-editor'),
-      require.resolve('./src/plugins/tsconfig-paths-webpack-plugin'),
+    require.resolve('./src/plugins/monaco-editor'),
+    require.resolve('./src/plugins/tsconfig-paths-webpack-plugin'),
   ],
 };

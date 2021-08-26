@@ -2,20 +2,13 @@
 sidebar_position: 2
 ---
 
-# 向用户注册 Token
+# 向用户添加 Token
 
 当用户打开其 OneKey 浏览器插件时，会向他们显示各种资产，包括一些代币等。 默认情况下，OneKey 浏览器插件自动检测一些主要的流行代币并自动显示它们，但是对于大多数代币，用户将需要自己添加合约地址。
 
 虽然可以使用带有“添加令牌”按钮的 UI 来实现，但该过程可能很麻烦，并且涉及用户与合同地址的交互，并且很容易出错。
 
-您可以利用[EIP-747](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-747.md) 来进行添加。
-
-## 其他示例
-
-以下是几个实时 Web 应用程序，可让您输入令牌详细信息，然后通过简单的 Web 链接共享它们：
-
-- [观察 Token](https://vittominacori.github.io/watch-token/create.html)
-- [添加 Token](https://metamask.github.io/Add-Token/#edit)
+您可以利用 [EIP-747](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-747.md) 来进行添加。
 
 ## 代码示例
 
@@ -29,7 +22,7 @@ const tokenImage = 'http://placekitten.com/200/300';
 
 try {
   // wasAdded 是一个布尔值。与任何 RPC 方法一样，可能会抛出错误。
-  const wasAdded = await ethereum.request({
+  const wasAdded = await onekey.request({
     method: 'wallet_watchAsset',
     params: {
       type: 'ERC20', // 暂时只支持 ERC20，但最终支持更多！

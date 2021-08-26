@@ -10,7 +10,7 @@ title: 准备开始
 本指南假定您具有 HTML，CSS 和 JavaScript 的中级知识。
 :::
 
-一旦安装并运行 OneKey 浏览器插件，您应该发现新的浏览器选项卡在开发人员控制台中具有 `window.ethereum` 对象，这是您的网站与 OneKey 浏览器插件交互的方式。
+一旦安装并运行 OneKey 浏览器插件，您应该发现新的浏览器选项卡在开发人员控制台中具有 `window.onekey` 对象，这是您的网站与 OneKey 浏览器插件交互的方式。
 
 **您可以在[此处](/Extension/API%20Reference/ethereum-provider)查看该对象的完整 API。**
 
@@ -21,7 +21,7 @@ title: 准备开始
 要验证浏览器是否正在运行 OneKey 浏览器插件，请将以下代码片段复制并粘贴到 Web 浏览器的开发者控制台中：
 
 ```javascript
-if (typeof window.ethereum !== 'undefined') {
+if (typeof window !== 'undefined' && window.onekey) {
   console.log('OneKey is installed!');
 }
 ```
@@ -44,7 +44,7 @@ Ganache 具有一些很棒的功能，可以在不同的状态下启动您的应
 
 ### 检测到 OneKey 浏览器插件并一键启动
 
-如果要将 OneKey 浏览器插件与其他与以太坊兼容的浏览器插件区分开，可以使用 `ethereum.isOneKey` 检测是否是 OneKey 浏览器插件。
+如果要将 OneKey 浏览器插件与其他与以太坊兼容的浏览器插件区分开，可以使用 `window.onekey` 检测是否是 OneKey 浏览器插件。
 
 ### 用户状态
 
@@ -53,7 +53,7 @@ Ganache 具有一些很棒的功能，可以在不同的状态下启动您的应
 - 当前的网络是什么？
 - 当前帐户是什么？
 
-这两个都可以作为 `ethereum.networkVersion` 和 `ethereum.selectedAddress` 来获取并同步使用。您也可以使用事件来监听更改，请参见（[API 参考](./ethereum-provider.html)）。
+这两个都可以作为 `onekey.networkVersion` 和 `onekey.selectedAddress` 来获取并同步使用。您也可以使用事件来监听更改，请参见（[API 参考](./ethereum-provider.html)）。
 
 ### 连接到 OneKey 浏览器插件
 
@@ -64,7 +64,7 @@ Ganache 具有一些很棒的功能，可以在不同的状态下启动您的应
 我们建议您提供一个按钮，以允许用户将 OneKey 浏览器插件连接到您的 Dapp。单击此按钮应调用以下方法：
 
 ```javascript
-ethereum.request({ method: 'eth_requestAccounts' });
+onekey.request({ method: 'eth_requestAccounts' });
 ```
 
 **例子：**
@@ -78,7 +78,7 @@ const ethereumButton = document.querySelector('.enableEthereumButton');
 
 ethereumButton.addEventListener('click', () => {
   // 调用这个函数，如果用户安装有 OneKey 浏览器插件的话，则会唤醒插件并选择内部的账户
-  ethereum.request({ method: 'eth_requestAccounts' });
+  onekey.request({ method: 'eth_requestAccounts' });
 });
 ```
 
@@ -92,11 +92,11 @@ ethereumButton.addEventListener('click', () => {
 // 可以在 ethereum.request 的返回值中读取到一个账户数组
 
 // 1. 支持 async 语法
-const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+const accounts = await onekey.request({ method: 'eth_requestAccounts' });
 const account = accounts[0];
 
 // 2. 如果不支持 async 使用 promise 本身的 .then 进行连接
-ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
+onekey.request({ method: 'eth_requestAccounts' }).then((accounts) => {
   const account = accounts[0];
 });
 ```
@@ -117,7 +117,7 @@ ethereumButton.addEventListener('click', () => {
 });
 
 async function getAccount() {
-  const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  const accounts = await onekey.request({ method: 'eth_requestAccounts' });
   const account = accounts[0];
   showAccount.innerHTML = account;
 }

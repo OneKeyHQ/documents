@@ -4,18 +4,11 @@ sidebar_position: 2
 
 # Registering Tokens with Users
 
-When a user opens their MetaMask, they are shown a variety of assets, including tokens. By default, MetaMask auto-detects some major popular tokens and auto-displays them, but for most tokens, the user will need to add the token themselves.
+When a user opens their OneKey Browser Extension, they are shown a variety of assets, including tokens. By default, OneKey Browser Extension auto-detects some major popular tokens and auto-displays them, but for most tokens, the user will need to add the token themselves.
 
 While this is possible using our UI with the `Add Token` button, that process can be cumbersome, and involves the user interacting with contract addresses, and is very error prone.
 
-You can greatly improve the security and experience of users adding your token to their MetaMask by taking advantage of the `wallet_watchAsset` API as defined in [EIP-747](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-747.md).
-
-## Code-free Example
-
-Here are a couple live web applications that let you enter your token details, and then share them with a simple web link:
-
-- [Watch Token](https://vittominacori.github.io/watch-token/create.html)
-- [Add Token App](https://metamask.github.io/Add-Token/#edit)
+You can greatly improve the security and experience of users adding your token to their OneKey Browser Extension by taking advantage of the `wallet_watchAsset` API as defined in [EIP-747](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-747.md).
 
 ## Example
 
@@ -29,7 +22,7 @@ const tokenImage = 'http://placekitten.com/200/300';
 
 try {
   // wasAdded is a boolean. Like any RPC method, an error may be thrown.
-  const wasAdded = await ethereum.request({
+  const wasAdded = await onekey.request({
     method: 'wallet_watchAsset',
     params: {
       type: 'ERC20', // Initially only supports ERC20, but eventually more!

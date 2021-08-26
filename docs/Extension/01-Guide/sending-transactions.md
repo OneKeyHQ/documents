@@ -6,7 +6,7 @@ sidebar_position: 6
 
 Transactions are a formal action on a blockchain. They are always initiated in OneKey Browser Extension with a call to the `eth_sendTransaction` method. They can involve a simple sending of ether, may result in sending tokens, creating a new smart contract, or changing state on the blockchain in any number of ways. They are always initiated by a signature from an _external account_, or a simple key pair.
 
-In OneKey Browser Extension, using the `ethereum.request` method directly, sending a transaction will involve composing an options object like this:
+In OneKey Browser Extension, using the `onekey.request` method directly, sending a transaction will involve composing an options object like this:
 
 ```javascript
 const transactionParameters = {
@@ -14,7 +14,7 @@ const transactionParameters = {
   gasPrice: '0x09184e72a000', // customizable by user during OneKey Browser Extension confirmation.
   gas: '0x2710', // customizable by user during OneKey Browser Extension confirmation.
   to: '0x0000000000000000000000000000000000000000', // Required except during contract publications.
-  from: ethereum.selectedAddress, // must match user's active address.
+  from: onekey.selectedAddress, // must match user's active address.
   value: '0x00', // Only required to send ether to the recipient from the initiating external account.
   data: '0x7f7465737432000000000000000000000000000000000000000000000000000000600057', // Optional, but used for defining smart contract creation and interaction.
   chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by OneKey Browser Extension.
@@ -22,7 +22,7 @@ const transactionParameters = {
 
 // txHash is a hex string
 // As with any RPC call, it may throw an error
-const txHash = await ethereum.request({
+const txHash = await onekey.request({
   method: 'eth_sendTransaction',
   params: [transactionParameters],
 });
@@ -45,7 +45,7 @@ let accounts = [];
 
 //Sending Ethereum to an address
 sendEthButton.addEventListener('click', () => {
-  ethereum
+  onekey
     .request({
       method: 'eth_sendTransaction',
       params: [
@@ -67,7 +67,7 @@ ethereumButton.addEventListener('click', () => {
 });
 
 async function getAccount() {
-  accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  accounts = await onekey.request({ method: 'eth_requestAccounts' });
 }
 ```
 
@@ -121,4 +121,4 @@ This field is also used for specifying contract methods and their parameters. Yo
 
 ### Chain ID [currently ignored]
 
-Chain ID is currently derived by the user's current selected network at `ethereum.networkVersion`. In the future we will probably allow a way to connect to multiple networks at once, at which point this parameter will become important, so it may be useful to be in the habit of including now.
+Chain ID is currently derived by the user's current selected network at `onekey.networkVersion`. In the future we will probably allow a way to connect to multiple networks at once, at which point this parameter will become important, so it may be useful to be in the habit of including now.

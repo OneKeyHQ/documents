@@ -2,31 +2,26 @@
 sidebar_position: 1
 ---
 
-# Ethereum Provider API
+# OneKey Provider API
 
 :::tip Tip Recommended Reading
 We recommend that all web3 site developers read the [Basic Usage](#basic-usage) section.
 :::
 
-OneKey Browser Extension injects a global API into websites visited by its users at `window.ethereum`.
+OneKey Browser Extension injects a global API into websites visited by its users at `window.onekey`.
 This API allows websites to request users' Ethereum accounts, read data from blockchains the user is connected to, and suggest that the user sign messages and transactions.
 The presence of the provider object indicates an Ethereum user.
 
-We recommend using [`@onekeyhq/detect-provider`](https://npmjs.com/package/@onekey/detect-provider) to detect our provider, on any platform or browser.
+We recommend using `typeof window !== 'undefined' && window.onekey` to detect our provider in browser.
 
 The Ethereum JavaScript provider API is specified by [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193).
 
 ```javascript
-// This function detects most providers injected at window.ethereum
-import detectEthereumProvider from '@onekeyhq/detect-provider';
-
-const provider = await detectEthereumProvider();
-
-if (provider) {
+if (typeof window !== 'undefined' && window.onekey) {
   // From now on, this should always be true:
   startApp(provider); // initialize your app
 } else {
-  console.log('Please install OneKey Browser Extension!');
+  console.log('Please install OneKey Browser Extension at http://onekey.so/plugin!');
 }
 ```
 
@@ -34,7 +29,7 @@ if (provider) {
 
 For any non-trivial Ethereum web application — a.k.a. dapp, web3 site etc. — to work, you will have to:
 
-- Detect the Ethereum provider (`window.ethereum`)
+- Detect the OneKey provider (`window.onekey`)
 - Detect which Ethereum network the user is connected to
 - Get the user's Ethereum account(s)
 
@@ -64,19 +59,9 @@ Consult [chainid.network](https://chainid.network) for more.
 | 0x2a | 42      | kovan Testnet              |
 | 0x4  | 4       | Rinkeby Testnet            |
 
-## Properties
-
-### ethereum.isOneKey
-
-:::warning Note
-This property is non-standard. Non-OneKey providers may also set this property to `true`.
-:::
-
-`true` if the user has OneKey Browser Extension installed.
-
 ## Methods
 
-### ethereum.isConnected()
+### onekey.isConnected()
 
 :::tip Tip
 Note that this method has nothing to do with the user's accounts.
@@ -86,7 +71,7 @@ In the provider interface, however, "connected" and "disconnected" refer to whet
 :::
 
 ```typescript
-ethereum.isConnected(): boolean;
+onekey.isConnected(): boolean;
 ```
 
 Returns `true` if the provider is connected to the current chain, and `false` otherwise.
@@ -94,7 +79,7 @@ Returns `true` if the provider is connected to the current chain, and `false` ot
 If the provider is not connected, the page will have to be reloaded in order for connection to be re-established.
 Please see the [`connect`](#connect) and [`disconnect`](#disconnect) events for more information.
 
-### ethereum.request(args)
+### onekey.request(args)
 
 ```typescript
 interface RequestArguments {
@@ -102,7 +87,7 @@ interface RequestArguments {
   params?: unknown[] | object;
 }
 
-ethereum.request(args: RequestArguments): Promise<unknown>;
+onekey.request(args: RequestArguments): Promise<unknown>;
 ```
 
 Use `request` to submit RPC requests to Ethereum via OneKey Browser Extension.
@@ -133,7 +118,7 @@ params: [
   },
 ];
 
-ethereum
+onekey
   .request({
     method: 'eth_sendTransaction',
     params,
@@ -156,12 +141,12 @@ This sections details the events emitted via that API.
 There are innumerable `EventEmitter` guides elsewhere, but you can listen for events like this:
 
 ```javascript
-ethereum.on('accountsChanged', (accounts) => {
+onekey.on('accountsChanged', (accounts) => {
   // Handle the new accounts, or lack thereof.
   // "accounts" will always be an array, but it can be empty.
 });
 
-ethereum.on('chainChanged', (chainId) => {
+onekey.on('chainChanged', (chainId) => {
   // Handle the new chain.
   // Correctly handling chain changes can be complicated.
   // We recommend reloading the page unless you have good reason not to.
@@ -176,29 +161,29 @@ interface ConnectInfo {
   chainId: string;
 }
 
-ethereum.on('connect', handler: (connectInfo: ConnectInfo) => void);
+onekey.on('connect', handler: (connectInfo: ConnectInfo) => void);
 ```
 
 The OneKey Browser Extension provider emits this event when it first becomes able to submit RPC requests to a chain.
 
-We recommend using a `connect` event handler and the [`ethereum.isConnected()` method](#ethereum-isconnected) in order to determine when/if the provider is connected.
+We recommend using a `connect` event handler and the [`onekey.isConnected()` method](#onekey-isconnected) in order to determine when/if the provider is connected.
 
 ### disconnect
 
 ```typescript
-ethereum.on('disconnect', handler: (error: ProviderRpcError) => void);
+onekey.on('disconnect', handler: (error: ProviderRpcError) => void);
 ```
 
 The OneKey provider emits this event if it becomes unable to submit RPC requests to any chain.
 In general, this will only happen due to network connectivity issues or some unforeseen error.
 
 Once `disconnect` has been emitted, the provider will not accept any new requests until the connection to the chain has been re-restablished, which requires reloading the page.
-You can also use the [`ethereum.isConnected()` method](#ethereum-isconnected) to determine if the provider is disconnected.
+You can also use the [`onekey.isConnected()` method](#onekey-isconnected) to determine if the provider is disconnected.
 
 ### accountsChanged
 
 ```typescript
-ethereum.on('accountsChanged', handler: (accounts: Array<string>) => void);
+onekey.on('accountsChanged', handler: (accounts: Array<string>) => void);
 ```
 
 The OneKey provider emits this event whenever the return value of the `eth_accounts` RPC method changes.
@@ -219,7 +204,7 @@ See the [Chain IDs section](#chain-ids) for OneKey Browser Extension's default c
 :::
 
 ```typescript
-ethereum.on('chainChanged', handler: (chainId: string) => void);
+onekey.on('chainChanged', handler: (chainId: string) => void);
 ```
 
 The OneKey Browser Extension provider emits this event when the currently connected chain changes.
@@ -228,7 +213,7 @@ All RPC requests are submitted to the currently connected chain.
 Therefore, it's critical to keep track of the current chain ID by listening for this event.
 
 ```javascript
-ethereum.on('chainChanged', (_chainId) => window.location.reload());
+onekey.on('chainChanged', (_chainId) => window.location.reload());
 ```
 
 ### message
@@ -239,7 +224,7 @@ interface ProviderMessage {
   data: unknown;
 }
 
-ethereum.on('message', handler: (message: ProviderMessage) => void);
+onekey.on('message', handler: (message: ProviderMessage) => void);
 ```
 
 The OneKey provider emits this event when it receives some message that the consumer should be notified of.
@@ -262,7 +247,7 @@ interface ProviderRpcError extends Error {
 }
 ```
 
-The [`ethereum.request(args)` method](#ethereum-request-args) throws errors eagerly.
+The [`onekey.request(args)` method](#onekey-request-args) throws errors eagerly.
 
 You can often use the error `code` property to determine why the request failed.
 
@@ -276,216 +261,3 @@ Common codes and their meaning include:
   - Internal error
 
 For the complete list of errors, please see [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193#provider-errors) and [EIP-1474](https://eips.ethereum.org/EIPS/eip-1474#error-codes).
-
-:::tip Tip
-The [`eth-rpc-errors`](https://npmjs.com/package/eth-rpc-errors) package implements all RPC errors thrown by the OneKey Browser Extension provider, and can help you identify their meaning.
-:::
-
-## Using the Provider
-
-This snippet explains how to accomplish the three most common requirements for web3 sites:
-
-- Detect the Ethereum provider (`window.ethereum`)
-- Detect which Ethereum network the user is connected to
-- Get the user's Ethereum account(s)
-
-<!-- ## Experimental API
-
-:::warning
-There is no guarantee that the methods and properties defined in this section will remain stable.
-Use it at your own risk.
-:::
-
-We expose some experimental, OneKey-specific methods under the `ethereum._metamask` property.
-
-## Experimental Methods
-
-### ethereum.\_metamask.isUnlocked()
-
-```typescript
-ethereum._metamask.isUnlocked(): Promise<boolean>;
-```
-
-This method returns a `Promise` that resolves to a `boolean` indicating if OneKey is unlocked by the user.
-OneKey must be unlocked in order to perform any operation involving user accounts.
-Note that this method does not indicate if the user has exposed any accounts to the caller. -->
-<!--
-## Legacy API
-
-:::warning
-You should **never** rely on any of these methods, properties, or events in practice.
-:::
-
-This section documents our legacy provider API.
-OneKey only supported this API before the provider API was standardized via [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) in 2020.
-Because of this, you may find web3 sites that use this API, or other providers that implement it.
-
-## Legacy Properties
-
-### ethereum.chainId (DEPRECATED)
-
-:::warning
-This property is non-standard, and therefore deprecated.
-
-If you need to retrieve the current chain ID, use [`ethereum.request({ method: 'eth_chainId' })`](#ethereum-request-args).
-See also the [`chainChanged`](#chainchanged) event for more information about how to handle chain IDs.
-
-The value of this property can change at any time.
-:::
-
-A hexadecimal string representing the current chain ID.
-
-### ethereum.networkVersion (DEPRECATED)
-
-:::warning
-You should always prefer the chain ID over the network ID.
-
-If you must get the network ID, use [`ethereum.request({ method: 'net_version' })`](#ethereum-request-args).
-
-The value of this property can change at any time.
-:::
-
-A decimal string representing the current blockchain's network ID.
-
-### ethereum.selectedAddress (DEPRECATED)
-
-:::warning
-Use [`ethereum.request({ method: 'eth_accounts' })`](#ethereum-request-args) instead.
-
-The value of this property can change at any time.
-:::
-
-Returns a hexadecimal string representing the user's "currently selected" address.
-
-The "currently selected" address is the first item in the array returned by `eth_accounts`.
-
-## Legacy Methods
-
-### ethereum.enable() (DEPRECATED)
-
-:::warning
-Use [`ethereum.request({ method: 'eth_requestAccounts' })`](#ethereum-request-args) instead.
-:::
-
-Alias for `ethereum.request({ method: 'eth_requestAccounts' })`.
-
-### ethereum.sendAsync() (DEPRECATED)
-
-:::warning
-Use [`ethereum.request()`](#ethereum-request-args) instead.
-:::
-
-```typescript
-interface JsonRpcRequest {
-  id: string | undefined;
-  jsonrpc: '2.0';
-  method: string;
-  params?: Array<any>;
-}
-
-interface JsonRpcResponse {
-  id: string | undefined;
-  jsonrpc: '2.0';
-  method: string;
-  result?: unknown;
-  error?: Error;
-}
-
-type JsonRpcCallback = (error: Error, response: JsonRpcResponse) => unknown;
-
-ethereum.sendAsync(payload: JsonRpcRequest, callback: JsonRpcCallback): void;
-```
-
-This is the ancestor of `ethereum.request`. It only works for JSON-RPC methods, and takes a JSON-RPC request payload object and an error-first callback function as its arguments.
-
-See the [Ethereum JSON-RPC API](https://eips.ethereum.org/EIPS/eip-1474) for details.
-
-### ethereum.send() (DEPRECATED)
-
-:::warning
-Use [`ethereum.request()`](#ethereum-request-args) instead.
-:::
-
-```typescript
-ethereum.send(
-  methodOrPayload: string | JsonRpcRequest,
-  paramsOrCallback: Array<unknown> | JsonRpcCallback,
-): Promise<JsonRpcResponse> | void;
-```
-
-This method behaves unpredictably and should be avoided at all costs.
-It is essentially an overloaded version of [`ethereum.sendAsync()`](#ethereum-sendasync-deprecated).
-
-`ethereum.send()` can be called in three different ways:
-
-```typescript
-// 1.
-ethereum.send(payload: JsonRpcRequest, callback: JsonRpcCallback): void;
-
-// 2.
-ethereum.send(method: string, params?: Array<unknown>): Promise<JsonRpcResponse>;
-
-// 3.
-ethereum.send(payload: JsonRpcRequest): unknown;
-```
-
-You can think of these signatures as follows:
-
-1. This signature is exactly like `ethereum.sendAsync()`
-
-2. This signature is like an async `ethereum.sendAsync()` with `method` and `params` as arguments, instead of a JSON-RPC payload and callback
-
-3. This signature enables you to call the following RPC methods synchronously:
-
-   - `eth_accounts`
-   - `eth_coinbase`
-   - `eth_uninstallFilter`
-   - `net_version`
-
-## Legacy Events
-
-### close (DEPRECATED)
-
-:::warning
-Use [`disconnect`](#disconnect) instead.
-:::
-
-```typescript
-ethereum.on('close', handler: (error: Error) => void);
-```
-
-### chainIdChanged (DEPRECATED)
-
-:::warning
-Use [`chainChanged`](#chainchanged) instead.
-:::
-
-Misspelled alias of [`chainChanged`](#chainchanged).
-
-```typescript
-ethereum.on('chainChanged', handler: (chainId: string) => void);
-```
-
-### networkChanged (DEPRECATED)
-
-:::warning
-Use [`chainChanged`](#chainchanged) instead.
-:::
-
-Like [`chainChanged`](#chainchanged), but with the `networkId` instead.
-Network IDs are insecure, and were effectively deprecated in favor of chain IDs by [EIP-155](https://eips.ethereum.org/EIPS/eip-155).
-Avoid using them unless you know what you are doing.
-
-```typescript
-ethereum.on('networkChanged', handler: (networkId: string) => void);
-```
-
-### notification (DEPRECATED)
-
-:::warning
-Use [`message`](#message) instead.
-:::
-
-```typescript
-ethereum.on('notification', handler: (payload: any) => void);
-``` -->

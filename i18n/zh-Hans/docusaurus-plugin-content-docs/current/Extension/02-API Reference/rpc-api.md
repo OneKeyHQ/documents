@@ -4,12 +4,12 @@ sidebar_position: 3
 
 # RPC API
 
-OneKey 浏览器插件使用 [`ethereum.request(args)`方法](./ethereum-provider.html＃ethereum-request-args) 包装 RPC API。
+OneKey 浏览器插件使用 [`onekey.request(args)`方法](./onekey-provider.html＃onekey-request-args) 包装 RPC API。
 
 该 API 基于所有以太坊客户端公开的接口，以及越来越多的其他钱包可能支持或可能不支持的方法。
 
 :::tip 提示
-所有 RPC 方法请求都可以返回错误。确保每次调用 `ethereum.request(args)` 时都要处理错误。
+所有 RPC 方法请求都可以返回错误。确保每次调用 `onekey.request(args)` 时都要处理错误。
 :::
 
 ## 以太坊 JSON-RPC 方法
@@ -47,7 +47,7 @@ interface Web3WalletPermission {
 ### eth_requestAccounts
 
 :::tip EIP-1102
-此方法由[EIP-1102](https://eips.ethereum.org/EIPS/eip-1102)指定。它等效于已弃用的 [`ethereum.enable()`](./ethereum-provider.html#ethereum-enable) API 方法。
+此方法由[EIP-1102](https://eips.ethereum.org/EIPS/eip-1102)指定。它等效于已弃用的 [`onekey.enable()`](./ethereum-provider.html#ethereum-enable) API 方法。
 
 在内部逻辑中，它为 [eth_accounts] 权限调用 [`wallet_requestPermissions`](＃wallet-requestpermissions)。由于目前只有 `eth_accounts` 权限，因此您现在只需要此方法。
 :::
@@ -70,7 +70,7 @@ interface Web3WalletPermission {
 document.getElementById('connectButton', connect);
 
 function connect() {
-  ethereum
+  onekey
     .request({ method: 'eth_requestAccounts' })
     .then(handleAccountsChanged)
     .catch((error) => {
@@ -112,7 +112,7 @@ interface RequestedPermissions {
 
 #### 描述
 
-向用户请求给定的权限。返回一个 Promise，该 Promise 解析为`Web3WalletPermission`对象的非空数组，对应于调用者的当前权限。如果用户拒绝该请求，则 Promise 将拒绝并显示 “4001” 错误。
+向用户请求给定的权限。返回一个 Promise，该 Promise 解析为`Web3WalletPermission`对象的非空数组，对应于调用者的当前权限。如果用户拒绝该请求，则 Promise 将拒绝并显示 `4001` 错误。
 
 该请求将导致出现一个 OneKey 浏览器插件弹出窗口。您仅应请求权限来响应用户操作，例如单击按钮。
 
@@ -122,7 +122,7 @@ interface RequestedPermissions {
 document.getElementById('requestPermissionsButton', requestPermissions);
 
 function requestPermissions() {
-  ethereum
+  onekey
     .request({
       method: 'wallet_requestPermissions',
       params: [{ eth_accounts: {} }],
@@ -167,7 +167,7 @@ function requestPermissions() {
 #### 例子
 
 ```javascript
-ethereum
+onekey
   .request({
     method: 'eth_decrypt',
     params: [encryptedMessage, accounts[0]],
@@ -198,7 +198,7 @@ ethereum
 ```javascript
 let encryptionPublicKey;
 
-ethereum
+onekey
   .request({
     method: 'eth_getEncryptionPublicKey',
     params: [accounts[0]], // you must have access to the specified account
@@ -301,7 +301,7 @@ OneKey 浏览器插件目前尚不支持使用不带 18 个小数位的本国货
 #### 示例
 
 ```javascript
-ethereum.request({
+onekey.request({
   method: 'wallet_watchAsset',
   params: {
     type: 'ERC20',
