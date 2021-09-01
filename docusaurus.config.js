@@ -130,7 +130,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           // Please change this to your repo.
-          editUrl: 'https://github.com/onekeyhq/documents/edit/main/',
+          editUrl: 'https://github.com/onekeyhq/documents/edit/master/',
           sidebarItemsGenerator: async function ({
             defaultSidebarItemsGenerator,
             ...args
