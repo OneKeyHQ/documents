@@ -1,0 +1,141 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## Ethereum712: sign message
+
+Asks device to sign a message using the private key derived by given BIP32 path.
+
+ES6
+```javascript
+const result = await OneKeyConnect.ethereumSignMessage(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.ethereumSignMessage(params).then(function(result) {
+
+});
+```
+
+### Params
+
+[**Optional common params**](./commonParams)
+
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `message` - *required* `string` message to sign in plain text, must 32 bytes
+* `domain` - *required* `string` domain for sign
+
+### Example
+```javascript
+OneKeyConnect.ethereumSignMessage712({
+    path: "m/44'/60'/0'",
+    message: "1234567812345678123456781234567812345678123456781234567812345678",
+    domain: "1234567812345678123456781234567812345678123456781234567812345678"
+});
+```
+
+### Result
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        signature: string,
+    }
+}
+```
+
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### Error Detail
+
+1. firmware not support, must upgrade to the latest version.
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Unknown message",
+    "code": "Failure_UnexpectedMessage"
+  }
+}
+```
+
+2. pass an illegal parameter
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Parameter \"domain\" is missing.",
+    "code": "Method_InvalidParameter"
+  }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "Parameter \"message\" is missing.",
+    "code": "Method_InvalidParameter"
+  }
+}
+```
+
+3. parameter must be 32 bytes, if it too short or too long
+```json
+{
+    {
+        "success": false,
+        "payload": {
+            "error": "data length error",
+            "code": "Failure_ProcessError"
+        }
+    }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "Illegal str: Length not a multiple of 2"
+  }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "bytes overflow",
+    "code": "Failure_DataError"
+  }
+}
+```
+
+4. not enable EIP712 feature
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "EIP712 blind sign is disabled",
+    "code": "Failure_ProcessError"
+  }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.ethereumSignMessageEIP712({
+    path: "m/44'/60'/0'",
+    message: "1234567812345678123456781234567812345678123456781234567812345678",
+    domain: "1234567812345678123456781234567812345678123456781234567812345678"
+});`}
+/>

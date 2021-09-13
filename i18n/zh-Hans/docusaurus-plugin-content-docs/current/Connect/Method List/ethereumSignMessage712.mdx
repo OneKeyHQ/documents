@@ -1,0 +1,145 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## 以太坊：EIP712 签署数据
+
+要求设备使用由给定的 [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) 路径派生的私钥对签名消息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.ethereumSignMessage(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.ethereumSignMessage(params).then(function(result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
+
+- `path` - *必填* `string | Array<number>`的最小长度为3。 [了解更多](./path)
+- `message` - *必填* `string` 用于加密的纯文本消息，32 字节长度
+- `domain` - *必填* `string` 签名的 domain 信息，32 字节长度
+
+### 例子
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
+
+### Example
+```javascript
+OneKeyConnect.ethereumSignMessage712({
+    path: "m/44'/60'/0'",
+    message: "1234567812345678123456781234567812345678123456781234567812345678",
+    domain: "1234567812345678123456781234567812345678123456781234567812345678"
+});
+```
+
+### 结果
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        signature: string,
+    }
+}
+```
+
+错误
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### 错误详情
+
+1. 固件不支持时，返回结果。需提示用户升级至最新固件版本。
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Unknown message",
+    "code": "Failure_UnexpectedMessage"
+  }
+}
+```
+
+2. 参数校验失败，需提交对应的必填项。
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Parameter \"domain\" is missing.",
+    "code": "Method_InvalidParameter"
+  }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "Parameter \"message\" is missing.",
+    "code": "Method_InvalidParameter"
+  }
+}
+```
+
+3. 待签名参数必须为 32 字节，数据长度错误时错误类型。
+```json
+
+{
+    "success": false,
+    "payload": {
+        "error": "data length error",
+        "code": "Failure_ProcessError"
+    }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "Illegal str: Length not a multiple of 2"
+  }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "bytes overflow",
+    "code": "Failure_DataError"
+  }
+}
+```
+
+4. 用户未开启 EIP712 相关功能
+
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "EIP712 blind sign is disabled",
+    "code": "Failure_ProcessError"
+  }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.ethereumSignMessageEIP712({
+    path: "m/44'/60'/0'",
+    message: "1234567812345678123456781234567812345678123456781234567812345678",
+    domain: "1234567812345678123456781234567812345678123456781234567812345678"
+});`}
+/>

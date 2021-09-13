@@ -5,7 +5,7 @@ import { useLocalStorage } from "./useLocalStorage";
 let previousPopup = null;
 
 export function usePopupToggle() {
-    const [usePopup, setUsePopup] = useLocalStorage('usePopup', false);
+    const [usePopup, setUsePopup] = useLocalStorage('usePopup', true);
     useEffect(() => {
         if (usePopup !== previousPopup) {
             if (previousPopup === null) {
@@ -15,6 +15,7 @@ export function usePopupToggle() {
                 OneKeyConnect.init({
                     debug: true,
                     popup: usePopup,
+                    connectSrc: 'https://connect.test.onekey.so/',
                     manifest: {
                         email: 'hi@onekey.so',
                         appUrl: 'https://onekey.so',
