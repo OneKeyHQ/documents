@@ -100,7 +100,7 @@ function Playground(props: PlaygroundProps) {
     }
 
     return (
-        <Sticky mode="bottom" bottomOffset={1000}>
+        // <Sticky mode="bottom" bottomOffset={1000}>
             <div className={styles.playground}>
                 <div className={styles.title}>
                     <h3>Try at OneKey online</h3>
@@ -120,7 +120,7 @@ function Playground(props: PlaygroundProps) {
                     }
                 </div>
             </div>
-        </Sticky>
+        // </Sticky>
     );
 }
 

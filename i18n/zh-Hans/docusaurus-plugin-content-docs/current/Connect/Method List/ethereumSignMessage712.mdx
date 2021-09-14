@@ -26,19 +26,51 @@ OneKeyConnect.ethereumSignMessage(params).then(function(result) {
 [参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
 
 - `path` - *必填* `string | Array<number>`的最小长度为3。 [了解更多](./path)
-- `message` - *必填* `string` 用于加密的纯文本消息，32 字节长度
-- `domain` - *必填* `string` 签名的 domain 信息，32 字节长度
+- `version` - *选填* `string` `V3` 或 `V4`，用于指定 `sign_typed_data` 方法的版本
+- `data` - *必填* `object` 待签名的相关信息，详细请见示例
 
 ### 例子
 
 [参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
 
-### Example
+### 示例
 ```javascript
 OneKeyConnect.ethereumSignMessage712({
     path: "m/44'/60'/0'",
-    message: "1234567812345678123456781234567812345678123456781234567812345678",
-    domain: "1234567812345678123456781234567812345678123456781234567812345678"
+    data: {
+        domain: {
+            name: 'My amazing dApp',
+            version: '2',
+            chainId: '0x01',
+            verifyingContract: '0x1C56346CD2A2Bf3202F771f50d3D14a367B48070',
+            salt: '0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558',
+        },
+        message: {
+            amount: 100,
+            bidder: {
+                userId: 323,
+                wallet: '0x3333333333333333333333333333333333333333',
+            },
+        },
+        primaryType: 'Bid',
+        types: {
+            EIP712Domain: [
+                { name: 'name', type: 'string' },
+                { name: 'version', type: 'string' },
+                { name: 'chainId', type: 'uint256' },
+                { name: 'verifyingContract', type: 'address' },
+                { name: 'salt', type: 'bytes32' },
+            ],
+            Bid: [
+                { name: 'amount', type: 'uint256' },
+                { name: 'bidder', type: 'Identity' },
+            ],
+            Identity: [
+                { name: 'userId', type: 'uint256' },
+                { name: 'wallet', type: 'address' },
+            ],
+        },
+    }
 });
 ```
 
@@ -135,11 +167,54 @@ OneKeyConnect.ethereumSignMessage712({
 }
 ```
 
+5. 目前不支持 EIP712Domain 类型的 primaryType, 如果传入的 data 对象中的 primaryType 为 EIP712Domain 则会报错
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "primaryType `EIP712Domain` is not support",
+    "code": "Backend_NotSupported"
+  }
+}
+```
+
 <Playground
     initValue={
 `OneKeyConnect.ethereumSignMessageEIP712({
     path: "m/44'/60'/0'",
-    message: "1234567812345678123456781234567812345678123456781234567812345678",
-    domain: "1234567812345678123456781234567812345678123456781234567812345678"
+    data: {
+        domain: {
+            name: 'My amazing dApp',
+            version: '2',
+            chainId: '0x01',
+            verifyingContract: '0x1C56346CD2A2Bf3202F771f50d3D14a367B48070',
+            salt: '0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558',
+        },
+        message: {
+            amount: 100,
+            bidder: {
+                userId: 323,
+                wallet: '0x3333333333333333333333333333333333333333',
+            },
+        },
+        primaryType: 'Bid',
+        types: {
+            EIP712Domain: [
+                { name: 'name', type: 'string' },
+                { name: 'version', type: 'string' },
+                { name: 'chainId', type: 'uint256' },
+                { name: 'verifyingContract', type: 'address' },
+                { name: 'salt', type: 'bytes32' },
+            ],
+            Bid: [
+                { name: 'amount', type: 'uint256' },
+                { name: 'bidder', type: 'Identity' },
+            ],
+            Identity: [
+                { name: 'userId', type: 'uint256' },
+                { name: 'wallet', type: 'address' },
+            ],
+        },
+    }
 });`}
 />

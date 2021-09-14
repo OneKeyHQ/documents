@@ -25,16 +25,49 @@ OneKeyConnect.ethereumSignMessage(params).then(function(result) {
 
 ###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
 
-* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
-* `message` - *required* `string` message to sign in plain text, must 32 bytes
-* `domain` - *required* `string` domain for sign
+* `path` - *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `version` - *optional* `string` `V3` or `V4`, for `sign_typed_data` version, default is V3.
+* `data` - *required* `object`, message data type. see example for more detail.
+
 
 ### Example
 ```javascript
 OneKeyConnect.ethereumSignMessage712({
     path: "m/44'/60'/0'",
-    message: "1234567812345678123456781234567812345678123456781234567812345678",
-    domain: "1234567812345678123456781234567812345678123456781234567812345678"
+    data: {
+        domain: {
+            name: 'My amazing dApp',
+            version: '2',
+            chainId: '0x01',
+            verifyingContract: 'xx',
+            salt: 'xx',
+        },
+        message: {
+            amount: 100,
+            bidder: {
+                userId: 323,
+                wallet: '0x3333333333333333333333333333333333333333',
+            },
+        },
+        primaryType: 'Bid',
+        types: {
+            EIP712Domain: [
+                { name: 'name', type: 'string' },
+                { name: 'version', type: 'string' },
+                { name: 'chainId', type: 'uint256' },
+                { name: 'verifyingContract', type: 'address' },
+                { name: 'salt', type: 'bytes32' },
+            ],
+            Bid: [
+                { name: 'amount', type: 'uint256' },
+                { name: 'bidder', type: 'Identity' },
+            ],
+            Identity: [
+                { name: 'userId', type: 'uint256' },
+                { name: 'wallet', type: 'address' },
+            ],
+        },
+    }
 });
 ```
 
@@ -131,11 +164,54 @@ Error
 }
 ```
 
+5. not support EIP712Domain primary type, your passed data's `primaryType` must not be `EIP712Domain`
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "primaryType `EIP712Domain` is not support",
+    "code": "Backend_NotSupported"
+  }
+}
+```
+
 <Playground
     initValue={
 `OneKeyConnect.ethereumSignMessageEIP712({
     path: "m/44'/60'/0'",
-    message: "1234567812345678123456781234567812345678123456781234567812345678",
-    domain: "1234567812345678123456781234567812345678123456781234567812345678"
+    data: {
+        domain: {
+            name: 'My amazing dApp',
+            version: '2',
+            chainId: '0x01',
+            verifyingContract: '0x1C56346CD2A2Bf3202F771f50d3D14a367B48070',
+            salt: '0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558',
+        },
+        message: {
+            amount: 100,
+            bidder: {
+                userId: 323,
+                wallet: '0x3333333333333333333333333333333333333333',
+            },
+        },
+        primaryType: 'Bid',
+        types: {
+            EIP712Domain: [
+                { name: 'name', type: 'string' },
+                { name: 'version', type: 'string' },
+                { name: 'chainId', type: 'uint256' },
+                { name: 'verifyingContract', type: 'address' },
+                { name: 'salt', type: 'bytes32' },
+            ],
+            Bid: [
+                { name: 'amount', type: 'uint256' },
+                { name: 'bidder', type: 'Identity' },
+            ],
+            Identity: [
+                { name: 'userId', type: 'uint256' },
+                { name: 'wallet', type: 'address' },
+            ],
+        },
+    }
 });`}
 />
