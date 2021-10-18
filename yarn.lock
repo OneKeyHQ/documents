@@ -1576,10 +1576,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@onekeyhq/connect@^8.2.3":
-  version "8.2.3"
-  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.2.3/c48ea7538dd98595c43bfa938df4a27d099229e09664bb2137832dfc0c41cc0d#70ffeceba598fab064d54d261d3fe4242c9ccf54"
-  integrity sha512-GPKyLzUg21X5vVsQsIq9cbhGCVTwP8BWfG2OLOOOCgf//5Q+1fqk42a8r3vhVuAd/g3G92DIhSgjhsyHn3uFRA==
+"@onekeyhq/connect@8.4.0-alpha1":
+  version "8.4.0-alpha1"
+  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.4.0-alpha1/83689fc7adb79adfca4bb0c39a3cd30b0e601bf041e3d63a2c067c8140498fda#8e2581833bcd6e853fecf4c91299d3cd41c8a74c"
+  integrity sha512-iWsyVqcS3XTEZod2d45sErdCSaJAYoOZ5rLy/4BRgBX0/k3yn6OUqoWOsKM0FSdJbeng2QmU5ofyUMYBN54Uog==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@sentry/browser" "^6.4.0"
@@ -1588,6 +1588,7 @@
     events "^3.2.0"
     patch-package "^6.2.2"
     postinstall-postinstall "^2.1.0"
+    url-join "^4.0.1"
     whatwg-fetch "^3.5.0"
 
 "@polka/url@^1.0.0-next.9":
@@ -10208,6 +10209,11 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
+
+url-join@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/url-join/-/url-join-4.0.1.tgz#b642e21a2646808ffa178c4c5fda39844e12cde7"
+  integrity sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==
 
 url-loader@^4.1.1:
   version "4.1.1"

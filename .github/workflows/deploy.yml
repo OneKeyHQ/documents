@@ -10,7 +10,7 @@ on:
 
 jobs:
   dev-deploy-test:
-    runs-on: [self-hosted, linux]
+    runs-on: "ubuntu-latest"
     env:
       TEST_ENDPOINT: docs.test.onekey.so
     steps:

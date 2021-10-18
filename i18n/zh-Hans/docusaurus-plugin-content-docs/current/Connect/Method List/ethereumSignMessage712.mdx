@@ -1,0 +1,220 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## 以太坊：EIP712 签署数据
+
+要求设备使用由给定的 [BIP32-Ed25519](https://cardanolaunch.com/assets/Ed25519_BIP.pdf) 路径派生的私钥对签名消息。
+
+ES6
+```javascript
+const result = await OneKeyConnect.ethereumSignMessage(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.ethereumSignMessage(params).then(function(result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/params.js#L64-L67)
+
+- `path` - *必填* `string | Array<number>`的最小长度为3。 [了解更多](./path)
+- `version` - *选填* `string` `V3` 或 `V4`，用于指定 `sign_typed_data` 方法的版本
+- `data` - *必填* `object` 待签名的相关信息，详细请见示例
+
+### 例子
+
+[参数及类型](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
+
+### 示例
+```javascript
+OneKeyConnect.ethereumSignMessage712({
+    path: "m/44'/60'/0'",
+    data: {
+        domain: {
+            name: 'My amazing dApp',
+            version: '2',
+            chainId: '0x01',
+            verifyingContract: '0x1C56346CD2A2Bf3202F771f50d3D14a367B48070',
+            salt: '0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558',
+        },
+        message: {
+            amount: 100,
+            bidder: {
+                userId: 323,
+                wallet: '0x3333333333333333333333333333333333333333',
+            },
+        },
+        primaryType: 'Bid',
+        types: {
+            EIP712Domain: [
+                { name: 'name', type: 'string' },
+                { name: 'version', type: 'string' },
+                { name: 'chainId', type: 'uint256' },
+                { name: 'verifyingContract', type: 'address' },
+                { name: 'salt', type: 'bytes32' },
+            ],
+            Bid: [
+                { name: 'amount', type: 'uint256' },
+                { name: 'bidder', type: 'Identity' },
+            ],
+            Identity: [
+                { name: 'userId', type: 'uint256' },
+                { name: 'wallet', type: 'address' },
+            ],
+        },
+    }
+});
+```
+
+### 结果
+###### [flowtype](https://github.com/OneKeyHQ/connect/blob/onekey/src/js/types/response.js#L47-L50)
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,
+        signature: string,
+    }
+}
+```
+
+错误
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+### 错误详情
+
+1. 固件不支持时，返回结果。需提示用户升级至最新固件版本。
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Unknown message",
+    "code": "Failure_UnexpectedMessage"
+  }
+}
+```
+
+2. 参数校验失败，需提交对应的必填项。
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Parameter \"domain\" is missing.",
+    "code": "Method_InvalidParameter"
+  }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "Parameter \"message\" is missing.",
+    "code": "Method_InvalidParameter"
+  }
+}
+```
+
+3. 待签名参数必须为 32 字节，数据长度错误时错误类型。
+```json
+
+{
+    "success": false,
+    "payload": {
+        "error": "data length error",
+        "code": "Failure_ProcessError"
+    }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "Illegal str: Length not a multiple of 2"
+  }
+}
+
+{
+  "success": false,
+  "payload": {
+    "error": "bytes overflow",
+    "code": "Failure_DataError"
+  }
+}
+```
+
+4. 用户未开启 EIP712 相关功能
+
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "EIP712 blind sign is disabled",
+    "code": "Failure_ProcessError"
+  }
+}
+```
+
+5. 目前不支持 EIP712Domain 类型的 primaryType, 如果传入的 data 对象中的 primaryType 为 EIP712Domain 则会报错
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "primaryType `EIP712Domain` is not support",
+    "code": "Backend_NotSupported"
+  }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.ethereumSignMessageEIP712({
+    path: "m/44'/60'/0'",
+    data: {
+        domain: {
+            name: 'My amazing dApp',
+            version: '2',
+            chainId: '0x01',
+            verifyingContract: '0x1C56346CD2A2Bf3202F771f50d3D14a367B48070',
+            salt: '0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558',
+        },
+        message: {
+            amount: 100,
+            bidder: {
+                userId: 323,
+                wallet: '0x3333333333333333333333333333333333333333',
+            },
+        },
+        primaryType: 'Bid',
+        types: {
+            EIP712Domain: [
+                { name: 'name', type: 'string' },
+                { name: 'version', type: 'string' },
+                { name: 'chainId', type: 'uint256' },
+                { name: 'verifyingContract', type: 'address' },
+                { name: 'salt', type: 'bytes32' },
+            ],
+            Bid: [
+                { name: 'amount', type: 'uint256' },
+                { name: 'bidder', type: 'Identity' },
+            ],
+            Identity: [
+                { name: 'userId', type: 'uint256' },
+                { name: 'wallet', type: 'address' },
+            ],
+        },
+    }
+});`}
+/>
