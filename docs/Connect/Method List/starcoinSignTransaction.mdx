@@ -1,0 +1,65 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+
+## Starcoin: Sign transaction
+Asks device to sign given transaction using the private key derived by given BIP32 path. User is asked to confirm all transaction
+details on OneKey.
+
+ES6
+```javascript
+const result = await OneKeyConnect.starcoinSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.starcoinSignTransaction(params).then(function(result) {
+
+});
+```
+
+### Params
+
+[**Optional common params**](./commonParams)
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `rawTx` - *required* string.
+
+### Example
+
+```javascript
+OneKeyConnect.starcoinSignTransaction(
+    path: "m/44'/101010'/0'/0'/0'",
+    rawTx: '',
+);
+```
+
+### Result
+
+```javascript
+{
+    success: true,
+    payload: {
+        signature: string
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.starcoinSignTransaction({
+    path: "m/44'/101010'/0'/0'/0'",
+    rawTx: '',
+});`}
+/>

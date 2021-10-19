@@ -1,0 +1,66 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## Starcoin: sign message
+
+Asks device to sign a message using the private key derived by given BIP32 path.
+
+ES6
+```javascript
+const result = await OneKeyConnect.starcoinSignMessage(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.starcoinSignMessage(params).then(function(result) {
+
+});
+```
+
+### Params
+
+[**Optional common params**](./commonParams)
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `message` - *required* `string` message to sign in plain text
+
+### Example
+```javascript
+
+OneKeyConnect.starcoinSignMessage({
+    path: "m/44'/101010'/0'/0'/0'",
+    message: "example message"
+});
+```
+
+### Result
+
+```javascript
+{
+    success: true,
+    payload: {
+        publicKey: string,
+        signature: string,
+    }
+}
+```
+
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.starcoinSignMessage({
+    path: "m/44'/101010'/0'/0'/0'",
+    message: "example message"
+});`}
+/>

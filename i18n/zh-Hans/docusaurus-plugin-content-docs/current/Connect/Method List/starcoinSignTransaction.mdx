@@ -1,0 +1,70 @@
+---
+hide_table_of_contents: true
+---
+
+import Playground from '@src/components/playground';
+
+## Starcoin：交易签名
+
+给定 BIP32 派生路径和交易信息，设备通过派生路径对应的私钥对该笔交易进行签名，并要求用户在设备上确认。
+
+ES6
+
+```javascript
+const result = await OneKeyConnect.starcoinSignTransaction(params);
+```
+
+CommonJS
+
+```javascript
+OneKeyConnect.starcoinSignTransaction(params).then(function (result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+- `path` - *必填* `string | Array<number>` 最小长度为 3。 [了解更多](./path)
+- `rawTx` - *必填* 字符串
+
+### 示例
+
+```javascript
+OneKeyConnect.starcoinSignTransaction(
+    path: "m/44'/101010'/0'/0'/0'",
+    rawTx: '',
+);
+```
+
+### 返回结果
+
+正确返回
+
+```javascript
+{
+    success: true,
+    payload: {
+        signature: string
+    }
+}
+```
+
+错误返回
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+  initValue={`OneKeyConnect.starcoinSignTransaction({
+    path: "m/44'/101010'/0'/0'/0'",
+    rawTx: '',
+});`}
+/>
