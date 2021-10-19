@@ -6,6 +6,11 @@ import Playground from "@src/components/playground";
 ## Starcoin: get address
 Display requested address derived by given path on device and returns it to caller. User is presented with a description of the requested key and asked to confirm the export on OneKey.
 
+:::warning warning
+- This method is supported after OneKey Connect JS-SDK version v8.6.0, and npm modules equal or larger than this version can be used.
+- The OneKey device firmware may also be different for the user, caller should handle the response of method like firmware not support issue.
+:::
+
 ES6
 ```javascript
 const result = await OneKeyConnect.starcoinGetAddress(params);
@@ -106,6 +111,19 @@ Error
     payload: {
         error: string // error message
     }
+}
+```
+
+### Error Detail
+
+1. firmware not support, must upgrade to the latest version.
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Unknown message",
+    "code": "Failure_UnexpectedMessage"
+  }
 }
 ```
 

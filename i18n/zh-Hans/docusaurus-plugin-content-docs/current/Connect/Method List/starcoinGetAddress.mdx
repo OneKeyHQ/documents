@@ -7,6 +7,11 @@ import Playground from "@src/components/playground";
 
 在设备上显示由给定的路径派生的账户地址，并将其返回给调用者。同时可以向用户显示所请求地址的描述，并要求用户确认从 OneKey 上的导出。
 
+:::warning 重要提示
+- 本方法自 OneKey Connect JS-SDK 版本 v8.6.0 之后支持，务必使用大于等于此版本的 npm 模块。
+- 用户使用的 OneKey 固件也可能存在不兼容情况，务必处理好方法返回的报错内容。
+:::
+
 ES6
 ```javascript
 const result = await OneKeyConnect.starcoinGetAddress(params);
@@ -123,6 +128,20 @@ const result = await OneKeyConnect.starcoinGetAddress({
     }
 }
 ```
+
+### 错误详情
+
+1. 固件不支持时，返回结果。需提示用户升级至最新固件版本。
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Unknown message",
+    "code": "Failure_UnexpectedMessage"
+  }
+}
+```
+
 
 <Playground
     initValue={

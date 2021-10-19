@@ -8,6 +8,11 @@ import Playground from "@src/components/playground";
 Asks device to sign given transaction using the private key derived by given BIP32 path. User is asked to confirm all transaction
 details on OneKey.
 
+:::warning warning
+- This method is supported after OneKey Connect JS-SDK version v8.6.0, and npm modules equal or larger than this version can be used.
+- The OneKey device firmware may also be different for the user, caller should handle the response of method like firmware not support issue.
+:::
+
 ES6
 ```javascript
 const result = await OneKeyConnect.solanaSignTransaction(params);
@@ -55,6 +60,21 @@ Error
     }
 }
 ```
+
+
+### Error Detail
+
+1. firmware not support, must upgrade to the latest version.
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Unknown message",
+    "code": "Failure_UnexpectedMessage"
+  }
+}
+```
+
 
 <Playground
     initValue={
