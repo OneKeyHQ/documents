@@ -1,0 +1,132 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+## Starcoin：获取地址
+
+在设备上显示由给定的路径派生的账户地址，并将其返回给调用者。同时可以向用户显示所请求地址的描述，并要求用户确认从 OneKey 上的导出。
+
+ES6
+```javascript
+const result = await OneKeyConnect.starcoinGetAddress(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.starcoinGetAddress(params).then(function(result) {
+
+});
+```
+
+### 参数
+
+[**可选的通用参数**](./commonParams)
+
+#### 导出单个地址
+
+* `path` - *必填* `string | Array<number>` 派生地址的最小长度为 `3`。 [了解更多](./path)
+* `address` - *可选* `string` 用于验证的地址（请参阅下面的**处理按钮请求**部分）
+* `showOnDevice` - *可选* `boolean` 决定是否在设备上显示地址。默认设置为 `true`
+
+#### 导出多个地址
+
+* `bundle` - 具有 `path` 和 `showOnDevice` 字段的 `Array`对象
+
+#### 处理按钮请求回调
+
+可以处理 `UI.ADDRESS_VALIDATION` 事件，一旦在设备上显示地址该事件就会触发。您可以处理此事件并在应用程序内部显示自定义UI。
+
+如果满足某些条件，将不会弹出窗口：
+
+- 用户已经授予与 OneKey 通信的权限。
+- 设备通过了 pin/passphrase 码验证。
+- 应用程序已注册 `OneKeyConnect.on(UI.ADDRESS_VALIDATION，()=> {});`
+- 已经设置参数 `address`
+- 将参数 `showOnDevice` 设置为 `true`(或完全不设置)
+- 应用程序仅请求一个地址
+
+
+### 示例
+
+显示第一个 starcoin 帐户的地址
+
+```javascript
+OneKeyConnect.starcoinGetAddress({
+    path: "m/44'/101010'/0'/0'/0'"
+});
+```
+
+返回一组 starcoin 地址且不在设备上显示它们
+
+```javascript
+OneKeyConnect.starcoinGetAddress({
+    bundle: [
+        { path: "m/44'/101010'/0'/0'/0'", showOnDevice: false }, // 账户 1
+        { path: "m/44'/101010'/0'/0'/1'", showOnDevice: false }, // 账户 2
+        { path: "m/44'/101010'/0'/0'/2'", showOnDevice: false }  // 账户 3
+    ]
+});
+```
+
+使用应用程序内的自定义 UI 验证地址
+
+```javascript
+import OneKeyConnect, { UI } from '@onekeyhq/connect';
+
+OneKeyConnect.on(UI.ADDRESS_VALIDATION, data => {
+    console.log("Handle button request", data.address, data.serializedPath);
+    // 可以通过 UI 提示用户在硬件设备上二次确认
+});
+
+const result = await OneKeyConnect.starcoinGetAddress({
+    path: "m/44'/101010'/0'/0'/0'",
+    address: "0xbc317a9becacae3e6ddf3c8a9c2efd64",
+});
+```
+
+### 结果
+
+返回结果仅展示一个 starcoin 地址
+
+```javascript
+{
+    success: true,
+    payload: {
+        address: string,     // 派生地址路径
+        path: Array<number>, // 硬化地址
+        serializedPath: string,
+    }
+}
+```
+
+返回结果以顺序展示多个 starcoin 地址
+
+```javascript
+{
+    success: true,
+    payload: [
+        { address: string, path: Array<number>, serializedPath: string }, // 账户 1
+        { address: string, path: Array<number>, serializedPath: string }, // 账户 2
+        { address: string, path: Array<number>, serializedPath: string }  // 账户 3
+    ]
+}
+```
+
+错误
+
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // 错误信息
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.starcoinGetAddress({
+    path: "m/44'/101010'/0'/0'/0'"
+});`}
+/>

@@ -1,0 +1,65 @@
+---
+hide_table_of_contents: true
+---
+import Playground from "@src/components/playground";
+
+
+## Solana: Sign transaction
+Asks device to sign given transaction using the private key derived by given BIP32 path. User is asked to confirm all transaction
+details on OneKey.
+
+ES6
+```javascript
+const result = await OneKeyConnect.solanaSignTransaction(params);
+```
+
+CommonJS
+```javascript
+OneKeyConnect.solanaSignTransaction(params).then(function(result) {
+
+});
+```
+
+### Params
+
+[**Optional common params**](./commonParams)
+
+* `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
+* `rawTx` - *required* `string` base58 encoded string.
+
+### Example
+
+```javascript
+OneKeyConnect.solanaSignTransaction(
+    path: "m/44'/501'/0'/0'",
+    rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
+);
+```
+
+### Result
+
+```javascript
+{
+    success: true,
+    payload: {
+        signature: string
+    }
+}
+```
+Error
+```javascript
+{
+    success: false,
+    payload: {
+        error: string // error message
+    }
+}
+```
+
+<Playground
+    initValue={
+`OneKeyConnect.solanaSignTransaction({
+    path: "m/44'/501'/0'/0'",
+    rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
+});`}
+/>
