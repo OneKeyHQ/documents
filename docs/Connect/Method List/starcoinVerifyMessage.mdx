@@ -8,6 +8,12 @@ import Playground from '@src/components/playground';
 
 Asks device to verify a message using the signer public key and signature.
 
+:::warning warning
+- This method is supported after OneKey Connect JS-SDK version v8.6.0, and npm modules equal or larger than this version can be used.
+- The OneKey device firmware may also be different for the user, caller should handle the response of method like firmware not support issue.
+:::
+
+
 ES6
 
 ```javascript
@@ -59,6 +65,19 @@ Error
     payload: {
         error: string // error message
     }
+}
+```
+
+### Error Detail
+
+1. firmware not support, must upgrade to the latest version.
+```json
+{
+  "success": false,
+  "payload": {
+    "error": "Unknown message",
+    "code": "Failure_UnexpectedMessage"
+  }
 }
 ```
 
