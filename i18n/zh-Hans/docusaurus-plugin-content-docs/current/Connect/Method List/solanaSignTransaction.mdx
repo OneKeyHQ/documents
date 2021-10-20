@@ -34,13 +34,41 @@ OneKeyConnect.solanaSignTransaction(params).then(function (result) {
 - `path` - *必填* `string | Array<number>` 最小长度为 3。 [了解更多](./path)
 - `rawTx` - *必填* 经过 base58 编码的字符串。
 
+#### 签名多笔交易
+
+* `bundle` - `Array` 每个元素是具有 `path` 和 `rawTx` 字段的对象
+
+
 ### 示例
+
+使用第一个 solana 账户签名一笔交易
 
 ```javascript
 OneKeyConnect.solanaSignTransaction(
     path: "m/44'/501'/0'/0'",
     rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
 );
+```
+
+使用多个 solana 账户签名多笔交易
+
+```javascript
+OneKeyConnect.solanaSignTransaction({
+    bundle: [
+        {
+            path: "m/44'/501'/0'/0'",
+            rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
+        },
+        {
+            path: "m/44'/501'/1'/0'",
+            rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
+        },
+        {
+            path: "m/44'/501'/2'/0'",
+            rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
+        },
+    ]
+});
 ```
 
 ### 返回结果
@@ -55,6 +83,20 @@ OneKeyConnect.solanaSignTransaction(
     }
 }
 ```
+
+签名多笔交易时返回结果
+
+```javascript
+{
+    success: true,
+    payload: [
+        { signature: string }, // 账户 1
+        { signature: string }, // 账户 2
+        { signature: string }, // 账户 3
+    ]
+}
+```
+
 
 错误返回
 
