@@ -1576,10 +1576,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@onekeyhq/connect@8.6.0":
-  version "8.6.0"
-  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.6.0/932627dc7f46bb08cce8e456de03864f37f49e9b09a04ea7fb6db966579af3bd#e1c22eceaa444ae0af773bb7b1b30ca27a665902"
-  integrity sha512-NuUGFN58TruS5bc7ESRzFlEs7o0YFJqk6ib1/MOQ9AJjNQT7eQ3VuSB+xf7kd+kqtvj2lH2KKMK3Nndg/ZOscw==
+"@onekeyhq/connect@8.6.1":
+  version "8.6.1"
+  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.6.1/c4f0d45bb764081814fd35371e5408e44551166ee71ef2a348f29966455643f3#1dad64c532c6bd9ec7d5902bfcdb47d990da8e55"
+  integrity sha512-CtLwxvjo+mQvpgMoRoCw1sVx349bp5i2XvTbciIi/N+QrhlPV1lNTWic7pDBbRD27bEYlirHaMcOUaiRA2h8pg==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@sentry/browser" "^6.4.0"

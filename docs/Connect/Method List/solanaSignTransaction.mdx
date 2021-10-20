@@ -32,13 +32,35 @@ OneKeyConnect.solanaSignTransaction(params).then(function(result) {
 * `path` — *required* `string | Array<number>` minimum length is `3`. [read more](./path)
 * `rawTx` - *required* `string` base58 encoded string.
 
-### Example
+#### Sign bundle of transaction
+* `bundle` - `Array` of Objects with `path` and `rawTx` fields
 
+### Example
+Sign transaction by the first solana account:
 ```javascript
-OneKeyConnect.solanaSignTransaction(
+OneKeyConnect.solanaSignTransaction({
     path: "m/44'/501'/0'/0'",
     rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
-);
+});
+```
+Sign multiple transaction:
+```javascript
+OneKeyConnect.solanaSignTransaction({
+    bundle: [
+        {
+            path: "m/44'/501'/0'/0'",
+            rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
+        },
+        {
+            path: "m/44'/501'/1'/0'",
+            rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
+        },
+        {
+            path: "m/44'/501'/2'/0'",
+            rawTx: 'QwE1XMGNhYCYcry9Y8tupaw8KBShus8uUNjsYjZyEZF7eezR8amPoNeT18uS69mkedxqugroVwJTqofA2jLbXtK9QB87vuUsK8VXYf2Ehvri4o9GSZKC9CZ7i5D8jBzJe7ZZtsySfy7BcB7yko3bhHWbpcVX9Unb',
+        },
+    ]
+});
 ```
 
 ### Result
@@ -51,6 +73,20 @@ OneKeyConnect.solanaSignTransaction(
     }
 }
 ```
+
+Result with bundle
+
+```javascript
+{
+    success: true,
+    payload: [
+        { signature: string }, // account 1
+        { signature: string }, // account 2
+        { signature: string }, // account 3
+    ]
+}
+```
+
 Error
 ```javascript
 {
