@@ -42,6 +42,11 @@ module.exports = {
           position: 'left',
         },
         {
+          href: 'https://onekeyhq.gitbook.io',
+          label: 'Near Provider API',
+          position: 'left',
+        },
+        {
           type: 'localeDropdown',
           position: 'right',
         },

@@ -7,7 +7,7 @@
 
 const {join} = require('path');
 const fs = require('fs');
-const basePath = 'node_modules/@onekeyhq/connect/lib/typescript/';
+const basePath = 'node_modules/@onekeyfe/connect/lib/typescript/';
 const outputPath = 'src/hooks/types.txt';
 
 const typeFiles = [

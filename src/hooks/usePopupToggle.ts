@@ -1,4 +1,4 @@
-import OneKeyConnect from "@onekeyhq/connect";
+import OneKeyConnect from "@onekeyfe/connect";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
