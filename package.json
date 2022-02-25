@@ -34,8 +34,8 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
-    "@docusaurus/module-type-aliases": "^2.0.0-beta.4",
-    "@tsconfig/docusaurus": "^1.0.2",
+    "@docusaurus/module-type-aliases": "2.0.0-beta.4",
+    "@tsconfig/docusaurus": "1.0.2",
     "@types/react": "^17.0.5",
     "@types/react-helmet": "^6.1.1",
     "@types/react-router-dom": "^5.1.7",
