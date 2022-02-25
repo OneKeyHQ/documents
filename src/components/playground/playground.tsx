@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useRef, useState } from 'react';
 import Sticky from 'react-sticky-el';
 
 import { editor } from "monaco-editor/esm/vs/editor/editor.api";
-import OneKeyConnect from "@onekeyhq/connect";
+import OneKeyConnect from "@onekeyfe/connect";
 import CodeBlock from '@theme/CodeBlock';
 import Toggle from '@theme/Toggle';
 import useThemeContext from '@theme/hooks/useThemeContext';

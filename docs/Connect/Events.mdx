@@ -12,7 +12,7 @@ Constants of all types can be imported from package.
 ES6
 
 ```javascript
-import OneKeyConnect, { DEVICE_EVENT, DEVICE } from '@onekeyhq/connect';
+import OneKeyConnect, { DEVICE_EVENT, DEVICE } from '@onekeyfe/connect';
 
 OneKeyConnect.on(DEVICE_EVENT, (event) => {
     if (event.type === DEVICE.CONNECT) {
@@ -26,9 +26,9 @@ OneKeyConnect.on(DEVICE_EVENT, (event) => {
 CommonJS
 
 ```javascript
-var OneKeyConnect = require('@onekeyhq/connect').default;
-var DEVICE_EVENT = require('@onekeyhq/connect').DEVICE_EVENT;
-var DEVICE = require('@onekeyhq/connect').DEVICE;
+var OneKeyConnect = require('@onekeyfe/connect').default;
+var DEVICE_EVENT = require('@onekeyfe/connect').DEVICE_EVENT;
+var DEVICE = require('@onekeyfe/connect').DEVICE;
 
 OneKeyConnect.on(DEVICE_EVENT, (event) => {
     if (event.type === DEVICE.CONNECT) {
